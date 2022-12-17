@@ -1,31 +1,68 @@
 import LandingPageSection from "./LandingPageSection";
 import "./LandingPage.less";
 import MenuBar from "./MenuBar";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-    const medFontSize = "4.5em";
+  const medFontSize = "4.5em";
 
-    const [showSubSection, setShowSubsection] = useState(false);
-    const onClick = () => {
-        setShowSubsection(!showSubSection);
-    }
+  const navigate = useNavigate();
 
-    return (
-      <div className="landing-page__container">
-        <div className="landing-page__container-sections">
-            <LandingPageSection text="Studio" backgroundColor="#560bad" textColor="black" onClick={onClick}/>
-            <LandingPageSection text="In Studio: Lucy" backgroundColor="#fdc500" textColor="black"/>
-            <LandingPageSection text="Cassie Wolde" backgroundColor="#06D6A0" textColor="black"/>
-            <LandingPageSection text="Lowtide Properties: Monarca" backgroundColor="#560bad" textColor="black" fontSize={medFontSize}/>
-            <LandingPageSection text="For The Love of Life" fontSize={medFontSize} backgroundColor="#B5179E" textColor="black"/>
-            <LandingPageSection text="Granville Island Brewing" backgroundColor="#073B4C" textColor="black" fontSize={medFontSize}/>
-            <LandingPageSection text="Kold" backgroundColor="#4CC9F0" textColor="black"/>
-            <LandingPageSection text="Sundays Furniture" backgroundColor="#F72585" textColor="black" fontSize={medFontSize}/>
-        </div>
-        <MenuBar />
+  return (
+    <div className="landing-page__container">
+      <div className="landing-page__container-sections">
+        <LandingPageSection
+          text="Studio"
+          backgroundColor="#3bb1b8"
+          textColor="black"
+          onClick={() => navigate("/studio")}
+        />
+        <LandingPageSection
+          text="In Studio: Lucy"
+          backgroundColor="#e5951b"
+          textColor="black"
+          width="8em"
+          fontFamily="'Bodoni Moda', serif"
+          onClick={() => navigate("/lucy")}
+        />
+        <LandingPageSection
+          text="Cassie Wolde"
+          backgroundColor="#35c074"
+          textColor="black"
+        />
+        <LandingPageSection
+          text="Lowtide Properties: Monarca"
+          backgroundColor="#c65dbd"
+          textColor="black"
+          fontSize={medFontSize}
+        />
+        <LandingPageSection
+          text="For The Love of Life"
+          fontSize={medFontSize}
+          backgroundColor="#f2e509"
+          textColor="black"
+        />
+        <LandingPageSection
+          text="Granville Island Brewing"
+          backgroundColor="#c81a17"
+          textColor="black"
+          fontSize={medFontSize}
+        />
+        <LandingPageSection
+          text="Kold"
+          backgroundColor="#4CC9F0"
+          textColor="black"
+        />
+        <LandingPageSection
+          text="Sundays Furniture"
+          backgroundColor="#f551ab"
+          textColor="black"
+          fontSize={medFontSize}
+        />
       </div>
-    );
-  };
-  
-  export default LandingPage;
+      <MenuBar />
+    </div>
+  );
+};
+
+export default LandingPage;

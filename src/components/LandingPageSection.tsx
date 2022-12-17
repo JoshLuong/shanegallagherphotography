@@ -1,20 +1,35 @@
 import "./LandingPageSection.less";
 
 interface LandingPageSectionProps {
-    onClick?: () => void;
-    text: string;
-    backgroundColor: string;
-    textColor: string;
-    fontSize?: string;
+  onClick?: () => void;
+  text: string;
+  backgroundColor: string;
+  textColor: string;
+  fontSize?: string;
+  fontFamily?: string;
+  width?: string;
 }
-const LandingPageSection: React.FC<LandingPageSectionProps> = ({text, backgroundColor, textColor, fontSize = "6em", onClick}: LandingPageSectionProps) => {
-    return (
-      <div title={text} className="landing-page-section__container" style={{ backgroundColor, color: textColor, fontSize }} onClick={onClick}>
-        <div className="landing-page-section__text">
-            <span>{text}</span>
-        </div> 
+const LandingPageSection: React.FC<LandingPageSectionProps> = ({
+  text,
+  backgroundColor,
+  textColor,
+  fontSize = "6em",
+  onClick,
+  fontFamily = "'Monoton', cursive",
+  width,
+}: LandingPageSectionProps) => {
+  return (
+    <div
+      title={text}
+      className="landing-page-section__container"
+      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width }}
+      onClick={onClick}
+    >
+      <div className="landing-page-section__text">
+        <span>{text}</span>
       </div>
-    );
-  };
-  
-  export default LandingPageSection;
+    </div>
+  );
+};
+
+export default LandingPageSection;
