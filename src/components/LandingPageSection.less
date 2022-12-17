@@ -64,3 +64,23 @@
 		transform: translate(0, -100%);
 	}
 }
+
+@media only screen and (max-width: 800px) {
+    .landing-page-section__text {
+        transform: unset;
+        flex-grow: 0;
+        height: unset;
+
+        span {
+            writing-mode: unset;
+            transform: translate(100%);
+            margin-left: auto;
+            animation: bookTicker 10s infinite linear;
+        }
+    }
+
+    @keyframes bookTicker {
+        from { transform: translateX(150%); }
+        to { transform: translateX(-170%); }
+    }
+  }

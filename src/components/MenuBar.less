@@ -1,7 +1,6 @@
 .menu-bar__container {
     height: 100vh;
     background-color: white;
-    width: 50em;
     display: flex;
     flex-direction: column;
 }
@@ -9,8 +8,8 @@
 .menu-bar__hamburger-lines {
     cursor: pointer;
     margin-top: 2em;
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+    margin: auto;
+    width: 40%;
     height: 3em;
     display: flex;
     flex-direction: row;
@@ -39,6 +38,7 @@
     position: relative;
     width: auto;
     height: auto;
+    margin: 0 1em;
     max-width: calc(7em * 1.5);
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -55,3 +55,26 @@
     margin-top: 2em;
     font-family: 'Source Code Pro', monospace;;
 }
+
+@media only screen and (max-width: 800px) {
+    .menu-bar__hamburger-lines {
+        margin: 0.75em auto 0 auto;
+        width: 80%;
+        flex-direction: column;
+        justify-content: start;
+
+        .line {
+            width: 100%;
+            margin-bottom: 0.25em;
+            height: 5px;
+        }
+    }
+
+    .menu-bar__content {
+        display: none;
+    }
+
+    .menu-bar__content-container {
+        width: 3em;
+    }
+  }

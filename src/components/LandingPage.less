@@ -4,4 +4,29 @@
     justify-content: flex-start;
     height: 100%;
     align-items: stretch;
+
 }
+
+.landing-page__container-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 100%;
+    align-items: stretch;
+    flex: 1;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    .landing-page__container-sections {
+        flex-direction: column;
+        width: 85%;
+        height: unset;
+    }
+
+    .landing-page__container {
+        width: 100vw;
+        overflow: hidden;
+    }
+  }
