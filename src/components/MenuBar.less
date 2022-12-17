@@ -3,6 +3,8 @@
     background-color: white;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .menu-bar__hamburger-lines {
@@ -53,7 +55,12 @@
     justify-content: center;
     margin: auto;
     margin-top: 2em;
-    font-family: 'Source Code Pro', monospace;;
+    font-family: 'Source Code Pro', monospace;
+
+    height: auto;
+    display: flex;
+    max-width: 100px;
+    align-items: center;
 }
 
 @media only screen and (max-width: 800px) {
