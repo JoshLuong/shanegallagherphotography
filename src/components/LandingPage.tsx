@@ -13,13 +13,13 @@ const LandingPage = () => {
       <div className="landing-page__container-sections">
         <LandingPageSection
           text="Studio"
-          backgroundColor="#3bb1b8"
+          backgroundColor="#560bad"
           textColor="black"
           onClick={() => navigate("/studio")}
         />
         <LandingPageSection
           text="In Studio: Lucy"
-          backgroundColor="#e5951b"
+          backgroundColor="#fdc500"
           textColor="black"
           width="8em"
           fontFamily="'Bodoni Moda', serif"
@@ -27,35 +27,37 @@ const LandingPage = () => {
         />
         <LandingPageSection
           text="Cassie Wolde"
-          backgroundColor="#35c074"
+          backgroundColor="#06D6A0"
           textColor="black"
         />
         <LandingPageSection
           text="Lowtide Properties: Monarca"
-          backgroundColor="#c65dbd"
+          backgroundColor="#560bad"
           textColor="black"
           fontSize={medFontSize}
         />
         <LandingPageSection
           text="For The Love of Life"
           fontSize={medFontSize}
-          backgroundColor="#f2e509"
+          backgroundColor="#B5179E"
           textColor="black"
         />
         <LandingPageSection
           text="Granville Island Brewing"
-          backgroundColor="#c81a17"
+          backgroundColor="#073B4C"
           textColor="black"
           fontSize={medFontSize}
         />
         <LandingPageSection
           text="Kold"
           backgroundColor="#4CC9F0"
+          width="8em"
+          fontFamily="'Bodoni Moda', serif"
           textColor="black"
         />
         <LandingPageSection
           text="Sundays Furniture"
-          backgroundColor="#f551ab"
+          backgroundColor="#F72585"
           textColor="black"
           fontSize={medFontSize}
         />
