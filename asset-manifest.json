@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "https://yourdomain.whatever/subdirectory/static/css/main.e6c13ad2.css",
-    "main.js": "https://yourdomain.whatever/subdirectory/static/js/main.5ae409b0.js",
-    "index.html": "https://yourdomain.whatever/subdirectory/index.html",
-    "main.e6c13ad2.css.map": "https://yourdomain.whatever/subdirectory/static/css/main.e6c13ad2.css.map",
-    "main.5ae409b0.js.map": "https://yourdomain.whatever/subdirectory/static/js/main.5ae409b0.js.map"
+    "main.css": "/shanegallagherphotography/static/css/main.e6c13ad2.css",
+    "main.js": "/shanegallagherphotography/static/js/main.dfceaf3f.js",
+    "index.html": "/shanegallagherphotography/index.html",
+    "main.e6c13ad2.css.map": "/shanegallagherphotography/static/css/main.e6c13ad2.css.map",
+    "main.dfceaf3f.js.map": "/shanegallagherphotography/static/js/main.dfceaf3f.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.5ae409b0.js"
+    "static/js/main.dfceaf3f.js"
   ]
 }
