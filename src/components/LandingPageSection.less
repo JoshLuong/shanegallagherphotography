@@ -1,0 +1,67 @@
+.landing-page-section__container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    &:hover {
+        animation-play-state: paused;
+      }
+}
+
+.landing-page-section__container:nth-of-type(5n+1) span {
+    animation-delay: -1s;
+}
+
+.landing-page-section__container:nth-of-type(5n+2) span {
+    animation-delay: -9s;
+}
+
+.landing-page-section__container:nth-of-type(5n+3) span {
+    animation-delay: -6s;
+}
+
+.landing-page-section__container:nth-of-type(5n+4) span {
+    animation-delay: -12s;
+}
+
+.landing-page-section__text {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transform: rotate(180deg);
+    height: 100vh;
+    font-family: 'Monoton', cursive;
+    font-weight: normal;
+    line-height: 1;
+    font-size: 56px;
+    text-transform: uppercase;
+    
+
+    span {
+        padding-left: 2.4vw;
+        white-space: nowrap;
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        animation: 26s bookTicker linear infinite;
+        animation-play-state: running;
+        margin: 0;
+        padding: 0;
+        &:hover {
+            animation-play-state: paused;
+        }
+        }
+}
+
+@keyframes bookTicker {
+	from {
+		transform: translate(0, 100vh);
+	}
+	to {
+		transform: translate(0, -100%);
+	}
+}
