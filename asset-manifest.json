@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/shanegallagherphotography/static/css/main.e6c13ad2.css",
-    "main.js": "/shanegallagherphotography/static/js/main.fcae771f.js",
+    "main.js": "/shanegallagherphotography/static/js/main.cb32494a.js",
     "index.html": "/shanegallagherphotography/index.html",
     "main.e6c13ad2.css.map": "/shanegallagherphotography/static/css/main.e6c13ad2.css.map",
-    "main.fcae771f.js.map": "/shanegallagherphotography/static/js/main.fcae771f.js.map"
+    "main.cb32494a.js.map": "/shanegallagherphotography/static/js/main.cb32494a.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.fcae771f.js"
+    "static/js/main.cb32494a.js"
   ]
 }
