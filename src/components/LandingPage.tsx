@@ -13,7 +13,7 @@ const LandingPage = () => {
       <div className="landing-page__container-sections">
         <LandingPageSection
           text="Studio"
-          backgroundColor="#560bad"
+          backgroundColor="#e91e63"
           textColor="black"
           onClick={() => navigate("/studio")}
         />
