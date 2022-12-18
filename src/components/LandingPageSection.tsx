@@ -30,7 +30,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     <div
       title={text}
       className="landing-page-section__container"
-      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width, opacity: pause ? "80%" : "100%", pointerEvents: pause ? "none" : "auto" }}
+      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width, opacity: pause ? "45%" : "100%", pointerEvents: pause ? "none" : "auto" }}
       onClick={onClick}
     >
       <div className="landing-page-section__text">

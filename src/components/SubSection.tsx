@@ -28,6 +28,18 @@ const SubSection: React.FC<SubSectionProps> = ({
     getWindowDimensions()
   );
 
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  const countTimers = () => {
+    setInterval(() => {
+        setX(Math.random() * (7 - 1) + 1)
+        setY(Math.random() * (7 - 1) + 1)
+    }, 250);
+  }
+useEffect(() => {
+    countTimers()
+},[])
   useEffect(() => {
     function handleResize() {
       console.log(getWindowDimensions());
@@ -44,6 +56,12 @@ const SubSection: React.FC<SubSectionProps> = ({
     mobileView ? "" : "to right,"
   }${backgroundColor}, ${backgroundColor2})`;
 
+  const innerContainerStyles = show ? {
+    display: "block"
+  } : {
+    display: "none"
+  }
+
   const styles = mobileView
     ? {
         height: size,
@@ -58,15 +76,17 @@ const SubSection: React.FC<SubSectionProps> = ({
     >
       <div
         className="subsection__inner-container"
-        style={{ display: show ? "block" : "none" }}
+        style={{ ...innerContainerStyles}}
       >
         <Fade delay={700}>
-          <div onClick={onClick} className="subsection__close-button">
+          <div title="Close" onClick={onClick} className="subsection__close-button">
             <img src={LeftArrow} alt="Close" />
           </div>
           <div className="subsection__image1">
             <div className="subsection__hover" onClick={() => alert("ur a hoe!")}>
+            <div className="subsection__image-container" style={{transition: "all 0.4s ease-in-out", transform: `translateX(${x}px) translateY(${y}px)`}}>
               <img src={test} alt="" width="300px"></img>
+            </div>
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
                 posuere magna. Sed sit amet dolor sed nisi sollicitudin placerat
