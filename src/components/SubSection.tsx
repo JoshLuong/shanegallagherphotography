@@ -85,6 +85,7 @@ const SubSection: React.FC<SubSectionProps> = ({
       >
         <Fade duration={900} delay={400}>
           <Grid2 container>
+            <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
             <Grid2
               xs={11}
               mdOffset="auto"
@@ -111,6 +112,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 src={LeftArrow}
                 alt="Close"
               />
+            </Grid2>
             </Grid2>
             <Grid2 xs={12} md={8}>
               <div className="subsection__image1">
