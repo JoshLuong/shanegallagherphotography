@@ -55,9 +55,6 @@ const SubSection: React.FC<SubSectionProps> = ({
 
   const mobileView = windowDimensions.width <= 800;
   const size = show ? "auto" : "0";
-  const background = `linear-gradient(${
-    mobileView ? "" : "to right,"
-  }${backgroundColor}, ${backgroundColor2})`;
 
   const innerContainerStyles = show
     ? {
@@ -77,7 +74,7 @@ const SubSection: React.FC<SubSectionProps> = ({
   return (
     <div
       className="subsection__container"
-      style={{ backgroundImage: background, ...styles }}
+      style={{ backgroundColor: `${backgroundColor}`, color: `${backgroundColor2}`, ...styles }}
     >
       <div
         className="subsection__inner-container"
@@ -114,7 +111,7 @@ const SubSection: React.FC<SubSectionProps> = ({
               />
             </Grid2>
             </Grid2>
-            <Grid2 xs={12} md={8}>
+            <Grid2 xs={12} md={8} padding="0.5em">
               <div className="subsection__image1">
                 <div
                   className="subsection__hover"
@@ -143,7 +140,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 </div>
               </div>
             </Grid2>
-            <Grid2 xs={12} md={4}>
+            <Grid2 xs={12} md={4} padding="0.5em">
               <div className="subsection__image1">
                 <div
                   className="subsection__hover"
@@ -172,7 +169,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 </div>
               </div>
             </Grid2>
-            <Grid2 xs={12}>
+            <Grid2 xs={12} padding="0.5em">
               <div className="subsection__image1">
                 <div
                   className="subsection__hover"
