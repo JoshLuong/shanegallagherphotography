@@ -11,11 +11,13 @@ interface SubSectionProps {
   backgroundColor: string;
   backgroundColor2: string;
   onClick: () => void;
+  title: string;
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   backgroundColor,
   backgroundColor2,
+  title,
   onClick,
 }) => {
   function getWindowDimensions() {
@@ -83,11 +85,32 @@ const SubSection: React.FC<SubSectionProps> = ({
       >
         <Fade duration={900} delay={400}>
           <Grid2 container>
-            <Grid2 xs={12} mdOffset="auto" display="flex" flexDirection="column" alignItems="end">
-  
-                <img                 title="Close"
+            <Grid2
+              xs={11}
+              mdOffset="auto"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+                <h1 className="subsection__title">
+                {title}
+
+                </h1>
+            </Grid2>
+            <Grid2
+              xs={1}
+              mdOffset="auto"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <img
+                title="Close"
                 onClick={onClick}
-                className="subsection__close-button" src={LeftArrow} alt="Close" />
+                className="subsection__close-button"
+                src={LeftArrow}
+                alt="Close"
+              />
             </Grid2>
             <Grid2 xs={12} md={8}>
               <div className="subsection__image1">

@@ -75,6 +75,7 @@ const LandingPage = () => {
           show={openSubsection1}
           backgroundColor="#00522a"
           backgroundColor2="#7ddf64"
+          title="Studio"
         />
 
         {/** Section 2 */}
@@ -92,6 +93,7 @@ const LandingPage = () => {
           show={openSubsection2}
           backgroundColor="#212121"
           backgroundColor2="#ff7f11"
+          title="In Studio: Lucy"
         />
 
         {/** Section 3 */}
@@ -107,6 +109,7 @@ const LandingPage = () => {
           show={openSubsection3}
           backgroundColor="#990000"
           backgroundColor2="#f92a82"
+          title="Cassie Wolde"
         />
 
         {/** Section 4 */}
@@ -123,6 +126,7 @@ const LandingPage = () => {
           show={openSubsection4}
           backgroundColor="#f7f3e3"
           backgroundColor2="#6f58c9"
+          title="Lowtide Properties: Monarca"
         />
         {/** Section 5 */}
         <LandingPageSection
@@ -138,6 +142,7 @@ const LandingPage = () => {
           show={openSubsection5}
           backgroundColor="#0a2463"
           backgroundColor2="#00a5cf"
+          title="For The Love of Life"
         />
 
         {/** Section 6*/}
@@ -154,6 +159,7 @@ const LandingPage = () => {
           show={openSubsection6}
           backgroundColor="#00522a"
           backgroundColor2="#7ddf64"
+          title="Granville Island Brewing"
         />
         {/** Section 7 */}
         <LandingPageSection
@@ -170,6 +176,7 @@ const LandingPage = () => {
           show={openSubsection7}
           backgroundColor="#212121"
           backgroundColor2="#ff7f11"
+          title="Kold"
         />
         {/** Section 8 */}
         <LandingPageSection
@@ -185,6 +192,7 @@ const LandingPage = () => {
           show={openSubsection8}
           backgroundColor="#f7f3e3"
           backgroundColor2="#6f58c9"
+          title="Sundays Furniture"
         />
       </div>
       <MenuBar />
