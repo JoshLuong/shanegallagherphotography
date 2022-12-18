@@ -8,6 +8,7 @@ interface LandingPageSectionProps {
   fontSize?: string;
   fontFamily?: string;
   width?: string;
+  pause: boolean;
 }
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   text,
@@ -17,16 +18,17 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   onClick,
   fontFamily = "'Monoton', cursive",
   width,
+  pause
 }: LandingPageSectionProps) => {
   return (
     <div
       title={text}
       className="landing-page-section__container"
-      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width }}
+      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width, opacity: pause ? "80%" : "100%", pointerEvents: pause ? "none" : "auto" }}
       onClick={onClick}
     >
       <div className="landing-page-section__text">
-        <span>{text}</span>
+        <span style={{animationPlayState: pause ? "paused": "running"}}>{text}</span>
       </div>
     </div>
   );
