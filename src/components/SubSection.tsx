@@ -65,7 +65,7 @@ const SubSection: React.FC<SubSectionProps> = ({
             <img src={LeftArrow} alt="Close" />
           </div>
           <div className="subsection__image1">
-            <div className="subsection__hover">
+            <div className="subsection__hover" onClick={() => alert("ur a hoe!")}>
               <img src={test} alt="" width="300px"></img>
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a

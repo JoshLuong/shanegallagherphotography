@@ -20,6 +20,12 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   width,
   pause
 }: LandingPageSectionProps) => {
+    const oddText = {
+        margin: "-1em", 
+        opacity: "20%",
+        fontSize: "150%"
+    }
+    const repeats = window.innerWidth <= 800 ? 1 : 10;
   return (
     <div
       title={text}
@@ -28,7 +34,11 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       onClick={onClick}
     >
       <div className="landing-page-section__text">
-        <span style={{animationPlayState: pause ? "paused": "running"}}>{text}</span>
+        <p style={{animationPlayState: pause ? "paused": "running"}}>
+            {
+                Array(repeats).fill(0).map((_, index) => <span style={index % 2 ? {...oddText} : {}}>{text}</span>)
+            }
+        </p>
       </div>
     </div>
   );

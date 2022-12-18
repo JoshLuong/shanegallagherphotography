@@ -15,20 +15,20 @@
       }
 }
 
-.landing-page-section__container:nth-of-type(5n+1) span {
-    animation-delay: -1s;
+.landing-page-section__container:nth-of-type(5n+1) p {
+    animation-delay: -8s;
 }
 
-.landing-page-section__container:nth-of-type(5n+2) span {
-    animation-delay: -9s;
+.landing-page-section__container:nth-of-type(5n+2) p {
+    animation-delay: -10s;
 }
 
-.landing-page-section__container:nth-of-type(5n+3) span {
-    animation-delay: -6s;
+.landing-page-section__container:nth-of-type(5n+3) p {
+    animation-delay: -7s;
 }
 
-.landing-page-section__container:nth-of-type(5n+4) span {
-    animation-delay: -12s;
+.landing-page-section__container:nth-of-type(5n+4) p {
+    animation-delay: -13s;
 }
 
 .landing-page-section__text {
@@ -42,12 +42,12 @@
     text-transform: uppercase;
     
 
-    span {
+    p {
         padding-left: 2.4vw;
         white-space: nowrap;
         writing-mode: vertical-lr;
         text-orientation: mixed;
-        animation: 37s bookTicker linear infinite;
+        animation: 90s bookTicker linear infinite;
         animation-play-state: running;
         margin: 0;
         padding: 0;
@@ -67,6 +67,7 @@
 }
 
 @media only screen and (max-width: 800px) {
+
     .landing-page-section__container {
         width: unset !important;
         min-height: 10vh;
@@ -77,7 +78,7 @@
         align-items: center;
         height: 100%;
 
-        span {
+        p {
             writing-mode: unset;
             transform: translate(100%);
             margin-left: auto;
@@ -86,7 +87,7 @@
     }
 
     @keyframes bookTicker {
-        from { transform: translateX(150%); }
-        to { transform: translateX(-170%); }
+        from { transform: translateX(120%); }
+        to { transform: translateX(-120%); }
     }
   }
