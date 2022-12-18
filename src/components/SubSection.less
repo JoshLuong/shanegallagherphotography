@@ -10,8 +10,40 @@
     right: 2em;
     position: relative;
     margin-left: auto;
+
+    &:hover {
+        cursor: pointer;
+    }
+    &:hover { transform: scale(2); }
 }
 
-@media only screen and (max-width: 800px) {
+.subsection__image1 {
+    position: relative;
+    top: 3em;
+    right: 7em;
+    width: 500px;
+    margin-left: auto;
+    font-family: 'Source Code Pro', monospace;
+}
 
+.subsection__hover {
+    span {
+        display: inline-block;
+    }
+    &:hover { 
+        cursor: pointer;
+        img {
+            opacity: 60%;
+        }
+        span {
+            transform: translate(-1em, -5em);
+        }
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .subsection__close-button img {
+        transform: rotate(90deg);
+    }
 }
