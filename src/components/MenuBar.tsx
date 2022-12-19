@@ -1,4 +1,5 @@
 import "./MenuBar.less";
+import Instagram from "../svg/instagram.svg";
 
 const MenuBar = () => {
     return (
@@ -10,8 +11,15 @@ const MenuBar = () => {
             </div>
             <div className="menu-bar__content-container">
             <div className="menu-bar__content">
-            Inclusion and diversity are some of my core values. 
-I strive to put those I’m working with at ease and to provide a safe environment to collaborate and create something great. 
+            <a href="https://www.instagram.com/shanegallagher_/" target="_blank" rel="noreferrer">
+            <img
+                title="Close"
+                className="subsection__close-button"
+                src={Instagram}
+                alt="Close"
+              />
+            </a>
+            <a href="mailto:shanegallagherphotography@gmail.com">shanegallagherphotography@gmail.com</a>
             </div>
             </div>
       </div>

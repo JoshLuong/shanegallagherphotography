@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import "./SubSection.less";
-import LeftArrow from "../left-arrow.svg";
+import LeftArrow from "../svg/left-arrow.svg";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 //@ts-ignore
 import Fade from "react-reveal/Fade";
 import test from "../test.png";
+import FloatingImage from "./FloatingImage";
 
 interface SubSectionProps {
   show: boolean;
@@ -31,18 +32,6 @@ const SubSection: React.FC<SubSectionProps> = ({
     getWindowDimensions()
   );
 
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-
-  const countTimers = () => {
-    setInterval(() => {
-      setX(Math.random() * (10 - 1) + 1);
-      setY(Math.random() * (10 - 1) + 1);
-    }, 250);
-  };
-  useEffect(() => {
-    countTimers();
-  }, []);
   useEffect(() => {
     function handleResize() {
       console.log(getWindowDimensions());
@@ -74,7 +63,11 @@ const SubSection: React.FC<SubSectionProps> = ({
   return (
     <div
       className="subsection__container"
-      style={{ backgroundColor: `${backgroundColor}`, color: `${backgroundColor2}`, ...styles }}
+      style={{
+        backgroundColor: `${backgroundColor}`,
+        color: `${backgroundColor2}`,
+        ...styles,
+      }}
     >
       <div
         className="subsection__inner-container"
@@ -83,120 +76,39 @@ const SubSection: React.FC<SubSectionProps> = ({
         <Fade duration={900} delay={400}>
           <Grid2 container>
             <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
-            <Grid2
-              xs={11}
-              mdOffset="auto"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
-                <h1 className="subsection__title">
-                {title}
-
-                </h1>
-            </Grid2>
-            <Grid2
-              xs={1}
-              mdOffset="auto"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <img
-                title="Close"
-                onClick={onClick}
-                className="subsection__close-button"
-                src={LeftArrow}
-                alt="Close"
-              />
-            </Grid2>
+              <Grid2
+                xs={11}
+                mdOffset="auto"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+              >
+                <h1 className="subsection__title">{title}</h1>
+              </Grid2>
+              <Grid2
+                xs={1}
+                mdOffset="auto"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+              >
+                <img
+                  title="Close"
+                  onClick={onClick}
+                  className="subsection__close-button"
+                  src={LeftArrow}
+                  alt="Close"
+                />
+              </Grid2>
             </Grid2>
             <Grid2 xs={12} md={8} padding="0.5em">
-              <div className="subsection__image1">
-                <div
-                  className="subsection__hover"
-                  onClick={() => alert("ur a hoe!")}
-                >
-                  <div
-                    className="subsection__image-container"
-                    style={{
-                      transition: "all 0.6s ease-in-out",
-                      transform: `translateX(${x}px) translateY(${y}px)`,
-                    }}
-                  >
-                    <img src={test} alt="" width="300px"></img>
-                  </div>
-                  <span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce a posuere magna. Sed sit amet dolor sed nisi
-                    sollicitudin placerat eu eu mauris. Morbi rhoncus consequat
-                    lacus, vel ullamcorper ligula pellentesque pretium. Donec
-                    sagittis, risus at tempor maximus, tortor velit iaculis
-                    tortor, sit amet ullamcorper ipsum dolor et tortor. Vivamus
-                    venenatis tortor at sagittis luctus. Maecenas cursus
-                    sollicitudin dui, at mattis metus imperdiet id. Suspendisse
-                    et nulla et leo malesuada tincidunt.
-                  </span>
-                </div>
-              </div>
+              <FloatingImage src={test} />
             </Grid2>
             <Grid2 xs={12} md={4} padding="0.5em">
-              <div className="subsection__image1">
-                <div
-                  className="subsection__hover"
-                  onClick={() => alert("ur a hoe!")}
-                >
-                  <div
-                    className="subsection__image-container"
-                    style={{
-                      transition: "all 0.6s ease-in-out",
-                      transform: `translateX(${x}px) translateY(${y}px)`,
-                    }}
-                  >
-                    <img src={test} alt="" width="300px"></img>
-                  </div>
-                  <span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce a posuere magna. Sed sit amet dolor sed nisi
-                    sollicitudin placerat eu eu mauris. Morbi rhoncus consequat
-                    lacus, vel ullamcorper ligula pellentesque pretium. Donec
-                    sagittis, risus at tempor maximus, tortor velit iaculis
-                    tortor, sit amet ullamcorper ipsum dolor et tortor. Vivamus
-                    venenatis tortor at sagittis luctus. Maecenas cursus
-                    sollicitudin dui, at mattis metus imperdiet id. Suspendisse
-                    et nulla et leo malesuada tincidunt.
-                  </span>
-                </div>
-              </div>
+              <FloatingImage src={test} />
             </Grid2>
             <Grid2 xs={12} padding="0.5em">
-              <div className="subsection__image1">
-                <div
-                  className="subsection__hover"
-                  onClick={() => alert("ur a hoe!")}
-                >
-                  <div
-                    className="subsection__image-container"
-                    style={{
-                      transition: "all 0.6s ease-in-out",
-                      transform: `translateX(${x}px) translateY(${y}px)`,
-                    }}
-                  >
-                    <img src={test} alt="" width="300px"></img>
-                  </div>
-                  <span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce a posuere magna. Sed sit amet dolor sed nisi
-                    sollicitudin placerat eu eu mauris. Morbi rhoncus consequat
-                    lacus, vel ullamcorper ligula pellentesque pretium. Donec
-                    sagittis, risus at tempor maximus, tortor velit iaculis
-                    tortor, sit amet ullamcorper ipsum dolor et tortor. Vivamus
-                    venenatis tortor at sagittis luctus. Maecenas cursus
-                    sollicitudin dui, at mattis metus imperdiet id. Suspendisse
-                    et nulla et leo malesuada tincidunt.
-                  </span>
-                </div>
-              </div>
+              <FloatingImage src={test} />
             </Grid2>
           </Grid2>
         </Fade>

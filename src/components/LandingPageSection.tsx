@@ -6,19 +6,17 @@ interface LandingPageSectionProps {
   backgroundColor: string;
   textColor: string;
   fontSize?: string;
-  fontFamily?: string;
   width?: string;
-  pause: boolean;
+  pause?: boolean;
 }
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   text,
   backgroundColor,
   textColor,
-  fontSize = "6em",
+  fontSize = "7.5em",
   onClick,
-  fontFamily = "'Monoton', cursive",
   width,
-  pause
+  pause = false
 }: LandingPageSectionProps) => {
     const oddText = {
         margin: "-1em", 
@@ -30,7 +28,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     <div
       title={text}
       className="landing-page-section__container"
-      style={{ backgroundColor, color: textColor, fontSize, fontFamily, width, opacity: pause ? "45%" : "100%", pointerEvents: pause ? "none" : "auto" }}
+      style={{ backgroundColor, color: textColor, fontSize, width, opacity: pause ? "45%" : "100%" }}
       onClick={onClick}
     >
       <div className="landing-page-section__text">

@@ -9,15 +9,14 @@
 
 .menu-bar__hamburger-lines {
     cursor: pointer;
-    margin-top: 2em;
-    margin: auto;
+    margin: 2em auto;
     width: 40%;
     height: 3em;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: stretch;
-
+    align-self: end;
     .line {
         width: 5px;
         margin: auto;
@@ -47,6 +46,11 @@
     transform: rotate(180deg);
     overflow: hidden;
     text-overflow: ellipsis;
+
+    a:link {
+        text-decoration: none;
+        color: black;
+      }
 }
 
 .menu-bar__content-container {
@@ -54,13 +58,16 @@
     flex-direction: row;
     justify-content: center;
     margin: auto;
-    margin-top: 2em;
-    font-family: 'Source Code Pro', monospace;
 
     height: auto;
     display: flex;
     max-width: 100px;
     align-items: center;
+    color: black;
+
+    img {
+        margin-bottom: 2em;
+    }
 }
 
 @media only screen and (max-width: 800px) {
