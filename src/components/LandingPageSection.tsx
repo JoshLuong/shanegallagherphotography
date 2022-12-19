@@ -2,23 +2,19 @@ import "./LandingPageSection.less";
 
 interface LandingPageSectionProps {
   onClick?: () => void;
-  text: string;
+  title: string;
   backgroundColor: string;
-  textColor: string;
-  fontSize?: string;
-  width?: string;
+  titleColor: string;
   pause?: boolean;
 }
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
-  text,
+  title,
   backgroundColor,
-  textColor,
-  fontSize = "7.5em",
+  titleColor,
   onClick,
-  width,
   pause = false
 }: LandingPageSectionProps) => {
-    const oddText = {
+    const oddtitle = {
         margin: "-1em", 
         opacity: "20%",
         fontSize: "150%"
@@ -26,15 +22,15 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     const repeats = window.innerWidth <= 800 ? 1 : 10;
   return (
     <div
-      title={text}
+      title={title}
       className="landing-page-section__container"
-      style={{ backgroundColor, color: textColor, fontSize, width, opacity: pause ? "45%" : "100%" }}
+      style={{ backgroundColor, color: titleColor, opacity: pause ? "60%" : "100%"}}
       onClick={onClick}
     >
-      <div className="landing-page-section__text">
+      <div className="landing-page-section__title">
         <p style={{animationPlayState: pause ? "paused": "running"}}>
             {
-                Array(repeats).fill(0).map((_, index) => <span style={index % 2 ? {...oddText} : {}}>{text}</span>)
+                Array(repeats).fill(0).map((_, index) => <span style={index % 2 ? {...oddtitle} : {}}>{title}</span>)
             }
         </p>
       </div>

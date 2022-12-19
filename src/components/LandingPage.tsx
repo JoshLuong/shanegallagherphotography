@@ -20,33 +20,30 @@ const LandingPage = () => {
           const show = openSection === sectionKey;
 
           const onOpen = () => {
-            // get rid of this check if we want to open immediately
-            if (openSection !== NO_SECTION_OPEN && openSection !== sectionKey) {
-              onClose();
-            } else {
-              setOpenSection(sectionKey);
-              setPauseAnimation(true);
-            }
+            setOpenSection(sectionKey);
+            setPauseAnimation(true);
           };
           const onClose = () => {
             setOpenSection(NO_SECTION_OPEN);
             setPauseAnimation(false);
           };
+
+          const props = {
+            backgroundColor:primaryColor,
+            titleColor:secondaryColor,
+            title:title
+          }
           return (
             <>
               <LandingPageSection
-                text={title}
-                backgroundColor={primaryColor}
-                textColor={secondaryColor}
                 pause={pauseAnimation && openSection !== sectionKey}
                 onClick={onOpen}
+                {...props}
               />
               <SubSection
                 onClick={onClose}
                 show={show}
-                backgroundColor={primaryColor}
-                backgroundColor2={secondaryColor}
-                title={title}
+                {...props}
               />
             </>
           );

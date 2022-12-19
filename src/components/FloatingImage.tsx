@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 
 interface FloatingImageProps {
     src: string;
+    hover?: boolean;
 }
-const FloatingImage: React.FC<FloatingImageProps> = ({src}) => {
+const FloatingImage: React.FC<FloatingImageProps> = ({src, hover}) => {
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
   
@@ -17,6 +18,8 @@ const FloatingImage: React.FC<FloatingImageProps> = ({src}) => {
     useEffect(() => {
       countTimers();
     }, []);
+
+    const className = hover ? 'subsection__image-container-hover' : ''; 
     return (
         <div className="subsection__image1">
         <div
@@ -24,11 +27,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({src}) => {
           onClick={() => alert("ur a hoe!")}
         >
           <div
-            className="subsection__image-container"
-            style={{
-              transition: "all 1s ease-in-out",
-              transform: `translateX(${x}px) translateY(${y}px)`,
-            }}
+            className={className + " subsection__image-container"}
           >
             <img src={src} alt="" width="300px"></img>
           </div>

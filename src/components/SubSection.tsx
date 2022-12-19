@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./SubSection.less";
-import LeftArrow from "../svg/left-arrow.svg";
+import {ReactComponent as LeftArrow} from "../svg/left-arrow.svg";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 //@ts-ignore
 import Fade from "react-reveal/Fade";
@@ -10,14 +10,14 @@ import FloatingImage from "./FloatingImage";
 interface SubSectionProps {
   show: boolean;
   backgroundColor: string;
-  backgroundColor2: string;
+  titleColor: string;
   onClick: () => void;
   title: string;
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   backgroundColor,
-  backgroundColor2,
+  titleColor,
   title,
   onClick,
 }) => {
@@ -65,7 +65,7 @@ const SubSection: React.FC<SubSectionProps> = ({
       className="subsection__container"
       style={{
         backgroundColor: `${backgroundColor}`,
-        color: `${backgroundColor2}`,
+        color: `${titleColor}`,
         ...styles,
       }}
     >
@@ -77,7 +77,7 @@ const SubSection: React.FC<SubSectionProps> = ({
           <Grid2 container>
             <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
               <Grid2
-                xs={11}
+                xs={10}
                 mdOffset="auto"
                 display="flex"
                 flexDirection="column"
@@ -86,26 +86,20 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <h1 className="subsection__title">{title}</h1>
               </Grid2>
               <Grid2
-                xs={1}
+                xs={2}
                 mdOffset="auto"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
               >
-                <img
-                  title="Close"
-                  onClick={onClick}
-                  className="subsection__close-button"
-                  src={LeftArrow}
-                  alt="Close"
-                />
+                <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
               </Grid2>
             </Grid2>
-            <Grid2 xs={12} md={8} padding="0.5em">
+            <Grid2 xs={12} md={8} padding="0.5em" margin="auto">
               <FloatingImage src={test} />
             </Grid2>
             <Grid2 xs={12} md={4} padding="0.5em">
-              <FloatingImage src={test} />
+              <FloatingImage hover src={test} />
             </Grid2>
             <Grid2 xs={12} padding="0.5em">
               <FloatingImage src={test} />
