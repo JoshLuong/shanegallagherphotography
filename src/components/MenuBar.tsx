@@ -1,5 +1,6 @@
 import "./MenuBar.less";
 import Instagram from "../svg/instagram.svg";
+import Mail from "../svg/mail.svg";
 
 const MenuBar = () => {
     return (
@@ -13,13 +14,16 @@ const MenuBar = () => {
             <div className="menu-bar__content">
             <a href="https://www.instagram.com/shanegallagher_/" target="_blank" rel="noreferrer">
             <img
-                title="Close"
-                className="subsection__close-button"
                 src={Instagram}
-                alt="Close"
+                alt="Instagram Icon"
               />
             </a>
-            <a href="mailto:shanegallagherphotography@gmail.com">shanegallagherphotography@gmail.com</a>
+            <a href="mailto:shanegallagherphotography@gmail.com" target="_blank" rel="noreferrer">
+            <img
+                src={Mail}
+                alt="Mail Icon"
+              />
+            </a>
             </div>
             </div>
       </div>

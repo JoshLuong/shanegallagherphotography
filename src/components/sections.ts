@@ -2,6 +2,7 @@ interface SectionType {
   title: string;
   primaryColor: string;
   secondaryColor: string;
+  width?: string;
 }
 
 export default new Map<number, SectionType>([
@@ -19,6 +20,7 @@ export default new Map<number, SectionType>([
       title: "In Studio: Lucy",
       primaryColor: "#212121",
       secondaryColor: "#ff7f11",
+      width: "700px"
     },
   ],
   [
@@ -35,6 +37,7 @@ export default new Map<number, SectionType>([
       title: "Lowtide Properties: Monarca",
       primaryColor: "#f7f3e3",
       secondaryColor: "#6f58c9",
+      width: "900px"
     },
   ],
   [
@@ -51,6 +54,7 @@ export default new Map<number, SectionType>([
       title: "Granville Island Brewing",
       primaryColor: "#00522a",
       secondaryColor: "#7ddf64",
+      width: "1000px"
     },
   ],
   [

@@ -5,7 +5,7 @@
     align-items: stretch;
     overflow: hidden;
     font-size: 9em;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out !important;
 
     a {
         text-decoration: none;
@@ -49,7 +49,7 @@
         margin: 0;
         padding: 0;
         &:hover {
-            animation-play-state: paused !important;
+            // animation-play-state: paused !important;
         }
         }
 }
@@ -79,7 +79,7 @@
             writing-mode: unset;
             transform: translate(100%);
             margin-left: auto;
-            animation: bookTicker 10s infinite linear;
+            animation: bookTicker 10s infinite linear !important;
         }
     }
 

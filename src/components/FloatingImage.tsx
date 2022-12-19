@@ -6,19 +6,6 @@ interface FloatingImageProps {
     hover?: boolean;
 }
 const FloatingImage: React.FC<FloatingImageProps> = ({src, hover}) => {
-    const [x, setX] = useState(0);
-    const [y, setY] = useState(0);
-  
-    const countTimers = () => {
-      setInterval(() => {
-        setX(Math.random() * (10 - 1) + 1);
-        setY(Math.random() * (10 - 1) + 1);
-      }, 250);
-    };
-    useEffect(() => {
-      countTimers();
-    }, []);
-
     const className = hover ? 'subsection__image-container-hover' : ''; 
     return (
         <div className="subsection__image1">

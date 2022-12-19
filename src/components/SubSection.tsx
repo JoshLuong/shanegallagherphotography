@@ -6,6 +6,8 @@ import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 import Fade from "react-reveal/Fade";
 import test from "../test.png";
 import FloatingImage from "./FloatingImage";
+// @ts-ignore
+import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 
 interface SubSectionProps {
   show: boolean;
@@ -20,25 +22,12 @@ const SubSection: React.FC<SubSectionProps> = ({
   titleColor,
   onClick,
 }) => {
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height,
-    };
-  }
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
 
   useEffect(() => {
-    function handleResize() {
-      console.log(getWindowDimensions());
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    handleResize(setWindowDimensions)
   }, []);
 
   const mobileView = windowDimensions.width <= 800;
