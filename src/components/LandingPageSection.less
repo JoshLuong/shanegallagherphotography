@@ -4,7 +4,7 @@
     width: 100%;
     align-items: stretch;
     overflow: hidden;
-    font-size: 6em;
+    font-size: 9em;
     transition: opacity 0.2s ease-in-out;
 
     a {
@@ -17,19 +17,19 @@
 }
 
 .landing-page-section__container:nth-of-type(5n+1) p {
-    animation-delay: -8s;
+    animation-delay: -8s !important;
 }
 
 .landing-page-section__container:nth-of-type(5n+2) p {
-    animation-delay: -10s;
+    animation-delay: -10s !important;
 }
 
 .landing-page-section__container:nth-of-type(5n+3) p {
-    animation-delay: -7s;
+    animation-delay: -7s !important;
 }
 
 .landing-page-section__container:nth-of-type(5n+4) p {
-    animation-delay: -13s;
+    animation-delay: -13s !important;
 }
 
 .landing-page-section__title {
@@ -38,22 +38,18 @@
     align-items: flex-start;
     transform: rotate(180deg);
     height: 100vh;
-    font-weight: normal;
-    line-height: 1;
     text-transform: uppercase;
-    
 
     p {
         padding-left: 2.4vw;
         white-space: nowrap;
         writing-mode: vertical-lr;
         text-orientation: mixed;
-        animation: 100s bookTicker linear infinite;
         animation-play-state: running;
         margin: 0;
         padding: 0;
         &:hover {
-            animation-play-state: paused;
+            animation-play-state: paused !important;
         }
         }
 }
@@ -71,7 +67,7 @@
 
     .landing-page-section__container {
         width: unset !important;
-        min-height: 10vh;
+        font-size: 5em;
     }
     .landing-page-section__title {
         transform: unset;

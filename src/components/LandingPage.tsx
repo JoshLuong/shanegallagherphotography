@@ -9,7 +9,6 @@ const NO_SECTION_OPEN = 0;
 
 const LandingPage = () => {
   const [openSection, setOpenSection] = useState<number>(NO_SECTION_OPEN);
-  const [pauseAnimation, setPauseAnimation] = useState(false);
 
   return (
     <div className="landing-page__container">
@@ -21,11 +20,9 @@ const LandingPage = () => {
 
           const onOpen = () => {
             setOpenSection(sectionKey);
-            setPauseAnimation(true);
           };
           const onClose = () => {
             setOpenSection(NO_SECTION_OPEN);
-            setPauseAnimation(false);
           };
 
           const props = {
@@ -36,7 +33,8 @@ const LandingPage = () => {
           return (
             <>
               <LandingPageSection
-                pause={pauseAnimation && openSection !== sectionKey}
+                openSection={openSection}
+                sectionKey={sectionKey}
                 onClick={onOpen}
                 {...props}
               />
