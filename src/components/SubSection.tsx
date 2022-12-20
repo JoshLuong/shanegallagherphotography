@@ -75,13 +75,13 @@ const SubSection: React.FC<SubSectionProps> = ({
               </Grid2>
             </Grid2>
             <Grid2 xs={12} md={8} padding="0.5em" margin="auto">
-              <FloatingImage src={test} />
+              { show && <FloatingImage src={test} />}
             </Grid2>
             <Grid2 xs={12} md={4} padding="0.5em">
-              <FloatingImage hover src={test} />
+            { show && <FloatingImage hover src={test} />}
             </Grid2>
             <Grid2 xs={12} padding="0.5em">
-              <FloatingImage src={test} />
+            { show && <FloatingImage src={test} />}
             </Grid2>
           </Grid2>
         </Fade>
