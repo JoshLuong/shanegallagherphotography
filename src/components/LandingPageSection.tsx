@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 import "./LandingPageSection.less";
+import SectionTitle from "./SectionTitle";
 
 interface LandingPageSectionProps {
   onClick?: () => void;
@@ -39,15 +40,22 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     getWindowDimensions()
   );
 
+  function reset_animation() {
+    var el = document.getElementById(`animated-${sectionKey}`) as any;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    el.offsetHeight; /* trigger reflow */
+  }
+
   useEffect(() => {
     handleResize(setWindowDimensions);
   }, []);
 
   useEffect(() => {
-    if (!isSafari) {
+    console.log("rests")
+
         const divWidth = textContainerRef.current?.clientWidth;
         setFontSize(`${divWidth}px`);
-    }
+        reset_animation();
   }, [isSectionOpen, openSection, sectionKey, windowDimensions]);
   return (
     <div
@@ -64,6 +72,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     >
       <div ref={textContainerRef} className="landing-page-section__title">
         <p
+          id={`animated-${sectionKey}`}
           style={{
             animationPlayState: shouldPauseAnimation ? "paused" : "running",
             animation: `${animationDuration} bookTicker linear infinite`,
