@@ -74,7 +74,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
             .map((_, index) => (
               <span
                 style={
-                  sectionKey === openSection && index % 2 ? { ...oddtitle } : {}
+                    !isSafari && sectionKey === openSection && index % 2 ? { ...oddtitle } : {}
                 }
               >
                 {title}&nbsp;

@@ -1,5 +1,6 @@
 .menu-bar__container {
     height: 100vh;
+    width: 4.5em;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -35,17 +36,11 @@
 }
 
 .menu-bar__content {
-    display: block;
-    position: relative;
-    width: auto;
-    height: auto;
-    margin: auto 1em 3em 1em;
-    margin-top:auto;
-    max-width: calc(7em * 1.5);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: auto;
+
 
     a:link {
         text-decoration: none;
@@ -59,25 +54,31 @@
 
 .menu-bar__content-container {
     max-height: calc(100vh - 200px);
-    flex-direction: row;
-    justify-content: center;
-    margin-top: auto;
+    flex-direction: column;
+    justify-content: flex-end;
 
-    height: auto;
+    overflow: hidden;
+    margin-top: auto;
     display: flex;
-    max-width: 100px;
     align-items: center;
     color: black;
 
+    a {
+        margin: 2em;
+    }
+
     img {
-        margin-bottom: 2em;
+        margin: auto;
     }
 }
 
 @media only screen and (max-width: 800px) {
+    .menu-bar__container {
+        width: 3em;
+    }
     .menu-bar__hamburger-lines {
         margin: 0.75em auto 0 auto;
-        width: 80%;
+        width: 70%;
         flex-direction: column;
         align-items: end;
         justify-content:end;
@@ -96,13 +97,5 @@
         .line3 {
             width: 90%;
         }
-    }
-
-    .menu-bar__content {
-        display: none;
-    }
-
-    .menu-bar__content-container {
-        width: 3em;
     }
   }
