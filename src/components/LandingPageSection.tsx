@@ -11,6 +11,9 @@ interface LandingPageSectionProps {
   sectionKey: number;
   width?: string;
 }
+//@ts-ignore
+const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   title,
   backgroundColor,
@@ -41,8 +44,10 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   }, []);
 
   useEffect(() => {
-    const divWidth = textContainerRef.current?.clientWidth;
-    setFontSize(`${divWidth}px`);
+    if (!isSafari) {
+        const divWidth = textContainerRef.current?.clientWidth;
+        setFontSize(`${divWidth}px`);
+    }
   }, [isSectionOpen, openSection, sectionKey, windowDimensions]);
   return (
     <div
