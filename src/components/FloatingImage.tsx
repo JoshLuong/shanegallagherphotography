@@ -1,5 +1,5 @@
 import "./FloatingImage.less";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface FloatingImageProps {
   src: string;
