@@ -1,5 +1,7 @@
+@transition: all 0.5s ease-in-out;
+
 .subsection__container {
-    transition: all 0.3s linear;
+    transition: @transition;
     position: relative;
     align-items: stretch;
     flex-direction: column;
@@ -15,6 +17,7 @@
 
 .subsection__inner-container {
     height: auto;
+    transition: @transition;
 }
 .subsection__close-button {
     width:2em;

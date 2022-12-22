@@ -37,12 +37,11 @@ const SubSection: React.FC<SubSectionProps> = ({
 
   const innerContainerStyles = show
     ? {
-        display: "flex",
         // can customize
         width: "50vw"
       }
     : {
-        display: "none",
+        width: "0"
       };
 
   const styles = mobileView
@@ -65,7 +64,7 @@ const SubSection: React.FC<SubSectionProps> = ({
         className="subsection__inner-container"
         style={{ ...innerContainerStyles }}
       >
-        <Fade duration={900} delay={400}>
+        {show && <Fade duration={900} delay={800} >
           <Grid2 container>
             <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
               <Grid2
@@ -78,9 +77,9 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
               </Grid2>
             </Grid2>
-            {subSectionContent && show && <SummaryContent subSectionContent={subSectionContent}/>}
+            {subSectionContent && <SummaryContent subSectionContent={subSectionContent}/>}
           </Grid2>
-        </Fade>
+        </Fade>}
       </div>
     </div>
   );

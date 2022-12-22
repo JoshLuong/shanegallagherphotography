@@ -13,7 +13,7 @@ interface LandingPageSectionProps {
   width?: string;
 }
 // This correlates to the transition time defined in .subsection__container
-const DELAY = 170;
+const DELAY = 360;
 
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   title,
