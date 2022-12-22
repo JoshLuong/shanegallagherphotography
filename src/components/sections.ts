@@ -1,8 +1,15 @@
+import earls1 from "../earls1.png";
+import kold1 from "../kold1.png";
+export interface Subsection {
+    href: string;
+    description: string;
+}
 interface SectionType {
   title: string;
   primaryColor: string;
   secondaryColor: string;
   width?: string;
+  subsections?: Subsection[];
 }
 
 export default new Map<number, SectionType>([
@@ -12,6 +19,16 @@ export default new Map<number, SectionType>([
       title: "Studio",
       primaryColor: "#00522a",
       secondaryColor: "#7ddf64",
+      subsections: [
+        {
+            href: earls1,
+            description: "I had the pleasure of working with this team in May 2022 for Earls Summer Specials. Our aim was to get some fun, thirst-quenching and fresh imagery that said SUMMER!"
+        },
+        {
+            href: kold1,
+            description: "I had the pleasure of working with this team in May 2022 for Earls Summer Specials. Our aim was to get some fun, thirst-quenching and fresh imagery that said SUMMER!"
+        }
+      ]
     },
   ],
   [
@@ -59,14 +76,6 @@ export default new Map<number, SectionType>([
   ],
   [
     7,
-    {
-      title: "Kold",
-      primaryColor: "#212121",
-      secondaryColor: "#ff7f11",
-    },
-  ],
-  [
-    8,
     {
       title: "Sundays Furniture",
       primaryColor: "#f7f3e3",

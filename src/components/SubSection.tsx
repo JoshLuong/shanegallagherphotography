@@ -8,6 +8,8 @@ import test from "../test.png";
 import FloatingImage from "./FloatingImage";
 // @ts-ignore
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
+import { Subsection } from "./sections";
+import Summary3 from "./3Summary";
 
 interface SubSectionProps {
   show: boolean;
@@ -15,12 +17,14 @@ interface SubSectionProps {
   titleColor: string;
   onClick: () => void;
   title: string; // TODO remove
+  sections?: Subsection[]
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   backgroundColor,
   titleColor,
   onClick,
+  sections
 }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -74,15 +78,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
               </Grid2>
             </Grid2>
-            <Grid2 xs={12} md={8} padding="0.5em" margin="auto">
-              { show && <FloatingImage src={test} />}
-            </Grid2>
-            <Grid2 xs={12} md={4} padding="0.5em">
-            { show && <FloatingImage hover src={test} />}
-            </Grid2>
-            <Grid2 xs={12} padding="0.5em">
-            { show && <FloatingImage src={test} />}
-            </Grid2>
+            {sections && show && <Summary3 sections={sections}/>}
           </Grid2>
         </Fade>
       </div>
