@@ -31,7 +31,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   };
   const textContainerRef = useRef<any>(null);
   const repeats = window.innerWidth <= 800 ? 1 : 20;
-  const animationDuration = title.length > 15 ? "450s" : "200s";
+  const animationDuration = title.length > 15 ? 450 : 200;
   const isSectionOpen = sectionKey === openSection;
   const [shouldPauseAnimation, setShouldPauseAnimation] = useState(false);
 
@@ -80,8 +80,8 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       <div ref={textContainerRef} className="landing-page-section__title">
         <p
           style={{
-            animationPlayState: shouldPauseAnimation ? "paused" : "running",
-            animation: `${animationDuration} bookTicker linear infinite`,
+            animation: 'running bookTicker linear infinite',
+            animationDuration: shouldPauseAnimation ? `${animationDuration * 5}s`: `${animationDuration}s`
           }}
         >
           {Array(repeats)
