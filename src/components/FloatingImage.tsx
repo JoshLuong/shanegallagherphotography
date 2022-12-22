@@ -14,7 +14,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover, description }
     ? {
         opacity: "60%",
         transform: "scale(1.5)",
-        transition: "all 0.5s ease-in-out",
+        transition: "all 1s ease-in-out",
       }
     : {};
 
