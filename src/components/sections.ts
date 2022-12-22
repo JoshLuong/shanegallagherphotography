@@ -1,6 +1,6 @@
 import earls1 from "../earls1.png";
 import kold1 from "../kold1.png";
-export interface Subsection {
+export interface SubSectionContent {
     href: string;
     description: string;
 }
@@ -9,7 +9,7 @@ interface SectionType {
   primaryColor: string;
   secondaryColor: string;
   width?: string;
-  subsections?: Subsection[];
+  subSectionContent?: SubSectionContent[];
 }
 
 export default new Map<number, SectionType>([
@@ -19,14 +19,14 @@ export default new Map<number, SectionType>([
       title: "Studio",
       primaryColor: "#00522a",
       secondaryColor: "#7ddf64",
-      subsections: [
+      subSectionContent: [
         {
             href: earls1,
             description: "I had the pleasure of working with this team in May 2022 for Earls Summer Specials. Our aim was to get some fun, thirst-quenching and fresh imagery that said SUMMER!"
         },
         {
             href: kold1,
-            description: "I had the pleasure of working with this team in May 2022 for Earls Summer Specials. Our aim was to get some fun, thirst-quenching and fresh imagery that said SUMMER!"
+            description: "The KOLD brand is an enhanced cold brew that is crafted using 100% high altitude, Arabica beans from Columbia. The coffee is then infused with organic Chaga and Lion’s Mane mushrooms. Slow roasted chicory is added to promote digestive health, which also results in a smooth flavour profile with notes of chocolate and sweet fruits."
         }
       ]
     },

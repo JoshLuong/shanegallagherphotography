@@ -1,93 +1,99 @@
 .landing-page-section__container {
-    position: relative;
-    height: auto;
-    width: 100%;
-    align-items: stretch;
-    flex-grow: 1;
-    overflow: hidden;
-    font-size: 9em;
-    transition: opacity 0.2s ease-in-out !important;
+  position: relative;
+  height: auto;
+  width: 100%;
+  align-items: stretch;
+  flex-grow: 1;
+  overflow: hidden;
+  font-size: 9em;
+  transition: opacity 0.3s ease-in-out !important;
 
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-    &:hover {
-        cursor: pointer;
-      }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.landing-page-section__container:nth-of-type(5n+1) p {
-    animation-delay: -8s !important;
+.landing-page-section__container:nth-of-type(5n + 1) p {
+  animation-delay: -8s !important;
 }
 
-.landing-page-section__container:nth-of-type(5n+2) p {
-    animation-delay: -10s !important;
+.landing-page-section__container:nth-of-type(5n + 2) p {
+  animation-delay: -10s !important;
 }
 
-.landing-page-section__container:nth-of-type(5n+3) p {
-    animation-delay: -7s !important;
+.landing-page-section__container:nth-of-type(5n + 3) p {
+  animation-delay: -7s !important;
 }
 
-.landing-page-section__container:nth-of-type(5n+4) p {
-    animation-delay: -13s !important;
+.landing-page-section__container:nth-of-type(5n + 4) p {
+  animation-delay: -13s !important;
 }
 
 .landing-page-section__title {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    transform: rotate(180deg);
-    height: 100vh;
-    text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  // transition: all 0.5s linear !important;
 
-    p {
-        padding-left: 2.4vw;
-        white-space: nowrap;
-        writing-mode: vertical-lr;
-        text-orientation: mixed;
-        animation-play-state: running;
-        margin: 0;
-        padding: 0;
-        &:hover {
-           //  animation-play-state: paused !important; weird bug
-        }
-        }
+  transform: rotate(180deg);
+  height: 100vh;
+  text-transform: uppercase;
+
+  p {
+    padding-left: 2.4vw;
+    white-space: nowrap;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    animation-play-state: running;
+    margin: 0;
+    padding: 0;
+    &:hover {
+      //  animation-play-state: paused !important; weird bug
+    }
+  }
 }
 
 @keyframes bookTicker {
-	from {
-		transform: translate(0, 100vh);
-	}
-	to {
-		transform: translate(0, -100%);
-	}
+  from {
+    transform: translate(0, 100vh);
+  }
+  to {
+    transform: translate(0, -100%);
+  }
 }
 
 @media only screen and (max-width: 800px) {
-    .landing-page__container-sections{
-        overflow: scroll; // hmm
-    }
-    .landing-page-section__container {
-        width: unset !important;
-        font-size: 5em;
-    }
-    .landing-page-section__title {
-        transform: unset;
-        flex-grow: 0;
-        align-items: center;
-        height: 100%;
+  .landing-page__container-sections {
+    overflow: scroll; // hmm
+  }
+  .landing-page-section__container {
+    width: unset !important;
+    font-size: 5em;
+  }
+  .landing-page-section__title {
+    transform: unset;
+    flex-grow: 0;
+    align-items: center;
+    height: 100%;
 
-        p {
-            writing-mode: unset;
-            transform: translate(100%);
-            margin-left: auto;
-            animation: bookTicker 10s infinite linear !important;
-        }
-    }
-
-    @keyframes bookTicker {
-        from { transform: translateX(150%); }
-        to { transform: translateX(-150%); }
+    p {
+      writing-mode: unset;
+      transform: translate(100%);
+      margin-left: auto;
+      animation: bookTicker 10s infinite linear !important;
     }
   }
+
+  @keyframes bookTicker {
+    from {
+      transform: translateX(150%);
+    }
+    to {
+      transform: translateX(-150%);
+    }
+  }
+}

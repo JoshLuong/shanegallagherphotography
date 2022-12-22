@@ -3,9 +3,10 @@ import { useState } from "react";
 
 interface FloatingImageProps {
   src: string;
+  description: string;
   hover?: boolean;
 }
-const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover }) => {
+const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover, description }) => {
   const className = hover ? "subsection__image-container-hover" : "";
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -27,6 +28,8 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover }) => {
     <div className="subsection__image1">
       <div className="subsection__hover">
         <div className={className + " subsection__image-container"}>
+            <div className="subsection__title-image">
+            <span>TITLE</span>
           <img
             onClick={() => alert("ur a hoe!")}
             onMouseEnter={() => setIsMouseOver(true)}
@@ -36,16 +39,10 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover }) => {
             width="300px"
             style={{ ...imageAnimationStyle }}
           ></img>
+          </div>
         </div>
         <span style={{ ...spanAnimationStyle }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
-          posuere magna. Sed sit amet dolor sed nisi sollicitudin placerat eu eu
-          mauris. Morbi rhoncus consequat lacus, vel ullamcorper ligula
-          pellentesque pretium. Donec sagittis, risus at tempor maximus, tortor
-          velit iaculis tortor, sit amet ullamcorper ipsum dolor et tortor.
-          Vivamus venenatis tortor at sagittis luctus. Maecenas cursus
-          sollicitudin dui, at mattis metus imperdiet id. Suspendisse et nulla
-          et leo malesuada tincidunt.
+          {description}
         </span>
       </div>
     </div>

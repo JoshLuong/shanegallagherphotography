@@ -4,27 +4,25 @@ import {ReactComponent as LeftArrow} from "../svg/left-arrow.svg";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 //@ts-ignore
 import Fade from "react-reveal/Fade";
-import test from "../test.png";
-import FloatingImage from "./FloatingImage";
 // @ts-ignore
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
-import { Subsection } from "./sections";
-import Summary3 from "./3Summary";
+import { SubSectionContent } from "./sections";
+import SummaryContent from "./SummaryContent";
 
 interface SubSectionProps {
   show: boolean;
   backgroundColor: string;
   titleColor: string;
   onClick: () => void;
-  title: string; // TODO remove
-  sections?: Subsection[]
+  // TODO remove ?
+  subSectionContent?: SubSectionContent[]
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   backgroundColor,
   titleColor,
   onClick,
-  sections
+  subSectionContent
 }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -35,11 +33,13 @@ const SubSection: React.FC<SubSectionProps> = ({
   }, []);
 
   const mobileView = windowDimensions.width <= 800;
-  const size = show ? "auto" : "0";
+  const size = show ? "100%" : "0";
 
   const innerContainerStyles = show
     ? {
         display: "flex",
+        // can customize
+        width: "50vw"
       }
     : {
         display: "none",
@@ -50,7 +50,7 @@ const SubSection: React.FC<SubSectionProps> = ({
         height: size,
       }
     : {
-        minWidth: size,
+        width: size,
       };
   return (
     <div
@@ -78,7 +78,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
               </Grid2>
             </Grid2>
-            {sections && show && <Summary3 sections={sections}/>}
+            {subSectionContent && show && <SummaryContent subSectionContent={subSectionContent}/>}
           </Grid2>
         </Fade>
       </div>

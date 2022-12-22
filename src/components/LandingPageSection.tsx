@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { isSafari } from "../common/isSafari";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 import "./LandingPageSection.less";
 
@@ -11,8 +12,8 @@ interface LandingPageSectionProps {
   sectionKey: number;
   width?: string;
 }
-//@ts-ignore
-const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+// This correlates to the transition time defined in .subsection__container
+const DELAY = 170;
 
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   title,
@@ -32,7 +33,11 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   const repeats = window.innerWidth <= 800 ? 1 : 20;
   const animationDuration = title.length > 15 ? "450s" : "200s";
   const isSectionOpen = sectionKey === openSection;
-  const shouldPauseAnimation = openSection !== 0 && !isSectionOpen;
+  const [shouldPauseAnimation, setShouldPauseAnimation] = useState(false);
+
+  setTimeout(() => {
+    setShouldPauseAnimation(openSection !== 0 && !isSectionOpen);
+  }, DELAY);
 
   const [fontSize, setFontSize] = useState("9em");
   const [windowDimensions, setWindowDimensions] = useState(
@@ -43,10 +48,20 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     handleResize(setWindowDimensions);
   }, []);
 
+  const setFontSizeHandler = () => {
+    const divWidth = textContainerRef.current?.clientWidth;
+    setFontSize(`${divWidth}px`);
+  };
+  useEffect(() => {
+    setFontSizeHandler();
+  // execute this immediately upon load (only once)
+  }, []);
+
   useEffect(() => {
     if (!isSafari) {
-        const divWidth = textContainerRef.current?.clientWidth;
-        setFontSize(`${divWidth}px`);
+      setTimeout(() => {
+        setFontSizeHandler();
+      }, DELAY);
     }
   }, [isSectionOpen, openSection, sectionKey, windowDimensions]);
   return (
@@ -56,7 +71,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       style={{
         backgroundColor,
         color: titleColor,
-        opacity: shouldPauseAnimation ? "60%" : "100%",
+        opacity: shouldPauseAnimation ? "40%" : "100%",
         width: width && !isSectionOpen ? width : "100%",
         fontSize,
       }}
@@ -74,7 +89,9 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
             .map((_, index) => (
               <span
                 style={
-                    !isSafari && sectionKey === openSection && index % 2 ? { ...oddtitle } : {}
+                  !isSafari && sectionKey === openSection && index % 2
+                    ? { ...oddtitle }
+                    : {}
                 }
               >
                 {title}&nbsp;
