@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/shanegallagherphotography/static/css/main.046344ea.css",
-    "main.js": "/shanegallagherphotography/static/js/main.dce78d7a.js",
+    "main.js": "/shanegallagherphotography/static/js/main.e4bb7202.js",
     "static/media/kold1.png": "/shanegallagherphotography/static/media/kold1.05fc3df598668d863b7b.png",
     "static/media/earls1.png": "/shanegallagherphotography/static/media/earls1.252d6f69e3e7ea73f293.png",
     "static/media/instagram.svg": "/shanegallagherphotography/static/media/instagram.6ed2cb5264b2240800b4eca149b65721.svg",
@@ -9,10 +9,10 @@
     "index.html": "/shanegallagherphotography/index.html",
     "static/media/mail.svg": "/shanegallagherphotography/static/media/mail.a7bdedcb801df4a655921d60480d444c.svg",
     "main.046344ea.css.map": "/shanegallagherphotography/static/css/main.046344ea.css.map",
-    "main.dce78d7a.js.map": "/shanegallagherphotography/static/js/main.dce78d7a.js.map"
+    "main.e4bb7202.js.map": "/shanegallagherphotography/static/js/main.e4bb7202.js.map"
   },
   "entrypoints": [
     "static/css/main.046344ea.css",
-    "static/js/main.dce78d7a.js"
+    "static/js/main.e4bb7202.js"
   ]
 }
