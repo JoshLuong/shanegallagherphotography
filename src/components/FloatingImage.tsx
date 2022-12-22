@@ -27,9 +27,9 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover, description }
   return (
     <div className="subsection__image1">
       <div className="subsection__hover">
-        <div className={className + " subsection__image-container"}>
-            <div className="subsection__title-image">
+      <div className="subsection__title-image">
             <span>TITLE</span>
+        <div className={className + " subsection__image-container"}>
           <img
             onClick={() => alert("ur a hoe!")}
             onMouseEnter={() => setIsMouseOver(true)}
