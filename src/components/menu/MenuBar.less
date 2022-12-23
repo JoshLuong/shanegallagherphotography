@@ -1,11 +1,30 @@
+@import "./commonMenu.less";
+
+.menu-bar__menu {
+    display: flex;
+    flex-direction: row;
+}
 .menu-bar__container {
-  width: 4.5em;
+  width: @menuWidth;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
   z-index: 9999;
+}
+
+.menu-bar__menu-content {
+    background:white;
+    position:absolute;
+    transition: all 0.5s;
+    transform: translateX(calc(100vw - 100%));
+
+    width: 0%;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
 }
 
 .menu-bar__hamburger-lines {

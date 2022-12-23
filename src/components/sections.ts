@@ -13,6 +13,7 @@ interface SectionType {
   primaryColor: string;
   secondaryColor: string;
   width?: string;
+  path?: Routes; // if there are no subsection contents
   subSectionContent?: SubSectionContent[];
 }
 
@@ -46,26 +47,6 @@ export default new Map<number, SectionType>([
       primaryColor: "#212121",
       secondaryColor: "#ff7f11",
       width: "700px",
-      subSectionContent: [
-        {
-            title: "",
-            path: Routes.HOME,
-            href: test,
-            description: "Temporary description"
-        },
-        {
-            title: "Test",
-            path: Routes.HOME,
-            href: test,
-            description: "Temporary description"
-        },
-        {
-            title: "Test",
-            path: Routes.HOME,
-            href: test,
-            description: "Temporary description"
-        },
-      ]
     },
   ],
   [
@@ -76,7 +57,7 @@ export default new Map<number, SectionType>([
       secondaryColor: "#f92a82",
       subSectionContent: [
         {
-            title: "",
+            title: "Test",
             path: Routes.HOME,
             href: test,
             description: "Temporary description"

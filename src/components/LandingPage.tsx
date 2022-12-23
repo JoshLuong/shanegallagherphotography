@@ -1,6 +1,6 @@
 import LandingPageSection from "./LandingPageSection";
 import "./LandingPage.less";
-import MenuBar from "./MenuBar";
+import MenuBar from "./menu/MenuBar";
 import SubSection from "./SubSection";
 import { ReactNode, useState } from "react";
 import sectionsMap from "./sections";

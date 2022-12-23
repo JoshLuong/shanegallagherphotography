@@ -71,7 +71,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       style={{
         backgroundColor,
         color: titleColor,
-        opacity: shouldPauseAnimation ? "40%" : "100%",
+        opacity: shouldPauseAnimation ? "70%" : "100%",
         width: width && !isSectionOpen ? width : "100%",
         fontSize,
       }}
