@@ -1,7 +1,11 @@
 import earls1 from "../earls1.png";
 import kold1 from "../kold1.png";
+import test from "../test.png";
+import Routes from "../routes";
 export interface SubSectionContent {
+    title: string;
     href: string;
+    path: Routes;
     description: string;
 }
 interface SectionType {
@@ -21,11 +25,15 @@ export default new Map<number, SectionType>([
       secondaryColor: "#7ddf64",
       subSectionContent: [
         {
+            title: "Earls",
+            path: Routes.EARLS,
             href: earls1,
             description: "I had the pleasure of working with this team in May 2022 for Earls Summer Specials. Our aim was to get some fun, thirst-quenching and fresh imagery that said SUMMER!"
         },
         {
+            title: "Kold",
             href: kold1,
+            path: Routes.KOLD,
             description: "The KOLD brand is an enhanced cold brew that is crafted using 100% high altitude, Arabica beans from Columbia. The coffee is then infused with organic Chaga and Lion’s Mane mushrooms. Slow roasted chicory is added to promote digestive health, which also results in a smooth flavour profile with notes of chocolate and sweet fruits."
         }
       ]
@@ -37,7 +45,27 @@ export default new Map<number, SectionType>([
       title: "In Studio: Lucy",
       primaryColor: "#212121",
       secondaryColor: "#ff7f11",
-      width: "700px"
+      width: "700px",
+      subSectionContent: [
+        {
+            title: "",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+        {
+            title: "Test",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+        {
+            title: "Test",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+      ]
     },
   ],
   [
@@ -46,6 +74,32 @@ export default new Map<number, SectionType>([
       title: "Cassie Wolde",
       primaryColor: "#990000",
       secondaryColor: "#f92a82",
+      subSectionContent: [
+        {
+            title: "",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+        {
+            title: "Test",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+        {
+            title: "Test",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+        {
+            title: "Test",
+            path: Routes.HOME,
+            href: test,
+            description: "Temporary description"
+        },
+      ]
     },
   ],
   [

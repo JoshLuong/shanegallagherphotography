@@ -1,12 +1,15 @@
 import "./FloatingImage.less";
 import { useState } from "react";
+import { SubSectionContent } from "./sections";
+import { useNavigate } from "react-router-dom";
 
 interface FloatingImageProps {
-  src: string;
-  description: string;
+  subsectionContent: SubSectionContent
   hover?: boolean;
 }
-const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover, description }) => {
+const FloatingImage: React.FC<FloatingImageProps> = ({ subsectionContent, hover }) => {
+    const {href, description, title, path} = subsectionContent
+    const navigate = useNavigate();
   const className = hover ? "subsection__image-container-hover" : "";
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -28,13 +31,13 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ src, hover, description }
     <div className="subsection__image1">
       <div className="subsection__hover">
       <div className="subsection__title-image">
-            <span>TITLE</span>
+            <span>{title}</span>
         <div className={className + " subsection__image-container"}>
           <img
-            onClick={() => alert("ur a hoe!")}
+            onClick={() => navigate(path)}
             onMouseEnter={() => setIsMouseOver(true)}
             onMouseLeave={() => setIsMouseOver(false)}
-            src={src}
+            src={href}
             alt=""
             width="300px"
             style={{ ...imageAnimationStyle }}

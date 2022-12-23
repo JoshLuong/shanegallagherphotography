@@ -1,3 +1,5 @@
+@import "../common/common.less";
+
 .landing-page-section__container {
   position: relative;
   height: auto;
@@ -6,8 +8,7 @@
   flex-grow: 1;
   overflow: hidden;
   font-size: 9em;
-  // This correlates to transition time in Subsection
-  transition: opacity 0.5s ease-in-out !important;
+  transition: @transition-opacity;
 
   a {
     text-decoration: none;

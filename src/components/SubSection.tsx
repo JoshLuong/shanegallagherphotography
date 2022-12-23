@@ -77,7 +77,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
               </Grid2>
             </Grid2>
-            {subSectionContent && <SummaryContent subSectionContent={subSectionContent}/>}
+            {subSectionContent && show && <SummaryContent subSectionContent={subSectionContent}/>}
           </Grid2>
         </Fade>}
       </div>
