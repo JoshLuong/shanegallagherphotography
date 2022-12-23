@@ -1,18 +1,19 @@
 {
   "files": {
     "main.css": "/shanegallagherphotography/static/css/main.046344ea.css",
-    "main.js": "/shanegallagherphotography/static/js/main.557122cd.js",
+    "main.js": "/shanegallagherphotography/static/js/main.217156b4.js",
     "static/media/kold1.png": "/shanegallagherphotography/static/media/kold1.05fc3df598668d863b7b.png",
+    "static/media/test.png": "/shanegallagherphotography/static/media/test.f3aa0260c4884e8756a5.png",
     "static/media/earls1.png": "/shanegallagherphotography/static/media/earls1.252d6f69e3e7ea73f293.png",
     "static/media/instagram.svg": "/shanegallagherphotography/static/media/instagram.6ed2cb5264b2240800b4eca149b65721.svg",
     "static/media/left-arrow.svg": "/shanegallagherphotography/static/media/left-arrow.55f979ae8563f8fcb14d7b1c98af3838.svg",
     "index.html": "/shanegallagherphotography/index.html",
     "static/media/mail.svg": "/shanegallagherphotography/static/media/mail.a7bdedcb801df4a655921d60480d444c.svg",
     "main.046344ea.css.map": "/shanegallagherphotography/static/css/main.046344ea.css.map",
-    "main.557122cd.js.map": "/shanegallagherphotography/static/js/main.557122cd.js.map"
+    "main.217156b4.js.map": "/shanegallagherphotography/static/js/main.217156b4.js.map"
   },
   "entrypoints": [
     "static/css/main.046344ea.css",
-    "static/js/main.557122cd.js"
+    "static/js/main.217156b4.js"
   ]
 }
