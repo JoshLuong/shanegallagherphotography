@@ -14,10 +14,19 @@ export const handleResize = (
     }>
   >
 ) => {
-  function handleResize() {
-    setState(getWindowDimensions());
-  }
+  let timeoutId: any = null;
+  const resizeListener = () => {
+    // prevent execution of previous setTimeout
+    clearTimeout(timeoutId);
+    // change width from the state object after 150 milliseconds
+    timeoutId = setTimeout(() => setState(getWindowDimensions()), 1000);
+  };
+  // set resize listener
+  window.addEventListener('resize', resizeListener);
 
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
+  // clean up function
+  return () => {
+    // remove resize listener
+    window.removeEventListener('resize', resizeListener);
+  }
 };

@@ -9,6 +9,9 @@
   overflow: hidden;
   font-size: 9em;
   transition: @transition-opacity;
+  background-color: black;
+  color: white;
+  transition: background-color 300ms linear !important;
 
   a {
     text-decoration: none;
@@ -85,17 +88,15 @@
     p {
       writing-mode: unset;
       transform: translate(100%);
-      margin-left: auto;
-      animation: bookTicker 10s infinite linear !important;
     }
   }
 
   @keyframes bookTicker {
     from {
-      transform: translateX(150%);
+      transform: translateX(120%);
     }
     to {
-      transform: translateX(-150%);
+      transform: translateX(-125%);
     }
   }
 }

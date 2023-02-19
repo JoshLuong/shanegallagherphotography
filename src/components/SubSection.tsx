@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./SubSection.less";
-import {ReactComponent as LeftArrow} from "../svg/left-arrow.svg";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 //@ts-ignore
 import Fade from "react-reveal/Fade";
@@ -8,6 +7,8 @@ import Fade from "react-reveal/Fade";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 import { SubSectionContent } from "./sections";
 import SummaryContent from "./SummaryContent";
+import { IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface SubSectionProps {
   show: boolean;
@@ -74,7 +75,9 @@ const SubSection: React.FC<SubSectionProps> = ({
                 flexDirection="column"
                 alignItems="end"
               >
-                <LeftArrow fill={titleColor} title="Close" className="subsection__close-button" onClick={onClick}/>
+                <IconButton className="subsection__close-button" onClick={onClick} aria-label="fingerprint" color="secondary" style={{color: titleColor}}>
+                  <CloseIcon />
+                </IconButton>
               </Grid2>
             </Grid2>
             {subSectionContent && show && <SummaryContent subSectionContent={subSectionContent}/>}

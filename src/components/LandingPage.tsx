@@ -13,7 +13,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page__container">
       <div className="landing-page__container-sections">
-        {Array.from(sectionsMap.entries()).map((value): ReactNode => {
+        {Array.from(sectionsMap.entries()).map((value, index): ReactNode => {
           const {
             title,
             primaryColor,
@@ -42,8 +42,9 @@ const LandingPage = () => {
                 openSection={openSection}
                 sectionKey={sectionKey}
                 onClick={onOpen}
-                width={width}
+                containerWidth={width}
                 {...props}
+                index={index}
               />
               <SubSection
                 onClick={onClose}

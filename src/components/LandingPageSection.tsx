@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { Tooltip, styled, tooltipClasses, TooltipProps } from "@mui/material";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { isSafari } from "../common/isSafari";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 import "./LandingPageSection.less";
@@ -10,10 +11,24 @@ interface LandingPageSectionProps {
   titleColor: string;
   openSection: number;
   sectionKey: number;
-  width?: string;
+  containerWidth?: string;
+  index: number;
 }
+const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+
 // This correlates to the transition time defined in .subsection__container
-const DELAY = 360;
+const DELAY = 380;
+const REPEATS = window.innerWidth <= 800 ? 1 : 20;
 
 const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   title,
@@ -22,18 +37,16 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   onClick,
   openSection,
   sectionKey,
-  width,
+  containerWidth,
+  index,
 }: LandingPageSectionProps) => {
-  const oddtitle = {
-    margin: "-1em",
-    opacity: "10%",
-    fontSize: "180%",
-  };
   const textContainerRef = useRef<any>(null);
-  const repeats = window.innerWidth <= 800 ? 1 : 20;
-  const animationDuration = title.length > 15 ? 450 : 200;
+  const animationDuration = title.length * REPEATS * 0.75;
   const isSectionOpen = sectionKey === openSection;
   const [shouldPauseAnimation, setShouldPauseAnimation] = useState(false);
+  const [showInitialBackgroundColor, setShowInitialBackgroundColor] =
+    useState(true);
+  const [isHovering, setIsHovering] = useState(false);
 
   setTimeout(() => {
     setShouldPauseAnimation(openSection !== 0 && !isSectionOpen);
@@ -44,18 +57,32 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     getWindowDimensions()
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const setFontSizeHandler = () => {
+    if (windowDimensions.width > 800) {
+      const divWidth = textContainerRef.current?.clientWidth;
+      setFontSize(`${divWidth}px`);
+    } else {
+      const divHeight = textContainerRef.current?.clientHeight;
+      setFontSize(`${divHeight}px`);
+    }
+  };
+
   useEffect(() => {
     handleResize(setWindowDimensions);
-  }, []);
-
-  const setFontSizeHandler = () => {
-    const divWidth = textContainerRef.current?.clientWidth;
-    setFontSize(`${divWidth}px`);
-  };
-  useEffect(() => {
+    // execute this immediately upon load (only once)
     setFontSizeHandler();
-  // execute this immediately upon load (only once)
-  }, []);
+
+    // set a timer
+    const timer = setTimeout(() => {
+      setShowInitialBackgroundColor(false); // set class to none
+    }, 450 + index * 75);
+
+    // don't forget to clear in cleanup
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [index, setFontSizeHandler]);
 
   useEffect(() => {
     if (!isSafari) {
@@ -63,43 +90,80 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
         setFontSizeHandler();
       }, DELAY);
     }
-  }, [isSectionOpen, openSection, sectionKey, windowDimensions]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [windowDimensions, isSectionOpen]);
+
+  const styles = useMemo((): any => {
+    const fontStyles = isSafari ? {} : { fontSize };
+    const opacity = shouldPauseAnimation ? "85%" : "100%";
+    const width = containerWidth && !isSectionOpen ? containerWidth : "100%";
+    const styles = {
+      opacity,
+      width,
+      ...fontStyles,
+    };
+    if (!isHovering && !isSectionOpen && !showInitialBackgroundColor) {
+      return styles;
+    }
+    return {
+      ...styles,
+      backgroundColor,
+      color: titleColor,
+    };
+  }, [
+    backgroundColor,
+    containerWidth,
+    fontSize,
+    isHovering,
+    isSectionOpen,
+    shouldPauseAnimation,
+    showInitialBackgroundColor,
+    titleColor,
+  ]);
+
   return (
-    <div
-      title={title}
-      className="landing-page-section__container"
-      style={{
-        backgroundColor,
-        color: titleColor,
-        opacity: shouldPauseAnimation ? "70%" : "100%",
-        width: width && !isSectionOpen ? width : "100%",
-        fontSize,
-      }}
-      onClick={onClick}
-    >
-      <div ref={textContainerRef} className="landing-page-section__title">
-        <p
-          style={{
-            animation: 'running bookTicker linear infinite',
-            animationDuration: shouldPauseAnimation ? `${animationDuration * 5}s`: `${animationDuration}s`
-          }}
-        >
-          {Array(repeats)
-            .fill(0)
-            .map((_, index) => (
-              <span
-                style={
-                  !isSafari && sectionKey === openSection && index % 2
-                    ? { ...oddtitle }
-                    : {}
-                }
-              >
-                {title}&nbsp;
-              </span>
-            ))}
-        </p>
+      <BlackTooltip  title={title}
+      followCursor>
+      <div
+        className="landing-page-section__container"
+        style={{ ...styles }}
+        onClick={onClick}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <div ref={textContainerRef} className="landing-page-section__title">
+          <p
+            style={{
+              animation: "running bookTicker linear infinite",
+              animationDuration: shouldPauseAnimation
+                ? `${animationDuration * 5}s`
+                : `${animationDuration}s`,
+            }}
+          >
+            {Array(REPEATS)
+              .fill(0)
+              .map((_, index) => {
+                const oddtitle = {
+                  margin: "-1em",
+                  opacity: "10%",
+                  fontSize: "180%",
+                };
+                return (
+                  <span
+                    style={
+                      !isSafari && sectionKey === openSection && index % 2
+                        ? { ...oddtitle }
+                        : {}
+                    }
+                  >
+                    {title}&nbsp;
+                  </span>
+                );
+              })}
+          </p>
+        </div>
       </div>
-    </div>
+      </BlackTooltip>
   );
 };
 
