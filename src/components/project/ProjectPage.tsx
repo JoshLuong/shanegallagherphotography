@@ -4,9 +4,21 @@ import Masonry from "@mui/lab/Masonry";
 import { PROJECT_QUERY } from "../gql/ProjectPageQuery";
 import { Projects } from "../../__generated__/graphql";
 import { ReactNode } from "react";
-//@ts-ignore
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import {
+  LazyLoadImage,
+  trackWindowScroll,
+  //@ts-ignore
+} from "react-lazy-load-image-component";
+import "./ProjectPage.less";
 
-function ProjectPage() {
+interface ProjectPageProps {
+  scrollPosition: Object;
+}
+
+const ProjectPage: React.FC<ProjectPageProps> = ({
+  scrollPosition,
+}) =>  {
   const { projectName } = useParams();
   const { loading, data } = useQuery(PROJECT_QUERY, {
     variables: { slug: projectName },
@@ -27,20 +39,22 @@ function ProjectPage() {
   });
 
   return (
-    <div>
-      <Masonry columns={3}>
+    <div className="project-page__container">
+      <h1>{project.title}</h1>
+      <div>{documentToReactComponents(project.description?.json)}</div>
+      <Masonry columns={3} className="project-page__masonry">
         {gallery &&
           gallery.map((url, index): ReactNode => {
             // eslint-disable-next-line jsx-a11y/alt-text
             return (
-              <div key={index}>
-                <img
-                  src={`${url}`}
-                  loading="lazy"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                  }}
+              <div key={index} className="project-page__image-container">
+                <LazyLoadImage
+                  key={index}
+                  alt={"TODO"}
+                  effect="blur"
+                  scrollPosition={scrollPosition}
+                  src={url}
+                  width={"100%"}
                 />
               </div>
             );
@@ -50,4 +64,4 @@ function ProjectPage() {
   );
 }
 
-export default ProjectPage;
+export default trackWindowScroll(ProjectPage);
