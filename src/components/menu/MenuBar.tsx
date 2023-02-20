@@ -6,16 +6,18 @@ import MenuBarContent from "./MenuBarContent";
 
 const MenuBar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const menuStyles = showMenu ? {
-    width: "100%"
-  } : {
-    width: "0"
-  }
+  const menuStyles = showMenu
+    ? {
+        width: "100%",
+      }
+    : {
+        width: "0",
+      };
   return (
     <div className="menu-bar__menu">
-      <div className="menu-bar__menu-content" style={{...menuStyles}}>
-    {showMenu && <MenuBarContent />}
-        </div>
+      <div className="menu-bar__menu-content" style={{ ...menuStyles }}>
+        {showMenu && <MenuBarContent />}
+      </div>
       <div
         className="menu-bar__container"
         onClick={() => setShowMenu(!showMenu)}

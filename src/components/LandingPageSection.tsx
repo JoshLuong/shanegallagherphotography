@@ -25,7 +25,6 @@ const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }));
 
-
 // This correlates to the transition time defined in .subsection__container
 const DELAY = 380;
 const REPEATS = window.innerWidth <= 800 ? 1 : 20;
@@ -89,7 +88,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
         setFontSizeHandler();
       }, DELAY);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowDimensions, isSectionOpen]);
 
   const styles = useMemo((): any => {
@@ -121,8 +120,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   ]);
 
   return (
-      <BlackTooltip  title={title}
-      followCursor>
+    <BlackTooltip title={title} followCursor>
       <div
         className="landing-page-section__container"
         style={{ ...styles }}
@@ -162,7 +160,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
           </p>
         </div>
       </div>
-      </BlackTooltip>
+    </BlackTooltip>
   );
 };
 

@@ -7,7 +7,7 @@ import Fade from "react-reveal/Fade";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
 import SummaryContent from "./SummaryContent";
 import { IconButton } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { Maybe, SubsectionPreviewsCollection } from "../__generated__/graphql";
 
 interface SubSectionProps {
@@ -16,34 +16,34 @@ interface SubSectionProps {
   titleColor: string;
   onClick: () => void;
   // TODO remove ?
-  subSectionContent?: Maybe<SubsectionPreviewsCollection> | undefined
+  subSectionContent?: Maybe<SubsectionPreviewsCollection> | undefined;
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   backgroundColor,
   titleColor,
   onClick,
-  subSectionContent
+  subSectionContent,
 }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
 
   useEffect(() => {
-    handleResize(setWindowDimensions)
+    handleResize(setWindowDimensions);
   }, []);
 
   const mobileView = windowDimensions.width <= 800;
   const size = show ? "100%" : "0";
 
-  console.log("SUBSEC" + JSON.stringify(subSectionContent))
+  console.log("SUBSEC" + JSON.stringify(subSectionContent));
   const innerContainerStyles = show
     ? {
         // can customize
-        width: "50vw"
+        width: "50vw",
       }
     : {
-        width: "0"
+        width: "0",
       };
 
   const styles = mobileView
@@ -66,24 +66,34 @@ const SubSection: React.FC<SubSectionProps> = ({
         className="subsection__inner-container"
         style={{ ...innerContainerStyles }}
       >
-        {show && <Fade duration={900} delay={800} >
-          <Grid2 container>
-            <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
-              <Grid2
-                xs={12}
-                mdOffset="auto"
-                display="flex"
-                flexDirection="column"
-                alignItems="end"
-              >
-                <IconButton className="subsection__close-button" onClick={onClick} aria-label="fingerprint" color="secondary" style={{color: titleColor}}>
-                  <CloseIcon />
-                </IconButton>
+        {show && (
+          <Fade duration={900} delay={800}>
+            <Grid2 container>
+              <Grid2 xs={12} container marginTop="0.5em" marginBottom="0.5em">
+                <Grid2
+                  xs={12}
+                  mdOffset="auto"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="end"
+                >
+                  <IconButton
+                    className="subsection__close-button"
+                    onClick={onClick}
+                    aria-label="fingerprint"
+                    color="secondary"
+                    style={{ color: titleColor }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Grid2>
               </Grid2>
+              {subSectionContent && show && (
+                <SummaryContent subSectionContent={subSectionContent} />
+              )}
             </Grid2>
-            {subSectionContent && show && <SummaryContent subSectionContent={subSectionContent}/>}
-          </Grid2>
-        </Fade>}
+          </Fade>
+        )}
       </div>
     </div>
   );

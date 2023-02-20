@@ -1,46 +1,43 @@
 @import "../common/common.less";
 
 .subsection__container {
-    transition: @transition;
-    position: relative;
-    align-items: stretch;
-    flex-direction: column;
-    display: flex;
-    font-family: 'Montserrat', sans-serif;
-
+  transition: @transition;
+  position: relative;
+  align-items: stretch;
+  flex-direction: column;
+  display: flex;
+  font-family: "Montserrat", sans-serif;
 }
 
 .subsection__title {
-    margin: auto;
-    font-size: 1.5em;
+  margin: auto;
+  font-size: 1.5em;
 }
 
 .subsection__inner-container {
-    height: auto;
-    transition: @transition;
+  height: auto;
+  transition: @transition;
 }
 .subsection__close-button {
-    width:2em;
-    margin: 0.5em 1em 0 0;
-    &:hover {
-        cursor: pointer;
-    }
+  width: 2em;
+  margin: 0.5em 1em 0 0;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-
 @media only screen and (max-width: 800px) {
-    .subsection__close-button {
-        transform: rotate(90deg);
-    }
+  .subsection__close-button {
+    transform: rotate(90deg);
+  }
 
-    .subsection__container {
-        min-width: 0;
-        box-shadow: -10px 13px 20px -4px;
+  .subsection__container {
+    min-width: 0;
+    box-shadow: -10px 13px 20px -4px;
+  }
 
-    }
-
-    .subsection__inner-container {
-        height: 100%;
-        border: 0 0 0 0 rgba(0, 0, 0, 0.1);
-    }
+  .subsection__inner-container {
+    height: 100%;
+    border: 0 0 0 0 rgba(0, 0, 0, 0.1);
+  }
 }

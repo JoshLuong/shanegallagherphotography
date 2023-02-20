@@ -9,7 +9,9 @@ import { SubSectionContent } from "./sections";
 interface SummaryContentProps {
   subSectionContent: Maybe<SubsectionPreviewsCollection> | undefined;
 }
-const SummaryContent: React.FC<SummaryContentProps> = ({ subSectionContent }) => {
+const SummaryContent: React.FC<SummaryContentProps> = ({
+  subSectionContent,
+}) => {
   if (!subSectionContent || !subSectionContent.items) {
     return null;
   }
@@ -19,38 +21,26 @@ const SummaryContent: React.FC<SummaryContentProps> = ({ subSectionContent }) =>
         return (
           <Grid2 container>
             <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
-              {
-                <FloatingImage
-                  subsectionContent={subSectionContent.items[0]}
-                />
-              }
+              {<FloatingImage subsectionContent={subSectionContent.items[0]} />}
             </Grid2>
           </Grid2>
         );
-        case 2:
-          return (
-            <Grid2 container>
-              <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
-                {
-                <FloatingImage
-                subsectionContent={subSectionContent.items[0]}
-              />
-                }
-              </Grid2>
-              <Grid2 xs={12} md={6} padding="0.5em">
-                {
-                <FloatingImage
-                subsectionContent={subSectionContent.items[1]}
-              />
-                }
-              </Grid2>
+      case 2:
+        return (
+          <Grid2 container>
+            <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
+              {<FloatingImage subsectionContent={subSectionContent.items[0]} />}
             </Grid2>
-          );
+            <Grid2 xs={12} md={6} padding="0.5em">
+              {<FloatingImage subsectionContent={subSectionContent.items[1]} />}
+            </Grid2>
+          </Grid2>
+        );
       default:
         return null;
     }
   };
-  return renderContent(subSectionContent.items.length)
+  return renderContent(subSectionContent.items.length);
 };
 
 export default SummaryContent;

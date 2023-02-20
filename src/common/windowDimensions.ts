@@ -22,11 +22,11 @@ export const handleResize = (
     timeoutId = setTimeout(() => setState(getWindowDimensions()), 1000);
   };
   // set resize listener
-  window.addEventListener('resize', resizeListener);
+  window.addEventListener("resize", resizeListener);
 
   // clean up function
   return () => {
     // remove resize listener
-    window.removeEventListener('resize', resizeListener);
-  }
+    window.removeEventListener("resize", resizeListener);
+  };
 };

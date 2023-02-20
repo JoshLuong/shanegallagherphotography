@@ -12,7 +12,7 @@ const previewContentFragment = gql`
 
 export const SUBSECTION_QUERY = gql`
   query GetSubSections {
-    subsectionCollection (order:sys_firstPublishedAt_ASC) {
+    subsectionCollection(order: sys_firstPublishedAt_ASC) {
       items {
         title
         width

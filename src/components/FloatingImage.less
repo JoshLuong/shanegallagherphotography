@@ -1,56 +1,69 @@
 // don't set width
 .subsection__image1 {
-    top: 3em;
-    right: 7em;
-    height: auto;
-    margin-left: auto;
+  top: 3em;
+  right: 7em;
+  height: auto;
+  margin-left: auto;
 
-    span {
-        margin-top: 0.5em;
-    }
+  span {
+    margin-top: 0.5em;
+  }
 }
 
 .subsection__title-image {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Bodoni Moda', serif;
-    font-size: 4em;
+  display: flex;
+  flex-direction: column;
+  font-family: "Bodoni Moda", serif;
+  font-size: 4em;
 }
 .subsection__hover {
-    span {
-        display: inline-block;
-        transition: all 0.3s ease-in-out;
-    }
-    img:hover { 
-        cursor: pointer;
-    }
+  span {
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+  }
+  img:hover {
+    cursor: pointer;
+  }
 }
 
 .subsection__image-container-hover.subsection__image-container-hover {
-    animation-name: hover;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
+  animation-name: hover;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 .subsection__image-container {
-    overflow: hidden;
-    animation-name: floating;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
+  overflow: hidden;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes floating {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 5px); }
-    100%   { transform: translate(0, -0px); }   
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 5px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
 }
 
 @keyframes hover {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(-4px, 3px); }
-    50%  { transform: translate(4px, 3px); }
-    100%   { transform: translate(0, -0px); }   
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(-4px, 3px);
+  }
+  50% {
+    transform: translate(4px, 3px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
 }
-
