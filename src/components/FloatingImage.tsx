@@ -1,17 +1,22 @@
 import "./FloatingImage.less";
 import { useState } from "react";
-import { SubSectionContent } from "./sections";
 import { useNavigate } from "react-router-dom";
+import { Maybe } from "graphql/jsutils/Maybe";
+import { SubsectionPreview } from "../__generated__/graphql";
 
 interface FloatingImageProps {
-  subsectionContent: SubSectionContent
+  subsectionContent: Maybe<SubsectionPreview>
   hover?: boolean;
 }
 const FloatingImage: React.FC<FloatingImageProps> = ({ subsectionContent, hover }) => {
-    const {href, description, title, path} = subsectionContent
-    const navigate = useNavigate();
-  const className = hover ? "subsection__image-container-hover" : "";
+  const navigate = useNavigate();
   const [isMouseOver, setIsMouseOver] = useState(false);
+
+  if (!subsectionContent) {
+    return null;
+  }
+    const {previewImage, previewDescription, title} = subsectionContent
+  const className = hover ? "subsection__image-container-hover" : "";
 
   const imageAnimationStyle = isMouseOver
     ? {
@@ -34,10 +39,10 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ subsectionContent, hover 
             <span>{title}</span>
         <div className={className + " subsection__image-container"}>
           <img
-            onClick={() => navigate(path)}
+            onClick={() => navigate("/")}
             onMouseEnter={() => setIsMouseOver(true)}
             onMouseLeave={() => setIsMouseOver(false)}
-            src={href}
+            src={previewImage?.url || ""}
             alt=""
             width="300px"
             style={{ ...imageAnimationStyle }}
@@ -45,7 +50,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ subsectionContent, hover 
           </div>
         </div>
         <span style={{ ...spanAnimationStyle }}>
-          {description}
+          {previewDescription}
         </span>
       </div>
     </div>

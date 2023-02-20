@@ -3,46 +3,52 @@ import "./LandingPage.less";
 import MenuBar from "./menu/MenuBar";
 import SubSection from "./SubSection";
 import { ReactNode, useState } from "react";
-import sectionsMap from "./sections";
+import { useQuery } from '@apollo/client';
+import { SUBSECTION_QUERY } from "./gql/LandingPageQuery";
 
-const NO_SECTION_OPEN = 0;
+export const NO_SECTION_OPEN = -1;
 
 const LandingPage = () => {
   const [openSection, setOpenSection] = useState<number>(NO_SECTION_OPEN);
+  const { loading, data } = useQuery(
+    SUBSECTION_QUERY as any
+  );
 
+  if (loading || !data) {
+    return <div>Loading</div>
+  }
   return (
     <div className="landing-page__container">
       <div className="landing-page__container-sections">
-        {Array.from(sectionsMap.entries()).map((value, index): ReactNode => {
+        {data && data.subsectionCollection.items.map((value: any, index: number): ReactNode => {
+          if (!value) return null;
           const {
             title,
-            primaryColor,
-            secondaryColor,
+            previewsCollection,
             width,
-            subSectionContent,
-          } = value[1];
-          const sectionKey = value[0];
-          const show = openSection === sectionKey;
+            primaryColor,
+            secondaryColor
+          } = value;
+          const show = openSection === index;
 
           const onOpen = () => {
-            setOpenSection(sectionKey);
+            setOpenSection(index);
           };
           const onClose = () => {
             setOpenSection(NO_SECTION_OPEN);
           };
 
           const props = {
-            backgroundColor: primaryColor,
-            titleColor: secondaryColor,
-            title: title,
+            backgroundColor: primaryColor || "",
+            titleColor: secondaryColor || "",
+            title: title || "",
           };
           return (
             <>
               <LandingPageSection
                 openSection={openSection}
-                sectionKey={sectionKey}
                 onClick={onOpen}
-                containerWidth={width}
+                containerWidth={width || ""}
                 {...props}
                 index={index}
               />
@@ -50,7 +56,7 @@ const LandingPage = () => {
                 onClick={onClose}
                 show={show}
                 {...props}
-                subSectionContent={subSectionContent}
+                subSectionContent={previewsCollection}
               />
             </>
           );

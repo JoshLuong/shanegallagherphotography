@@ -1,13 +1,18 @@
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
+import { Maybe } from "graphql/jsutils/Maybe";
+import { SubsectionPreviewsCollection } from "../__generated__/graphql";
 //@ts-ignore
 import FloatingImage from "./FloatingImage";
 // @ts-ignore
 import { SubSectionContent } from "./sections";
 
 interface SummaryContentProps {
-  subSectionContent: SubSectionContent[];
+  subSectionContent: Maybe<SubsectionPreviewsCollection> | undefined;
 }
 const SummaryContent: React.FC<SummaryContentProps> = ({ subSectionContent }) => {
+  if (!subSectionContent || !subSectionContent.items) {
+    return null;
+  }
   const renderContent = (count: number) => {
     switch (count) {
       case 1:
@@ -16,101 +21,36 @@ const SummaryContent: React.FC<SummaryContentProps> = ({ subSectionContent }) =>
             <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
               {
                 <FloatingImage
-                  subsectionContent={subSectionContent[0]}
+                  subsectionContent={subSectionContent.items[0]}
                 />
               }
             </Grid2>
           </Grid2>
         );
-      case 2:
-        return (
-          <Grid2 container>
-            <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
-              {
+        case 2:
+          return (
+            <Grid2 container>
+              <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
+                {
                 <FloatingImage
-                  subsectionContent={subSectionContent[0]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={6} padding="0.5em">
-              {
+                subsectionContent={subSectionContent.items[0]}
+              />
+                }
+              </Grid2>
+              <Grid2 xs={12} md={6} padding="0.5em">
+                {
                 <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[1]}
-                />
-              }
+                subsectionContent={subSectionContent.items[1]}
+              />
+                }
+              </Grid2>
             </Grid2>
-          </Grid2>
-        );
-        case 3:
-        return (
-          <Grid2 container>
-            <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
-              {
-                <FloatingImage
-                  subsectionContent={subSectionContent[0]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={6} padding="0.5em">
-              {
-                <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[1]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={12} padding="0.5em">
-              {
-                <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[2]}
-                />
-              }
-            </Grid2>
-          </Grid2>
-        );
-        case 4:
-        return (
-          <Grid2 container>
-            <Grid2 xs={12} md={6} padding="0.5em" margin="auto">
-              {
-                <FloatingImage
-                  subsectionContent={subSectionContent[0]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={6} padding="0.5em">
-              {
-                <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[1]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={6} padding="0.5em">
-              {
-                <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[2]}
-                />
-              }
-            </Grid2>
-            <Grid2 xs={12} md={6} padding="0.5em">
-              {
-                <FloatingImage
-                  hover
-                  subsectionContent={subSectionContent[3]}
-                />
-              }
-            </Grid2>
-          </Grid2>
-        );
+          );
       default:
         return null;
     }
   };
-  return renderContent(subSectionContent.length)
+  return renderContent(subSectionContent.items.length)
 };
 
 export default SummaryContent;

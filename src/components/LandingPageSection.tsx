@@ -2,6 +2,7 @@ import { Tooltip, styled, tooltipClasses, TooltipProps } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isSafari } from "../common/isSafari";
 import { getWindowDimensions, handleResize } from "../common/windowDimensions";
+import { NO_SECTION_OPEN } from "./LandingPage";
 import "./LandingPageSection.less";
 
 interface LandingPageSectionProps {
@@ -10,7 +11,6 @@ interface LandingPageSectionProps {
   backgroundColor: string;
   titleColor: string;
   openSection: number;
-  sectionKey: number;
   containerWidth?: string;
   index: number;
 }
@@ -36,20 +36,19 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   titleColor,
   onClick,
   openSection,
-  sectionKey,
   containerWidth,
   index,
 }: LandingPageSectionProps) => {
   const textContainerRef = useRef<any>(null);
   const animationDuration = title.length * REPEATS * 0.75;
-  const isSectionOpen = sectionKey === openSection;
+  const isSectionOpen = index === openSection;
   const [shouldPauseAnimation, setShouldPauseAnimation] = useState(false);
   const [showInitialBackgroundColor, setShowInitialBackgroundColor] =
     useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
   setTimeout(() => {
-    setShouldPauseAnimation(openSection !== 0 && !isSectionOpen);
+    setShouldPauseAnimation(openSection !== NO_SECTION_OPEN && !isSectionOpen);
   }, DELAY);
 
   const [fontSize, setFontSize] = useState("9em");
@@ -151,7 +150,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
                 return (
                   <span
                     style={
-                      !isSafari && sectionKey === openSection && index % 2
+                      !isSafari && index === openSection && index % 2
                         ? { ...oddtitle }
                         : {}
                     }

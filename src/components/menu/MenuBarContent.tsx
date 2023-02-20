@@ -1,14 +1,13 @@
 import "./MenuBarContent.less";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
-import sectionsMap, { SubSectionContent } from "../sections";
 //@ts-ignore
 import Fade from "react-reveal/Fade";
 
 
 const MenuBarContent = () => {
 
-  const getChildLinks = (subSectionContent: SubSectionContent[]) => {
-    return subSectionContent.map((child, index) => {
+  const getChildLinks = (subSectionContent: any) => {
+    return subSectionContent.map((child: any, index: number) => {
       const comma = index < subSectionContent.length -1 ? ", " : ""
       return (
         <span className="menu-bar-content__child-links">{child.title}{comma}</span>
@@ -27,6 +26,7 @@ const MenuBarContent = () => {
     >
        <Fade duration={900} delay={700} >
         {
+          /*
             Array.from(sectionsMap.values()).map(({title, subSectionContent, secondaryColor}) => {
               const hasSubsectionContent = subSectionContent && subSectionContent.length > 0;
                 return <div className="menu-bar-content__links">
@@ -36,6 +36,7 @@ const MenuBarContent = () => {
                     }
                 </div>
             })
+            */
         }
       </Fade>
     </Grid2>
