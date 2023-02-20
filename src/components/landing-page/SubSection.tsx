@@ -4,11 +4,12 @@ import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 //@ts-ignore
 import Fade from "react-reveal/Fade";
 // @ts-ignore
-import { getWindowDimensions, handleResize } from "../common/windowDimensions";
+import { getWindowDimensions, handleResize } from "../../common/windowDimensions";
 import SummaryContent from "./SummaryContent";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Maybe, SubsectionPreviewsCollection } from "../__generated__/graphql";
+import { Maybe } from "graphql/jsutils/Maybe";
+import { SubsectionPreviewsCollection } from "../../__generated__/graphql";
 
 interface SubSectionProps {
   show: boolean;
@@ -36,7 +37,6 @@ const SubSection: React.FC<SubSectionProps> = ({
   const mobileView = windowDimensions.width <= 800;
   const size = show ? "100%" : "0";
 
-  console.log("SUBSEC" + JSON.stringify(subSectionContent));
   const innerContainerStyles = show
     ? {
         // can customize

@@ -1,7 +1,7 @@
 import { Tooltip, styled, tooltipClasses, TooltipProps } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { isSafari } from "../common/isSafari";
-import { getWindowDimensions, handleResize } from "../common/windowDimensions";
+import { isSafari } from "../../common/isSafari";
+import { getWindowDimensions, handleResize } from "../../common/windowDimensions";
 import { NO_SECTION_OPEN } from "./LandingPage";
 import "./LandingPageSection.less";
 

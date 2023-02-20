@@ -2,7 +2,7 @@ import "./FloatingImage.less";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Maybe } from "graphql/jsutils/Maybe";
-import { SubsectionPreview } from "../__generated__/graphql";
+import { SubsectionPreview } from "../../__generated__/graphql";
 
 interface FloatingImageProps {
   subsectionContent: Maybe<SubsectionPreview>;
@@ -18,7 +18,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
   if (!subsectionContent) {
     return null;
   }
-  const { previewImage, previewDescription, title } = subsectionContent;
+  const { previewImage, previewDescription, title, url } = subsectionContent;
   const className = hover ? "subsection__image-container-hover" : "";
 
   const imageAnimationStyle = isMouseOver
@@ -42,7 +42,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
           <span>{title}</span>
           <div className={className + " subsection__image-container"}>
             <img
-              onClick={() => navigate("/")}
+              onClick={() => navigate(`/projects/${url?.id}`)}
               onMouseEnter={() => setIsMouseOver(true)}
               onMouseLeave={() => setIsMouseOver(false)}
               src={previewImage?.url || ""}

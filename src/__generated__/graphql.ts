@@ -22,6 +22,8 @@ export type Scalars = {
   Dimension: any;
   /** The 'HexColor' type represents color in `rgb:ffffff` string format. */
   HexColor: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: any;
   /** The 'Quality' type represents quality as whole numeric values between `1` and `100`. */
   Quality: any;
 };
@@ -177,11 +179,20 @@ export type AssetFilter = {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  projectsCollection?: Maybe<ProjectsCollection>;
   subsectionPreviewCollection?: Maybe<SubsectionPreviewCollection>;
 };
 
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type AssetLinkingCollectionsProjectsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -371,11 +382,140 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']>;
 };
 
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type Projects = Entry & {
+  __typename?: 'Projects';
+  contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<ProjectsDescription>;
+  galleryCollection?: Maybe<AssetCollection>;
+  linkedFrom?: Maybe<ProjectsLinkingCollections>;
+  sys: Sys;
+  title?: Maybe<Scalars['String']>;
+  url?: Maybe<SlugUrl>;
+};
+
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsGalleryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsUrlArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ProjectsCollection = {
+  __typename?: 'ProjectsCollection';
+  items: Array<Maybe<Projects>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type ProjectsDescription = {
+  __typename?: 'ProjectsDescription';
+  json: Scalars['JSON'];
+  links: ProjectsDescriptionLinks;
+};
+
+export type ProjectsDescriptionAssets = {
+  __typename?: 'ProjectsDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ProjectsDescriptionEntries = {
+  __typename?: 'ProjectsDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ProjectsDescriptionLinks = {
+  __typename?: 'ProjectsDescriptionLinks';
+  assets: ProjectsDescriptionAssets;
+  entries: ProjectsDescriptionEntries;
+};
+
+export type ProjectsFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProjectsFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<ProjectsFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']>;
+  description_exists?: InputMaybe<Scalars['Boolean']>;
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  galleryCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  url?: InputMaybe<CfSlugUrlNestedFilter>;
+  url_exists?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ProjectsLinkingCollections = {
+  __typename?: 'ProjectsLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type ProjectsLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum ProjectsOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
 export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  projects?: Maybe<Projects>;
+  projectsCollection?: Maybe<ProjectsCollection>;
+  slugUrl?: Maybe<SlugUrl>;
+  slugUrlCollection?: Maybe<SlugUrlCollection>;
   subsection?: Maybe<Subsection>;
   subsectionCollection?: Maybe<SubsectionCollection>;
   subsectionPreview?: Maybe<SubsectionPreview>;
@@ -407,6 +547,40 @@ export type QueryEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EntryFilter>;
+};
+
+
+export type QueryProjectsArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryProjectsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<ProjectsOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProjectsFilter>;
+};
+
+
+export type QuerySlugUrlArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QuerySlugUrlCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<SlugUrlOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SlugUrlFilter>;
 };
 
 
@@ -442,6 +616,93 @@ export type QuerySubsectionPreviewCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<SubsectionPreviewFilter>;
 };
+
+/** The slug url for a project. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/slugUrl) */
+export type SlugUrl = Entry & {
+  __typename?: 'SlugUrl';
+  contentfulMetadata: ContentfulMetadata;
+  id?: Maybe<Scalars['String']>;
+  linkedFrom?: Maybe<SlugUrlLinkingCollections>;
+  sys: Sys;
+};
+
+
+/** The slug url for a project. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/slugUrl) */
+export type SlugUrlIdArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** The slug url for a project. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/slugUrl) */
+export type SlugUrlLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type SlugUrlCollection = {
+  __typename?: 'SlugUrlCollection';
+  items: Array<Maybe<SlugUrl>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type SlugUrlFilter = {
+  AND?: InputMaybe<Array<InputMaybe<SlugUrlFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<SlugUrlFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  id?: InputMaybe<Scalars['String']>;
+  id_contains?: InputMaybe<Scalars['String']>;
+  id_exists?: InputMaybe<Scalars['Boolean']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  id_not?: InputMaybe<Scalars['String']>;
+  id_not_contains?: InputMaybe<Scalars['String']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type SlugUrlLinkingCollections = {
+  __typename?: 'SlugUrlLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  projectsCollection?: Maybe<ProjectsCollection>;
+  subsectionPreviewCollection?: Maybe<SubsectionPreviewCollection>;
+};
+
+
+export type SlugUrlLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type SlugUrlLinkingCollectionsProjectsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type SlugUrlLinkingCollectionsSubsectionPreviewCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum SlugUrlOrder {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 /** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
 export type Subsection = Entry & {
@@ -582,6 +843,7 @@ export type SubsectionPreview = Entry & {
   previewImage?: Maybe<Asset>;
   sys: Sys;
   title?: Maybe<Scalars['String']>;
+  url?: Maybe<SlugUrl>;
 };
 
 
@@ -607,6 +869,13 @@ export type SubsectionPreviewPreviewImageArgs = {
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
 export type SubsectionPreviewTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
+export type SubsectionPreviewUrlArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type SubsectionPreviewCollection = {
@@ -637,6 +906,8 @@ export type SubsectionPreviewFilter = {
   title_not?: InputMaybe<Scalars['String']>;
   title_not_contains?: InputMaybe<Scalars['String']>;
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  url?: InputMaybe<CfSlugUrlNestedFilter>;
+  url_exists?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type SubsectionPreviewLinkingCollections = {
@@ -729,4 +1000,18 @@ export type SysFilter = {
   publishedVersion_lte?: InputMaybe<Scalars['Float']>;
   publishedVersion_not?: InputMaybe<Scalars['Float']>;
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+};
+
+export type CfSlugUrlNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  id?: InputMaybe<Scalars['String']>;
+  id_contains?: InputMaybe<Scalars['String']>;
+  id_exists?: InputMaybe<Scalars['Boolean']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  id_not?: InputMaybe<Scalars['String']>;
+  id_not_contains?: InputMaybe<Scalars['String']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
 };

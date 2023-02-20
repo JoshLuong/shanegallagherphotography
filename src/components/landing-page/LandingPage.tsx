@@ -1,10 +1,11 @@
 import LandingPageSection from "./LandingPageSection";
 import "./LandingPage.less";
-import MenuBar from "./menu/MenuBar";
 import SubSection from "./SubSection";
 import { ReactNode, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { SUBSECTION_QUERY } from "./gql/LandingPageQuery";
+import { SUBSECTION_QUERY } from "../gql/LandingPageQuery";
+import MenuBar from "../menu/MenuBar";
+import { Subsection } from "../../__generated__/graphql";
 
 export const NO_SECTION_OPEN = -1;
 
@@ -20,7 +21,7 @@ const LandingPage = () => {
       <div className="landing-page__container-sections">
         {data &&
           data.subsectionCollection.items.map(
-            (value: any, index: number): ReactNode => {
+            (value: Subsection, index: number): ReactNode => {
               if (!value) return null;
               const {
                 title,
@@ -48,7 +49,7 @@ const LandingPage = () => {
                   <LandingPageSection
                     openSection={openSection}
                     onClick={onOpen}
-                    containerWidth={width || ""}
+                    containerWidth={width?.toString() || ""}
                     {...props}
                     index={index}
                   />

@@ -1,10 +1,8 @@
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid2 version 2
 import { Maybe } from "graphql/jsutils/Maybe";
-import { SubsectionPreviewsCollection } from "../__generated__/graphql";
+import { SubsectionPreviewsCollection } from "../../__generated__/graphql";
 //@ts-ignore
 import FloatingImage from "./FloatingImage";
-// @ts-ignore
-import { SubSectionContent } from "./sections";
 
 interface SummaryContentProps {
   subSectionContent: Maybe<SubsectionPreviewsCollection> | undefined;

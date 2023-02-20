@@ -7,6 +7,9 @@ const previewContentFragment = gql`
       url
     }
     title
+    url {
+      id
+    }
   }
 `;
 

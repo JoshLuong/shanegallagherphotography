@@ -6,8 +6,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { useRoutes } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import Routes from "./routes";
+import LandingPage from "./components/landing-page/LandingPage";
+import ProjectPage from "./components/project/ProjectPage";
 
 export const link = createHttpLink({
   uri: "https://graphql.contentful.com/content/v1/spaces/7quy4nqi53yl",
@@ -29,9 +29,8 @@ const client = new ApolloClient({
 
 const App = () => {
   const routes = useRoutes([
-    { path: Routes.HOME, element: <LandingPage /> },
-    { path: Routes.EARLS, element: null },
-    { path: Routes.KOLD, element: null },
+    { path: "/", element: <LandingPage /> },
+    { path: "/projects/:projectName", element: <ProjectPage /> },
   ]);
   return routes;
 };
