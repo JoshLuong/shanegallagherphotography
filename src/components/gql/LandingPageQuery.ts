@@ -13,6 +13,14 @@ const previewContentFragment = gql`
   }
 `;
 
+const colourSchemeFragment = gql`
+  fragment ColourScheme on Colour {
+    primary
+    secondary
+    tertiary
+  }
+`;
+
 export const SUBSECTION_QUERY = gql`
   query GetSubSections {
     subsectionCollection(order: sys_firstPublishedAt_ASC) {
@@ -21,13 +29,16 @@ export const SUBSECTION_QUERY = gql`
         width
         primaryColor
         secondaryColor
-        previewsCollection {
-          items {
-            ...PreviewContent
-          }
+        tertiaryColor
+        previewContent {
+          ...PreviewContent
+        }
+        colourScheme {
+          ...ColourScheme
         }
       }
     }
   }
   ${previewContentFragment}
+  ${colourSchemeFragment}
 `;

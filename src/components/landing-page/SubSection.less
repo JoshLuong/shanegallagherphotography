@@ -4,8 +4,6 @@
   transition: @transition;
   position: relative;
   align-items: stretch;
-  flex-direction: column;
-  display: flex;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -15,12 +13,15 @@
 }
 
 .subsection__inner-container {
-  height: auto;
+  height: 100vh;
   transition: @transition;
 }
-.subsection__close-button {
+.subsection__close-button.subsection__close-button {
   width: 2em;
   margin: 0.5em 1em 0 0;
+  right: 0;
+  z-index: 9999;
+  position: absolute;
   &:hover {
     cursor: pointer;
   }

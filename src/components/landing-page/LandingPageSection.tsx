@@ -11,7 +11,7 @@ interface LandingPageSectionProps {
   backgroundColor: string;
   titleColor: string;
   openSection: number;
-  containerWidth?: string;
+  containerWidth?: number;
   index: number;
 }
 const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -93,10 +93,8 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
 
   const styles = useMemo((): any => {
     const fontStyles = isSafari ? {} : { fontSize };
-    const opacity = shouldPauseAnimation ? "85%" : "100%";
-    const width = containerWidth && !isSectionOpen ? containerWidth : "100%";
+    const width = containerWidth && !isSectionOpen ? `${containerWidth}px` : "100%";
     const styles = {
-      opacity,
       width,
       ...fontStyles,
     };
@@ -108,16 +106,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       backgroundColor,
       color: titleColor,
     };
-  }, [
-    backgroundColor,
-    containerWidth,
-    fontSize,
-    isHovering,
-    isSectionOpen,
-    shouldPauseAnimation,
-    showInitialBackgroundColor,
-    titleColor,
-  ]);
+  }, [backgroundColor, containerWidth, fontSize, isHovering, isSectionOpen, showInitialBackgroundColor, titleColor]);
 
   return (
     <BlackTooltip title={title} followCursor>
@@ -148,7 +137,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
                 return (
                   <span
                     style={
-                      !isSafari && index === openSection && index % 2
+                      index % 2 && title.length < 8
                         ? { ...oddtitle }
                         : {}
                     }

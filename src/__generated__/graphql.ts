@@ -230,6 +230,132 @@ export enum AssetOrder {
   WidthDesc = 'width_DESC'
 }
 
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type Colour = Entry & {
+  __typename?: 'Colour';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<ColourLinkingCollections>;
+  primary?: Maybe<Scalars['String']>;
+  secondary?: Maybe<Scalars['String']>;
+  sys: Sys;
+  tertiary?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type ColourLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type ColourPrimaryArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type ColourSecondaryArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type ColourTertiaryArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Set colour scheme. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/colour) */
+export type ColourTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type ColourCollection = {
+  __typename?: 'ColourCollection';
+  items: Array<Maybe<Colour>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type ColourFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ColourFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<ColourFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  primary?: InputMaybe<Scalars['String']>;
+  primary_contains?: InputMaybe<Scalars['String']>;
+  primary_exists?: InputMaybe<Scalars['Boolean']>;
+  primary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  primary_not?: InputMaybe<Scalars['String']>;
+  primary_not_contains?: InputMaybe<Scalars['String']>;
+  primary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  secondary?: InputMaybe<Scalars['String']>;
+  secondary_contains?: InputMaybe<Scalars['String']>;
+  secondary_exists?: InputMaybe<Scalars['Boolean']>;
+  secondary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  secondary_not?: InputMaybe<Scalars['String']>;
+  secondary_not_contains?: InputMaybe<Scalars['String']>;
+  secondary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+  tertiary?: InputMaybe<Scalars['String']>;
+  tertiary_contains?: InputMaybe<Scalars['String']>;
+  tertiary_exists?: InputMaybe<Scalars['Boolean']>;
+  tertiary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  tertiary_not?: InputMaybe<Scalars['String']>;
+  tertiary_not_contains?: InputMaybe<Scalars['String']>;
+  tertiary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ColourLinkingCollections = {
+  __typename?: 'ColourLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  subsectionCollection?: Maybe<SubsectionCollection>;
+};
+
+
+export type ColourLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type ColourLinkingCollectionsSubsectionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum ColourOrder {
+  PrimaryAsc = 'primary_ASC',
+  PrimaryDesc = 'primary_DESC',
+  SecondaryAsc = 'secondary_ASC',
+  SecondaryDesc = 'secondary_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TertiaryAsc = 'tertiary_ASC',
+  TertiaryDesc = 'tertiary_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
 export type ContentfulMetadata = {
   __typename?: 'ContentfulMetadata';
   tags: Array<Maybe<ContentfulTag>>;
@@ -511,6 +637,8 @@ export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
+  colour?: Maybe<Colour>;
+  colourCollection?: Maybe<ColourCollection>;
   entryCollection?: Maybe<EntryCollection>;
   projects?: Maybe<Projects>;
   projectsCollection?: Maybe<ProjectsCollection>;
@@ -537,6 +665,23 @@ export type QueryAssetCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetFilter>;
+};
+
+
+export type QueryColourArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryColourCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<ColourOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ColourFilter>;
 };
 
 
@@ -707,14 +852,23 @@ export enum SlugUrlOrder {
 /** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
 export type Subsection = Entry & {
   __typename?: 'Subsection';
+  colourScheme?: Maybe<Colour>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<SubsectionLinkingCollections>;
-  previewsCollection?: Maybe<SubsectionPreviewsCollection>;
+  previewContent?: Maybe<SubsectionPreview>;
   primaryColor?: Maybe<Scalars['String']>;
   secondaryColor?: Maybe<Scalars['String']>;
   sys: Sys;
+  tertiaryColor?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Int']>;
+};
+
+
+/** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
+export type SubsectionColourSchemeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -725,11 +879,9 @@ export type SubsectionLinkedFromArgs = {
 
 
 /** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
-export type SubsectionPreviewsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+export type SubsectionPreviewContentArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
-  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -741,6 +893,12 @@ export type SubsectionPrimaryColorArgs = {
 
 /** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
 export type SubsectionSecondaryColorArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This is the subsection showed (column) on the landing page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsection) */
+export type SubsectionTertiaryColorArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
@@ -767,8 +925,11 @@ export type SubsectionCollection = {
 export type SubsectionFilter = {
   AND?: InputMaybe<Array<InputMaybe<SubsectionFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<SubsectionFilter>>>;
+  colourScheme?: InputMaybe<CfColourNestedFilter>;
+  colourScheme_exists?: InputMaybe<Scalars['Boolean']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  previewsCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  previewContent?: InputMaybe<CfSubsectionPreviewNestedFilter>;
+  previewContent_exists?: InputMaybe<Scalars['Boolean']>;
   primaryColor?: InputMaybe<Scalars['String']>;
   primaryColor_contains?: InputMaybe<Scalars['String']>;
   primaryColor_exists?: InputMaybe<Scalars['Boolean']>;
@@ -784,6 +945,13 @@ export type SubsectionFilter = {
   secondaryColor_not_contains?: InputMaybe<Scalars['String']>;
   secondaryColor_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   sys?: InputMaybe<SysFilter>;
+  tertiaryColor?: InputMaybe<Scalars['String']>;
+  tertiaryColor_contains?: InputMaybe<Scalars['String']>;
+  tertiaryColor_exists?: InputMaybe<Scalars['Boolean']>;
+  tertiaryColor_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  tertiaryColor_not?: InputMaybe<Scalars['String']>;
+  tertiaryColor_not_contains?: InputMaybe<Scalars['String']>;
+  tertiaryColor_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   title?: InputMaybe<Scalars['String']>;
   title_contains?: InputMaybe<Scalars['String']>;
   title_exists?: InputMaybe<Scalars['Boolean']>;
@@ -828,6 +996,8 @@ export enum SubsectionOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TertiaryColorAsc = 'tertiaryColor_ASC',
+  TertiaryColorDesc = 'tertiaryColor_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   WidthAsc = 'width_ASC',
@@ -947,14 +1117,6 @@ export enum SubsectionPreviewOrder {
   TitleDesc = 'title_DESC'
 }
 
-export type SubsectionPreviewsCollection = {
-  __typename?: 'SubsectionPreviewsCollection';
-  items: Array<Maybe<SubsectionPreview>>;
-  limit: Scalars['Int'];
-  skip: Scalars['Int'];
-  total: Scalars['Int'];
-};
-
 export type Sys = {
   __typename?: 'Sys';
   environmentId: Scalars['String'];
@@ -1002,6 +1164,41 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+export type CfColourNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfColourNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfColourNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  primary?: InputMaybe<Scalars['String']>;
+  primary_contains?: InputMaybe<Scalars['String']>;
+  primary_exists?: InputMaybe<Scalars['Boolean']>;
+  primary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  primary_not?: InputMaybe<Scalars['String']>;
+  primary_not_contains?: InputMaybe<Scalars['String']>;
+  primary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  secondary?: InputMaybe<Scalars['String']>;
+  secondary_contains?: InputMaybe<Scalars['String']>;
+  secondary_exists?: InputMaybe<Scalars['Boolean']>;
+  secondary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  secondary_not?: InputMaybe<Scalars['String']>;
+  secondary_not_contains?: InputMaybe<Scalars['String']>;
+  secondary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+  tertiary?: InputMaybe<Scalars['String']>;
+  tertiary_contains?: InputMaybe<Scalars['String']>;
+  tertiary_exists?: InputMaybe<Scalars['Boolean']>;
+  tertiary_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  tertiary_not?: InputMaybe<Scalars['String']>;
+  tertiary_not_contains?: InputMaybe<Scalars['String']>;
+  tertiary_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
 export type CfSlugUrlNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
@@ -1014,4 +1211,27 @@ export type CfSlugUrlNestedFilter = {
   id_not_contains?: InputMaybe<Scalars['String']>;
   id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   sys?: InputMaybe<SysFilter>;
+};
+
+export type CfSubsectionPreviewNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfSubsectionPreviewNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfSubsectionPreviewNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  previewDescription?: InputMaybe<Scalars['String']>;
+  previewDescription_contains?: InputMaybe<Scalars['String']>;
+  previewDescription_exists?: InputMaybe<Scalars['Boolean']>;
+  previewDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  previewDescription_not?: InputMaybe<Scalars['String']>;
+  previewDescription_not_contains?: InputMaybe<Scalars['String']>;
+  previewDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  previewImage_exists?: InputMaybe<Scalars['Boolean']>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  url_exists?: InputMaybe<Scalars['Boolean']>;
 };

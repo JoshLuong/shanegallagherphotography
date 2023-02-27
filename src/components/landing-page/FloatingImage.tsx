@@ -7,10 +7,16 @@ import { SubsectionPreview } from "../../__generated__/graphql";
 interface FloatingImageProps {
   subsectionContent: Maybe<SubsectionPreview>;
   hover?: boolean;
+  showBorder?: boolean;
+  width?: number;
+  height?: number;
 }
 const FloatingImage: React.FC<FloatingImageProps> = ({
   subsectionContent,
   hover,
+  showBorder,
+  width,
+  height
 }) => {
   const navigate = useNavigate();
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -29,32 +35,30 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
       }
     : {};
 
+  const borderStyle = showBorder ? {
+    border: "15px solid white",
+    borderBottom: "36px solid white",
+    boxShadow: "#20212430 8px 2px 30px"
+  } : {};
+
   const spanAnimationStyle = isMouseOver
     ? {
         transform: "translate(-1em, -5em)",
       }
     : {};
 
+
   return (
-    <div className="subsection__image1">
-      <div className="subsection__hover">
-        <div className="subsection__title-image">
-          <span>{title}</span>
-          <div className={className + " subsection__image-container"}>
             <img
+              className={`floating-image__image ${showBorder ? "subsection__image-container-hover" : ""}`}
               onClick={() => navigate(`/projects/${url?.id}`)}
-              onMouseEnter={() => setIsMouseOver(true)}
-              onMouseLeave={() => setIsMouseOver(false)}
               src={previewImage?.url || ""}
               alt=""
-              width="300px"
-              style={{ ...imageAnimationStyle }}
+              loading="lazy"
+              width="50%"
+              height="100%"
+              style={{ ...imageAnimationStyle, ...borderStyle}}
             ></img>
-          </div>
-        </div>
-        <span style={{ ...spanAnimationStyle }}>{previewDescription}</span>
-      </div>
-    </div>
   );
 };
 

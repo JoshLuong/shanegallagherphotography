@@ -25,10 +25,9 @@ const LandingPage = () => {
               if (!value) return null;
               const {
                 title,
-                previewsCollection,
+                previewContent,
                 width,
-                primaryColor,
-                secondaryColor,
+                colourScheme
               } = value;
               const show = openSection === index;
 
@@ -40,8 +39,8 @@ const LandingPage = () => {
               };
 
               const props = {
-                backgroundColor: primaryColor || "",
-                titleColor: secondaryColor || "",
+                backgroundColor: colourScheme?.primary || "",
+                titleColor: colourScheme?.secondary || "",
                 title: title || "",
               };
               return (
@@ -49,15 +48,15 @@ const LandingPage = () => {
                   <LandingPageSection
                     openSection={openSection}
                     onClick={onOpen}
-                    containerWidth={width?.toString() || ""}
+                    containerWidth={width || undefined}
                     {...props}
                     index={index}
                   />
                   <SubSection
                     onClick={onClose}
                     show={show}
-                    {...props}
-                    subSectionContent={previewsCollection}
+                    subSectionContent={previewContent}
+                    colourScheme={colourScheme}
                   />
                 </>
               );
