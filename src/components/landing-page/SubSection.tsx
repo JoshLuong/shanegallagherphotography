@@ -17,12 +17,14 @@ interface SubSectionProps {
   onClick: () => void;
   subsectionContent: Maybe<SubsectionPreview> | undefined;
   colourScheme: Maybe<Colour> | undefined;
+  theme: "leftAlign" | "rightAlign";
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   onClick,
   subsectionContent,
   colourScheme,
+  theme,
 }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -55,6 +57,27 @@ const SubSection: React.FC<SubSectionProps> = ({
     : {
         width: size,
       };
+
+  const getThemedSubSectionPreview = () => {
+    switch (theme) {
+      case "leftAlign":
+        return (
+          <PreviewLeftImageContent
+            colourScheme={colourScheme}
+            subsectionContent={subsectionContent}
+          />
+        );
+      case "rightAlign":
+        return (
+          <PreviewRightImageContent
+            colourScheme={colourScheme}
+            subsectionContent={subsectionContent}
+          />
+        );
+      default:
+        return null;
+    }
+  };
   return (
     <div
       className="subsection__container"
@@ -79,12 +102,7 @@ const SubSection: React.FC<SubSectionProps> = ({
                 <CloseIcon />
               </IconButton>
             </div>
-            {subsectionContent && (
-              <PreviewRightImageContent
-                colourScheme={colourScheme}
-                subsectionContent={subsectionContent}
-              />
-            )}
+            {getThemedSubSectionPreview()}
           </div>
         )}
       </div>

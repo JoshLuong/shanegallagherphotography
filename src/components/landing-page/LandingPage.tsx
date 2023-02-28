@@ -57,6 +57,8 @@ const LandingPage = () => {
                     show={show}
                     subsectionContent={previewContent}
                     colourScheme={colourScheme}
+                    // TODO: make contentful
+                    theme={index % 2 !== 0 ? "leftAlign" : "rightAlign"}
                   />
                 </>
               );
