@@ -122,7 +122,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
             style={{
               animation: "running bookTicker linear infinite",
               animationDuration: shouldPauseAnimation
-                ? `${animationDuration * 5}s`
+                ? `${animationDuration * 3}s`
                 : `${animationDuration}s`,
             }}
           >

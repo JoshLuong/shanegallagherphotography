@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Maybe } from "graphql/jsutils/Maybe";
 import { SubsectionPreview } from "../../__generated__/graphql";
+//@ts-ignore
+import Fade from 'react-reveal/Fade';
+import { useImageLoaded } from "../../common/useImageLoaded";
 
 interface FloatingImageProps {
   subsectionContent: Maybe<SubsectionPreview>;
@@ -20,6 +23,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
 }) => {
   const navigate = useNavigate();
   const [isMouseOver, setIsMouseOver] = useState(false);
+  const [ref, loaded, onLoad] = useImageLoaded()
 
   if (!subsectionContent) {
     return null;
@@ -49,7 +53,10 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
 
 
   return (
+    <Fade left duration={700} when={loaded}>
             <img
+              ref={ref} 
+              onLoad={onLoad}
               className={`floating-image__image ${showBorder ? "subsection__image-container-hover" : ""}`}
               onClick={() => navigate(`/projects/${url?.id}`)}
               src={previewImage?.url || ""}
@@ -59,6 +66,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
               height="100%"
               style={{ ...imageAnimationStyle, ...borderStyle}}
             ></img>
+            </Fade>
   );
 };
 

@@ -68,7 +68,7 @@ const SubSection: React.FC<SubSectionProps> = ({
         style={{ ...innerContainerStyles }}
       >
         {show && (
-          <Fade duration={900} delay={800}>
+          <div>
             <div className="subsection__close-button">
             <IconButton
                     onClick={onClick}
@@ -81,7 +81,7 @@ const SubSection: React.FC<SubSectionProps> = ({
               {subSectionContent && show && (
                 <SummaryContent colourScheme={colourScheme} subSectionContent={subSectionContent} />
               )}
-          </Fade>
+          </div>
         )}
       </div>
     </div>
