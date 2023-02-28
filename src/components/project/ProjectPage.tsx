@@ -16,9 +16,7 @@ interface ProjectPageProps {
   scrollPosition: Object;
 }
 
-const ProjectPage: React.FC<ProjectPageProps> = ({
-  scrollPosition,
-}) =>  {
+const ProjectPage: React.FC<ProjectPageProps> = ({ scrollPosition }) => {
   const { projectName } = useParams();
   const { loading, data } = useQuery(PROJECT_QUERY, {
     variables: { slug: projectName },
@@ -62,6 +60,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({
       </Masonry>
     </div>
   );
-}
+};
 
 export default trackWindowScroll(ProjectPage);

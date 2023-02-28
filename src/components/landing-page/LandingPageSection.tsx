@@ -1,7 +1,10 @@
 import { Tooltip, styled, tooltipClasses, TooltipProps } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isSafari } from "../../common/isSafari";
-import { getWindowDimensions, handleResize } from "../../common/windowDimensions";
+import {
+  getWindowDimensions,
+  handleResize,
+} from "../../common/windowDimensions";
 import { NO_SECTION_OPEN } from "./LandingPage";
 import "./LandingPageSection.less";
 
@@ -93,7 +96,8 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
 
   const styles = useMemo((): any => {
     const fontStyles = isSafari ? {} : { fontSize };
-    const width = containerWidth && !isSectionOpen ? `${containerWidth}px` : "100%";
+    const width =
+      containerWidth && !isSectionOpen ? `${containerWidth}px` : "100%";
     const styles = {
       width,
       ...fontStyles,
@@ -106,7 +110,15 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       backgroundColor,
       color: titleColor,
     };
-  }, [backgroundColor, containerWidth, fontSize, isHovering, isSectionOpen, showInitialBackgroundColor, titleColor]);
+  }, [
+    backgroundColor,
+    containerWidth,
+    fontSize,
+    isHovering,
+    isSectionOpen,
+    showInitialBackgroundColor,
+    titleColor,
+  ]);
 
   return (
     <BlackTooltip title={title} followCursor>
@@ -136,11 +148,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
                 };
                 return (
                   <span
-                    style={
-                      index % 2 && title.length < 8
-                        ? { ...oddtitle }
-                        : {}
-                    }
+                    style={index % 2 && title.length < 8 ? { ...oddtitle } : {}}
                   >
                     {title}&nbsp;
                   </span>

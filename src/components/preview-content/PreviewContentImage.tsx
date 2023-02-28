@@ -15,7 +15,6 @@ const PreviewContentImage: React.FC<PreviewContentImageProps> = ({
   onLoad,
   loaded,
 }) => {
-
   return (
     <Fade delay={500} duration={1200} when={loaded}>
       <img

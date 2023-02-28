@@ -1,24 +1,24 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: [
     {
-      'https://graphql.contentful.com/content/v1/spaces/7quy4nqi53yl': {
+      "https://graphql.contentful.com/content/v1/spaces/7quy4nqi53yl": {
         headers: {
-          Authorization: 'Bearer PfEBSBXzKgGX1sCdl8yJojYOPZGCYHaCdRiC-ouRE0w',
+          Authorization: "Bearer PfEBSBXzKgGX1sCdl8yJojYOPZGCYHaCdRiC-ouRE0w",
         },
       },
     },
   ],
-  documents: ['src/**/*.tsx'],
+  documents: ["src/**/*.tsx"],
   generates: {
-    './src/__generated__/': {
-      preset: 'client',
+    "./src/__generated__/": {
+      preset: "client",
       plugins: [],
       presetConfig: {
-        gqlTagName: 'gql',
-      }
-    }
+        gqlTagName: "gql",
+      },
+    },
   },
   ignoreNoDocuments: true,
 };

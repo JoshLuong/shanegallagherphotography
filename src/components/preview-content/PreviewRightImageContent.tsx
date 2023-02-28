@@ -37,7 +37,10 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
         previewImageURL={previewImage?.url || ""}
       />
       <Fade right delay={300} duration={1800} when={loaded} distance="70em">
-        <PreviewContentDate date="May 2020" className="preview-content__subsection-date-right"/>
+        <PreviewContentDate
+          date="May 2020"
+          className="preview-content__subsection-date-right"
+        />
         <div
           className="preview-content__subsection-text-container"
           style={{ opacity: 1 }}

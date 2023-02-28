@@ -2,18 +2,17 @@ import "./PreviewContent.less";
 import "./PreviewContentDate.less";
 
 interface PreviewContentDateProps {
-  date: string
+  date: string;
   className?: string;
 }
 const PreviewContentDate: React.FC<PreviewContentDateProps> = ({
-    date,
-    className
+  date,
+  className,
 }) => {
-
   return (
-        <div className={`preview-content__subsection-date ${className}`}>
-          <span className="preview-content__rotate">{date}</span>
-        </div>
+    <div className={`preview-content__subsection-date ${className}`}>
+      <span className="preview-content__rotate">{date}</span>
+    </div>
   );
 };
 

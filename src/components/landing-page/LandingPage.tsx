@@ -23,12 +23,7 @@ const LandingPage = () => {
           data.subsectionCollection.items.map(
             (value: Subsection, index: number): ReactNode => {
               if (!value) return null;
-              const {
-                title,
-                previewContent,
-                width,
-                colourScheme
-              } = value;
+              const { title, previewContent, width, colourScheme } = value;
               const show = openSection === index;
 
               const onOpen = () => {

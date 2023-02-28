@@ -1,0 +1,15 @@
+*.md
+/.yarn/
+/package-lock.json
+/config
+/public
+/scripts
+/coverage/
+/reports/
+chart/
+dist/
+lib/
+translations/
+assets.json
+env.json
+src/__generated__/*

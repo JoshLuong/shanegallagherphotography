@@ -30,7 +30,10 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
   return (
     <Grid container className="preview-content-grid">
       <Fade left delay={300} duration={1800} when={loaded} distance="70em">
-      <PreviewContentDate date="May 2020" className="preview-content__subsection-date-left"/>
+        <PreviewContentDate
+          date="May 2020"
+          className="preview-content__subsection-date-left"
+        />
         <div
           className="preview-content__subsection-text-container preview-content__subsection-text-container-left"
           style={{ opacity: 1 }}
@@ -39,14 +42,24 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
             className="preview-content__subsection-title preview-content__subsection-title-left"
             style={{ color: tertiary || "" }}
           >
-            <span className="preview-content__hover" onClick={() => onNavigate()}>{title}</span>
+            <span
+              className="preview-content__hover"
+              onClick={() => onNavigate()}
+            >
+              {title}
+            </span>
           </p>
           <div className="preview-content__subsection-desc preview-content__subsection-desc-left">
             {previewDescription}
           </div>
         </div>
       </Fade>
-      <PreviewContentImage loaded={loaded} ref={ref} onLoad={onLoad} previewImageURL={previewImage?.url || ""}/>
+      <PreviewContentImage
+        loaded={loaded}
+        ref={ref}
+        onLoad={onLoad}
+        previewImageURL={previewImage?.url || ""}
+      />
     </Grid>
   );
 };

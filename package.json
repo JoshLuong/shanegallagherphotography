@@ -85,7 +85,7 @@
     "deploy": "gh-pages -d build",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
-    "format": "prettier --ignore \"src/__generated__/*\"--write \"src/**/*.ts\" \"src/**/*.less\" \"src/**/*.tsx\"",
+    "format": "prettier --write .",
     "lint": "tslint -p tsconfig.json"
   },
   "eslintConfig": {

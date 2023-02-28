@@ -4,23 +4,23 @@ const projectContentFragment = gql`
   fragment ProjectContent on Projects {
     title
     galleryCollection {
-        items {
-            url
-        }
+      items {
+        url
+      }
     }
     description {
-        json
+      json
     }
   }
 `;
 
 export const PROJECT_QUERY = gql`
   query GetProjectBySlug($slug: String!) {
-    projectsCollection (where: { url: { id: $slug} }){
-    items {
-      ...ProjectContent
+    projectsCollection(where: { url: { id: $slug } }) {
+      items {
+        ...ProjectContent
+      }
     }
   }
-}
   ${projectContentFragment}
 `;
