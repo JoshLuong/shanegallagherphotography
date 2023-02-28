@@ -1,5 +1,5 @@
-import "./ImageLeftContent.less";
-import { useEffect, useState } from "react";
+import "./PreviewRightImageContent.less";
+import "./PreviewContent.less";
 import { useNavigate } from "react-router-dom";
 import { Maybe } from "graphql/jsutils/Maybe";
 import { Colour, SubsectionPreview } from "../../__generated__/graphql";
@@ -8,38 +8,23 @@ import Fade from "react-reveal/Fade";
 import { useImageLoaded } from "../../common/useImageLoaded";
 import { Grid } from "@mui/material";
 
-interface FloatingImageProps {
+interface PreviewRightImageContentProps {
   subsectionContent: Maybe<SubsectionPreview>;
-  hover?: boolean;
   showBorder?: boolean;
-  width?: number;
-  height?: number;
   colourScheme: Colour;
 }
-const ImageLeftContent: React.FC<FloatingImageProps> = ({
+const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
   subsectionContent,
-  hover,
   showBorder,
-  width,
-  height,
   colourScheme,
 }) => {
   const navigate = useNavigate();
-  const [isMouseOver, setIsMouseOver] = useState(false);
   const [ref, loaded, onLoad] = useImageLoaded();
 
   if (!subsectionContent) {
     return null;
   }
   const { previewImage, previewDescription, title, url } = subsectionContent;
-
-  const imageAnimationStyle = isMouseOver
-    ? {
-        opacity: "60%",
-        transform: "scale(1.5)",
-        transition: "all 1s ease-in-out",
-      }
-    : {};
 
   const borderStyle = showBorder
     ? {
@@ -51,13 +36,11 @@ const ImageLeftContent: React.FC<FloatingImageProps> = ({
   const { tertiary } = colourScheme;
 
   return (
-    <Grid container className="summary-content__subsection-images">
+    <Grid container className="preview-content-grid">
       <Fade delay={500} duration={1200} when={loaded}>
         <img
           ref={ref}
-          className={`floating-image__image ${
-            showBorder ? "subsection__image-container-hover" : ""
-          }`}
+          className="preview-content__image"
           onLoad={onLoad}
           onClick={() => navigate(`/projects/${url?.id}`)}
           src={previewImage?.url || ""}
@@ -65,25 +48,25 @@ const ImageLeftContent: React.FC<FloatingImageProps> = ({
           loading="lazy"
           width="50%"
           height="100%"
-          style={{ ...imageAnimationStyle, ...borderStyle }}
+          style={{...borderStyle }}
         ></img>
       </Fade>
 
       <Fade right delay={300} duration={1800} when={loaded} distance="70em">
-      <div className="summary-content__subsection-date summary-content__subsection-date-right">
+      <div className="preview-content__subsection-date preview-content__subsection-date-right">
           May 2020
         </div>
         <div
-          className="summary-content__subsection-text-container"
+          className="preview-content__subsection-text-container"
           style={{ opacity: 1 }}
         >
           <p
-            className="summary-content__subsection-title summary-content__subsection-title-right"
+            className="preview-content__subsection-title preview-content__subsection-title-right"
             style={{ color: tertiary || "" }}
           >
-            {title}
+            <span className="preview-content__hover">{title}</span>
           </p>
-          <div className="summary-content__subsection-desc">
+          <div className="preview-content__subsection-desc">
             {previewDescription}
           </div>
         </div>
@@ -92,4 +75,4 @@ const ImageLeftContent: React.FC<FloatingImageProps> = ({
   );
 };
 
-export default ImageLeftContent;
+export default PreviewRightImageContent;

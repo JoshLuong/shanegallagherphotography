@@ -55,7 +55,7 @@ const LandingPage = () => {
                   <SubSection
                     onClick={onClose}
                     show={show}
-                    subSectionContent={previewContent}
+                    subsectionContent={previewContent}
                     colourScheme={colourScheme}
                   />
                 </>

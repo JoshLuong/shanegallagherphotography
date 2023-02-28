@@ -1,27 +1,28 @@
 import { useState, useEffect } from "react";
 import "./SubSection.less";
-//@ts-ignore
-import Fade from "react-reveal/Fade";
 // @ts-ignore
-import { getWindowDimensions, handleResize } from "../../common/windowDimensions";
-import SummaryContent from "./SummaryContent";
+import {
+  getWindowDimensions,
+  handleResize,
+} from "../../common/windowDimensions";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Maybe } from "graphql/jsutils/Maybe";
-import { SubsectionPreview, Colour} from "../../__generated__/graphql";
+import { SubsectionPreview, Colour } from "../../__generated__/graphql";
+import PreviewLeftImageContent from "../preview-content/PreviewLeftImageContent";
+import PreviewRightImageContent from "../preview-content/PreviewRightImageContent";
 
 interface SubSectionProps {
   show: boolean;
   onClick: () => void;
-  // TODO remove ?
-  subSectionContent?: Maybe<SubsectionPreview> | undefined;
+  subsectionContent: Maybe<SubsectionPreview> | undefined;
   colourScheme: Maybe<Colour> | undefined;
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
   onClick,
-  subSectionContent,
-  colourScheme
+  subsectionContent,
+  colourScheme,
 }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -33,7 +34,7 @@ const SubSection: React.FC<SubSectionProps> = ({
   if (!colourScheme) {
     return null;
   }
-  const {primary, secondary} = colourScheme;
+  const { primary, secondary } = colourScheme;
 
   const mobileView = windowDimensions.width <= 800;
   const size = show ? "100%" : "0";
@@ -70,17 +71,20 @@ const SubSection: React.FC<SubSectionProps> = ({
         {show && (
           <div>
             <div className="subsection__close-button">
-            <IconButton
-                    onClick={onClick}
-                    aria-label="fingerprint"
-                    style={{ color: secondary || ""}}
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                  </div>
-              {subSectionContent && show && (
-                <SummaryContent colourScheme={colourScheme} subSectionContent={subSectionContent} />
-              )}
+              <IconButton
+                onClick={onClick}
+                aria-label="fingerprint"
+                style={{ color: secondary || "" }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
+            {subsectionContent && (
+              <PreviewRightImageContent
+                colourScheme={colourScheme}
+                subsectionContent={subsectionContent}
+              />
+            )}
           </div>
         )}
       </div>

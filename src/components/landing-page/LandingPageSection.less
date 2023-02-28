@@ -4,6 +4,7 @@
   position: relative;
   height: auto;
   width: 100%;
+  z-index: 2; // fix for text slide in preview content
   align-items: stretch;
   flex-grow: 1;
   overflow: hidden;
@@ -42,7 +43,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  // transition: all 0.5s linear !important;
 
   transform: rotate(180deg);
   height: 100vh;
@@ -56,9 +56,6 @@
     animation-play-state: running;
     margin: 0;
     padding: 0;
-    &:hover {
-      //  animation-play-state: paused !important; weird bug
-    }
   }
 }
 
