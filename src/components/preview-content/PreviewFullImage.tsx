@@ -1,4 +1,4 @@
-import "./PreviewRightImageContent.less";
+import "./PreviewFullImage.less";
 import "./PreviewContent.less";
 import { useNavigate } from "react-router-dom";
 import { Maybe } from "graphql/jsutils/Maybe";
@@ -10,11 +10,11 @@ import { Grid } from "@mui/material";
 import PreviewContentImage from "./PreviewContentImage";
 import PreviewContentDate from "./PreviewContentDate";
 
-interface PreviewRightImageContentProps {
+interface PreviewFullImageProps {
   subsectionContent: Maybe<SubsectionPreview> | undefined;
   colourScheme: Colour;
 }
-const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
+const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
   subsectionContent,
   colourScheme,
 }) => {
@@ -24,11 +24,8 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
   if (!subsectionContent) {
     return null;
   }
-  const { previewImage, previewDescription, title, url } = subsectionContent;
+  const { previewImage, url, title } = subsectionContent;
   const { tertiary } = colourScheme;
-  const fontSize = subsectionContent.titleFontSize
-    ? { fontSize: subsectionContent.titleFontSize }
-    : {};
   const onNavigate = () => navigate(`/projects/${url?.id}`);
 
   return (
@@ -38,18 +35,16 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
         ref={ref}
         onLoad={onLoad}
         previewImageURL={previewImage?.url || ""}
+        className="preview-fill-image__background"
+        width="100%"
       />
-      <Fade right delay={300} duration={1800} when={loaded} distance="70em">
-        <PreviewContentDate
-          date="May 2020"
-          className="preview-content__subsection-date-right"
-        />
+      <Fade delay={800} duration={600} when={loaded} distance="70em">
         <div
-          className="preview-content__subsection-text-container"
+          className="preview-content__subsection-text-container preview-content__subsection-text-container-full-image"
           style={{ opacity: 1 }}
         >
           <p
-            className="preview-content__subsection-title preview-content__subsection-title-right"
+            className="preview-content__subsection-title"
             style={{
               fontSize: subsectionContent?.titleFontSize || "10em",
               color: tertiary || "",
@@ -62,13 +57,10 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
               {title}
             </span>
           </p>
-          <div className="preview-content__subsection-desc">
-            {previewDescription}
-          </div>
         </div>
       </Fade>
     </Grid>
   );
 };
 
-export default PreviewRightImageContent;
+export default PreviewFullImage;

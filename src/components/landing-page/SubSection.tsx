@@ -11,13 +11,15 @@ import { Maybe } from "graphql/jsutils/Maybe";
 import { SubsectionPreview, Colour } from "../../__generated__/graphql";
 import PreviewLeftImageContent from "../preview-content/PreviewLeftImageContent";
 import PreviewRightImageContent from "../preview-content/PreviewRightImageContent";
+import PreviewFullImage from "../preview-content/PreviewFullImage";
 
+export type ThemeType = "align-left" | "align-right" | "full-image-background";
 interface SubSectionProps {
   show: boolean;
   onClick: () => void;
   subsectionContent: Maybe<SubsectionPreview> | undefined;
   colourScheme: Maybe<Colour> | undefined;
-  theme: "leftAlign" | "rightAlign";
+  theme: ThemeType;
 }
 const SubSection: React.FC<SubSectionProps> = ({
   show,
@@ -60,16 +62,23 @@ const SubSection: React.FC<SubSectionProps> = ({
 
   const getThemedSubSectionPreview = () => {
     switch (theme) {
-      case "leftAlign":
+      case "align-left":
         return (
           <PreviewLeftImageContent
             colourScheme={colourScheme}
             subsectionContent={subsectionContent}
           />
         );
-      case "rightAlign":
+      case "align-right":
         return (
           <PreviewRightImageContent
+            colourScheme={colourScheme}
+            subsectionContent={subsectionContent}
+          />
+        );
+      case "full-image-background":
+        return (
+          <PreviewFullImage
             colourScheme={colourScheme}
             subsectionContent={subsectionContent}
           />

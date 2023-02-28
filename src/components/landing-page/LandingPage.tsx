@@ -1,6 +1,6 @@
 import LandingPageSection from "./LandingPageSection";
 import "./LandingPage.less";
-import SubSection from "./SubSection";
+import SubSection, { ThemeType } from "./SubSection";
 import { ReactNode, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { SUBSECTION_QUERY } from "../gql/LandingPageQuery";
@@ -11,6 +11,7 @@ export const NO_SECTION_OPEN = -1;
 
 const LandingPage = () => {
   const [openSection, setOpenSection] = useState<number>(NO_SECTION_OPEN);
+  const [fastAnimation, setFastAnimation] = useState<boolean>(false);
   const { loading, data } = useQuery(SUBSECTION_QUERY as any);
 
   if (loading || !data) {
@@ -27,7 +28,17 @@ const LandingPage = () => {
               const show = openSection === index;
 
               const onOpen = () => {
+                if (show) {
+                  onClose();
+                  return;
+                }
                 setOpenSection(index);
+                setTimeout(() => {
+                  setFastAnimation(true);
+                }, 150);
+                setTimeout(() => {
+                  setFastAnimation(false);
+                }, 800);
               };
               const onClose = () => {
                 setOpenSection(NO_SECTION_OPEN);
@@ -43,6 +54,7 @@ const LandingPage = () => {
                   <LandingPageSection
                     openSection={openSection}
                     onClick={onOpen}
+                    fastAnimation={fastAnimation}
                     containerWidth={width || undefined}
                     {...props}
                     index={index}
@@ -53,7 +65,7 @@ const LandingPage = () => {
                     subsectionContent={previewContent}
                     colourScheme={colourScheme}
                     // TODO: make contentful
-                    theme={index % 2 !== 0 ? "leftAlign" : "rightAlign"}
+                    theme={previewContent?.contentType?.type as ThemeType}
                   />
                 </>
               );

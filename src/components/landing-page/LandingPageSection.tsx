@@ -15,6 +15,7 @@ interface LandingPageSectionProps {
   titleColor: string;
   openSection: number;
   containerWidth?: number;
+  fastAnimation: boolean;
   index: number;
 }
 const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -39,6 +40,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   onClick,
   openSection,
   containerWidth,
+  fastAnimation,
   index,
 }: LandingPageSectionProps) => {
   const textContainerRef = useRef<any>(null);
@@ -98,12 +100,18 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     const fontStyles = isSafari ? {} : { fontSize };
     const width =
       containerWidth && !isSectionOpen ? `${containerWidth}px` : "100%";
-    const styles = {
+    let styles: any = {
       width,
       ...fontStyles,
     };
     if (!isHovering && !isSectionOpen && !showInitialBackgroundColor) {
       return styles;
+    }
+    if (showInitialBackgroundColor) {
+      styles = {
+        pointerEvents: "none",
+        ...styles,
+      };
     }
     return {
       ...styles,
@@ -120,6 +128,16 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     titleColor,
   ]);
 
+  useEffect(() => {
+    var elem: any = document.getElementById("idtest");
+    console.log(elem);
+    var style = window.getComputedStyle(elem, null);
+    var frame = style.getPropertyValue("z-index");
+    var delay = -frame / 36;
+    elem.style["-webkit-animation-delay"] = delay + "s !important";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fastAnimation]);
+
   return (
     <BlackTooltip title={title} followCursor>
       <div
@@ -131,11 +149,14 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
       >
         <div ref={textContainerRef} className="landing-page-section__title">
           <p
+            id="idtest"
             style={{
+              transition: "animation 180s",
               animation: "running bookTicker linear infinite",
-              animationDuration: shouldPauseAnimation
-                ? `${animationDuration * 3}s`
-                : `${animationDuration}s`,
+              animationDuration:
+                fastAnimation || showInitialBackgroundColor
+                  ? `${animationDuration / 30}s`
+                  : `${animationDuration}s`,
             }}
           >
             {Array(REPEATS)

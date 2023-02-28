@@ -3,12 +3,16 @@ import { gql } from "@apollo/client";
 const previewContentFragment = gql`
   fragment PreviewContent on SubsectionPreview {
     previewDescription
+    titleFontSize
     previewImage {
       url
     }
     title
     url {
       id
+    }
+    contentType {
+      type
     }
   }
 `;

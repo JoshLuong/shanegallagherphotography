@@ -40,7 +40,10 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
         >
           <p
             className="preview-content__subsection-title preview-content__subsection-title-left"
-            style={{ color: tertiary || "" }}
+            style={{
+              fontSize: subsectionContent?.titleFontSize || "10em",
+              color: tertiary || "",
+            }}
           >
             <span
               className="preview-content__hover"

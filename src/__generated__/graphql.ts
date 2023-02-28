@@ -508,6 +508,84 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']>;
 };
 
+/** The type of preview you want to display (I.e. alignLeft, Image full-size, etc) [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/previewContentType) */
+export type PreviewContentType = Entry & {
+  __typename?: 'PreviewContentType';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<PreviewContentTypeLinkingCollections>;
+  sys: Sys;
+  type?: Maybe<Scalars['String']>;
+};
+
+
+/** The type of preview you want to display (I.e. alignLeft, Image full-size, etc) [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/previewContentType) */
+export type PreviewContentTypeLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** The type of preview you want to display (I.e. alignLeft, Image full-size, etc) [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/previewContentType) */
+export type PreviewContentTypeTypeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type PreviewContentTypeCollection = {
+  __typename?: 'PreviewContentTypeCollection';
+  items: Array<Maybe<PreviewContentType>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type PreviewContentTypeFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PreviewContentTypeFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<PreviewContentTypeFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  sys?: InputMaybe<SysFilter>;
+  type?: InputMaybe<Scalars['String']>;
+  type_contains?: InputMaybe<Scalars['String']>;
+  type_exists?: InputMaybe<Scalars['Boolean']>;
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  type_not?: InputMaybe<Scalars['String']>;
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PreviewContentTypeLinkingCollections = {
+  __typename?: 'PreviewContentTypeLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  subsectionPreviewCollection?: Maybe<SubsectionPreviewCollection>;
+};
+
+
+export type PreviewContentTypeLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type PreviewContentTypeLinkingCollectionsSubsectionPreviewCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum PreviewContentTypeOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC'
+}
+
 /** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
 export type Projects = Entry & {
   __typename?: 'Projects';
@@ -640,6 +718,8 @@ export type Query = {
   colour?: Maybe<Colour>;
   colourCollection?: Maybe<ColourCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  previewContentType?: Maybe<PreviewContentType>;
+  previewContentTypeCollection?: Maybe<PreviewContentTypeCollection>;
   projects?: Maybe<Projects>;
   projectsCollection?: Maybe<ProjectsCollection>;
   slugUrl?: Maybe<SlugUrl>;
@@ -692,6 +772,23 @@ export type QueryEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EntryFilter>;
+};
+
+
+export type QueryPreviewContentTypeArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryPreviewContentTypeCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PreviewContentTypeOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PreviewContentTypeFilter>;
 };
 
 
@@ -1007,13 +1104,22 @@ export enum SubsectionOrder {
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
 export type SubsectionPreview = Entry & {
   __typename?: 'SubsectionPreview';
+  contentType?: Maybe<PreviewContentType>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<SubsectionPreviewLinkingCollections>;
   previewDescription?: Maybe<Scalars['String']>;
   previewImage?: Maybe<Asset>;
   sys: Sys;
   title?: Maybe<Scalars['String']>;
+  titleFontSize?: Maybe<Scalars['String']>;
   url?: Maybe<SlugUrl>;
+};
+
+
+/** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
+export type SubsectionPreviewContentTypeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -1043,6 +1149,12 @@ export type SubsectionPreviewTitleArgs = {
 
 
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
+export type SubsectionPreviewTitleFontSizeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
 export type SubsectionPreviewUrlArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -1059,6 +1171,8 @@ export type SubsectionPreviewCollection = {
 export type SubsectionPreviewFilter = {
   AND?: InputMaybe<Array<InputMaybe<SubsectionPreviewFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<SubsectionPreviewFilter>>>;
+  contentType?: InputMaybe<CfPreviewContentTypeNestedFilter>;
+  contentType_exists?: InputMaybe<Scalars['Boolean']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   previewDescription?: InputMaybe<Scalars['String']>;
   previewDescription_contains?: InputMaybe<Scalars['String']>;
@@ -1070,6 +1184,13 @@ export type SubsectionPreviewFilter = {
   previewImage_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
+  titleFontSize?: InputMaybe<Scalars['String']>;
+  titleFontSize_contains?: InputMaybe<Scalars['String']>;
+  titleFontSize_exists?: InputMaybe<Scalars['Boolean']>;
+  titleFontSize_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  titleFontSize_not?: InputMaybe<Scalars['String']>;
+  titleFontSize_not_contains?: InputMaybe<Scalars['String']>;
+  titleFontSize_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   title_contains?: InputMaybe<Scalars['String']>;
   title_exists?: InputMaybe<Scalars['Boolean']>;
   title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1113,6 +1234,8 @@ export enum SubsectionPreviewOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleFontSizeAsc = 'titleFontSize_ASC',
+  TitleFontSizeDesc = 'titleFontSize_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
@@ -1199,6 +1322,20 @@ export type CfColourNestedFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type CfPreviewContentTypeNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfPreviewContentTypeNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfPreviewContentTypeNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  sys?: InputMaybe<SysFilter>;
+  type?: InputMaybe<Scalars['String']>;
+  type_contains?: InputMaybe<Scalars['String']>;
+  type_exists?: InputMaybe<Scalars['Boolean']>;
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  type_not?: InputMaybe<Scalars['String']>;
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
 export type CfSlugUrlNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSlugUrlNestedFilter>>>;
@@ -1216,6 +1353,7 @@ export type CfSlugUrlNestedFilter = {
 export type CfSubsectionPreviewNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSubsectionPreviewNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSubsectionPreviewNestedFilter>>>;
+  contentType_exists?: InputMaybe<Scalars['Boolean']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   previewDescription?: InputMaybe<Scalars['String']>;
   previewDescription_contains?: InputMaybe<Scalars['String']>;
@@ -1227,6 +1365,13 @@ export type CfSubsectionPreviewNestedFilter = {
   previewImage_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
+  titleFontSize?: InputMaybe<Scalars['String']>;
+  titleFontSize_contains?: InputMaybe<Scalars['String']>;
+  titleFontSize_exists?: InputMaybe<Scalars['Boolean']>;
+  titleFontSize_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  titleFontSize_not?: InputMaybe<Scalars['String']>;
+  titleFontSize_not_contains?: InputMaybe<Scalars['String']>;
+  titleFontSize_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   title_contains?: InputMaybe<Scalars['String']>;
   title_exists?: InputMaybe<Scalars['Boolean']>;
   title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
