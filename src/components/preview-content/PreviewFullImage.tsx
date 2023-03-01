@@ -32,10 +32,13 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
     <Grid container className="preview-content-grid">
       <PreviewContentImage
         loaded={loaded}
+        fadeLeft
         ref={ref}
         onLoad={onLoad}
         previewImageURL={previewImage?.url || ""}
         className="preview-fill-image__background"
+        delay={700}
+        duration={800}
         width="100%"
       />
       <Fade delay={800} duration={600} when={loaded} distance="70em">
