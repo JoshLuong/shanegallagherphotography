@@ -41,7 +41,7 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
         duration={800}
         width="100%"
       />
-      <Fade delay={800} duration={600} when={loaded} distance="70em">
+      <Fade delay={1000} duration={700} when={loaded} distance="70em">
         <div
           className="preview-content__subsection-text-container preview-content__subsection-text-container-full-image"
           style={{ opacity: 1 }}
