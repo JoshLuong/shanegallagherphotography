@@ -3,6 +3,7 @@ import Instagram from "../../svg/instagram.svg";
 import Mail from "../../svg/mail.svg";
 import { useState } from "react";
 import MenuBarContent from "./MenuBarContent";
+import { Button } from "@mui/material";
 
 const MenuBar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -20,12 +21,12 @@ const MenuBar = () => {
       </div>
       <div
         className="menu-bar__container"
-        onClick={() => setShowMenu(!showMenu)}
       >
-        <div className="menu-bar__hamburger-lines">
-          <span className="line line1"></span>
+        <div className="menu-bar__hamburger-lines" onClick={() => setShowMenu(!showMenu)}>
+          <Button className="menu-bar__hamburger-button"><span className="line line1"></span>
           <span className="line line2"></span>
-          <span className="line line3"></span>
+          <span className="line line3"></span></Button>
+          
         </div>
         <div className="menu-bar__content-container">
           <div className="menu-bar__content">

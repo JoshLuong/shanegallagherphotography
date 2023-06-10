@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import { SUBSECTION_QUERY } from "../gql/LandingPageQuery";
 import MenuBar from "../menu/MenuBar";
 import { Subsection } from "../../__generated__/graphql";
+import { useNavigate } from "react-router-dom";
 
 export const NO_SECTION_OPEN = -1;
 
@@ -13,6 +14,7 @@ const LandingPage = () => {
   const [openSection, setOpenSection] = useState<number>(NO_SECTION_OPEN);
   const [fastAnimation, setFastAnimation] = useState<boolean>(false);
   const { loading, data } = useQuery(SUBSECTION_QUERY as any);
+  const navigate = useNavigate();
 
   if (loading || !data) {
     return <div>Loading</div>;
@@ -54,6 +56,7 @@ const LandingPage = () => {
                   <LandingPageSection
                     openSection={openSection}
                     onClick={onOpen}
+                    onMobileClick={() => navigate(`/projects/${previewContent?.url?.id}`)}
                     fastAnimation={fastAnimation}
                     containerWidth={width || undefined}
                     {...props}

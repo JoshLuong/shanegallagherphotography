@@ -7,9 +7,11 @@ import {
 } from "../../common/windowDimensions";
 import { NO_SECTION_OPEN } from "./LandingPage";
 import "./LandingPageSection.less";
+import Marquee from "react-fast-marquee";
 
 interface LandingPageSectionProps {
   onClick?: () => void;
+  onMobileClick:() => void;
   title: string;
   backgroundColor: string;
   titleColor: string;
@@ -38,6 +40,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   backgroundColor,
   titleColor,
   onClick,
+  onMobileClick,
   openSection,
   containerWidth,
   fastAnimation,
@@ -59,6 +62,8 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
+const mobileView = windowDimensions.width <= 800;
+
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setFontSizeHandler = () => {
@@ -130,6 +135,9 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
 
   useEffect(() => {
     var elem: any = document.getElementById("idtest");
+    if (!elem) { 
+      return
+    }
     console.log(elem);
     var style = window.getComputedStyle(elem, null);
     var frame = style.getPropertyValue("z-index");
@@ -138,17 +146,26 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fastAnimation]);
 
+  const handleSubsectionClick = () => {
+    if (mobileView) {
+      onMobileClick();
+    } else {
+      onClick && onClick();
+    }
+  }
+
   return (
     <BlackTooltip title={title} followCursor>
       <div
         className="landing-page-section__container"
         style={{ ...styles }}
-        onClick={onClick}
+        onClick={handleSubsectionClick}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
         <div ref={textContainerRef} className="landing-page-section__title">
-          <p
+          {
+            mobileView ? <Marquee speed={100}><div>{title}&nbsp;</div></Marquee> : <p
             id="idtest"
             style={{
               transition: "animation 180s",
@@ -176,6 +193,8 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
                 );
               })}
           </p>
+          }
+          
         </div>
       </div>
     </BlackTooltip>
