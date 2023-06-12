@@ -177,48 +177,48 @@ var client_ = __webpack_require__(9114);
 ;// CONCATENATED MODULE: ./gql/landing-page-query.ts
 
 const previewContentFragment = client_.gql`
-  fragment PreviewContent on SubsectionPreview {
-    previewDescription
-    titleFontSize
-    previewImage {
-      url
+    fragment PreviewContent on SubsectionPreview {
+        previewDescription
+        titleFontSize
+        previewImage {
+            url
+        }
+        title
+        url {
+            id
+        }
+        contentType {
+            type
+        }
     }
-    title
-    url {
-      id
-    }
-    contentType {
-      type
-    }
-  }
 `;
 const colourSchemeFragment = client_.gql`
-  fragment ColourScheme on Colour {
-    primary
-    secondary
-    tertiary
-  }
+    fragment ColourScheme on Colour {
+        primary
+        secondary
+        tertiary
+    }
 `;
 const subsectionQuery = client_.gql`
-  query GetSubSections {
-    subsectionCollection(order: sys_firstPublishedAt_ASC) {
-      items {
-        title
-        width
-        primaryColor
-        secondaryColor
-        tertiaryColor
-        previewContent {
-          ...PreviewContent
+    query GetSubSections {
+        subsectionCollection(order: sys_firstPublishedAt_ASC) {
+            items {
+                title
+                width
+                primaryColor
+                secondaryColor
+                tertiaryColor
+                previewContent {
+                    ...PreviewContent
+                }
+                colourScheme {
+                    ...ColourScheme
+                }
+            }
         }
-        colourScheme {
-          ...ColourScheme
-        }
-      }
     }
-  }
-  ${previewContentFragment}
-  ${colourSchemeFragment}
+    ${previewContentFragment}
+    ${colourSchemeFragment}
 `;
 
 // EXTERNAL MODULE: external "react"
@@ -328,7 +328,8 @@ const LandingPageSection = ({ title , backgroundColor , titleColor , onClick , o
         setFontSizeHandler();
         // set a timer
         const timer = setTimeout(()=>{
-            setShowInitialBackgroundColor(false); // set class to none
+            setShowInitialBackgroundColor(false) // set class to none
+            ;
         }, 450 + index * 75);
         // don't forget to clear in cleanup
         return ()=>{

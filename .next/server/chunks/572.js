@@ -4117,7 +4117,7 @@ if (!("getAll" in Headers.prototype)) {
 
 /***/ }),
 
-/***/ 1088:
+/***/ 222:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -4226,7 +4226,7 @@ Object.defineProperty(exports, "NextURL", ({
         return NextURL;
     }
 }));
-const _detectdomainlocale = __webpack_require__(7138);
+const _detectdomainlocale = __webpack_require__(2207);
 const _formatnextpathnameinfo = __webpack_require__(7723);
 const _gethostname = __webpack_require__(6056);
 const _getnextpathnameinfo = __webpack_require__(9433);
@@ -4888,7 +4888,7 @@ _export(exports, {
 });
 const _nexturl = __webpack_require__(3369);
 const _utils = __webpack_require__(7252);
-const _error = __webpack_require__(1088);
+const _error = __webpack_require__(222);
 const _cookies = __webpack_require__(4521);
 const INTERNALS = Symbol("internal request");
 class NextRequest extends Request {
@@ -5280,7 +5280,7 @@ function getHostname(parsed, headers) {
 
 /***/ }),
 
-/***/ 7138:
+/***/ 2207:
 /***/ ((__unused_webpack_module, exports) => {
 
 

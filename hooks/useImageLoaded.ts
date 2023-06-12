@@ -1,18 +1,18 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react'
 
 export const useImageLoaded = () => {
-  const [loaded, setLoaded] = useState(false);
-  const ref = useRef<HTMLImageElement>();
+    const [loaded, setLoaded] = useState(false)
+    const ref = useRef<HTMLImageElement>()
 
-  const onLoad: any = () => {
-    setLoaded(true);
-  };
-
-  useEffect(() => {
-    if (ref.current && ref.current.complete) {
-      onLoad();
+    const onLoad: any = () => {
+        setLoaded(true)
     }
-  });
 
-  return [ref, loaded, onLoad];
-};
+    useEffect(() => {
+        if (ref.current && ref.current.complete) {
+            onLoad()
+        }
+    })
+
+    return [ref, loaded, onLoad]
+}

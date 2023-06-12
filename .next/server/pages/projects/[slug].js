@@ -74,39 +74,39 @@ var client_ = __webpack_require__(9114);
 ;// CONCATENATED MODULE: ./gql/project-page-query.ts
 
 const projectContentFragment = client_.gql`
-  fragment ProjectContent on Projects {
-    title
-    galleryCollection {
-      items {
-        url
-      }
+    fragment ProjectContent on Projects {
+        title
+        galleryCollection {
+            items {
+                url
+            }
+        }
+        description {
+            json
+        }
     }
-    description {
-      json
-    }
-  }
 `;
 const projectPageQuery = client_.gql`
-  query GetProjectBySlug($slug: String!) {
-    projectsCollection(where: { url: { id: $slug } }) {
-      items {
-        ...ProjectContent
-      }
+    query GetProjectBySlug($slug: String!) {
+        projectsCollection(where: { url: { id: $slug } }) {
+            items {
+                ...ProjectContent
+            }
+        }
     }
-  }
-  ${projectContentFragment}
+    ${projectContentFragment}
 `;
 
 ;// CONCATENATED MODULE: ./gql/slug-urls-query.ts
 
 const slugUrlsQuery = client_.gql`
     query GetSlugUrls {
-        slugUrlCollection{
-    items{
-        id
+        slugUrlCollection {
+            items {
+                id
+            }
+        }
     }
- }
-}
 `;
 
 ;// CONCATENATED MODULE: ./pages/projects/[slug].tsx
@@ -189,7 +189,7 @@ const getStaticPaths = async ()=>{
         paths: [
             ...slugs
         ],
-        fallback: true //indicates the type of fallback
+        fallback: true
     };
 };
 

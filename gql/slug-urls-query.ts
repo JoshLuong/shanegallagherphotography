@@ -1,11 +1,11 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const slugUrlsQuery = gql`
     query GetSlugUrls {
-        slugUrlCollection{
-    items{
-        id
+        slugUrlCollection {
+            items {
+                id
+            }
+        }
     }
- }
-}
-`;
+`
