@@ -35,20 +35,30 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
         <Fade delay={300} duration={1800}>
             <div className={styles.previewRightImageContent__container}>
                 <PreviewContentDate
-                    date="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    date={
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                            <div
+                                className={
+                                    styles.previewRightImageContent__textType
+                                }
+                            >
+                                Lorem ipsum dolor sit amet.
+                            </div>
+                        </div>
+                    }
                     className={styles.previewContent__subsectionDateRight}
                 />
                 <div
                     className={styles.previewRightImageContent__imagesContainer}
                 >
-                    <Link href={`/projects/${url?.id}`}>
-                        {[1, 2, 3].map((_, index) => (
-                            <div
-                                key={index}
-                                className={
-                                    styles.previewRightImageContent__image
-                                }
-                            >
+                    {[1, 2, 3].map((_, index) => (
+                        <div
+                            key={index}
+                            className={styles.previewRightImageContent__image}
+                        >
+                            <Link href={`/projects/${url?.id}`}>
                                 <PreviewContentImage
                                     loaded={loaded}
                                     width="100%"
@@ -56,10 +66,14 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
                                     onLoad={onLoad}
                                     previewImageURL={previewImage?.url || ''}
                                 />
-                            </div>
-                        ))}
-                    </Link>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
+                <PreviewContentDate
+                    date="Lorem ipsum dolor sit amet."
+                    className={styles.previewRightImageContent__subText}
+                />
             </div>
         </Fade>
     )

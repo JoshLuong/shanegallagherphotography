@@ -62,7 +62,7 @@ class MyDocument extends (document_default()) {
                             href: "https://fonts.gstatic.com"
                         }),
                         /*#__PURE__*/ jsx_runtime.jsx("link", {
-                            href: "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&display=swap",
+                            href: "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=swap",
                             rel: "stylesheet"
                         }),
                         /*#__PURE__*/ jsx_runtime.jsx("meta", {

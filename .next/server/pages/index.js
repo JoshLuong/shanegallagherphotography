@@ -95,7 +95,9 @@ module.exports = {
 module.exports = {
 	"previewRightImageContent__container": "PreviewRightImageContent_previewRightImageContent__container__Ftjmf",
 	"previewRightImageContent__imagesContainer": "PreviewRightImageContent_previewRightImageContent__imagesContainer__MC3e8",
-	"previewRightImageContent__image": "PreviewRightImageContent_previewRightImageContent__image__JgCnE"
+	"previewRightImageContent__image": "PreviewRightImageContent_previewRightImageContent__image__JgCnE",
+	"previewRightImageContent__subText": "PreviewRightImageContent_previewRightImageContent__subText__JQZTX",
+	"previewRightImageContent__textType": "PreviewRightImageContent_previewRightImageContent__textType__jkApr"
 };
 
 
@@ -541,6 +543,7 @@ var PreviewLeftImageContent_module_default = /*#__PURE__*/__webpack_require__.n(
 
 
 
+
 const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
     const [ref, loaded, onLoad] = useImageLoaded();
     console.log("left");
@@ -557,7 +560,18 @@ const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
         children: [
             /*#__PURE__*/ jsx_runtime.jsx("div", {
                 className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__text,
-                children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                children: /*#__PURE__*/ jsx_runtime.jsx(material_.Fade, {
+                    in: true,
+                    timeout: {
+                        enter: 1000
+                    },
+                    style: {
+                        transitionDelay: `300ms`
+                    },
+                    children: /*#__PURE__*/ jsx_runtime.jsx("span", {
+                        children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    })
+                })
             }),
             /*#__PURE__*/ jsx_runtime.jsx("div", {
                 className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__imagesContainer,
@@ -636,19 +650,27 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
             className: (PreviewRightImageContent_module_default()).previewRightImageContent__container,
             children: [
                 /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                    date: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    date: /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
+                        children: [
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            /*#__PURE__*/ jsx_runtime.jsx("div", {
+                                className: (PreviewRightImageContent_module_default()).previewRightImageContent__textType,
+                                children: "Lorem ipsum dolor sit amet."
+                            })
+                        ]
+                    }),
                     className: (PreviewRightImageContent_module_default()).previewContent__subsectionDateRight
                 }),
                 /*#__PURE__*/ jsx_runtime.jsx("div", {
                     className: (PreviewRightImageContent_module_default()).previewRightImageContent__imagesContainer,
-                    children: /*#__PURE__*/ jsx_runtime.jsx((link_default()), {
-                        href: `/projects/${url?.id}`,
-                        children: [
-                            1,
-                            2,
-                            3
-                        ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
-                                className: (PreviewRightImageContent_module_default()).previewRightImageContent__image,
+                    children: [
+                        1,
+                        2,
+                        3
+                    ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
+                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__image,
+                            children: /*#__PURE__*/ jsx_runtime.jsx((link_default()), {
+                                href: `/projects/${url?.id}`,
                                 children: /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
                                     loaded: loaded,
                                     width: "100%",
@@ -656,8 +678,12 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
                                     onLoad: onLoad,
                                     previewImageURL: previewImage?.url || ""
                                 })
-                            }, index))
-                    })
+                            })
+                        }, index))
+                }),
+                /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
+                    date: "Lorem ipsum dolor sit amet.",
+                    className: (PreviewRightImageContent_module_default()).previewRightImageContent__subText
                 })
             ]
         })

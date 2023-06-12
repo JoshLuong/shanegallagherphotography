@@ -3,7 +3,7 @@
     height: 100vh;
     align-items: center;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     overflow: hidden; // prevent extra spacing!
 }
 
@@ -11,11 +11,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 1.25em;
     width: 60%;
 }
 
 .previewRightImageContent__image {
     min-height: 0;
     width: 80%;
+}
+
+.previewRightImageContent__subText.previewRightImageContent__subText {
+    font-size: 1em;
+    align-self: start;
+    text-align: end;
+    margin-top: 3em;
+}
+
+.previewRightImageContent__textType,
+.previewRightImageContent__subText {
+    font-family: 'Cabin', sans-serif;
+    font-size: 0.7em;
 }

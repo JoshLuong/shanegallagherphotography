@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styles from '../../styles/PreviewContentDate.module.less'
 // TODO more import??
 
 interface PreviewContentDateProps {
-    date: string
+    date: string | ReactNode
     className?: string
 }
 const PreviewContentDate: React.FC<PreviewContentDateProps> = ({

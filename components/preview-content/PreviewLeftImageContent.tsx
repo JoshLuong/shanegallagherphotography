@@ -29,7 +29,17 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
     return (
         <div className={styles.previewLeftImageContent__container}>
             <div className={styles.previewLeftImageContent__text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <Fade
+                    in={true}
+                    timeout={{
+                        enter: 1000,
+                    }}
+                    style={{ transitionDelay: `300ms` }}
+                >
+                    <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </span>
+                </Fade>
             </div>
             <div
                 className={styles.previewLeftImageContent__imagesContainer}

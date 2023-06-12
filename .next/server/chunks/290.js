@@ -507,7 +507,7 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 1242:
+/***/ 2207:
 /***/ ((module, exports) => {
 
 "use strict";
@@ -572,7 +572,7 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 2488:
+/***/ 222:
 /***/ ((module, exports) => {
 
 "use strict";
@@ -627,9 +627,9 @@ const _addlocale = __webpack_require__(3331);
 const _routercontext = __webpack_require__(4964);
 const _approutercontext = __webpack_require__(3280);
 const _useintersection = __webpack_require__(5322);
-const _getdomainlocale = __webpack_require__(2488);
+const _getdomainlocale = __webpack_require__(222);
 const _addbasepath = __webpack_require__(8010);
-const _routerreducertypes = __webpack_require__(1242);
+const _routerreducertypes = __webpack_require__(2207);
 const prefetched = new Set();
 function prefetch(router, href, as, options, appOptions, isAppRouter) {
     if (true) {
