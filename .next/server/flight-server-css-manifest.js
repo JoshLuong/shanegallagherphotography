@@ -1,1 +1,1 @@
-self.__RSC_CSS_MANIFEST="{\n  \"cssImports\": {},\n  \"cssModules\": {}\n}"
+self.__RSC_CSS_MANIFEST="{\"cssImports\":{},\"cssModules\":{}}"
