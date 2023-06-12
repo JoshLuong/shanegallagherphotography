@@ -128,7 +128,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9047:
+/***/ 5986:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -474,8 +474,8 @@ var SubSection_module_default = /*#__PURE__*/__webpack_require__.n(SubSection_mo
 // EXTERNAL MODULE: ./node_modules/next/image.js
 var next_image = __webpack_require__(5675);
 var image_default = /*#__PURE__*/__webpack_require__.n(next_image);
-// EXTERNAL MODULE: external "react-awesome-reveal"
-var external_react_awesome_reveal_ = __webpack_require__(6762);
+;// CONCATENATED MODULE: external "react-awesome-reveal"
+const external_react_awesome_reveal_namespaceObject = require("react-awesome-reveal");
 // EXTERNAL MODULE: ./styles/PreviewContentImage.module.less
 var PreviewContentImage_module = __webpack_require__(8696);
 var PreviewContentImage_module_default = /*#__PURE__*/__webpack_require__.n(PreviewContentImage_module);
@@ -488,7 +488,7 @@ const PreviewContentImage = ({ previewImageURL , ref , onLoad , loaded , classNa
     const loaderProp = ({ src  })=>{
         return src;
     };
-    return /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_.Fade, {
+    return /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_namespaceObject.Fade, {
         delay: delay ?? 500,
         duration: duration ?? 1200,
         className: (PreviewContentImage_module_default()).previewContent__imageContainer,
@@ -604,7 +604,11 @@ const router_namespaceObject = require("next/router");
 // EXTERNAL MODULE: ./styles/PreviewRightImageContent.module.less
 var PreviewRightImageContent_module = __webpack_require__(5300);
 var PreviewRightImageContent_module_default = /*#__PURE__*/__webpack_require__.n(PreviewRightImageContent_module);
+// EXTERNAL MODULE: ./node_modules/next/link.js
+var next_link = __webpack_require__(1664);
+var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 ;// CONCATENATED MODULE: ./components/preview-content/PreviewRightImageContent.tsx
+
 
 
 
@@ -624,7 +628,7 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
         fontSize: subsectionContent.titleFontSize
     } : {};
     const onNavigate = ()=>router.push(`/projects/${url?.id}`);
-    return /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_.Fade, {
+    return /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_namespaceObject.Fade, {
         delay: 300,
         duration: 1800,
         children: /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
@@ -636,21 +640,23 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
                 }),
                 /*#__PURE__*/ jsx_runtime.jsx("div", {
                     className: (PreviewRightImageContent_module_default()).previewRightImageContent__imagesContainer,
-                    onClick: ()=>onNavigate(),
-                    children: [
-                        1,
-                        2,
-                        3
-                    ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
-                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__image,
-                            children: /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
-                                loaded: loaded,
-                                width: "100%",
-                                ref: ref,
-                                onLoad: onLoad,
-                                previewImageURL: previewImage?.url || ""
-                            })
-                        }, index))
+                    children: /*#__PURE__*/ jsx_runtime.jsx((link_default()), {
+                        href: `/projects/${url?.id}`,
+                        children: [
+                            1,
+                            2,
+                            3
+                        ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
+                                className: (PreviewRightImageContent_module_default()).previewRightImageContent__image,
+                                children: /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
+                                    loaded: loaded,
+                                    width: "100%",
+                                    ref: ref,
+                                    onLoad: onLoad,
+                                    previewImageURL: previewImage?.url || ""
+                                })
+                            }, index))
+                    })
                 })
             ]
         })
@@ -1042,6 +1048,62 @@ module.exports = require("next/dist/shared/lib/image-loader");
 
 /***/ }),
 
+/***/ 4964:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router-context.js");
+
+/***/ }),
+
+/***/ 1751:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/add-path-prefix.js");
+
+/***/ }),
+
+/***/ 3938:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/format-url.js");
+
+/***/ }),
+
+/***/ 1109:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/is-local-url.js");
+
+/***/ }),
+
+/***/ 8854:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/parse-path.js");
+
+/***/ }),
+
+/***/ 3297:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/remove-trailing-slash.js");
+
+/***/ }),
+
+/***/ 7782:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/resolve-href.js");
+
+/***/ }),
+
 /***/ 3349:
 /***/ ((module) => {
 
@@ -1055,6 +1117,14 @@ module.exports = require("next/dist/shared/lib/server-inserted-html.js");
 
 "use strict";
 module.exports = require("next/dist/shared/lib/side-effect.js");
+
+/***/ }),
+
+/***/ 9232:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils.js");
 
 /***/ }),
 
@@ -1072,14 +1142,6 @@ module.exports = require("next/dist/shared/lib/utils/warn-once.js");
 "use strict";
 module.exports = require("react");
 
-/***/ }),
-
-/***/ 6762:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("react-awesome-reveal");
-
 /***/ })
 
 };
@@ -1089,7 +1151,7 @@ module.exports = require("react-awesome-reveal");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,49,577,115], () => (__webpack_exec__(9047)));
+var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,49,290,115], () => (__webpack_exec__(5986)));
 module.exports = __webpack_exports__;
 
 })();

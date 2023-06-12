@@ -52,7 +52,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7384:
+/***/ 3670:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -100,68 +100,34 @@ var Instagram_default = /*#__PURE__*/__webpack_require__.n(Instagram_namespaceOb
 ;// CONCATENATED MODULE: external "@mui/icons-material/Email"
 const Email_namespaceObject = require("@mui/icons-material/Email");
 var Email_default = /*#__PURE__*/__webpack_require__.n(Email_namespaceObject);
+// EXTERNAL MODULE: external "@mui/material"
+var material_ = __webpack_require__(5692);
 // EXTERNAL MODULE: ./styles/MenuBarContent.module.less
 var MenuBarContent_module = __webpack_require__(2976);
 var MenuBarContent_module_default = /*#__PURE__*/__webpack_require__.n(MenuBarContent_module);
-;// CONCATENATED MODULE: external "@mui/material/Unstable_Grid2"
-const Unstable_Grid2_namespaceObject = require("@mui/material/Unstable_Grid2");
-var Unstable_Grid2_default = /*#__PURE__*/__webpack_require__.n(Unstable_Grid2_namespaceObject);
-// EXTERNAL MODULE: external "react-awesome-reveal"
-var external_react_awesome_reveal_ = __webpack_require__(6762);
 ;// CONCATENATED MODULE: ./components/menu/MenuBarContent.tsx
 
 
- // Grid2 version 2
 
 const MenuBarContent = ()=>{
-    const getChildLinks = (subSectionContent)=>{
-        return subSectionContent.map((child, index)=>{
-            const comma = index < subSectionContent.length - 1 ? ", " : "";
-            return /*#__PURE__*/ (0,jsx_runtime.jsxs)("span", {
-                className: (MenuBarContent_module_default()).menuBarContent__childLinks,
-                children: [
-                    child.title,
-                    comma
-                ]
-            }, index);
-        });
-    };
-    return /*#__PURE__*/ (0,jsx_runtime.jsxs)((Unstable_Grid2_default()), {
-        xs: 12,
-        container: true,
-        height: "100%",
+    return /*#__PURE__*/ jsx_runtime.jsx("div", {
         className: (MenuBarContent_module_default()).menuBarContent__container,
-        children: [
-            /*#__PURE__*/ jsx_runtime.jsx((Unstable_Grid2_default()), {
-                xs: 10,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "start",
-                children: /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_.Fade, {
-                    duration: 900,
-                    delay: 700
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime.jsx((Unstable_Grid2_default()), {
-                xs: 2,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "start",
-                margin: "auto",
-                className: (MenuBarContent_module_default()).menuBarContent__about,
-                children: /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_.Fade, {
-                    duration: 900,
-                    delay: 700,
+        children: /*#__PURE__*/ jsx_runtime.jsx("div", {
+            className: (MenuBarContent_module_default()).menuBarContent__about,
+            children: /*#__PURE__*/ jsx_runtime.jsx(material_.Fade, {
+                in: true,
+                timeout: {
+                    enter: 1700
+                },
+                children: /*#__PURE__*/ jsx_runtime.jsx("div", {
                     children: "About"
                 })
             })
-        ]
+        })
     });
 };
 /* harmony default export */ const menu_MenuBarContent = (MenuBarContent);
 
-// EXTERNAL MODULE: external "@mui/material"
-var material_ = __webpack_require__(5692);
 ;// CONCATENATED MODULE: ./components/menu/MenuBar.tsx
 
 
@@ -192,10 +158,10 @@ const MenuBar = ()=>{
                 children: [
                     /*#__PURE__*/ jsx_runtime.jsx("div", {
                         className: (MenuBar_module_default()).menuBar__hamburgerLines,
-                        onClick: ()=>setShowMenu(!showMenu),
                         children: /*#__PURE__*/ (0,jsx_runtime.jsxs)(material_.Button, {
                             className: (MenuBar_module_default()).menuBar__hamburgerButton,
                             "aria-label": "Hamburger menu button",
+                            onClick: ()=>setShowMenu(!showMenu),
                             children: [
                                 /*#__PURE__*/ jsx_runtime.jsx("span", {
                                     className: `${(MenuBar_module_default()).line} ${(MenuBar_module_default()).line1}`
@@ -359,14 +325,6 @@ module.exports = require("next/dist/server/render.js");
 "use strict";
 module.exports = require("react");
 
-/***/ }),
-
-/***/ 6762:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("react-awesome-reveal");
-
 /***/ })
 
 };
@@ -376,7 +334,7 @@ module.exports = require("react-awesome-reveal");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [812], () => (__webpack_exec__(7384)));
+var __webpack_exports__ = __webpack_require__.X(0, [812], () => (__webpack_exec__(3670)));
 module.exports = __webpack_exports__;
 
 })();

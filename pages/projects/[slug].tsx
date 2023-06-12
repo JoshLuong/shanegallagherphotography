@@ -7,6 +7,8 @@ import styles from "../../styles/project.module.less";
 import Image from "next/image";
 import { GetStaticPaths, InferGetStaticPropsType } from "next";
 import { projectPageQuery } from "@/gql/project-page-query";
+import { slugUrlsQuery } from "@/gql/slug-urls-query";
+import { SlugUrl } from "@/types/graphql";
 
 
 export default function Project({ items }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -65,9 +67,17 @@ export async function getStaticProps() {
 
   export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
+    const { data } = await client.query({
+      query: slugUrlsQuery,
+    });
+    const slugs = data.slugUrlCollection.items.map((url: SlugUrl): {params: {slug: string}} => ({
+      params: { slug: url.id || "" },
+  }))
     return {
-        paths: [], //indicates that no page needs be created at build time
-        fallback: 'blocking' //indicates the type of fallback
+        paths: [
+          ...slugs
+        ], //indicates that no page needs be created at build time
+        fallback: true //indicates the type of fallback
     }
 }
   

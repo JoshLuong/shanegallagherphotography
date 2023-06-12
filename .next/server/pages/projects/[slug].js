@@ -17,7 +17,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 897:
+/***/ 1373:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -97,7 +97,20 @@ const projectPageQuery = client_.gql`
   ${projectContentFragment}
 `;
 
+;// CONCATENATED MODULE: ./gql/slug-urls-query.ts
+
+const slugUrlsQuery = client_.gql`
+    query GetSlugUrls {
+        slugUrlCollection{
+    items{
+        id
+    }
+ }
+}
+`;
+
 ;// CONCATENATED MODULE: ./pages/projects/[slug].tsx
+
 
 
 
@@ -164,9 +177,19 @@ async function getStaticProps() {
     };
 }
 const getStaticPaths = async ()=>{
+    const { data  } = await apollo_client/* default */.Z.query({
+        query: slugUrlsQuery
+    });
+    const slugs = data.slugUrlCollection.items.map((url)=>({
+            params: {
+                slug: url.id || ""
+            }
+        }));
     return {
-        paths: [],
-        fallback: "blocking" //indicates the type of fallback
+        paths: [
+            ...slugs
+        ],
+        fallback: true //indicates the type of fallback
     };
 };
 
@@ -324,7 +347,7 @@ module.exports = require("react");
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,115], () => (__webpack_exec__(897)));
+var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,115], () => (__webpack_exec__(1373)));
 module.exports = __webpack_exports__;
 
 })();

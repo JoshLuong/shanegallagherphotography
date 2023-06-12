@@ -22,9 +22,8 @@ const MenuBar = () => {
       <div className={styles.menuBar__container}>
         <div
           className={styles.menuBar__hamburgerLines}
-          onClick={() => setShowMenu(!showMenu)}
         >
-          <Button className={styles.menuBar__hamburgerButton} aria-label="Hamburger menu button">
+          <Button className={styles.menuBar__hamburgerButton} aria-label="Hamburger menu button" onClick={() => setShowMenu(!showMenu)}>
             <span className={`${styles.line} ${styles.line1}`}></span>
             <span className={`${styles.line} ${styles.line2}`}></span>
             <span className={`${styles.line} ${styles.line3}`}></span>
