@@ -1,0 +1,76 @@
+{
+  "ssrModuleMapping": {},
+  "edgeSSRModuleMapping": {},
+  "clientModules": {
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/Layout.module.less#": {
+      "id": "./styles/Layout.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/MenuBar.module.less#": {
+      "id": "./styles/MenuBar.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/MenuBarContent.module.less#": {
+      "id": "./styles/MenuBarContent.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/global.less#": {
+      "id": "./styles/global.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/LandingPageSection.module.less#": {
+      "id": "./styles/LandingPageSection.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewContentDate.module.less#": {
+      "id": "./styles/PreviewContentDate.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewContentImage.module.less#": {
+      "id": "./styles/PreviewContentImage.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewContentShared.module.less#": {
+      "id": "./styles/PreviewContentShared.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewFullImage.module.less#": {
+      "id": "./styles/PreviewFullImage.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewLeftImageContent.module.less#": {
+      "id": "./styles/PreviewLeftImageContent.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/PreviewRightImageContent.module.less#": {
+      "id": "./styles/PreviewRightImageContent.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/SubSection.module.less#": {
+      "id": "./styles/SubSection.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/index.module.less#": {
+      "id": "./styles/index.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/node_modules/next/font/google/target.css?{\"path\":\"components/landing-page/SubSection.tsx\",\"import\":\"Bebas_Neue\",\"arguments\":[{\"weight\":\"400\",\"subsets\":[\"latin\"]}],\"variableName\":\"bebasNeue\"}#": {
+      "id": "./node_modules/next/font/google/target.css?{\"path\":\"components/landing-page/SubSection.tsx\",\"import\":\"Bebas_Neue\",\"arguments\":[{\"weight\":\"400\",\"subsets\":[\"latin\"]}],\"variableName\":\"bebasNeue\"}",
+      "name": "default",
+      "chunks": []
+    }
+  }
+}
