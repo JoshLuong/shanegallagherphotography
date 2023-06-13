@@ -16,7 +16,6 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
     colourScheme,
 }) => {
     const [ref, loaded, onLoad] = useImageLoaded()
-    console.log('left')
     const router = useRouter()
     if (!subsectionContent) {
         return null
@@ -25,7 +24,6 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
     const { tertiary } = colourScheme
     const onNavigate = () => router.push(`/projects/${url?.id}`)
 
-    console.log('LEFT')
     return (
         <div className={styles.previewLeftImageContent__container}>
             <div className={styles.previewLeftImageContent__text}>
@@ -36,9 +34,29 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
                     }}
                     style={{ transitionDelay: `300ms` }}
                 >
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </span>
+                    <div>
+                        <div
+                            className={
+                                styles.previewLeftImageContent__primaryText
+                            }
+                        >
+                            {title}
+                        </div>
+                        <div
+                            className={
+                                styles.previewLeftImageContent__secondaryText
+                            }
+                        >
+                            Chin Injeti
+                        </div>
+                        <div
+                            className={
+                                styles.previewLeftImageContent__tertiaryText
+                            }
+                        >
+                            Music Video
+                        </div>
+                    </div>
                 </Fade>
             </div>
             <div

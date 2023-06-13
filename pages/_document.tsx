@@ -15,7 +15,7 @@ class MyDocument extends Document {
                     ></link>
                     <meta
                         property="og:title"
-                        content="Mys page title"
+                        content="Shane Gallagher Photography"
                         key="title"
                     />
                 </Head>

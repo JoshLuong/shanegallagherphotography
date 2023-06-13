@@ -14,7 +14,9 @@ const PreviewContentDate: React.FC<PreviewContentDateProps> = ({
         <div
             className={`${styles.previewContent__subsectionDate} ${className}`}
         >
-            <span className={styles.previewContent__rotate}>{date}</span>
+            <span className={styles.previewContent__rotate}>
+                <div className={styles.previewContent__text}>{date}</div>
+            </span>
         </div>
     )
 }

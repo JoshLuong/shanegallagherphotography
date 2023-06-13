@@ -87,10 +87,6 @@ const SubSection: React.FC<SubSectionProps> = ({
     return (
         <div
             className={`${styles.subsection__container} ${bebasNeue.className}`}
-            style={{
-                backgroundColor: `black`,
-                color: `${secondary}`,
-            }}
             role="region"
             id={'subsection__' + subsectionContent?.title}
             tabIndex={show ? 0 : -1}

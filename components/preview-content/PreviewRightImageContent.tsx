@@ -34,22 +34,16 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
     return (
         <Fade delay={300} duration={1800}>
             <div className={styles.previewRightImageContent__container}>
-                <PreviewContentDate
-                    date={
-                        <div>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            <div
-                                className={
-                                    styles.previewRightImageContent__textType
-                                }
-                            >
-                                Lorem ipsum dolor sit amet.
-                            </div>
-                        </div>
-                    }
-                    className={styles.previewContent__subsectionDateRight}
-                />
+                <div className={styles.previewRightImageContent__textContainer}>
+                    <PreviewContentDate
+                        date={title}
+                        className={styles.previewRightImageContent__text}
+                    />
+                    <PreviewContentDate
+                        date={'Watermelon Summer Series'}
+                        className={styles.previewRightImageContent__subtext}
+                    />
+                </div>
                 <div
                     className={styles.previewRightImageContent__imagesContainer}
                 >
@@ -71,7 +65,7 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
                     ))}
                 </div>
                 <PreviewContentDate
-                    date="Lorem ipsum dolor sit amet."
+                    date="Social Content"
                     className={styles.previewRightImageContent__subText}
                 />
             </div>

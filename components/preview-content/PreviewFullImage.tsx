@@ -40,10 +40,23 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
                 duration={800}
                 width="100%"
             />
-            <PreviewContentDate
-                date="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                className={styles.previewFullImageText}
-            />
+            <div className={styles.previewFullImage__textContainer}>
+                <div className={styles.previewFullImage__subtextContainer}>
+                    <PreviewContentDate
+                        date={'With Lucy Guo'}
+                        className={styles.previewFullImage__secondarytext}
+                    />
+                    <PreviewContentDate
+                        date={'Portraits'}
+                        className={styles.previewFullImage__tertiarytext}
+                    />
+                </div>
+
+                <PreviewContentDate
+                    date={title}
+                    className={styles.previewFullImage__mainText}
+                />
+            </div>
         </Grid>
     )
 }
