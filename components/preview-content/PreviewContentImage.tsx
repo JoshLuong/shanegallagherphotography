@@ -1,3 +1,4 @@
+import { loaderProp } from '@/utils/loader-prop'
 import Image from 'next/image'
 import { Fade } from 'react-awesome-reveal'
 import styles from '../../styles/PreviewContentImage.module.less'
@@ -24,9 +25,6 @@ const PreviewContentImage: React.FC<PreviewContentImageProps> = ({
     delay,
     duration,
 }) => {
-    const loaderProp = ({ src }: any) => {
-        return src
-    }
     return (
         <Fade
             delay={delay ?? 500}

@@ -9,6 +9,9 @@ import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { projectPageQuery } from '@/gql/project-page-query'
 import { slugUrlsQuery } from '@/gql/slug-urls-query'
 import { SlugUrl } from '@/types/graphql'
+import { loaderProp } from '@/utils/loader-prop'
+import ResizableImage from '@/components/ResizableImage'
+import { ImageList, ImageListItem } from '@mui/material'
 
 export default function Project({
     items,
@@ -21,36 +24,31 @@ export default function Project({
         }
     })
 
-    const loaderProp = ({ src }: any) => {
-        return src
-    }
     return (
         <div className={styles.projectPage__container}>
-            <h1>{project.title}</h1>
+            <h1 className={styles.projectPage__title}>{project.title}</h1>
             <div>{documentToReactComponents(project.description?.json)}</div>
-            <Masonry columns={3} className={styles.projectPage__masonry}>
-                {gallery &&
-                    gallery.map((url, index): ReactNode => {
-                        // eslint-disable-next-line jsx-a11y/alt-text
-                        return (
-                            <div
+
+            <ImageList variant="quilted" cols={2} gap={15}>
+                {gallery.map((url, index) => (
+                    <ImageListItem key={index} cols={index === 2 ? 2 : 1}>
+                        {index % 2 == 0 ? (
+                            <Image
                                 key={index}
-                                className={styles.projectPage__imageContainer}
-                            >
-                                <Image
-                                    key={index}
-                                    alt={'TODO'}
-                                    src={url}
-                                    width="0"
-                                    height="0"
-                                    style={{ width: '30%', height: '100%' }}
-                                    loader={loaderProp}
-                                    loading="lazy"
-                                />
-                            </div>
-                        )
-                    })}
-            </Masonry>
+                                alt={'TODO'}
+                                src={url}
+                                width="0"
+                                height="0"
+                                style={{ width: '100%', height: '100%' }}
+                                loader={loaderProp}
+                                loading="lazy"
+                            />
+                        ) : (
+                            <ResizableImage src={url} />
+                        )}
+                    </ImageListItem>
+                ))}
+            </ImageList>
         </div>
     )
 }

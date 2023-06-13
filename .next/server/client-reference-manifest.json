@@ -22,11 +22,6 @@
       "name": "default",
       "chunks": []
     },
-    "/Users/I518976/Desktop/shanegallagherphotography/styles/project.module.less#": {
-      "id": "./styles/project.module.less",
-      "name": "default",
-      "chunks": []
-    },
     "/Users/I518976/Desktop/shanegallagherphotography/styles/LandingPageSection.module.less#": {
       "id": "./styles/LandingPageSection.module.less",
       "name": "default",
@@ -74,6 +69,16 @@
     },
     "/Users/I518976/Desktop/shanegallagherphotography/node_modules/next/font/google/target.css?{\"path\":\"components/landing-page/SubSection.tsx\",\"import\":\"Bebas_Neue\",\"arguments\":[{\"weight\":\"400\",\"subsets\":[\"latin\"]}],\"variableName\":\"bebasNeue\"}#": {
       "id": "./node_modules/next/font/google/target.css?{\"path\":\"components/landing-page/SubSection.tsx\",\"import\":\"Bebas_Neue\",\"arguments\":[{\"weight\":\"400\",\"subsets\":[\"latin\"]}],\"variableName\":\"bebasNeue\"}",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/ResizableImage.module.less#": {
+      "id": "./styles/ResizableImage.module.less",
+      "name": "default",
+      "chunks": []
+    },
+    "/Users/I518976/Desktop/shanegallagherphotography/styles/project.module.less#": {
+      "id": "./styles/project.module.less",
       "name": "default",
       "chunks": []
     }
