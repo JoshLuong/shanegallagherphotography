@@ -62,13 +62,17 @@ class MyDocument extends (document_default()) {
                             href: "https://fonts.gstatic.com"
                         }),
                         /*#__PURE__*/ jsx_runtime.jsx("link", {
-                            href: "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=swap",
+                            href: "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=optimal",
                             rel: "stylesheet"
                         }),
                         /*#__PURE__*/ jsx_runtime.jsx("meta", {
                             property: "og:title",
                             content: "Shane Gallagher Photography"
-                        }, "title")
+                        }, "title"),
+                        /*#__PURE__*/ jsx_runtime.jsx("meta", {
+                            name: "google-site-verification",
+                            content: "G4rlfdjaKDHnz_tSloRizbccMB7yh9ClCmh-SH9wd2A"
+                        })
                     ]
                 }),
                 /*#__PURE__*/ (0,jsx_runtime.jsxs)("body", {

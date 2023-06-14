@@ -1,57 +1,59 @@
+import { getBehaviourStyles } from '@/utils/getBehaviourStyles'
 import { loaderProp } from '@/utils/loader-prop'
 import Image from 'next/image'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/ResizableImage.module.less'
 
 interface ResizableImageProps {
     src: string
+    behaviour: string
 }
-const ResizableImage: React.FC<ResizableImageProps> = ({ src }) => {
+
+const ResizableImage: React.FC<ResizableImageProps> = ({ src, behaviour }) => {
     const ref = useRef<HTMLDivElement>(null)
     const [isIntersecting, setIntersecting] = useState(false)
-    const [width, setWidth] = useState<number | null>(null)
-    const [height, setHeight] = useState<number | null>(null)
-    const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [isSeen, setIsSeen] = useState(false)
 
-    let observer: any = null
-
-    useEffect(() => {
-        if (ref?.current && isImageLoaded) {
-            setWidth(ref.current?.clientWidth)
-            setHeight(ref.current?.clientHeight)
-
-            observer = new IntersectionObserver(([entry]) =>
-                setIntersecting(entry.isIntersecting)
-            )
-            observer.observe(ref?.current)
+    const scrollHandler = () => {
+        const offset = ref?.current?.getBoundingClientRect().top || 0
+        if (offset <= 250) {
+            setIntersecting(true)
         }
-        return () => observer?.disconnect()
-    }, [isImageLoaded])
+    }
+    useEffect(() => {
+        window.addEventListener('scroll', scrollHandler, true)
+        return () => {
+            window.removeEventListener('scroll', scrollHandler, true)
+        }
+    }, [])
 
     useEffect(() => {
         if (isIntersecting) {
             setIsSeen(true)
         }
     }, [isIntersecting])
-    // You can add any UI inside Loading, including a Skeleton.
+
+    const style = getBehaviourStyles(behaviour)
     return (
-        <div
-            ref={ref}
-            style={{ width: width ?? '100%', height: height ?? '100%' }}
-        >
+        <div ref={ref} style={{ width: '100%', height: '100%' }}>
             <Image
                 alt={'TODO'}
                 src={src}
                 width="0"
                 height="0"
                 style={{
-                    width: isIntersecting || isSeen ? '50%' : '100%',
-                    height: isIntersecting || isSeen ? '50%' : '100%',
+                    width:
+                        isIntersecting || isSeen
+                            ? style?.endWidth
+                            : style?.startWidth,
+                    height:
+                        isIntersecting || isSeen
+                            ? style?.endHeight
+                            : style?.startHeight,
+                    marginLeft: style?.marginLeft ?? '0',
                 }}
                 loader={loaderProp}
                 loading="lazy"
-                onLoadingComplete={() => setIsImageLoaded(true)}
                 className={styles.resizableImage}
             />
         </div>

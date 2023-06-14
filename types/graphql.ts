@@ -400,6 +400,97 @@ export enum EntryOrder {
     SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
 }
 
+/** This defines the image behaviour (E.g. transition from 100% to 50% on the right side) in the Project page's gallery. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/galleryImageBehaviour) */
+export type GalleryImageBehaviour = Entry & {
+    __typename?: 'GalleryImageBehaviour'
+    behaviour?: Maybe<Scalars['String']>
+    contentfulMetadata: ContentfulMetadata
+    index?: Maybe<Scalars['Int']>
+    linkedFrom?: Maybe<GalleryImageBehaviourLinkingCollections>
+    sys: Sys
+}
+
+/** This defines the image behaviour (E.g. transition from 100% to 50% on the right side) in the Project page's gallery. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/galleryImageBehaviour) */
+export type GalleryImageBehaviourBehaviourArgs = {
+    locale?: InputMaybe<Scalars['String']>
+}
+
+/** This defines the image behaviour (E.g. transition from 100% to 50% on the right side) in the Project page's gallery. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/galleryImageBehaviour) */
+export type GalleryImageBehaviourIndexArgs = {
+    locale?: InputMaybe<Scalars['String']>
+}
+
+/** This defines the image behaviour (E.g. transition from 100% to 50% on the right side) in the Project page's gallery. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/galleryImageBehaviour) */
+export type GalleryImageBehaviourLinkedFromArgs = {
+    allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type GalleryImageBehaviourCollection = {
+    __typename?: 'GalleryImageBehaviourCollection'
+    items: Array<Maybe<GalleryImageBehaviour>>
+    limit: Scalars['Int']
+    skip: Scalars['Int']
+    total: Scalars['Int']
+}
+
+export type GalleryImageBehaviourFilter = {
+    AND?: InputMaybe<Array<InputMaybe<GalleryImageBehaviourFilter>>>
+    OR?: InputMaybe<Array<InputMaybe<GalleryImageBehaviourFilter>>>
+    behaviour?: InputMaybe<Scalars['String']>
+    behaviour_contains?: InputMaybe<Scalars['String']>
+    behaviour_exists?: InputMaybe<Scalars['Boolean']>
+    behaviour_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    behaviour_not?: InputMaybe<Scalars['String']>
+    behaviour_not_contains?: InputMaybe<Scalars['String']>
+    behaviour_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+    index?: InputMaybe<Scalars['Int']>
+    index_exists?: InputMaybe<Scalars['Boolean']>
+    index_gt?: InputMaybe<Scalars['Int']>
+    index_gte?: InputMaybe<Scalars['Int']>
+    index_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+    index_lt?: InputMaybe<Scalars['Int']>
+    index_lte?: InputMaybe<Scalars['Int']>
+    index_not?: InputMaybe<Scalars['Int']>
+    index_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+    sys?: InputMaybe<SysFilter>
+}
+
+export type GalleryImageBehaviourLinkingCollections = {
+    __typename?: 'GalleryImageBehaviourLinkingCollections'
+    entryCollection?: Maybe<EntryCollection>
+    projectsCollection?: Maybe<ProjectsCollection>
+}
+
+export type GalleryImageBehaviourLinkingCollectionsEntryCollectionArgs = {
+    limit?: InputMaybe<Scalars['Int']>
+    locale?: InputMaybe<Scalars['String']>
+    preview?: InputMaybe<Scalars['Boolean']>
+    skip?: InputMaybe<Scalars['Int']>
+}
+
+export type GalleryImageBehaviourLinkingCollectionsProjectsCollectionArgs = {
+    limit?: InputMaybe<Scalars['Int']>
+    locale?: InputMaybe<Scalars['String']>
+    preview?: InputMaybe<Scalars['Boolean']>
+    skip?: InputMaybe<Scalars['Int']>
+}
+
+export enum GalleryImageBehaviourOrder {
+    BehaviourAsc = 'behaviour_ASC',
+    BehaviourDesc = 'behaviour_DESC',
+    IndexAsc = 'index_ASC',
+    IndexDesc = 'index_DESC',
+    SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+    SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+    SysIdAsc = 'sys_id_ASC',
+    SysIdDesc = 'sys_id_DESC',
+    SysPublishedAtAsc = 'sys_publishedAt_ASC',
+    SysPublishedAtDesc = 'sys_publishedAt_DESC',
+    SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+    SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+}
+
 export enum ImageFormat {
     Avif = 'AVIF',
     /** JPG image format. */
@@ -573,6 +664,7 @@ export enum PreviewContentTypeOrder {
 /** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
 export type Projects = Entry & {
     __typename?: 'Projects'
+    behaviourCollection?: Maybe<ProjectsBehaviourCollection>
     contentfulMetadata: ContentfulMetadata
     description?: Maybe<ProjectsDescription>
     galleryCollection?: Maybe<AssetCollection>
@@ -580,6 +672,14 @@ export type Projects = Entry & {
     sys: Sys
     title?: Maybe<Scalars['String']>
     url?: Maybe<SlugUrl>
+}
+
+/** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
+export type ProjectsBehaviourCollectionArgs = {
+    limit?: InputMaybe<Scalars['Int']>
+    locale?: InputMaybe<Scalars['String']>
+    preview?: InputMaybe<Scalars['Boolean']>
+    skip?: InputMaybe<Scalars['Int']>
 }
 
 /** This houses the unique projects and the galleries associate to each. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/projects) */
@@ -609,6 +709,14 @@ export type ProjectsTitleArgs = {
 export type ProjectsUrlArgs = {
     locale?: InputMaybe<Scalars['String']>
     preview?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ProjectsBehaviourCollection = {
+    __typename?: 'ProjectsBehaviourCollection'
+    items: Array<Maybe<GalleryImageBehaviour>>
+    limit: Scalars['Int']
+    skip: Scalars['Int']
+    total: Scalars['Int']
 }
 
 export type ProjectsCollection = {
@@ -647,6 +755,8 @@ export type ProjectsDescriptionLinks = {
 export type ProjectsFilter = {
     AND?: InputMaybe<Array<InputMaybe<ProjectsFilter>>>
     OR?: InputMaybe<Array<InputMaybe<ProjectsFilter>>>
+    behaviour?: InputMaybe<CfGalleryImageBehaviourNestedFilter>
+    behaviourCollection_exists?: InputMaybe<Scalars['Boolean']>
     contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
     description_contains?: InputMaybe<Scalars['String']>
     description_exists?: InputMaybe<Scalars['Boolean']>
@@ -696,6 +806,8 @@ export type Query = {
     colour?: Maybe<Colour>
     colourCollection?: Maybe<ColourCollection>
     entryCollection?: Maybe<EntryCollection>
+    galleryImageBehaviour?: Maybe<GalleryImageBehaviour>
+    galleryImageBehaviourCollection?: Maybe<GalleryImageBehaviourCollection>
     previewContentType?: Maybe<PreviewContentType>
     previewContentTypeCollection?: Maybe<PreviewContentTypeCollection>
     projects?: Maybe<Projects>
@@ -745,6 +857,21 @@ export type QueryEntryCollectionArgs = {
     preview?: InputMaybe<Scalars['Boolean']>
     skip?: InputMaybe<Scalars['Int']>
     where?: InputMaybe<EntryFilter>
+}
+
+export type QueryGalleryImageBehaviourArgs = {
+    id: Scalars['String']
+    locale?: InputMaybe<Scalars['String']>
+    preview?: InputMaybe<Scalars['Boolean']>
+}
+
+export type QueryGalleryImageBehaviourCollectionArgs = {
+    limit?: InputMaybe<Scalars['Int']>
+    locale?: InputMaybe<Scalars['String']>
+    order?: InputMaybe<Array<InputMaybe<GalleryImageBehaviourOrder>>>
+    preview?: InputMaybe<Scalars['Boolean']>
+    skip?: InputMaybe<Scalars['Int']>
+    where?: InputMaybe<GalleryImageBehaviourFilter>
 }
 
 export type QueryPreviewContentTypeArgs = {
@@ -1056,9 +1183,10 @@ export type SubsectionPreview = Entry & {
     contentType?: Maybe<PreviewContentType>
     contentfulMetadata: ContentfulMetadata
     linkedFrom?: Maybe<SubsectionPreviewLinkingCollections>
-    previewDescription?: Maybe<Scalars['String']>
-    previewImage?: Maybe<Asset>
+    previewImagesCollection?: Maybe<AssetCollection>
+    secondaryText?: Maybe<Scalars['String']>
     sys: Sys
+    tertiaryText?: Maybe<Scalars['String']>
     title?: Maybe<Scalars['String']>
     titleFontSize?: Maybe<Scalars['String']>
     url?: Maybe<SlugUrl>
@@ -1076,14 +1204,21 @@ export type SubsectionPreviewLinkedFromArgs = {
 }
 
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
-export type SubsectionPreviewPreviewDescriptionArgs = {
+export type SubsectionPreviewPreviewImagesCollectionArgs = {
+    limit?: InputMaybe<Scalars['Int']>
+    locale?: InputMaybe<Scalars['String']>
+    preview?: InputMaybe<Scalars['Boolean']>
+    skip?: InputMaybe<Scalars['Int']>
+}
+
+/** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
+export type SubsectionPreviewSecondaryTextArgs = {
     locale?: InputMaybe<Scalars['String']>
 }
 
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
-export type SubsectionPreviewPreviewImageArgs = {
+export type SubsectionPreviewTertiaryTextArgs = {
     locale?: InputMaybe<Scalars['String']>
-    preview?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Content for the previews shown in the subsections (upon expand). [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/subsectionPreview) */
@@ -1116,15 +1251,22 @@ export type SubsectionPreviewFilter = {
     contentType?: InputMaybe<CfPreviewContentTypeNestedFilter>
     contentType_exists?: InputMaybe<Scalars['Boolean']>
     contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-    previewDescription?: InputMaybe<Scalars['String']>
-    previewDescription_contains?: InputMaybe<Scalars['String']>
-    previewDescription_exists?: InputMaybe<Scalars['Boolean']>
-    previewDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-    previewDescription_not?: InputMaybe<Scalars['String']>
-    previewDescription_not_contains?: InputMaybe<Scalars['String']>
-    previewDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-    previewImage_exists?: InputMaybe<Scalars['Boolean']>
+    previewImagesCollection_exists?: InputMaybe<Scalars['Boolean']>
+    secondaryText?: InputMaybe<Scalars['String']>
+    secondaryText_contains?: InputMaybe<Scalars['String']>
+    secondaryText_exists?: InputMaybe<Scalars['Boolean']>
+    secondaryText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    secondaryText_not?: InputMaybe<Scalars['String']>
+    secondaryText_not_contains?: InputMaybe<Scalars['String']>
+    secondaryText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
     sys?: InputMaybe<SysFilter>
+    tertiaryText?: InputMaybe<Scalars['String']>
+    tertiaryText_contains?: InputMaybe<Scalars['String']>
+    tertiaryText_exists?: InputMaybe<Scalars['Boolean']>
+    tertiaryText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    tertiaryText_not?: InputMaybe<Scalars['String']>
+    tertiaryText_not_contains?: InputMaybe<Scalars['String']>
+    tertiaryText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
     title?: InputMaybe<Scalars['String']>
     titleFontSize?: InputMaybe<Scalars['String']>
     titleFontSize_contains?: InputMaybe<Scalars['String']>
@@ -1164,8 +1306,8 @@ export type SubsectionPreviewLinkingCollectionsSubsectionCollectionArgs = {
 }
 
 export enum SubsectionPreviewOrder {
-    PreviewDescriptionAsc = 'previewDescription_ASC',
-    PreviewDescriptionDesc = 'previewDescription_DESC',
+    SecondaryTextAsc = 'secondaryText_ASC',
+    SecondaryTextDesc = 'secondaryText_DESC',
     SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
     SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
     SysIdAsc = 'sys_id_ASC',
@@ -1174,6 +1316,8 @@ export enum SubsectionPreviewOrder {
     SysPublishedAtDesc = 'sys_publishedAt_DESC',
     SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
     SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+    TertiaryTextAsc = 'tertiaryText_ASC',
+    TertiaryTextDesc = 'tertiaryText_DESC',
     TitleFontSizeAsc = 'titleFontSize_ASC',
     TitleFontSizeDesc = 'titleFontSize_DESC',
     TitleAsc = 'title_ASC',
@@ -1262,6 +1406,29 @@ export type CfColourNestedFilter = {
     title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
+export type CfGalleryImageBehaviourNestedFilter = {
+    AND?: InputMaybe<Array<InputMaybe<CfGalleryImageBehaviourNestedFilter>>>
+    OR?: InputMaybe<Array<InputMaybe<CfGalleryImageBehaviourNestedFilter>>>
+    behaviour?: InputMaybe<Scalars['String']>
+    behaviour_contains?: InputMaybe<Scalars['String']>
+    behaviour_exists?: InputMaybe<Scalars['Boolean']>
+    behaviour_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    behaviour_not?: InputMaybe<Scalars['String']>
+    behaviour_not_contains?: InputMaybe<Scalars['String']>
+    behaviour_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+    index?: InputMaybe<Scalars['Int']>
+    index_exists?: InputMaybe<Scalars['Boolean']>
+    index_gt?: InputMaybe<Scalars['Int']>
+    index_gte?: InputMaybe<Scalars['Int']>
+    index_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+    index_lt?: InputMaybe<Scalars['Int']>
+    index_lte?: InputMaybe<Scalars['Int']>
+    index_not?: InputMaybe<Scalars['Int']>
+    index_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+    sys?: InputMaybe<SysFilter>
+}
+
 export type CfPreviewContentTypeNestedFilter = {
     AND?: InputMaybe<Array<InputMaybe<CfPreviewContentTypeNestedFilter>>>
     OR?: InputMaybe<Array<InputMaybe<CfPreviewContentTypeNestedFilter>>>
@@ -1295,15 +1462,22 @@ export type CfSubsectionPreviewNestedFilter = {
     OR?: InputMaybe<Array<InputMaybe<CfSubsectionPreviewNestedFilter>>>
     contentType_exists?: InputMaybe<Scalars['Boolean']>
     contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-    previewDescription?: InputMaybe<Scalars['String']>
-    previewDescription_contains?: InputMaybe<Scalars['String']>
-    previewDescription_exists?: InputMaybe<Scalars['Boolean']>
-    previewDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-    previewDescription_not?: InputMaybe<Scalars['String']>
-    previewDescription_not_contains?: InputMaybe<Scalars['String']>
-    previewDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-    previewImage_exists?: InputMaybe<Scalars['Boolean']>
+    previewImagesCollection_exists?: InputMaybe<Scalars['Boolean']>
+    secondaryText?: InputMaybe<Scalars['String']>
+    secondaryText_contains?: InputMaybe<Scalars['String']>
+    secondaryText_exists?: InputMaybe<Scalars['Boolean']>
+    secondaryText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    secondaryText_not?: InputMaybe<Scalars['String']>
+    secondaryText_not_contains?: InputMaybe<Scalars['String']>
+    secondaryText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
     sys?: InputMaybe<SysFilter>
+    tertiaryText?: InputMaybe<Scalars['String']>
+    tertiaryText_contains?: InputMaybe<Scalars['String']>
+    tertiaryText_exists?: InputMaybe<Scalars['Boolean']>
+    tertiaryText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+    tertiaryText_not?: InputMaybe<Scalars['String']>
+    tertiaryText_not_contains?: InputMaybe<Scalars['String']>
+    tertiaryText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
     title?: InputMaybe<Scalars['String']>
     titleFontSize?: InputMaybe<Scalars['String']>
     titleFontSize_contains?: InputMaybe<Scalars['String']>

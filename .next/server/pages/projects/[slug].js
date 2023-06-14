@@ -21,14 +21,14 @@ module.exports = {
 // Exports
 module.exports = {
 	"projectPage__container": "project_projectPage__container___Tw6G",
-	"projectPage__masonry": "project_projectPage__masonry__STUU3",
+	"projectPage__quilted": "project_projectPage__quilted__YzQUE",
 	"projectPage__title": "project_projectPage__title__VB3ZB"
 };
 
 
 /***/ }),
 
-/***/ 9727:
+/***/ 9184:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -87,6 +87,8 @@ const projectContentFragment = client_.gql`
         galleryCollection {
             items {
                 url
+                width
+                height
             }
         }
         description {
@@ -104,6 +106,20 @@ const projectPageQuery = client_.gql`
     }
     ${projectContentFragment}
 `;
+const projectPageImageBehaviourQuery = client_.gql`
+    query GetProjectBySlug($slug: String!) {
+        projectsCollection(where: { url: { id: $slug } }) {
+            items {
+                behaviourCollection {
+      items {
+        index
+        behaviour
+      }
+    }
+            }
+        }
+    }
+`;
 
 ;// CONCATENATED MODULE: ./gql/slug-urls-query.ts
 
@@ -119,6 +135,72 @@ const slugUrlsQuery = client_.gql`
 
 // EXTERNAL MODULE: ./utils/loader-prop.ts
 var loader_prop = __webpack_require__(2866);
+;// CONCATENATED MODULE: ./utils/getBehaviourStyles.ts
+const getBehaviourStyles = (behaviour)=>{
+    switch(behaviour){
+        case "50-to-100-right":
+            return {
+                startWidth: "50%",
+                endWidth: "100%",
+                startHeight: "50%",
+                endHeight: "100%"
+            };
+        case "100-to-50-right":
+            return {
+                startWidth: "100%",
+                endWidth: "50%",
+                startHeight: "100%",
+                endHeight: "50%"
+            };
+        case "0-to-100-right":
+            return {
+                startWidth: "0%",
+                endWidth: "100%",
+                startHeight: "0%",
+                endHeight: "100%"
+            };
+        case "100-to-0-right":
+            return {
+                startWidth: "100%",
+                endWidth: "0%",
+                startHeight: "100%",
+                endHeight: "0%"
+            };
+        case "0-to-100-left":
+            return {
+                startWidth: "0%",
+                endWidth: "100%",
+                startHeight: "0%",
+                endHeight: "100%",
+                marginLeft: "auto"
+            };
+        case "100-to-0-left":
+            return {
+                startWidth: "100%",
+                endWidth: "0%",
+                startHeight: "100%",
+                endHeight: "0%",
+                marginLeft: "auto"
+            };
+        case "50-to-100-left":
+            return {
+                startWidth: "50%",
+                endWidth: "100%",
+                startHeight: "50%",
+                endHeight: "100%",
+                marginLeft: "auto"
+            };
+        case "100-to-50-left":
+            return {
+                startWidth: "100%",
+                endWidth: "50%",
+                startHeight: "100%",
+                endHeight: "50%",
+                marginLeft: "auto"
+            };
+    }
+};
+
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
 // EXTERNAL MODULE: ./styles/ResizableImage.module.less
@@ -130,25 +212,23 @@ var ResizableImage_module_default = /*#__PURE__*/__webpack_require__.n(Resizable
 
 
 
-const ResizableImage = ({ src  })=>{
+
+const ResizableImage = ({ src , behaviour  })=>{
     const ref = (0,external_react_.useRef)(null);
     const [isIntersecting, setIntersecting] = (0,external_react_.useState)(false);
-    const [width, setWidth] = (0,external_react_.useState)(null);
-    const [height, setHeight] = (0,external_react_.useState)(null);
-    const [isImageLoaded, setIsImageLoaded] = (0,external_react_.useState)(false);
     const [isSeen, setIsSeen] = (0,external_react_.useState)(false);
-    let observer = null;
-    (0,external_react_.useEffect)(()=>{
-        if (ref?.current && isImageLoaded) {
-            setWidth(ref.current?.clientWidth);
-            setHeight(ref.current?.clientHeight);
-            observer = new IntersectionObserver(([entry])=>setIntersecting(entry.isIntersecting));
-            observer.observe(ref?.current);
+    const scrollHandler = ()=>{
+        const offset = ref?.current?.getBoundingClientRect().top || 0;
+        if (offset <= 250) {
+            setIntersecting(true);
         }
-        return ()=>observer?.disconnect();
-    }, [
-        isImageLoaded
-    ]);
+    };
+    (0,external_react_.useEffect)(()=>{
+        window.addEventListener("scroll", scrollHandler, true);
+        return ()=>{
+            window.removeEventListener("scroll", scrollHandler, true);
+        };
+    }, []);
     (0,external_react_.useEffect)(()=>{
         if (isIntersecting) {
             setIsSeen(true);
@@ -156,12 +236,12 @@ const ResizableImage = ({ src  })=>{
     }, [
         isIntersecting
     ]);
-    // You can add any UI inside Loading, including a Skeleton.
+    const style = getBehaviourStyles(behaviour);
     return /*#__PURE__*/ jsx_runtime.jsx("div", {
         ref: ref,
         style: {
-            width: width ?? "100%",
-            height: height ?? "100%"
+            width: "100%",
+            height: "100%"
         },
         children: /*#__PURE__*/ jsx_runtime.jsx((image_default()), {
             alt: "TODO",
@@ -169,12 +249,12 @@ const ResizableImage = ({ src  })=>{
             width: "0",
             height: "0",
             style: {
-                width: isIntersecting || isSeen ? "50%" : "100%",
-                height: isIntersecting || isSeen ? "50%" : "100%"
+                width: isIntersecting || isSeen ? style?.endWidth : style?.startWidth,
+                height: isIntersecting || isSeen ? style?.endHeight : style?.startHeight,
+                marginLeft: style?.marginLeft ?? "0"
             },
             loader: loader_prop/* loaderProp */.d,
             loading: "lazy",
-            onLoadingComplete: ()=>setIsImageLoaded(true),
             className: (ResizableImage_module_default()).resizableImage
         })
     });
@@ -194,14 +274,19 @@ var material_ = __webpack_require__(5692);
 
 
 
-function Project({ items  }) {
+function Project({ items , imageBehaviours  }) {
     const project = items[0];
     const gallery = [];
     project.galleryCollection?.items.forEach((item)=>{
         if (item?.url) {
-            gallery.push(item.url);
+            gallery.push(item);
         }
     });
+    const imageBehaviourMap = imageBehaviours.reduce(function(map, obj) {
+        if (!obj || !obj.index || !obj?.behaviour) return map;
+        map[obj.index] = obj?.behaviour;
+        return map;
+    }, {}) || {};
     return /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
         className: (project_module_default()).projectPage__container,
         children: [
@@ -215,38 +300,53 @@ function Project({ items  }) {
             /*#__PURE__*/ jsx_runtime.jsx(material_.ImageList, {
                 variant: "quilted",
                 cols: 2,
-                gap: 15,
-                children: gallery.map((url, index)=>/*#__PURE__*/ jsx_runtime.jsx(material_.ImageListItem, {
-                        cols: index === 2 ? 2 : 1,
-                        children: index % 2 == 0 ? /*#__PURE__*/ jsx_runtime.jsx((image_default()), {
-                            alt: "TODO",
-                            src: url,
+                gap: 40,
+                className: (project_module_default()).projectPage__quilted,
+                children: gallery.map((item, index)=>{
+                    const behaviour = imageBehaviourMap[index + 1];
+                    return /*#__PURE__*/ jsx_runtime.jsx(material_.ImageListItem, {
+                        cols: (item?.width || 0) > (item?.height || 0) ? 2 : 1,
+                        rows: 1,
+                        children: !behaviour ? /*#__PURE__*/ jsx_runtime.jsx((image_default()), {
+                            alt: item.description || "No description",
+                            src: item.url || "",
                             width: "0",
                             height: "0",
                             style: {
                                 width: "100%",
-                                height: "100%"
+                                height: "100%",
+                                objectFit: "cover"
                             },
                             loader: loader_prop/* loaderProp */.d,
                             loading: "lazy"
                         }, index) : /*#__PURE__*/ jsx_runtime.jsx(components_ResizableImage, {
-                            src: url
+                            src: item.url || "",
+                            behaviour: behaviour
                         })
-                    }, index))
+                    }, index);
+                })
             })
         ]
     });
 }
-async function getStaticProps() {
+async function getStaticProps(context) {
+    const slug = context.params.slug;
     const { data  } = await apollo_client/* default */.Z.query({
         query: projectPageQuery,
         variables: {
-            slug: "earls"
+            slug
+        }
+    });
+    const { data: behaviourData  } = await apollo_client/* default */.Z.query({
+        query: projectPageImageBehaviourQuery,
+        variables: {
+            slug
         }
     });
     return {
         props: {
-            items: data.projectsCollection.items
+            items: data.projectsCollection.items,
+            imageBehaviours: behaviourData.projectsCollection.items.length >= 1 ? behaviourData.projectsCollection.items[0].behaviourCollection?.items : []
         }
     };
 }
@@ -429,7 +529,7 @@ module.exports = require("react");
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,954], () => (__webpack_exec__(9727)));
+var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,954], () => (__webpack_exec__(9184)));
 module.exports = __webpack_exports__;
 
 })();

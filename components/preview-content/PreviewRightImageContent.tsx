@@ -1,7 +1,7 @@
 import { Maybe } from 'graphql/jsutils/Maybe'
 import { Grid } from '@mui/material'
 import PreviewContentImage from './PreviewContentImage'
-import PreviewContentDate from './PreviewContentDate'
+import RotatedText from '../RotatedText'
 import { useImageLoaded } from '@/hooks/useImageLoaded'
 import { SubsectionPreview, Colour } from '@/types/graphql'
 import { useRouter } from 'next/router'
@@ -16,7 +16,6 @@ interface PreviewRightImageContentProps {
 }
 const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
     subsectionContent,
-    colourScheme,
 }) => {
     const [ref, loaded, onLoad] = useImageLoaded()
     const router = useRouter()
@@ -24,8 +23,8 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
     if (!subsectionContent) {
         return null
     }
-    const { previewImage, previewDescription, title, url } = subsectionContent
-    const { tertiary } = colourScheme
+    const { title, url, secondaryText, tertiaryText, previewImagesCollection } =
+        subsectionContent
     const fontSize = subsectionContent.titleFontSize
         ? { fontSize: subsectionContent.titleFontSize }
         : {}
@@ -35,22 +34,27 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
         <Fade delay={300} duration={1800}>
             <div className={styles.previewRightImageContent__container}>
                 <div className={styles.previewRightImageContent__textContainer}>
-                    <PreviewContentDate
-                        date={title}
+                    <RotatedText
+                        text={title}
                         className={styles.previewRightImageContent__text}
+                        fontStyle="primary"
+                        fontSize={'3em'}
                     />
-                    <PreviewContentDate
-                        date={'Watermelon Summer Series'}
+                    <RotatedText
+                        text={secondaryText}
                         className={styles.previewRightImageContent__subtext}
+                        fontStyle="secondary"
+                        fontSize={'1.5em'}
                     />
                 </div>
                 <div
                     className={styles.previewRightImageContent__imagesContainer}
                 >
-                    {[1, 2, 3].map((_, index) => (
+                    {previewImagesCollection?.items.map((item, index) => (
                         <div
                             key={index}
                             className={styles.previewRightImageContent__image}
+                            style={{ height: index === 1 ? '50vh' : '100%' }}
                         >
                             <Link href={`/projects/${url?.id}`}>
                                 <PreviewContentImage
@@ -58,15 +62,18 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
                                     width="100%"
                                     ref={ref}
                                     onLoad={onLoad}
-                                    previewImageURL={previewImage?.url || ''}
+                                    previewImageURL={item?.url || ''}
                                 />
                             </Link>
                         </div>
                     ))}
                 </div>
-                <PreviewContentDate
-                    date="Social Content"
+                <RotatedText
+                    text={tertiaryText}
+                    fontStyle="tertiary"
+                    alignment="start"
                     className={styles.previewRightImageContent__subText}
+                    fontSize={'0.7em'}
                 />
             </div>
         </Fade>

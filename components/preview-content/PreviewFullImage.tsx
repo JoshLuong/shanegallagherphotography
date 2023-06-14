@@ -6,7 +6,7 @@ import { useImageLoaded } from '@/hooks/useImageLoaded'
 import { SubsectionPreview, Colour } from '@/types/graphql'
 import { Fade } from 'react-awesome-reveal'
 import commonStyles from '../../styles/PreviewContentShared.module.less'
-import PreviewContentDate from './PreviewContentDate'
+import RotatedText from '../RotatedText'
 import styles from '../../styles/PreviewFullImage.module.less'
 
 interface PreviewFullImageProps {
@@ -23,18 +23,17 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
     if (!subsectionContent) {
         return null
     }
-    const { previewImage, url, title } = subsectionContent
-    const { tertiary } = colourScheme
+    const { url, title, secondaryText, tertiaryText, previewImagesCollection } =
+        subsectionContent
     const onNavigate = () => router.push(`/projects/${url?.id}`)
 
     return (
         <Grid container className={commonStyles.previewImageContent__container}>
             <PreviewContentImage
                 loaded={loaded}
-                fadeLeft
                 ref={ref}
                 onLoad={onLoad}
-                previewImageURL={previewImage?.url || ''}
+                previewImageURL={previewImagesCollection?.items[0]?.url || ''}
                 className="preview-fill-image__background"
                 delay={700}
                 duration={800}
@@ -42,19 +41,25 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
             />
             <div className={styles.previewFullImage__textContainer}>
                 <div className={styles.previewFullImage__subtextContainer}>
-                    <PreviewContentDate
-                        date={'With Lucy Guo'}
+                    <RotatedText
+                        text={secondaryText}
+                        fontSize={'3em'}
                         className={styles.previewFullImage__secondarytext}
+                        fontStyle="secondary"
                     />
-                    <PreviewContentDate
-                        date={'Portraits'}
+                    <RotatedText
+                        text={tertiaryText}
                         className={styles.previewFullImage__tertiarytext}
+                        fontStyle="tertiary"
+                        fontSize={'2em'}
                     />
                 </div>
 
-                <PreviewContentDate
-                    date={title}
+                <RotatedText
+                    text={title}
                     className={styles.previewFullImage__mainText}
+                    fontSize={'4em'}
+                    fontStyle="primary"
                 />
             </div>
         </Grid>

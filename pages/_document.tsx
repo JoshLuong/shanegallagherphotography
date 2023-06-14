@@ -10,13 +10,17 @@ class MyDocument extends Document {
                     />
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=swap"
+                        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=optimal"
                         rel="stylesheet"
                     ></link>
                     <meta
                         property="og:title"
                         content="Shane Gallagher Photography"
                         key="title"
+                    />
+                    <meta
+                        name="google-site-verification"
+                        content="G4rlfdjaKDHnz_tSloRizbccMB7yh9ClCmh-SH9wd2A"
                     />
                 </Head>
                 <body>

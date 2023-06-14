@@ -2,7 +2,6 @@ import { Maybe } from 'graphql/jsutils/Maybe'
 import { useRouter } from 'next/navigation'
 import { Fade, Grid } from '@mui/material'
 import PreviewContentImage from './PreviewContentImage'
-import PreviewContentDate from './PreviewContentDate'
 import { useImageLoaded } from '@/hooks/useImageLoaded'
 import { SubsectionPreview, Colour } from '@/types/graphql'
 import styles from '../../styles/PreviewLeftImageContent.module.less'
@@ -20,8 +19,8 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
     if (!subsectionContent) {
         return null
     }
-    const { previewImage, previewDescription, title, url } = subsectionContent
-    const { tertiary } = colourScheme
+    const { secondaryText, tertiaryText, title, url, previewImagesCollection } =
+        subsectionContent
     const onNavigate = () => router.push(`/projects/${url?.id}`)
 
     return (
@@ -47,14 +46,14 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
                                 styles.previewLeftImageContent__secondaryText
                             }
                         >
-                            Chin Injeti
+                            {secondaryText}
                         </div>
                         <div
                             className={
                                 styles.previewLeftImageContent__tertiaryText
                             }
                         >
-                            Music Video
+                            {tertiaryText}
                         </div>
                     </div>
                 </Fade>
@@ -63,17 +62,22 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
                 className={styles.previewLeftImageContent__imagesContainer}
                 onClick={() => onNavigate()}
             >
-                {[1, 2, 3].map((_, index) => (
+                {previewImagesCollection?.items.map((item, index) => (
                     <div
                         key={index}
                         className={styles.previewLeftImageContent__image}
+                        style={{
+                            height: `${
+                                100 / previewImagesCollection?.items.length
+                            }%`,
+                        }}
                     >
                         <PreviewContentImage
                             loaded={loaded}
                             width="100%"
                             ref={ref}
                             onLoad={onLoad}
-                            previewImageURL={previewImage?.url || ''}
+                            previewImageURL={item?.url || ''}
                         />
                     </div>
                 ))}

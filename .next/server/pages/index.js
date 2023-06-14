@@ -18,20 +18,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 363:
-/***/ ((module) => {
-
-// Exports
-module.exports = {
-	"previewContent__subsectionDate": "PreviewContentDate_previewContent__subsectionDate__DAj2M",
-	"previewContent__rotate": "PreviewContentDate_previewContent__rotate__R1g6K",
-	"previewContent__subsectionDate__textType": "PreviewContentDate_previewContent__subsectionDate__textType__dcdz1",
-	"previewContent__text": "PreviewContentDate_previewContent__text__2mWRM"
-};
-
-
-/***/ }),
-
 /***/ 8696:
 /***/ ((module) => {
 
@@ -58,7 +44,7 @@ module.exports = {
 	"previewContent__subsectionDesc": "PreviewContentShared_previewContent__subsectionDesc__2aSh_",
 	"previewContent__hover": "PreviewContentShared_previewContent__hover__Np70M",
 	"hover": "PreviewContentShared_hover__Qchgm",
-	"previewContent__subsectionDateLeft": "PreviewContentShared_previewContent__subsectionDateLeft__8rFPj",
+	"rotatedTextLeft": "PreviewContentShared_rotatedTextLeft__j7NML",
 	"previewContent__subsectionTitleRight": "PreviewContentShared_previewContent__subsectionTitleRight__LEQq6"
 };
 
@@ -114,6 +100,19 @@ module.exports = {
 
 /***/ }),
 
+/***/ 1182:
+/***/ ((module) => {
+
+// Exports
+module.exports = {
+	"rotatedText": "RotatedText_rotatedText__qRv0U",
+	"rotatedText__container": "RotatedText_rotatedText__container__SkBjP",
+	"rotatedText__text": "RotatedText_rotatedText__text__4R7I0"
+};
+
+
+/***/ }),
+
 /***/ 8345:
 /***/ ((module) => {
 
@@ -141,7 +140,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5986:
+/***/ 1668:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -191,18 +190,21 @@ var client_ = __webpack_require__(9114);
 
 const previewContentFragment = client_.gql`
     fragment PreviewContent on SubsectionPreview {
-        previewDescription
         titleFontSize
-        previewImage {
-            url
-        }
         title
+        secondaryText
+        tertiaryText
         url {
             id
         }
         contentType {
             type
         }
+        previewImagesCollection {
+        items{
+            url
+        }
+    }
     }
 `;
 const colourSchemeFragment = client_.gql`
@@ -501,7 +503,7 @@ var PreviewContentImage_module_default = /*#__PURE__*/__webpack_require__.n(Prev
 
 
 
-const PreviewContentImage = ({ previewImageURL , ref , onLoad , loaded , className , width , fadeLeft , delay , duration  })=>{
+const PreviewContentImage = ({ previewImageURL , ref , onLoad , loaded , className , width , delay , duration  })=>{
     return /*#__PURE__*/ jsx_runtime.jsx(external_react_awesome_reveal_namespaceObject.Fade, {
         delay: delay ?? 500,
         duration: duration ?? 1200,
@@ -561,8 +563,7 @@ const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
     if (!subsectionContent) {
         return null;
     }
-    const { previewImage , previewDescription , title , url  } = subsectionContent;
-    const { tertiary  } = colourScheme;
+    const { secondaryText , tertiaryText , title , url , previewImagesCollection  } = subsectionContent;
     const onNavigate = ()=>router.push(`/projects/${url?.id}`);
     return /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
         className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__container,
@@ -585,11 +586,11 @@ const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
                             }),
                             /*#__PURE__*/ jsx_runtime.jsx("div", {
                                 className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__secondaryText,
-                                children: "Chin Injeti"
+                                children: secondaryText
                             }),
                             /*#__PURE__*/ jsx_runtime.jsx("div", {
                                 className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__tertiaryText,
-                                children: "Music Video"
+                                children: tertiaryText
                             })
                         ]
                     })
@@ -598,18 +599,17 @@ const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
             /*#__PURE__*/ jsx_runtime.jsx("div", {
                 className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__imagesContainer,
                 onClick: ()=>onNavigate(),
-                children: [
-                    1,
-                    2,
-                    3
-                ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
+                children: previewImagesCollection?.items.map((item, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
                         className: (PreviewLeftImageContent_module_default()).previewLeftImageContent__image,
+                        style: {
+                            height: `${100 / previewImagesCollection?.items.length}%`
+                        },
                         children: /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
                             loaded: loaded,
                             width: "100%",
                             ref: ref,
                             onLoad: onLoad,
-                            previewImageURL: previewImage?.url || ""
+                            previewImageURL: item?.url || ""
                         })
                     }, index))
             })
@@ -618,26 +618,57 @@ const PreviewLeftImageContent = ({ subsectionContent , colourScheme  })=>{
 };
 /* harmony default export */ const preview_content_PreviewLeftImageContent = (PreviewLeftImageContent);
 
-// EXTERNAL MODULE: ./styles/PreviewContentDate.module.less
-var PreviewContentDate_module = __webpack_require__(363);
-var PreviewContentDate_module_default = /*#__PURE__*/__webpack_require__.n(PreviewContentDate_module);
-;// CONCATENATED MODULE: ./components/preview-content/PreviewContentDate.tsx
+// EXTERNAL MODULE: ./node_modules/next/font/google/target.css?{"arguments":[{"subsets":["latin"],"weight":"400"}],"import":"Bebas_Neue","path":"components/RotatedText.tsx","variableName":"bebasNeue"}
+var RotatedText_tsx_variableName_bebasNeue_ = __webpack_require__(6992);
+var RotatedText_tsx_variableName_bebasNeue_default = /*#__PURE__*/__webpack_require__.n(RotatedText_tsx_variableName_bebasNeue_);
+// EXTERNAL MODULE: ./styles/RotatedText.module.less
+var RotatedText_module = __webpack_require__(1182);
+var RotatedText_module_default = /*#__PURE__*/__webpack_require__.n(RotatedText_module);
+;// CONCATENATED MODULE: ./components/RotatedText.tsx
 
 
 
-const PreviewContentDate = ({ date , className  })=>{
+
+const RotatedText = ({ text , className , fontStyle , fontSize , alignment  })=>{
+    const getFontType = ()=>{
+        switch(fontStyle){
+            case "primary":
+                return "Bodoni Moda,serif";
+            case "secondary":
+                return "Bebas Neue,sans-serif";
+            case "tertiary":
+                return "Cabin,sans-serif";
+            case "secondaryVariant":
+                return (RotatedText_tsx_variableName_bebasNeue_default()).style.fontFamily;
+        }
+    };
+    const getAlignment = ()=>{
+        switch(alignment){
+            case "start":
+                return "flex-start";
+            case "end":
+                return "flex-end";
+        }
+    };
     return /*#__PURE__*/ jsx_runtime.jsx("div", {
-        className: `${(PreviewContentDate_module_default()).previewContent__subsectionDate} ${className}`,
+        className: `${(RotatedText_module_default()).rotatedText}`,
+        style: {
+            alignSelf: getAlignment()
+        },
         children: /*#__PURE__*/ jsx_runtime.jsx("span", {
-            className: (PreviewContentDate_module_default()).previewContent__rotate,
+            className: (RotatedText_module_default()).rotatedText__container,
             children: /*#__PURE__*/ jsx_runtime.jsx("div", {
-                className: (PreviewContentDate_module_default()).previewContent__text,
-                children: date
+                className: `${(RotatedText_module_default()).rotatedText__text} ${className}`,
+                style: {
+                    fontFamily: getFontType(),
+                    fontSize
+                },
+                children: text
             })
         })
     });
 };
-/* harmony default export */ const preview_content_PreviewContentDate = (PreviewContentDate);
+/* harmony default export */ const components_RotatedText = (RotatedText);
 
 ;// CONCATENATED MODULE: external "next/router"
 const router_namespaceObject = require("next/router");
@@ -656,14 +687,13 @@ var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 
 
 
-const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
+const PreviewRightImageContent = ({ subsectionContent  })=>{
     const [ref, loaded, onLoad] = useImageLoaded();
     const router = (0,router_namespaceObject.useRouter)();
     if (!subsectionContent) {
         return null;
     }
-    const { previewImage , previewDescription , title , url  } = subsectionContent;
-    const { tertiary  } = colourScheme;
+    const { title , url , secondaryText , tertiaryText , previewImagesCollection  } = subsectionContent;
     const fontSize = subsectionContent.titleFontSize ? {
         fontSize: subsectionContent.titleFontSize
     } : {};
@@ -677,24 +707,27 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
                 /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
                     className: (PreviewRightImageContent_module_default()).previewRightImageContent__textContainer,
                     children: [
-                        /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                            date: title,
-                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__text
+                        /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                            text: title,
+                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__text,
+                            fontStyle: "primary",
+                            fontSize: "3em"
                         }),
-                        /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                            date: "Watermelon Summer Series",
-                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__subtext
+                        /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                            text: secondaryText,
+                            className: (PreviewRightImageContent_module_default()).previewRightImageContent__subtext,
+                            fontStyle: "secondary",
+                            fontSize: "1.5em"
                         })
                     ]
                 }),
                 /*#__PURE__*/ jsx_runtime.jsx("div", {
                     className: (PreviewRightImageContent_module_default()).previewRightImageContent__imagesContainer,
-                    children: [
-                        1,
-                        2,
-                        3
-                    ].map((_, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
+                    children: previewImagesCollection?.items.map((item, index)=>/*#__PURE__*/ jsx_runtime.jsx("div", {
                             className: (PreviewRightImageContent_module_default()).previewRightImageContent__image,
+                            style: {
+                                height: index === 1 ? "50vh" : "100%"
+                            },
                             children: /*#__PURE__*/ jsx_runtime.jsx((link_default()), {
                                 href: `/projects/${url?.id}`,
                                 children: /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
@@ -702,14 +735,17 @@ const PreviewRightImageContent = ({ subsectionContent , colourScheme  })=>{
                                     width: "100%",
                                     ref: ref,
                                     onLoad: onLoad,
-                                    previewImageURL: previewImage?.url || ""
+                                    previewImageURL: item?.url || ""
                                 })
                             })
                         }, index))
                 }),
-                /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                    date: "Social Content",
-                    className: (PreviewRightImageContent_module_default()).previewRightImageContent__subText
+                /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                    text: tertiaryText,
+                    fontStyle: "tertiary",
+                    alignment: "start",
+                    className: (PreviewRightImageContent_module_default()).previewRightImageContent__subText,
+                    fontSize: "0.7em"
                 })
             ]
         })
@@ -738,8 +774,7 @@ const PreviewFullImage = ({ subsectionContent , colourScheme  })=>{
     if (!subsectionContent) {
         return null;
     }
-    const { previewImage , url , title  } = subsectionContent;
-    const { tertiary  } = colourScheme;
+    const { url , title , secondaryText , tertiaryText , previewImagesCollection  } = subsectionContent;
     const onNavigate = ()=>router.push(`/projects/${url?.id}`);
     return /*#__PURE__*/ (0,jsx_runtime.jsxs)(material_.Grid, {
         container: true,
@@ -747,10 +782,9 @@ const PreviewFullImage = ({ subsectionContent , colourScheme  })=>{
         children: [
             /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentImage, {
                 loaded: loaded,
-                fadeLeft: true,
                 ref: ref,
                 onLoad: onLoad,
-                previewImageURL: previewImage?.url || "",
+                previewImageURL: previewImagesCollection?.items[0]?.url || "",
                 className: "preview-fill-image__background",
                 delay: 700,
                 duration: 800,
@@ -762,19 +796,25 @@ const PreviewFullImage = ({ subsectionContent , colourScheme  })=>{
                     /*#__PURE__*/ (0,jsx_runtime.jsxs)("div", {
                         className: (PreviewFullImage_module_default()).previewFullImage__subtextContainer,
                         children: [
-                            /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                                date: "With Lucy Guo",
-                                className: (PreviewFullImage_module_default()).previewFullImage__secondarytext
+                            /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                                text: secondaryText,
+                                fontSize: "3em",
+                                className: (PreviewFullImage_module_default()).previewFullImage__secondarytext,
+                                fontStyle: "secondary"
                             }),
-                            /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                                date: "Portraits",
-                                className: (PreviewFullImage_module_default()).previewFullImage__tertiarytext
+                            /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                                text: tertiaryText,
+                                className: (PreviewFullImage_module_default()).previewFullImage__tertiarytext,
+                                fontStyle: "tertiary",
+                                fontSize: "2em"
                             })
                         ]
                     }),
-                    /*#__PURE__*/ jsx_runtime.jsx(preview_content_PreviewContentDate, {
-                        date: title,
-                        className: (PreviewFullImage_module_default()).previewFullImage__mainText
+                    /*#__PURE__*/ jsx_runtime.jsx(components_RotatedText, {
+                        text: title,
+                        className: (PreviewFullImage_module_default()).previewFullImage__mainText,
+                        fontSize: "4em",
+                        fontStyle: "primary"
                     })
                 ]
             })
@@ -1218,7 +1258,7 @@ module.exports = require("react");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,49,163,954], () => (__webpack_exec__(5986)));
+var __webpack_exports__ = __webpack_require__.X(0, [812,44,675,49,639,954], () => (__webpack_exec__(1668)));
 module.exports = __webpack_exports__;
 
 })();

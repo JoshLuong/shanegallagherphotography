@@ -10,7 +10,6 @@ interface PreviewContentImageProps {
     onLoad: () => any
     className?: string
     width?: string
-    fadeLeft?: boolean
     delay?: number
     duration?: number
 }
@@ -21,7 +20,6 @@ const PreviewContentImage: React.FC<PreviewContentImageProps> = ({
     loaded,
     className,
     width,
-    fadeLeft,
     delay,
     duration,
 }) => {

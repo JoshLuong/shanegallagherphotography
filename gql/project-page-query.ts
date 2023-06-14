@@ -6,6 +6,8 @@ const projectContentFragment = gql`
         galleryCollection {
             items {
                 url
+                width
+                height
             }
         }
         description {
@@ -23,4 +25,19 @@ export const projectPageQuery = gql`
         }
     }
     ${projectContentFragment}
+`
+
+export const projectPageImageBehaviourQuery = gql`
+    query GetProjectBySlug($slug: String!) {
+        projectsCollection(where: { url: { id: $slug } }) {
+            items {
+                behaviourCollection {
+                    items {
+                        index
+                        behaviour
+                    }
+                }
+            }
+        }
+    }
 `
