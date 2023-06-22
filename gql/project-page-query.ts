@@ -8,6 +8,7 @@ const projectContentFragment = gql`
                 url
                 width
                 height
+                contentType
             }
         }
         description {

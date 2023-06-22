@@ -1,0 +1,34 @@
+.resizableAsset {
+    transition: 1.2s;
+    object-fit: cover;
+    display: block;
+    //overflow: hidden;
+    box-sizing: border-box;
+}
+
+.resizableAsset__boxShadow {
+    cursor: -webkit-image-set(
+                url(/enlarge-cursor.png) 1x,
+                url(/enlarge-cursor.png) 3x
+            )
+            0 0,
+        pointer;
+    box-shadow: 0 12px 32px 2px #0000001d;
+}
+
+.resizableAsset__parallax {
+    padding: 1.5em 0;
+    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
+}
+
+.resizableAsset__dialogTitle {
+    padding: 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .resizableAsset__parallax {
+        margin: 0;
+        width: 50%;
+    }
+}

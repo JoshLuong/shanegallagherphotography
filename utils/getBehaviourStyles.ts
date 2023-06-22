@@ -60,5 +60,12 @@ export const getBehaviourStyles = (behaviour: string) => {
                 endHeight: '50%',
                 marginLeft: 'auto',
             }
+        default:
+            return {
+                startWidth: '100%',
+                endWidth: '100%',
+                startHeight: '100%',
+                endHeight: '100%',
+            }
     }
 }

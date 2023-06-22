@@ -1,17 +1,53 @@
 .projectPage__container {
-    background-color: black;
+    margin: 4em 17%;
+    display: flex;
+
+    ::selection {
+        background: #ffb7b7; /* WebKit/Blink Browsers */
+    }
+}
+
+.projectPage__title {
+    align-self: flex-start;
+    flex: 0 0 60px;
+
+    > div {
+        position: fixed;
+    }
 }
 .projectPage__quilted.projectPage__quilted {
-    overflow-y: hidden;
+    overflow-y: visible !important;
+
     margin: 0;
-    padding: 0 40px;
+    // column-gap: 5em !important;
+    // grid-auto-rows: 80vh;
+    // min-height: 100vh;
 
     li {
-        height: 75vh !important; // row height
-        overflow: hidden;
+        // max-height: 75vh !important; // row height
+        height: 0;
+        overflow: visible;
     }
 }
 
 .projectPage__title {
     margin: 0;
+}
+
+.projectPage__parallax {
+    padding: 3em 0;
+}
+
+.projectPage__listItem {
+    margin: 3em 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .projectPage__quilted.projectPage__quilted {
+        li {
+            overflow: visible;
+        }
+        padding: 0 5%;
+        column-gap: 1.5em !important;
+    }
 }

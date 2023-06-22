@@ -1,10 +1,8 @@
 import Masonry from '@mui/lab/Masonry'
-import { ReactNode } from 'react'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { useRef } from 'react'
 import client from '@/gql/apollo-client'
 import { Asset, GalleryImageBehaviour, Projects } from '@/types/graphql'
 import styles from '../../styles/project.module.less'
-import Image from 'next/image'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import {
     projectPageImageBehaviourQuery,
@@ -12,21 +10,15 @@ import {
 } from '@/gql/project-page-query'
 import { slugUrlsQuery } from '@/gql/slug-urls-query'
 import { SlugUrl } from '@/types/graphql'
-import { loaderProp } from '@/utils/loader-prop'
-import ResizableImage from '@/components/ResizableImage'
-import { ImageList, ImageListItem } from '@mui/material'
+import ResizableAsset from '@/components/ResizableAsset'
+import { Fade } from '@mui/material'
+import RotatedText from '@/components/RotatedText'
 
 export default function Project({
-    items,
+    gallery,
+    project,
     imageBehaviours,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-    const project = items[0] as Projects
-    const gallery: Array<Asset> = []
-    project.galleryCollection?.items.forEach((item) => {
-        if (item?.url) {
-            gallery.push(item)
-        }
-    })
     const imageBehaviourMap =
         imageBehaviours.reduce(function (map: Record<number, string>, obj) {
             if (!obj || !obj.index || !obj?.behaviour) return map
@@ -34,52 +26,44 @@ export default function Project({
             return map
         }, {}) || {}
 
+    const ref = useRef<HTMLDivElement>(null)
     return (
         <div className={styles.projectPage__container}>
-            <h1 className={styles.projectPage__title}>{project.title}</h1>
-            <div>{documentToReactComponents(project.description?.json)}</div>
-
-            <ImageList
-                variant="quilted"
-                cols={2}
-                gap={40}
-                className={styles.projectPage__quilted}
+            <div className={styles.projectPage__title}>
+                <RotatedText
+                    text={project?.title}
+                    fontStyle="secondary"
+                    fontSize={'1.5em'}
+                />
+            </div>
+            <Fade
+                in={true}
+                timeout={{
+                    enter: 2000,
+                }}
+                style={{ flex: 1 }}
             >
-                {gallery.map((item, index) => {
-                    const behaviour = imageBehaviourMap[index + 1]
-                    return (
-                        <ImageListItem
-                            key={index}
-                            cols={
-                                (item?.width || 0) > (item?.height || 0) ? 2 : 1
-                            }
-                            rows={1}
-                        >
-                            {!behaviour ? (
-                                <Image
-                                    key={index}
-                                    alt={item.description || 'No description'}
-                                    src={item.url || ''}
-                                    width="0"
-                                    height="0"
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                    }}
-                                    loader={loaderProp}
-                                    loading="lazy"
-                                />
-                            ) : (
-                                <ResizableImage
-                                    src={item.url || ''}
+                <div>
+                    <Masonry
+                        columns={2}
+                        ref={ref}
+                        spacing={10}
+                        className={styles.projectPage__quilted}
+                    >
+                        {gallery.map((item, index) => {
+                            const behaviour = imageBehaviourMap[index + 1]
+
+                            return (
+                                <ResizableAsset
+                                    item={item}
                                     behaviour={behaviour}
+                                    parent={ref}
                                 />
-                            )}
-                        </ImageListItem>
-                    )
-                })}
-            </ImageList>
+                            )
+                        })}
+                    </Masonry>
+                </div>
+            </Fade>
         </div>
     )
 }
@@ -95,9 +79,22 @@ export async function getStaticProps(context: any) {
         variables: { slug },
     })
 
+    let gallery: Array<Asset | string> = []
+
+    for (const item of data.projectsCollection.items[0]?.galleryCollection
+        ?.items) {
+        if (item.contentType === 'text/plain' && item.url != null) {
+            const res = await fetch(item.url)
+            const text = await res.text()
+            gallery.push(text)
+        } else if (item.url != null) {
+            gallery.push(item)
+        }
+    }
     return {
         props: {
-            items: data.projectsCollection.items as Array<Projects>,
+            gallery,
+            project: data.projectsCollection.items[0],
             imageBehaviours:
                 behaviourData.projectsCollection.items.length >= 1
                     ? (behaviourData.projectsCollection.items[0]
