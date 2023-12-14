@@ -14,7 +14,6 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
     subsectionContent,
     colourScheme,
 }) => {
-    const [ref, loaded, onLoad] = useImageLoaded()
     const router = useRouter()
     if (!subsectionContent) {
         return null
@@ -73,10 +72,7 @@ const PreviewLeftImageContent: React.FC<PreviewLeftImageContentProps> = ({
                         }}
                     >
                         <PreviewContentImage
-                            loaded={loaded}
                             width="100%"
-                            ref={ref}
-                            onLoad={onLoad}
                             previewImageURL={item?.url || ''}
                         />
                     </div>

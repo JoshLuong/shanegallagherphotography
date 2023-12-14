@@ -1,0 +1,71 @@
+.previewClippedText__background {
+    height: 100%;
+    width: 50vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    padding: 1em;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.5s ease-in-out;
+}
+
+.previewClippedText__link {
+    text-decoration: none;
+}
+
+.previewClippedText__containerHover {
+     &:hover {
+         .previewClippedText__background {
+            color: transparent;
+            background-clip: text;
+
+
+             cursor: pointer;
+         }
+     }
+     
+ }
+
+.previewClippedText__container {
+   transition: all 0.7s ease-in-out;
+
+}
+
+.previewClippedText__fade {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.previewClippedText__text{ 
+    width: 45vw;
+    font-family: 'Bodoni Moda', serif;
+
+    >div {
+        line-height: 0.8em;
+        text-align: center;
+        overflow: visible !important;
+    }
+}
+
+.previewClippedText__subText{ 
+    margin-top: auto;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.previewClippedText__secondarySubText {
+    font-size: 3em;
+    line-height: 0.7em;
+}
+
+.previewClippedText__tertiarySubText {
+    font-family: Cabin ,sans-serif;
+    margin-left: auto;
+}

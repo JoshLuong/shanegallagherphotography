@@ -93,7 +93,6 @@ const ResizableAsset: React.FC<ResizableAssetProps> = ({
             <div
                 ref={ref}
                 style={{
-                    width: width || '100%',
                     height: height || '100%',
                 }}
                 className={styles.resizableAsset__container}
@@ -116,7 +115,6 @@ const ResizableAsset: React.FC<ResizableAssetProps> = ({
                                     ? {
                                           height: '100%',
                                           width: '100%',
-                                          visibility: 'hidden',
                                       }
                                     : style
                             }
@@ -154,7 +152,7 @@ const ResizableAsset: React.FC<ResizableAssetProps> = ({
                                 src={item?.url || ''}
                                 width={item?.width || '0'}
                                 height={item?.height || '0'}
-                                style={style}
+                                style={{width: "100%", height: "100%"}}
                                 loader={loaderProp}
                                 onLoadingComplete={() => setIsImageLoaded(true)}
                                 loading="lazy"

@@ -5,9 +5,6 @@ import styles from '../../styles/PreviewContentImage.module.less'
 
 interface PreviewContentImageProps {
     previewImageURL: string
-    ref: any
-    loaded: boolean
-    onLoad: () => any
     className?: string
     width?: string
     delay?: number
@@ -15,9 +12,6 @@ interface PreviewContentImageProps {
 }
 const PreviewContentImage: React.FC<PreviewContentImageProps> = ({
     previewImageURL,
-    ref,
-    onLoad,
-    loaded,
     className,
     width,
     delay,
@@ -30,9 +24,7 @@ const PreviewContentImage: React.FC<PreviewContentImageProps> = ({
             className={styles.previewContent__imageContainer}
         >
             <Image
-                ref={ref}
                 className={`${styles.previewContent__image} " ${className}`}
-                onLoad={onLoad}
                 src={previewImageURL}
                 alt=""
                 loading="lazy"

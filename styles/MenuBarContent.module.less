@@ -13,6 +13,7 @@
 .menuBarContent__container {
     padding-right: @menuWidth;
     padding-left: 2em;
+    display: flex;
 }
 
 .menuBarContent__links {
@@ -23,3 +24,10 @@
 .menuBarContent__child-links {
     font-size: 0.5em;
 }
+
+@media only screen and (max-width: 800px) {
+    .menuBarContent__about {
+        font-size: 7em;
+    }
+}
+

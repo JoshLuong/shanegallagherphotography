@@ -13,6 +13,7 @@ import { SlugUrl } from '@/types/graphql'
 import ResizableAsset from '@/components/ResizableAsset'
 import { Fade } from '@mui/material'
 import RotatedText from '@/components/RotatedText'
+import Link from 'next/link'
 
 export default function Project({
     gallery,
@@ -29,17 +30,30 @@ export default function Project({
     const ref = useRef<HTMLDivElement>(null)
     return (
         <div className={styles.projectPage__container}>
+          <div className={styles.projectPage__homeCTA}>
+            <Link href="/">
+            <RotatedText
+                    text={"All"}
+                    fontStyle="primary"
+                    fontSize={'9em'}
+                    className={styles.projectPage__homeText}
+                />
+            </Link>
+                
+            </div>
             <div className={styles.projectPage__title}>
                 <RotatedText
                     text={project?.title}
                     fontStyle="secondary"
                     fontSize={'1.5em'}
+                    className={styles.projectPage__projectText}
                 />
             </div>
             <Fade
                 in={true}
                 timeout={{
-                    enter: 2000,
+                  appear: 3000,
+                    enter: 2500,
                 }}
                 style={{ flex: 1 }}
             >

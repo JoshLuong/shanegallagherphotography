@@ -9,8 +9,10 @@ import PreviewLeftImageContent from '../preview-content/PreviewLeftImageContent'
 import PreviewRightImageContent from '../preview-content/PreviewRightImageContent'
 import { Bebas_Neue } from 'next/font/google'
 import PreviewFullImage from '../preview-content/PreviewFullImage'
+import PreviewClippedText from '../preview-content/PreviewClippedText'
+import ThreeSmallImages from '../preview-content/ThreeSmallImages'
 
-export type ThemeType = 'align-left' | 'align-right' | 'full-image-background'
+export type ThemeType = 'align-left' | 'align-right' | 'full-image-background' | 'clipped-text' | 'three-small-images'
 interface SubSectionProps {
     show: boolean
     onClick: () => void
@@ -80,6 +82,16 @@ const SubSection: React.FC<SubSectionProps> = ({
                         subsectionContent={subsectionContent}
                     />
                 )
+                case 'clipped-text':
+                    return (
+                       <PreviewClippedText colourScheme={colourScheme}
+                       subsectionContent={subsectionContent}/>
+                    )
+                    case 'three-small-images':
+                        return (
+                           <ThreeSmallImages colourScheme={colourScheme}
+                           subsectionContent={subsectionContent}/>
+                        )
             default:
                 return null
         }

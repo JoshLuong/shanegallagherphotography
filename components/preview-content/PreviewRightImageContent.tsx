@@ -17,7 +17,6 @@ interface PreviewRightImageContentProps {
 const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
     subsectionContent,
 }) => {
-    const [ref, loaded, onLoad] = useImageLoaded()
     const router = useRouter()
 
     if (!subsectionContent) {
@@ -54,14 +53,11 @@ const PreviewRightImageContent: React.FC<PreviewRightImageContentProps> = ({
                         <div
                             key={index}
                             className={styles.previewRightImageContent__image}
-                            style={{ height: index === 1 ? '50vh' : '100%' }}
+                            style={{ height: index === 1 ? '75vh' : '100%' }}
                         >
                             <Link href={`/projects/${url?.id}`}>
                                 <PreviewContentImage
-                                    loaded={loaded}
                                     width="100%"
-                                    ref={ref}
-                                    onLoad={onLoad}
                                     previewImageURL={item?.url || ''}
                                 />
                             </Link>

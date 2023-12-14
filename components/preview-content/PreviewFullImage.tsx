@@ -17,7 +17,6 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
     subsectionContent,
     colourScheme,
 }) => {
-    const [ref, loaded, onLoad] = useImageLoaded()
     const router = useRouter()
 
     if (!subsectionContent) {
@@ -30,9 +29,6 @@ const PreviewFullImage: React.FC<PreviewFullImageProps> = ({
     return (
         <Grid container className={commonStyles.previewImageContent__container}>
             <PreviewContentImage
-                loaded={loaded}
-                ref={ref}
-                onLoad={onLoad}
                 previewImageURL={previewImagesCollection?.items[0]?.url || ''}
                 className="preview-fill-image__background"
                 delay={700}
