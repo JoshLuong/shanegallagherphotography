@@ -152,62 +152,7 @@ const LandingPageSection: React.FC<LandingPageSectionProps> = ({
 
     return (
         <BlackTooltip title={title} followCursor>
-            <section
-                className={styles.landingPageSection__container}
-                style={{ ...containerStyles }}
-                onClick={handleSubsectionClick}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-                aria-label={title}
-                aria-controls={'subsection__' + title}
-                aria-expanded={isSectionOpen}
-            >
-                <div
-                    ref={textContainerRef}
-                    className={styles.landingPageSection__title}
-                >
-                    {isMobile ? (
-                        <Marquee speed={100}>
-                            <div>{title}&nbsp;</div>
-                        </Marquee>
-                    ) : (
-                        <p
-                            id="title"
-                            style={{
-                                transition: 'animation 180s',
-                                animation: `running ${styles.bookTicker} linear infinite`,
-                                animationDuration:
-                                    fastAnimation || showInitialBackgroundColor
-                                        ? `${animationDuration / 30}s`
-                                        : `${animationDuration}s`,
-                            }}
-                        >
-                            {Array(_repeats)
-                                .fill(0)
-                                .map((_, index) => {
-                                    const oddtitle = {
-                                        margin: '-1em',
-                                        opacity: '10%',
-                                        fontSize: '180%',
-                                    }
-                                    return (
-                                        <span
-                                            key={index}
-                                            aria-hidden
-                                            style={
-                                                index % 2 && title.length < 1
-                                                    ? { ...oddtitle }
-                                                    : {}
-                                            }
-                                        >
-                                            {title}&nbsp;
-                                        </span>
-                                    )
-                                })}
-                        </p>
-                    )}
-                </div>
-            </section>
+            <section></section>
         </BlackTooltip>
     )
 }

@@ -17,6 +17,9 @@ const previewContentFragment = gql`
                 url
             }
         }
+        photo {
+            url
+        }
     }
 `
 

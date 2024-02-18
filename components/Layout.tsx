@@ -5,12 +5,7 @@ import Loading from './Loading'
 
 const Layout = ({ children }: PropsWithChildren) => {
     return (
-        <div className={styles.layoutContainer}>
-            <div className={styles.childrenLayout}>
-                <Suspense fallback={<Loading />}>{children}</Suspense>
-            </div>
-            <MenuBar />
-        </div>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
     )
 }
 export default Layout
