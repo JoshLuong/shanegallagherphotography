@@ -10,7 +10,7 @@ class MyDocument extends Document {
                     />
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Cabin&display=optimal"
+                        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Cabin&display=optimal"
                         rel="stylesheet"
                     ></link>
                     <meta

@@ -1,4 +1,4 @@
-.aboutPage__container {
+.contactPage__container {
     font-family: 'Bebas Neue', sans-serif;
     display: flex;
     flex-direction: column;
@@ -10,27 +10,18 @@
     // height: 100vh;
 }
 
-
-.aboutPage__containerSections {
-    display: flex;
-    min-width: 0;
-    flex-direction: row;
-    justify-content: flex-start;
-    height: auto;
-    align-items: stretch;
-    flex: 1;
-}
-
-.aboutPage__text {
+.contactPage__text {
     color: white;
     margin: 5em;
     font-size: 2em;
+    text-align: center;
+    display: block;
 }
 
 @media only screen and (max-width: 800px) {
-    .aboutPage__text {
-        margin: 0.2em;
-        box-sizing: border-box;
+    .contactPage__text {
+        font-size: 1.5em;
+        overflow: hidden;
+        margin: 0;
     }
 }
-

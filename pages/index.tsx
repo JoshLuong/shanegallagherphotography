@@ -34,247 +34,251 @@ export default function Home({
 
     */
 
+    const smallRadius = '10px'
+    const mediumRadius = '17px'
+    const largeRadius = '35px'
+
     const blocks: any[] = [
         [{},
             {},
-            { bottomRBorderRadius: '10px' },
-            { bottomLBorderRadius: '10px', bottomRBorderRadius: '17px' },
-            { bottomLBorderRadius: '17px', bottomRBorderRadius: '10px' },
-            { bottomLBorderRadius: '10px' },
+            { bottomRBorderRadius: smallRadius },
+            { bottomLBorderRadius: smallRadius, bottomRBorderRadius: mediumRadius },
+            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: smallRadius },
+            { bottomLBorderRadius: smallRadius },
             {},
             {},
         ],
         // new line
         [
             {},
-            { bottomRBorderRadius: '17px' },
+            { bottomRBorderRadius: mediumRadius },
             {
-                topRBorderRadius: '10px',
-                bottomLBorderRadius: '17px',
-                bottomRBorderRadius: '35px',
+                topRBorderRadius: smallRadius,
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '10px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
+                topLBorderRadius: smallRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '10px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: smallRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '10px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
+                topLBorderRadius: smallRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
-            { bottomLBorderRadius: '17px' },
+            { bottomLBorderRadius: mediumRadius },
             {},
         ],
         // new line
         [
             {},
-            { topRBorderRadius: '17px', bottomRBorderRadius: '35px' },
+            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius },
             {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '35px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: largeRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '35px',
-                bottomLBorderRadius: '17px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: largeRadius,
+                bottomLBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '17px',
-                bottomRBorderRadius: '35px  ',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
             },
-            { topLBorderRadius: '17px', bottomLBorderRadius: '35px' },
+            { topLBorderRadius: mediumRadius, bottomLBorderRadius: largeRadius },
             {},
         ],
         // new line
         [
-            { bottomRBorderRadius: '17px'},
-            { topRBorderRadius: '35px', bottomRBorderRadius: '35px' , bottomLBorderRadius: '17px'},
+            { bottomRBorderRadius: mediumRadius},
+            { topRBorderRadius: largeRadius, bottomRBorderRadius: largeRadius , bottomLBorderRadius: mediumRadius},
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '35px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
             },
-            { topLBorderRadius: '17px' },
-            { topRBorderRadius: '17px',
+            { topLBorderRadius: mediumRadius },
+            { topRBorderRadius: mediumRadius,
             backgroundImage: items[1].previewContent?.photo?.url,
             title: items[1].title,
             link: items[1].previewContent?.url?.id
          },
-            { topLBorderRadius: '17px', topRBorderRadius: '35px' },
-            { topLBorderRadius: '35px' },
+            { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
+            { topLBorderRadius: largeRadius },
             {},
         ],
         // new line
         [
-            {topRBorderRadius: '17px'},
-            { topRBorderRadius: '35px', topLBorderRadius: '17px',bottomRBorderRadius: '17px' },
+            {topRBorderRadius: mediumRadius},
+            { topRBorderRadius: largeRadius, topLBorderRadius: mediumRadius,bottomRBorderRadius: mediumRadius },
             {
-                topLBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
-                bottomLBorderRadius: '17px',
+                topLBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
+                bottomLBorderRadius: mediumRadius,
             },
-            { bottomLBorderRadius: '35px', bottomRBorderRadius: '17px' },
-            { bottomLBorderRadius: '17px', bottomRBorderRadius: '17px' },
-            { bottomLBorderRadius: '17px', bottomRBorderRadius: '10px' },
-            { bottomLBorderRadius: '10px' },
-            {},
-        ],
-        // new line
-        [
-            {},
-            { topRBorderRadius: '17px' },
-            {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
-            },
-            {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '17px',
-                bottomRBorderRadius: '35px',
-            },
-            {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
-            },
-            {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '10px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
-            },
-            { topLBorderRadius: '10px', bottomLBorderRadius: '17px' },
+            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius },
+            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: mediumRadius },
+            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: smallRadius },
+            { bottomLBorderRadius: smallRadius },
             {},
         ],
         // new line
         [
             {},
+            { topRBorderRadius: mediumRadius },
+            {
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            {
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
+            },
+            {
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
+            },
+            {
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: smallRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            { topLBorderRadius: smallRadius, bottomLBorderRadius: mediumRadius },
+            {},
+        ],
+        // new line
+        [
+            {},
             {
             },
-            { topRBorderRadius: '17px' },
-            { topLBorderRadius: '17px', topRBorderRadius: '35px' },
-            { topLBorderRadius: '35px', topRBorderRadius: '35px' },
+            { topRBorderRadius: mediumRadius },
+            { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
+            { topLBorderRadius: largeRadius, topRBorderRadius: largeRadius },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomRBorderRadius: '35px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
                 backgroundImage: items[4].previewContent?.photo?.url,
                 title: items[4].title,
                 link: items[4].previewContent?.url?.id
             },
             {
-                topLBorderRadius: '17px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '10px',
+                topLBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: smallRadius,
             },
-            { bottomLBorderRadius: '10px' },
+            { bottomLBorderRadius: smallRadius },
         ],
         // new line
         [
             {},
-            { bottomRBorderRadius: '35px' },
-            { bottomLBorderRadius: '35px', bottomRBorderRadius: '17px', },
-            {bottomLBorderRadius: '17px',},
-            { bottomRBorderRadius: '17px' },
+            { bottomRBorderRadius: largeRadius },
+            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius, },
+            {bottomLBorderRadius: mediumRadius,},
+            { bottomRBorderRadius: mediumRadius },
             {
-                bottomLBorderRadius: '17px',
-                topRBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
+                bottomLBorderRadius: mediumRadius,
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '10px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: smallRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
-            { topLBorderRadius: '10px', bottomLBorderRadius: '17px' },
-        ],
-        // new line
-        [
-            {},
-            {
-                topRBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
-            },
-            {
-                topLBorderRadius: '35px',
-                bottomLBorderRadius: '17px',
-                topRBorderRadius: '17px',
-                bottomRBorderRadius: '35px',
-            },
-            {
-                bottomLBorderRadius: '35px',
-                topLBorderRadius: '17px',
-                bottomRBorderRadius: '35px',
-            },
-            {
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '35px',
-            },
-            {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '35px',
-                bottomLBorderRadius: '35px',
-                bottomRBorderRadius: '17px',
-            },
-            {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '17px',
-            },
-            { topLBorderRadius: '17px' },
+            { topLBorderRadius: smallRadius, bottomLBorderRadius: mediumRadius },
         ],
         // new line
         [
             {},
             {
-                topRBorderRadius: '17px',
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '35px',
-                bottomRBorderRadius: '10px',
+                topLBorderRadius: largeRadius,
+                bottomLBorderRadius: mediumRadius,
+                topRBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '35px',
-                bottomLBorderRadius: '10px',
-                bottomRBorderRadius: '17px',
+                bottomLBorderRadius: largeRadius,
+                topLBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '35px',
-                bottomLBorderRadius: '17px',
-                bottomRBorderRadius: '10px',
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
             },
             {
-                topLBorderRadius: '35px',
-                topRBorderRadius: '17px',
-                bottomLBorderRadius: '10px',
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: largeRadius,
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '17px',
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: mediumRadius,
+            },
+            { topLBorderRadius: mediumRadius },
+        ],
+        // new line
+        [
+            {},
+            {
+                topRBorderRadius: mediumRadius,
+            },
+            {
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: smallRadius,
+            },
+            {
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: largeRadius,
+                bottomLBorderRadius: smallRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            {
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: largeRadius,
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: smallRadius,
+            },
+            {
+                topLBorderRadius: largeRadius,
+                topRBorderRadius: mediumRadius,
+                bottomLBorderRadius: smallRadius,
+            },
+            {
+                topLBorderRadius: mediumRadius,
             },
             {},
         ],
@@ -283,18 +287,18 @@ export default function Home({
             {},
             {},
             {
-                topRBorderRadius: '10px',
+                topRBorderRadius: smallRadius,
             },
             {
-                topLBorderRadius: '10px',
-                topRBorderRadius: '17px',
+                topLBorderRadius: smallRadius,
+                topRBorderRadius: mediumRadius,
             },
             {
-                topLBorderRadius: '17px',
-                topRBorderRadius: '10px',
+                topLBorderRadius: mediumRadius,
+                topRBorderRadius: smallRadius,
             },
             {
-                topLBorderRadius: '10px',
+                topLBorderRadius: smallRadius,
             },
             {},
             {},
@@ -308,7 +312,7 @@ export default function Home({
         return block
     })
 
-    const generatedBlocks = useBlockGenerator({blocks: mobileReadyBlocks, fixedRowCount: mobileReadyBlocks[0].length})
+    const generatedBlocks = useBlockGenerator({blocks: mobileReadyBlocks})
     const [showBlocks, setShowBlocks] = useState(false)
 
     useEffect(() => {
@@ -319,7 +323,9 @@ export default function Home({
     return (
         <main style={{
             minWidth: `${mobileReadyBlocks[0].length * BLOCK_SIZE + 10}px`, // num squares * size + buffer px
-        }}>
+        }}
+        id="landing_page" // this ID is used in the body css to fix a bug
+        >
             <Head>
                 <title>Shane Gallagher</title>
             </Head>
@@ -329,6 +335,10 @@ export default function Home({
                     className={styles.landingPage__block_container}
                 >
                     {generatedBlocks.map((block: any, i: number) => {
+                        const r = Math.random();
+                        if (r >= 0.7 && block.backgroundImage == null) {
+                            return <Block {...block} index={i}  backgroundImage={items[Math.floor(Math.random() * 6) + 1].previewContent?.photo?.url} isTempBackground/>
+                        }
                         return <Block {...block} index={i} />
                     })}
                 </div>

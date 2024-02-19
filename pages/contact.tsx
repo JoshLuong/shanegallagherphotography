@@ -1,4 +1,4 @@
-import styles from '../styles/about.module.less'
+import styles from '../styles/contact.module.less'
 import client from '../gql/apollo-client'
 import { subsectionQuery } from '@/gql/landing-page-query'
 import { Subsection } from '../types/graphql'
@@ -11,7 +11,7 @@ import { Fade } from '@mui/material'
 import ToolBar from '@/components/Toolbar'
 
 export const NO_SECTION_OPEN = -1
-export default function About({
+export default function Contact({
     items,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
@@ -19,13 +19,10 @@ export default function About({
         // This should never happen
         return null
     }
-    // screen needs at least 6 squares width wise
-    // min width needs to be 60px
-    // calc how many per row minus 6, divide by 2
 
     return (
         <main
-            className={styles.aboutPage__container}
+            className={styles.contactPage__container}
             style={{
                 // WARNING: do not edit, it will cause weird bug with height and width
                 height: '100vh',
@@ -33,23 +30,15 @@ export default function About({
                 overflow: 'auto',
             }}
         >
-            <Head>
-                <title>About Shane Gallagher</title>
-            </Head>
             <div>
-                <ToolBar/>
+                <ToolBar  />
                 <Fade
                     in={true}
                     timeout={{
                         enter: 1300,
                     }}
                 >
-                    <div className={styles.aboutPage__text}>
-                        SHANE GALLAGHER IS A MAN OF MANY PARTS: FLORIST,
-                        PHOTOGRAPHER, SET DESIGNER, AND ARTIST. IN ALL THAT HE
-                        DOES HIS WORK MANAGES TO BE BOTH DRAMATIC WITH ABUNDANCE
-                        AND SOMEHOW SIMULTANEOUSLY RESTRAINED WITH FOCUS.
-                    </div>
+                    <a href="mailto:gallaghershanephotography@gmail.com" className={styles.contactPage__text}> GALLAGHERSHANEPHOTOGRAPHY@GMAIL.COM</a>
                 </Fade>
             </div>
         </main>
