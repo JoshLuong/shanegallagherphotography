@@ -80,7 +80,9 @@ export default function Home({
         // new line
         [
             {},
-            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius },
+            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius,  backgroundImage: items[6].previewContent?.photo?.url,
+                title: items[6].title,
+                link: items[6].previewContent?.url?.id },
             {
                 topLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
@@ -148,6 +150,7 @@ export default function Home({
                 topLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
                 bottomRBorderRadius: mediumRadius,
+                text: "Lifestyle"
             },
             {
                 topLBorderRadius: largeRadius,
@@ -196,14 +199,17 @@ export default function Home({
         // new line
         [
             {},
-            { bottomRBorderRadius: largeRadius },
-            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius, },
+            { bottomRBorderRadius: largeRadius,  },
+            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius,backgroundImage: items[5].previewContent?.photo?.url,
+                title: items[5].title,
+                link: items[5].previewContent?.url?.id },
             {bottomLBorderRadius: mediumRadius,},
             { bottomRBorderRadius: mediumRadius },
             {
                 bottomLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
                 bottomRBorderRadius: largeRadius,
+                
             },
             {
                 topLBorderRadius: largeRadius,
@@ -230,6 +236,7 @@ export default function Home({
                 bottomLBorderRadius: largeRadius,
                 topLBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
+                text: "Fashion"
             },
             {
                 topRBorderRadius: mediumRadius,

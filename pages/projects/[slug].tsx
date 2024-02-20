@@ -1,7 +1,7 @@
 import Masonry from '@mui/lab/Masonry'
 import { useEffect, useRef, useState } from 'react'
 import client from '@/gql/apollo-client'
-import { GalleryImageBehaviour, Projects } from '@/types/graphql'
+import { Asset, GalleryImageBehaviour, Projects } from '@/types/graphql'
 import styles from '../../styles/project.module.less'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import {
@@ -18,7 +18,7 @@ import useBlockGenerator from '@/hooks/useBlockGenerator'
 import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { loaderProp } from '@/utils/loader-prop'
-import Asset from '@/components/Asset'
+import DraggableAsset from '@/components/DraggableAsset'
 import Toolbar from '@/components/Toolbar'
 
 export default function Project({
@@ -26,9 +26,8 @@ export default function Project({
     project,
     imageBehaviours,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-
-    const {isMobile} = useWindowDimensions();
-    const [didLoad, setDidLoad] = useState(false);
+    const { isMobile } = useWindowDimensions()
+    const [didLoad, setDidLoad] = useState(false)
     const imageBehaviourMap =
         imageBehaviours.reduce(function (map: Record<number, string>, obj) {
             if (!obj || !obj.index || !obj?.behaviour) return map
@@ -51,48 +50,69 @@ export default function Project({
             }}
             className={styles.projectPage__main}
         >
-                <Toolbar />
-                <div style={{display:"flex", flexWrap: "wrap", margin: isMobile ? "0": "1em", overflow: 'hidden' // this is for mobile overflow X
-                }}>
-                {didLoad && gallery.map((item, index) => {
-                            const behaviour = imageBehaviourMap[index + 1]
+            <Toolbar />
+            <div
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    margin: isMobile ? '0' : '1em',
+                }}
+            >
+                {didLoad &&
+                    gallery.map((item, index) => {
+                        const behaviour = imageBehaviourMap[index + 1]
 
-                            if (typeof item == "string") {
-                                return null;  // SKIP for now, cause spacing issue with text
-                            }
-                            const randomInt = Math.random()
-                            const englargeRandomInt = Math.random()
-                            let transformation = 'none'
-                            if (randomInt == 1) {
-                                transformation = `translate(${1.8 * Math.random()}em, ${1.5 * Math.random()}em)`
-                            } else if (randomInt >= 0.8) {
-                                transformation = `translate(${2.6 * Math.random()}em, ${1.5 * Math.random()}em)`
-                            } else if (randomInt == 0.7) {
-                                transformation = `translate(${1.7 * Math.random()}em, ${-1.9 * Math.random()}em)`
-                            } else if (randomInt >= 0.5) {
-                                transformation = `translate(${-2.3 * Math.random()}em, ${2.1 * Math.random()}em)`
-                            } else if (randomInt >= 0.3) {
-                                transformation = `translate(${1.6 * Math.random()}em, ${-2.3 * Math.random()}em)`
-                            } else if (randomInt == 0.2) {
-                                transformation = `translate(${2.3 * Math.random()}em, ${-2.3 * Math.random()}em)`
-                            } else {
-                                transformation = `translate(${-2.8 * Math.random()}em, ${-2.3 * Math.random()}em)`
-                            }
-                            let scale = ''
-                            if (englargeRandomInt > 0.8) {
-                                scale = 'scale(1.3)'
-                            } else if (englargeRandomInt == 0.6) {
-                                scale = 'scale(-0.5)'
-                            }
-                            transformation +=scale 
- 
-                            return (
-                                <div style={{width: isMobile ? "25%": "15em", margin: isMobile? "0 0.3em 0.3em 0.3em" : "0 0.9em 0.9em 0.9em", transform: transformation, objectFit: "cover"}}>
-                                <Asset item={item}/>
-                                </div>
-                            )
-                        })}
-                </div>
+                        if (typeof item == 'string') {
+                            return null // SKIP for now, cause spacing issue with text
+                        }
+                        const randomInt = Math.random()
+                        const englargeRandomInt = Math.random()
+                        let transformation = 'none'
+                        if (randomInt == 1) {
+                            transformation = `translate(${
+                                1.8 * Math.random()
+                            }em, ${1.5 * Math.random()}em)`
+                        } else if (randomInt >= 0.8) {
+                            transformation = `translate(${
+                                2.6 * Math.random()
+                            }em, ${1.5 * Math.random()}em)`
+                        } else if (randomInt == 0.7) {
+                            transformation = `translate(${
+                                1.7 * Math.random()
+                            }em, ${-1.9 * Math.random()}em)`
+                        } else if (randomInt >= 0.5) {
+                            transformation = `translate(${
+                                -2.3 * Math.random()
+                            }em, ${2.1 * Math.random()}em)`
+                        } else if (randomInt >= 0.3) {
+                            transformation = `translate(${
+                                1.6 * Math.random()
+                            }em, ${-2.3 * Math.random()}em)`
+                        } else if (randomInt == 0.2) {
+                            transformation = `translate(${
+                                2.3 * Math.random()
+                            }em, ${-2.3 * Math.random()}em)`
+                        } else {
+                            transformation = `translate(${
+                                -2.8 * Math.random()
+                            }em, ${-2.3 * Math.random()}em)`
+                        }
+                        let scale = ''
+                        if (englargeRandomInt > 0.8) {
+                            scale = 'scale(1.3)'
+                        } else if (englargeRandomInt == 0.6) {
+                            scale = 'scale(-0.5)'
+                        }
+                        transformation += scale
+
+                        return (
+                            <DraggableAsset
+                                item={item}
+                                transformation={transformation}
+                            />
+                        )
+                    })}
+            </div>
         </main>
     )
 }
