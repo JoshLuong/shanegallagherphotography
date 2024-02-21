@@ -51,7 +51,7 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
     ) : (
         <Fade in={shouldShowImage}>
                            
-            <div style={{width: isMobile ? "25%": "15em", margin: isMobile? "0 0.3em 0.3em 0.3em" : "0 0.9em 0.9em 0.9em", transform: transformation, objectFit: "cover"}}>
+            <div style={{width: isMobile ? "25%": "15em", margin: isMobile? "0 0.3em 0.3em 0.3em" : '0 1.5em 5em 1.5em', transform: transformation, objectFit: "cover"}}>
                 <Draggable onDrag={eventControl} onStop={eventControl}>
                     <Image
                         alt={'TODO'}
