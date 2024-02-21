@@ -20,6 +20,7 @@ import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { loaderProp } from '@/utils/loader-prop'
 import DraggableAsset from '@/components/DraggableAsset'
 import Toolbar from '@/components/Toolbar'
+import Head from 'next/head'
 
 export default function Project({
     gallery,
@@ -50,11 +51,16 @@ export default function Project({
             }}
             className={styles.projectPage__main}
         >
+            <Head>
+            <title>{project.title}</title>
+            </Head>
+
             <Toolbar />
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
+                    justifyContent: "center",
                     margin: isMobile ? '0' : '1em',
                 }}
             >
@@ -98,7 +104,7 @@ export default function Project({
                             }em, ${-2.3 * Math.random()}em)`
                         }
                         let scale = ''
-                        if (englargeRandomInt > 0.8) {
+                        if (englargeRandomInt >= 0.8) {
                             scale = 'scale(1.3)'
                         } else if (englargeRandomInt == 0.6) {
                             scale = 'scale(-0.5)'

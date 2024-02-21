@@ -141,7 +141,7 @@ export default function useBlockGenerator({
                 returnRow[returnRow.length - 4].text = 'About'
 
                 if (pathname != '/') {
-                    returnRow[returnRow.length - 5].text = 'Home'
+                    returnRow[1].text = 'Home'
                 }
             } else if (i == 2) {
                 returnRow[returnRow.length - 2].text = 'Works'
