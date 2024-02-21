@@ -16,7 +16,7 @@ interface AssetProps {
 
 const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
     const isString = typeof item == 'string'
-    const {isMobile} = useWindowDimensions();
+    const { isMobile } = useWindowDimensions()
     const [openLargeImage, setOpenLargeImage] = useState(false)
     const [shouldShowImage, setShouldShowImage] = useState(false)
 
@@ -40,8 +40,6 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
                 setIsDragging(false)
             }, 100)
         }
-
-        
     }
 
     return isString ? (
@@ -50,8 +48,16 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
         </Fade>
     ) : (
         <Fade in={shouldShowImage}>
-                           
-            <div style={{width: isMobile ? "25%": "15em", margin: isMobile? "0 0.3em 0.3em 0.3em" : '0 1.5em 5em 1.5em', transform: transformation, objectFit: "cover"}}>
+            <div
+                style={{
+                    width: isMobile ? '40%' : '15em',
+                    margin: isMobile
+                        ? '0 0.5em 0.2em 0.5em'
+                        : '0 0.9em 0.9em 0.9em',
+                    transform: transformation,
+                    objectFit: 'cover',
+                }}
+            >
                 <Draggable onDrag={eventControl} onStop={eventControl}>
                     <Image
                         alt={'TODO'}

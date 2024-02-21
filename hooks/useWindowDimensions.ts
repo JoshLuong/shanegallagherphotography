@@ -17,7 +17,7 @@ const useWindowDimensions = () => {
     useEffect(() => {
         // component is mounted and window is available
         handleWindowResize()
-        const handleResizeThrottled = _.throttle(handleWindowResize, 500); // throttle
+        const handleResizeThrottled = _.throttle(handleWindowResize, 800); // throttle
         window.addEventListener('resize', handleResizeThrottled)
         setIsMobile(window.innerWidth <= MOBILE_DIMENSION)
         // unsubscribe from the event on component unmount

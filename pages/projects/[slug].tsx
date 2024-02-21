@@ -14,7 +14,7 @@ import ResizableAsset from '@/components/ResizableAsset'
 import { Fade } from '@mui/material'
 import RotatedText from '@/components/RotatedText'
 import Image from 'next/image'
-import useBlockGenerator from '@/hooks/useBlockGenerator'
+import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { loaderProp } from '@/utils/loader-prop'
@@ -23,6 +23,7 @@ import Toolbar from '@/components/Toolbar'
 import Head from 'next/head'
 
 export default function Project({
+    slugs,
     gallery,
     project,
     imageBehaviours,
@@ -40,14 +41,16 @@ export default function Project({
     useEffect(() => {
         setDidLoad(true)
     })
+    console.log(slugs)
 
     return (
         <main
             style={{
                 // WARNING: do not edit, it will cause weird bug with height and width
                 height: '100vh',
-                position: 'fixed',
                 overflow: 'auto',
+                overflowX:"hidden", // helps with mobile issue where the whole project is able to be moved left to right
+                position: "relative", // this is so we can have proper background when making the below pos absolute
             }}
             className={styles.projectPage__main}
         >
@@ -55,13 +58,14 @@ export default function Project({
             <title>{project.title}</title>
             </Head>
 
-            <Toolbar />
+            <Toolbar isGridBackground/>
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: "center",
-                    margin: isMobile ? '0' : '1em',
+                    margin: isMobile ? `${BLOCK_SIZE*2}px 0 0 0` : `${BLOCK_SIZE*2}px 1em 1em 1em`,
+                    position: "absolute",
                 }}
             >
                 {didLoad &&
@@ -133,6 +137,10 @@ export async function getStaticProps(context: any) {
         query: projectPageImageBehaviourQuery,
         variables: { slug },
     })
+    // TODO: implement project nav
+    const slugs = await client.query({
+        query: slugUrlsQuery,
+    })
 
     let gallery: Array<Asset | string> = []
 
@@ -148,6 +156,7 @@ export async function getStaticProps(context: any) {
     }
     return {
         props: {
+            slugs,
             gallery,
             project: data.projectsCollection.items[0],
             imageBehaviours:

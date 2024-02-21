@@ -129,6 +129,7 @@ const Block: React.FC<BlockProps> = ({
     )
 
     const hyperlink = getLink()
+    const tooltipLength = '250px'
     return (
         <BlackTooltip
             title={
@@ -138,6 +139,7 @@ const Block: React.FC<BlockProps> = ({
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            width: tooltipLength,
                         }}
                     >
                         <Image
@@ -146,10 +148,18 @@ const Block: React.FC<BlockProps> = ({
                             loading="eager"
                             width="0"
                             height="0"
-                            style={{ width: 'auto', height: '400px' }}
+                            style={{ width: tooltipLength, height: 'auto' }}
                             loader={loaderProp}
                         />
-                        <div style={{ fontSize: '1.5em' }}>
+                        <div
+                            style={{
+                                fontSize: '1.5em',
+                                backgroundColor: 'black',
+                                color: 'white',
+                                textAlign: 'center',
+                                width: '100%',
+                            }}
+                        >
                             {title.toLocaleUpperCase()}
                         </div>
                     </div>
