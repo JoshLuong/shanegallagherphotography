@@ -4,9 +4,11 @@ import client from '@/gql/apollo-client'
 import { Asset, GalleryImageBehaviour, Projects } from '@/types/graphql'
 import styles from '../../styles/project.module.less'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
+import { Subsection } from '@/types/graphql'
 import {
     projectPageImageBehaviourQuery,
     projectPageQuery,
+    projectUrlsQuery,
 } from '@/gql/project-page-query'
 import { slugUrlsQuery } from '@/gql/slug-urls-query'
 import { SlugUrl } from '@/types/graphql'
@@ -23,7 +25,8 @@ import Toolbar from '@/components/Toolbar'
 import Head from 'next/head'
 
 export default function Project({
-    slugs,
+    currentSlug,
+    projectUrls,
     gallery,
     project,
     imageBehaviours,
@@ -41,7 +44,10 @@ export default function Project({
     useEffect(() => {
         setDidLoad(true)
     })
-    console.log(slugs)
+    const projects = projectUrls?.subsectionCollection.items
+    const slugIndex = projects.findIndex(
+        (item: Subsection) => item.previewContent?.url?.id == currentSlug
+    )
 
     return (
         <main
@@ -49,23 +55,25 @@ export default function Project({
                 // WARNING: do not edit, it will cause weird bug with height and width
                 height: '100vh',
                 overflow: 'auto',
-                overflowX:"hidden", // helps with mobile issue where the whole project is able to be moved left to right
-                position: "relative", // this is so we can have proper background when making the below pos absolute
+                overflowX: 'hidden', // helps with mobile issue where the whole project is able to be moved left to right
+                position: 'relative', // this is so we can have proper background when making the below pos absolute
             }}
             className={styles.projectPage__main}
         >
             <Head>
-            <title>{project.title}</title>
+                <title>{project.title}</title>
             </Head>
 
-            <Toolbar isGridBackground/>
+            <Toolbar isGridBackground />
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    justifyContent: "center",
-                    margin: isMobile ? `${BLOCK_SIZE*2}px 0 0 0` : `${BLOCK_SIZE*2}px 1em 1em 1em`,
-                    position: "absolute",
+                    justifyContent: 'center',
+                    margin: isMobile
+                        ? `${BLOCK_SIZE * 2}px 0 0 0`
+                        : `${BLOCK_SIZE * 2}px 1em 1em 1em`,
+                    position: 'absolute',
                 }}
             >
                 {didLoad &&
@@ -118,11 +126,45 @@ export default function Project({
                         return (
                             <DraggableAsset
                                 item={item}
+                                key={index}
                                 transformation={transformation}
                             />
                         )
                     })}
             </div>
+            <Fade in
+                    timeout={{
+                        enter: 800
+                    }}>
+                
+                <div>
+            {slugIndex > 0 && (
+                <div
+                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_left}`}
+                >
+                    <div className={styles.projectPage__project_links_desc}>
+                        View previous work
+                    </div>
+                    <div className={styles.projectPage__project_links_project_title}>
+                        {projects[slugIndex - 1].title}
+                    </div>
+                </div>
+            )}
+            {slugIndex < projects.length - 1 && (
+                <div
+                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_right}`}
+                >
+                    <div className={styles.projectPage__project_links_desc}>
+                        View next work
+                    </div>
+                    <div className={styles.projectPage__project_links_project_title}>
+                        {projects[slugIndex + 1].title}
+                    </div>
+                </div>
+            )}
+            </div>
+            </Fade>
+
         </main>
     )
 }
@@ -138,8 +180,8 @@ export async function getStaticProps(context: any) {
         variables: { slug },
     })
     // TODO: implement project nav
-    const slugs = await client.query({
-        query: slugUrlsQuery,
+    const projectUrls = await client.query({
+        query: projectUrlsQuery,
     })
 
     let gallery: Array<Asset | string> = []
@@ -156,7 +198,8 @@ export async function getStaticProps(context: any) {
     }
     return {
         props: {
-            slugs,
+            currentSlug: slug,
+            projectUrls: projectUrls.data,
             gallery,
             project: data.projectsCollection.items[0],
             imageBehaviours:

@@ -42,3 +42,18 @@ export const projectPageImageBehaviourQuery = gql`
         }
     }
 `
+
+export const projectUrlsQuery = gql`
+    query GetProjectUrls {
+        subsectionCollection(order: sys_firstPublishedAt_ASC) {
+            items {
+                title
+                previewContent {
+                    url {
+                        id
+                    }
+                }
+            }
+        }
+    }
+`

@@ -59,9 +59,6 @@ const Block: React.FC<BlockProps> = ({
     const solidBorder = `0.7px solid white`
 
     const getLink = () => {
-        if (text === 'Social') {
-            return 'https://www.instagram.com/shanegallagher_/'
-        }
         if (text) {
             if (text === 'Home') {
                 return '/'
@@ -96,7 +93,7 @@ const Block: React.FC<BlockProps> = ({
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
-                fontSize: isMobile ? '15px' : '1em',
+                fontSize: isMobile ? '13px' : '1em',
                 color: text.toLocaleUpperCase() == 'HOME' ? 'red' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}

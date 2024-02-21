@@ -136,15 +136,13 @@ export default function useBlockGenerator({
             ]
 
             if (i == 1) {
-                returnRow[returnRow.length - 2].text = 'Social'
+                returnRow[returnRow.length - 2].text = 'Works'
                 returnRow[returnRow.length - 3].text = 'Contact'
                 returnRow[returnRow.length - 4].text = 'About'
 
                 if (pathname != '/') {
                     returnRow[1].text = 'Home'
                 }
-            } else if (i == 2) {
-                returnRow[returnRow.length - 2].text = 'Works'
             }
             if (isGridBackground && i > 2) {
                 returnRow.map((block) => (block.isBlockAsBackground = true)) // set to have block as bg element only (no clicks)

@@ -13,6 +13,7 @@ class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Cabin&display=optimal"
                         rel="stylesheet"
                     ></link>
+                    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"></link>
                     <meta
                         property="og:title"
                         content="Shane Gallagher Photography"
