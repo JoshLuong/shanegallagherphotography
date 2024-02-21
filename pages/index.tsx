@@ -34,9 +34,9 @@ export default function Home({
 
     */
 
-    const smallRadius = '10px'
-    const mediumRadius = '17px'
-    const largeRadius = '35px'
+    const smallRadius = isMobile ? '8px' : '10px'
+    const mediumRadius = isMobile ? '14px' : '17px'
+    const largeRadius = isMobile ? '30px' : '35px'
 
     const blocks: any[] = [
         [{},

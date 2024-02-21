@@ -14,7 +14,7 @@ export const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
     },
     [`& .${tooltipClasses.tooltip}`]: {
         backgroundColor: 'transparent',
-        color: 'red',
+        color: '#0087F3',
         fontSize: '0.7em',
     },
 }))

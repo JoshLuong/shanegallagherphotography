@@ -87,7 +87,7 @@ export default function Works({
                                         }
                                         followCursor
                                     >
-                                        <div style={{display: "inline-block"}}>{item.title}</div>
+                                        <div style={{display: "inline-block"}}>{item.title?.toLocaleUpperCase()}</div>
                                     </BlackTooltip>
                                 </Link>
                             )

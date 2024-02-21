@@ -76,12 +76,17 @@ export default function Project({
                     position: 'absolute',
                 }}
             >
+                <DraggableAsset
+                                item={project.title}
+                                key={project.title}
+                                transformation={'none'}
+                            />
                 {didLoad &&
                     gallery.map((item, index) => {
                         const behaviour = imageBehaviourMap[index + 1]
 
                         if (typeof item == 'string') {
-                            return null // SKIP for now, cause spacing issue with text
+                            // return null // SKIP for now, cause spacing issue with text
                         }
                         const randomInt = Math.random()
                         const englargeRandomInt = Math.random()

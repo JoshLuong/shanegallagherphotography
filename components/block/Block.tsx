@@ -58,6 +58,7 @@ const Block: React.FC<BlockProps> = ({
     const hiddenBorder = `0px solid white`
     const solidBorder = `0.7px solid white`
 
+    const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
     const getLink = () => {
         if (text) {
             if (text === 'Home') {
@@ -94,7 +95,9 @@ const Block: React.FC<BlockProps> = ({
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
                 fontSize: isMobile ? '13px' : '1em',
-                color: text.toLocaleUpperCase() == 'HOME' ? 'red' : 'white',
+                fontWeight: isTextHome() ? "bold":"normal",
+                letterSpacing: isTextHome() ? '0.8px' : '0.5px',
+                color: isTextHome() ? '#0087F3' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
@@ -152,8 +155,8 @@ const Block: React.FC<BlockProps> = ({
                             style={{
                                 fontSize: '1.5em',
                                 backgroundColor: 'black',
-                                color: 'white',
                                 textAlign: 'center',
+                                color: "white",
                                 width: '100%',
                             }}
                         >

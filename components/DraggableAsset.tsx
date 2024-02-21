@@ -29,7 +29,6 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
     const [isDragging, setIsDragging] = useState<any>(false)
 
     const eventControl = (event: { type: any }, info: any) => {
-        console.log(event.type)
         if (event.type === 'mousemove' || event.type === 'touchmove') {
             setIsDragging(true)
         }
@@ -43,8 +42,24 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
     }
 
     return isString ? (
-        <Fade in>
-            <div className={styles.asset}>{item}</div>
+        <Fade in={true} timeout={{
+            enter: 500
+        }} style={{ transitionDelay: `${700 + 300 * Math.random()}ms` }}>
+            <div  >
+            <Draggable onDrag={eventControl} onStop={eventControl}>
+            <div className={styles.asset} style={{
+                    width: isMobile ? '40%' : '15em',
+                    color: "white",
+                    maxHeight: '15em',
+                    overflow:"visible"
+
+                }}
+     draggable={true}
+                onDrag={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
+                >{item}</div>
+                </Draggable>
+                </div>
         </Fade>
     ) : (
         <Fade in={shouldShowImage}>

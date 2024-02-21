@@ -38,7 +38,10 @@ export default function Contact({
                         enter: 1300,
                     }}
                 >
-                    <a href="mailto:gallaghershanephotography@gmail.com" className={styles.contactPage__text}> GALLAGHERSHANEPHOTOGRAPHY@GMAIL.COM</a>
+                    <div className={styles.contactPage__text_container}>
+                    <a href="mailto:gallaghershanephotography@gmail.com" className={`${styles.contactPage__text} ${styles.contactPage__text_email}`}>GALLAGHERSHANEPHOTOGRAPHY@GMAIL.COM</a>
+                    <a href="https://www.instagram.com/shanegallagher_/" target='_blank' className={styles.contactPage__text}>@SHANEGALLAGHER_</a>
+                    </div>
                 </Fade>
             </div>
         </main>
