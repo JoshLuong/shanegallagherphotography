@@ -5,6 +5,7 @@ export const subsectionQuery = gql`
         projectCollection(order: sys_firstPublishedAt_ASC) {
             items {
                 title
+                isProjectFeatured
                 previewImage {
                     url
                 }

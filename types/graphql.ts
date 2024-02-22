@@ -737,11 +737,18 @@ export enum PreviewContentTypeOrder {
 export type Project = Entry & {
   __typename?: 'Project';
   contentfulMetadata: ContentfulMetadata;
+  isProjectFeatured?: Maybe<Scalars['Boolean']>;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   previewImage?: Maybe<Asset>;
   sys: Sys;
   title?: Maybe<Scalars['String']>;
   url?: Maybe<SlugUrl>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectIsProjectFeaturedArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -783,6 +790,9 @@ export type ProjectFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  isProjectFeatured?: InputMaybe<Scalars['Boolean']>;
+  isProjectFeatured_exists?: InputMaybe<Scalars['Boolean']>;
+  isProjectFeatured_not?: InputMaybe<Scalars['Boolean']>;
   previewImage_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
@@ -944,6 +954,8 @@ export type ProjectLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum ProjectOrder {
+  IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
+  IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -1412,6 +1424,8 @@ export type SlugUrlLinkingCollectionsSubsectionPreviewCollectionArgs = {
 };
 
 export enum SlugUrlLinkingCollectionsProjectCollectionOrder {
+  IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
+  IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',

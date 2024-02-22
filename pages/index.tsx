@@ -366,7 +366,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            items: data.projectCollection.items as Array<Project>,
+            items: data.projectCollection.items.filter((item: Project) => item.isProjectFeatured == true) as Array<Project>,
         },
     }
 }

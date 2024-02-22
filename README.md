@@ -20,7 +20,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Content
 
-All content is saved on contentful and retrieved via GraphQL calls
+All content is saved on contentful and retrieved via GraphQL calls. When making updates to the GQL types in contentful, make sure to run `yarn compile` to update the types. You also need to make sure `gql.ts` has documents type `any`.
 
 ## Deploying
 

@@ -55,7 +55,7 @@ export default function Project({
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile
-                        ? `${BLOCK_SIZE}px 1.5em 0 0`
+                        ? `${BLOCK_SIZE * 1.2}px 0 1em 0`
                         : `${BLOCK_SIZE * 1.5}px 1em 1em 1em`,
                     position: 'absolute',
                 }}
@@ -65,7 +65,8 @@ export default function Project({
                     reactNode={project.title}
                     transformation={'none'}
                     style={{
-                        // color: '#0087F3',
+                        color: "black",
+                        background: "white",
                     }}
                 />
                 <DraggableAsset
@@ -77,9 +78,6 @@ export default function Project({
                 />
                 {didLoad &&
                     gallery.map((item, index) => {
-                        if (typeof item == 'string') {
-                            // return null // SKIP for now, cause spacing issue with text
-                        }
                         const randomInt = Math.random()
                         const englargeRandomInt = Math.random()
                         let transformation = 'none'

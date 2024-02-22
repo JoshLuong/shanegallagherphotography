@@ -54,6 +54,11 @@ const DraggableAsset: React.FC<AssetProps> = ({
         }
     }
 
+    const dimensions =
+        (imageAsset?.width || 0) > (imageAsset?.height || 0)
+            ? { height: isMobile ? '40%' : '17em' }
+            : { width: isMobile ? '40%' : '15em' }
+
     const displayElement = (element: any) => (
         <Fade
             in={true}
@@ -72,6 +77,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                             maxHeight: '15em',
                             overflow: 'visible',
                             padding: '1em',
+                            backgroundColor: 'black',
                             ...style,
                         }}
                         draggable={true}
@@ -91,9 +97,9 @@ const DraggableAsset: React.FC<AssetProps> = ({
         <Fade in={shouldShowImage}>
             <div
                 style={{
-                    width: isMobile ? '40%' : '15em',
+                    ...dimensions,
                     margin: isMobile
-                        ? '0 0.5em 0.2em 0.5em'
+                        ? '0 0.7em 0.4em 0.7em'
                         : '0 0.9em 0.9em 0.9em',
                     transform: transformation,
                     objectFit: 'cover',

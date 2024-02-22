@@ -5,9 +5,24 @@
     //overflow: hidden;
     box-sizing: border-box;
     font-family: "Space Grotesk", sans-serif;
+
+    a {
+        text-decoration: none;
+        color: #0087F3;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 
 .asset__dialogTitle {
     padding: 0 !important;
+}
+
+@media only screen and (max-width: 800px) {
+    .asset {
+        font-size: 0.8em;
+    }
 }
