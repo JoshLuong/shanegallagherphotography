@@ -56,8 +56,8 @@ const DraggableAsset: React.FC<AssetProps> = ({
 
     const dimensions =
         (imageAsset?.width || 0) > (imageAsset?.height || 0)
-            ? { height: isMobile ? '40%' : '17em' }
-            : { width: isMobile ? '40%' : '15em' }
+            ? { height: isMobile ? '40%' : '18em' }
+            : { width: isMobile ? '40%' : '17em' }
 
     const displayElement = (element: any) => (
         <Fade

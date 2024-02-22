@@ -371,7 +371,7 @@ export default function Home({
         setShowBlocks(true) // issue with loading the blocks too soon
     })
 
-    const projectsCount = items.length
+    const projectsCount = items.filter((item) => item.previewImage != null).length
 
     // TODO  projectsCount) + 0].previewIm
     return (
@@ -401,7 +401,7 @@ export default function Home({
                                                     Math.random() *
                                                         projectsCount
                                                 ) + 0
-                                            ].previewImage?.url
+                                            ]?.previewImage?.url
                                         }
                                         isTempBackground
                                     />

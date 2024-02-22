@@ -56,7 +56,7 @@ export default function Project({
                     justifyContent: 'center',
                     margin: isMobile
                         ? `${BLOCK_SIZE * 1.2}px 0.5em 1.3em 0`
-                        : `${BLOCK_SIZE * 1.5}px 1em 1em 1em`,
+                        : `${BLOCK_SIZE * 1.5}px 1.2em 1em 1.2em`,
                     position: 'absolute',
                 }}
             >
@@ -111,8 +111,8 @@ export default function Project({
                             }em, ${-2.3 * Math.random()}em)`
                         }
                         let scale = ''
-                        if (englargeRandomInt >= 0.8) {
-                            scale = 'scale(1.3)'
+                        if (englargeRandomInt >= 0.9) {
+                            scale = 'scale(1.2)'
                         } else if (englargeRandomInt == 0.6) {
                             scale = 'scale(-0.5)'
                         }
