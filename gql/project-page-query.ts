@@ -28,21 +28,6 @@ export const projectPageQuery = gql`
     ${projectContentFragment}
 `
 
-export const projectPageImageBehaviourQuery = gql`
-    query GetProjectBySlug($slug: String!) {
-        projectsCollection(where: { url: { id: $slug } }) {
-            items {
-                behaviourCollection {
-                    items {
-                        index
-                        behaviour
-                    }
-                }
-            }
-        }
-    }
-`
-
 export const projectUrlsQuery = gql`
     query GetProjectUrls {
         subsectionCollection(order: sys_firstPublishedAt_ASC) {

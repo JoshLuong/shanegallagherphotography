@@ -6,7 +6,6 @@ import styles from '../../styles/project.module.less'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { Subsection } from '@/types/graphql'
 import {
-    projectPageImageBehaviourQuery,
     projectPageQuery,
     projectUrlsQuery,
 } from '@/gql/project-page-query'
