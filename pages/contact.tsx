@@ -55,7 +55,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            items: data.subsectionCollection.items as Array<Subsection>,
+            items: data.projectCollection.items as Array<Subsection>,
         },
     }
 }

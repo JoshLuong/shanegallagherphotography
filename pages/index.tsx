@@ -1,7 +1,6 @@
 import styles from '../styles/index.module.less'
 import client from '../gql/apollo-client'
 import { subsectionQuery } from '@/gql/landing-page-query'
-import { Subsection } from '../types/graphql'
 import { InferGetStaticPropsType } from 'next'
 import { ReactNode, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -11,6 +10,7 @@ import Head from 'next/head'
 import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
+import { Project } from '@/types/graphql'
 
 export const NO_SECTION_OPEN = -1
 export default function Home({
@@ -28,9 +28,9 @@ export default function Home({
 
     /*
     This is the data needed from items:
-        backgroundImage: items[1].previewContent?.photo?.url,
+        backgroundImage: items[1].previewImage?.url,
         title: items[1].title,
-        link: items[1].previewContent?.url?.id
+        link: items[1].url?.id
 
     */
 
@@ -80,9 +80,9 @@ export default function Home({
         // new line
         [
             {},
-            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius,  backgroundImage: items[6].previewContent?.photo?.url,
-                title: items[6].title,
-                link: items[6].previewContent?.url?.id },
+            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius,  backgroundImage: items[1].previewImage?.url,
+                title: items[1].title,
+                link: items[1].url?.id },
             {
                 topLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
@@ -119,9 +119,9 @@ export default function Home({
             },
             { topLBorderRadius: mediumRadius },
             { topRBorderRadius: mediumRadius,
-            backgroundImage: items[1].previewContent?.photo?.url,
+            backgroundImage: items[1].previewImage?.url,
             title: items[1].title,
-            link: items[1].previewContent?.url?.id
+            link: items[1].url?.id
          },
             { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
             { topLBorderRadius: largeRadius },
@@ -185,9 +185,9 @@ export default function Home({
                 topLBorderRadius: largeRadius,
                 topRBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
-                backgroundImage: items[4].previewContent?.photo?.url,
-                title: items[4].title,
-                link: items[4].previewContent?.url?.id
+                backgroundImage: items[0].previewImage?.url,
+                title: items[0].title,
+                link: items[0].url?.id
             },
             {
                 topLBorderRadius: mediumRadius,
@@ -200,9 +200,9 @@ export default function Home({
         [
             {},
             { bottomRBorderRadius: largeRadius,  },
-            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius,backgroundImage: items[5].previewContent?.photo?.url,
-                title: items[5].title,
-                link: items[5].previewContent?.url?.id },
+            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius,backgroundImage: items[1].previewImage?.url,
+                title: items[1].title,
+                link: items[1].url?.id },
             {bottomLBorderRadius: mediumRadius,},
             { bottomRBorderRadius: mediumRadius },
             {
@@ -313,7 +313,6 @@ export default function Home({
     ]
    const mobileReadyBlocks = blocks.map((block) => {
         if (isMobile) {
-            console.log(block.slice(1, block.length))
             return block.slice(1, block.length - 1)
         }
         return block
@@ -326,7 +325,9 @@ export default function Home({
         setShowBlocks(true) // issue with loading the blocks too soon
     })
 
+    const projectsCount = items.length
 
+    // TODO  projectsCount) + 0].previewIm
     return (
         <main style={{
             minWidth: `${mobileReadyBlocks[0].length * BLOCK_SIZE + 10}px`, // num squares * size + buffer px
@@ -345,7 +346,7 @@ export default function Home({
                     {generatedBlocks.map((block: any, i: number) => {
                         const r = Math.random();
                         if (r >= 0.7 && block.backgroundImage == null) {
-                            return <Block {...block} index={i}  backgroundImage={items[Math.floor(Math.random() * 6) + 1].previewContent?.photo?.url} isTempBackground/>
+                            return <Block {...block} index={i}  backgroundImage={items[Math.floor(Math.random() * projectsCount) + 0].previewImage?.url} isTempBackground/>
                         }
                         return <Block {...block} index={i} />
                     })}
@@ -365,7 +366,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            items: data.subsectionCollection.items as Array<Subsection>,
+            items: data.projectCollection.items as Array<Project>,
         },
     }
 }

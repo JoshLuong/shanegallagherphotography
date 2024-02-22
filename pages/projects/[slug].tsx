@@ -1,27 +1,20 @@
 import Masonry from '@mui/lab/Masonry'
 import { useEffect, useRef, useState } from 'react'
 import client from '@/gql/apollo-client'
-import { Asset, GalleryImageBehaviour, Projects } from '@/types/graphql'
+import { Asset, Project } from '@/types/graphql'
 import styles from '../../styles/project.module.less'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
-import { Subsection } from '@/types/graphql'
-import {
-    projectPageQuery,
-    projectUrlsQuery,
-} from '@/gql/project-page-query'
+import { projectPageQuery, projectUrlsQuery } from '@/gql/project-page-query'
 import { slugUrlsQuery } from '@/gql/slug-urls-query'
 import { SlugUrl } from '@/types/graphql'
-import ResizableAsset from '@/components/ResizableAsset'
 import { Fade } from '@mui/material'
-import RotatedText from '@/components/RotatedText'
-import Image from 'next/image'
 import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
-import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
-import { loaderProp } from '@/utils/loader-prop'
 import DraggableAsset from '@/components/DraggableAsset'
 import Toolbar from '@/components/Toolbar'
 import Head from 'next/head'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import Link from 'next/link'
 
 export default function Project({
     currentSlug,
@@ -31,14 +24,13 @@ export default function Project({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
-
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         setDidLoad(true)
     })
-    const projects = projectUrls?.subsectionCollection.items
+    const projects = projectUrls?.projectCollection?.items
     const slugIndex = projects.findIndex(
-        (item: Subsection) => item.previewContent?.url?.id == currentSlug
+        (item: Project) => item?.url?.id == currentSlug
     )
 
     return (
@@ -63,19 +55,28 @@ export default function Project({
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile
-                        ? `${BLOCK_SIZE * 2}px 0 0 0`
-                        : `${BLOCK_SIZE * 2}px 1em 1em 1em`,
+                        ? `${BLOCK_SIZE}px 1.5em 0 0`
+                        : `${BLOCK_SIZE * 1.5}px 1em 1em 1em`,
                     position: 'absolute',
                 }}
             >
                 <DraggableAsset
-                                item={project.title}
-                                key={project.title}
-                                transformation={'none'}
-                            />
+                    key={100}
+                    reactNode={project.title}
+                    transformation={'none'}
+                    style={{
+                        color: '#0087F3',
+                    }}
+                />
+                <DraggableAsset
+                    reactNode={documentToReactComponents(
+                        project.description.json
+                    )}
+                    key={101}
+                    transformation={'none'}
+                />
                 {didLoad &&
                     gallery.map((item, index) => {
-
                         if (typeof item == 'string') {
                             // return null // SKIP for now, cause spacing issue with text
                         }
@@ -119,48 +120,74 @@ export default function Project({
                         }
                         transformation += scale
 
-                        return (
+                        return typeof item === 'string' ? (
                             <DraggableAsset
-                                item={item}
+                                reactNode={item}
+                                key={index}
+                                transformation={transformation}
+                            />
+                        ) : (
+                            <DraggableAsset
+                                imageAsset={item}
                                 key={index}
                                 transformation={transformation}
                             />
                         )
                     })}
             </div>
-            <Fade in
-                    timeout={{
-                        enter: 800
-                    }}>
-                
+            <Fade
+                in
+                timeout={{
+                    enter: 800,
+                }}
+            >
                 <div>
-            {slugIndex > 0 && (
-                <div
-                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_left}`}
-                >
-                    <div className={styles.projectPage__project_links_desc}>
-                        View previous work
-                    </div>
-                    <div className={styles.projectPage__project_links_project_title}>
-                        {projects[slugIndex - 1].title}
-                    </div>
+                    {slugIndex > 0 && (
+                        <Link href={projects[slugIndex - 1].url.id}>
+                            <div
+                                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_left}`}
+                            >
+                                <div
+                                    className={
+                                        styles.projectPage__project_links_desc
+                                    }
+                                >
+                                    View previous work
+                                </div>
+                                <div
+                                    className={
+                                        styles.projectPage__project_links_project_title
+                                    }
+                                >
+                                    {projects[slugIndex - 1].title}
+                                </div>
+                            </div>
+                        </Link>
+                    )}
+                    {slugIndex < projects.length - 1 && (
+                        <Link href={projects[slugIndex + 1].url.id}>
+                            <div
+                                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_right}`}
+                            >
+                                <div
+                                    className={
+                                        styles.projectPage__project_links_desc
+                                    }
+                                >
+                                    View next work
+                                </div>
+                                <div
+                                    className={
+                                        styles.projectPage__project_links_project_title
+                                    }
+                                >
+                                    {projects[slugIndex + 1].title}
+                                </div>
+                            </div>
+                        </Link>
+                    )}
                 </div>
-            )}
-            {slugIndex < projects.length - 1 && (
-                <div
-                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_right}`}
-                >
-                    <div className={styles.projectPage__project_links_desc}>
-                        View next work
-                    </div>
-                    <div className={styles.projectPage__project_links_project_title}>
-                        {projects[slugIndex + 1].title}
-                    </div>
-                </div>
-            )}
-            </div>
             </Fade>
-
         </main>
     )
 }
@@ -172,7 +199,6 @@ export async function getStaticProps(context: any) {
         variables: { slug },
     })
 
-    // TODO: implement project nav
     const projectUrls = await client.query({
         query: projectUrlsQuery,
     })

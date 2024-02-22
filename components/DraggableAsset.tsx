@@ -3,19 +3,32 @@ import { getBehaviourStyles } from '@/utils/getBehaviourStyles'
 import { loaderProp } from '@/utils/loader-prop'
 import { Dialog, DialogTitle, Fade, IconButton } from '@mui/material'
 import Image from 'next/image'
-import { RefObject, useEffect, useRef, useState } from 'react'
+import {
+    CSSProperties,
+    ReactNode,
+    RefObject,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import styles from '../styles/Asset.module.less'
 import Draggable from 'react-draggable'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 
 interface AssetProps {
-    item: Asset | string
+    imageAsset?: Asset
+    reactNode?: string | ReactNode
     transformation?: string
+    style?: CSSProperties
 }
 
-const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
-    const isString = typeof item == 'string'
+const DraggableAsset: React.FC<AssetProps> = ({
+    imageAsset,
+    transformation,
+    reactNode,
+    style,
+}) => {
     const { isMobile } = useWindowDimensions()
     const [openLargeImage, setOpenLargeImage] = useState(false)
     const [shouldShowImage, setShouldShowImage] = useState(false)
@@ -41,26 +54,39 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
         }
     }
 
-    return isString ? (
-        <Fade in={true} timeout={{
-            enter: 500
-        }} style={{ transitionDelay: `${700 + 300 * Math.random()}ms` }}>
-            <div  >
-            <Draggable onDrag={eventControl} onStop={eventControl}>
-            <div className={styles.asset} style={{
-                    width: isMobile ? '40%' : '15em',
-                    color: "white",
-                    maxHeight: '15em',
-                    overflow:"visible"
-
-                }}
-     draggable={true}
-                onDrag={(e) => e.preventDefault()}
+    const displayElement = (element: any) => (
+        <Fade
+            in={true}
+            timeout={{
+                enter: 500,
+            }}
+            style={{ transitionDelay: `${700 + 300 * Math.random()}ms` }}
+        >
+            <div>
+                <Draggable onDrag={eventControl} onStop={eventControl}>
+                    <div
+                        className={styles.asset}
+                        style={{
+                            width: isMobile ? '100%' : '20em',
+                            color: 'white',
+                            maxHeight: '15em',
+                            overflow: 'visible',
+                            padding: '1em',
+                            ...style,
+                        }}
+                        draggable={true}
+                        onDrag={(e) => e.preventDefault()}
                         onDragStart={(e) => e.preventDefault()}
-                >{item}</div>
+                    >
+                        {element}
+                    </div>
                 </Draggable>
-                </div>
+            </div>
         </Fade>
+    )
+
+    return reactNode != null ? (
+        displayElement(reactNode)
     ) : (
         <Fade in={shouldShowImage}>
             <div
@@ -76,17 +102,17 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
                 <Draggable onDrag={eventControl} onStop={eventControl}>
                     <Image
                         alt={'TODO'}
-                        src={item.url || ''}
-                        width={item.width || '0'}
+                        src={imageAsset!!.url || ''}
+                        width={imageAsset!!.width || '0'}
                         onDrag={(e) => e.preventDefault()}
                         onDragStart={(e) => e.preventDefault()}
-                        height={item.height || 0}
+                        height={imageAsset!!.height || 0}
                         style={{
                             height: '100%',
                             width: '100%',
                         }}
                         loader={loaderProp}
-                        loading="lazy"
+                        loading="eager"
                         onClick={() => {
                             if (!isDragging) {
                                 setOpenLargeImage(!openLargeImage)
@@ -115,9 +141,9 @@ const DraggableAsset: React.FC<AssetProps> = ({ item, transformation }) => {
                     </DialogTitle>
                     <Image
                         alt={'TODO'}
-                        src={item?.url || ''}
-                        width={item?.width || '0'}
-                        height={item?.height || '0'}
+                        src={imageAsset?.url || ''}
+                        width={imageAsset?.width || '0'}
+                        height={imageAsset?.height || '0'}
                         style={{
                             height: '100%',
                             width: '100%',

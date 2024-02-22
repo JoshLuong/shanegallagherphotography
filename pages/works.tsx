@@ -1,7 +1,7 @@
 import styles from '../styles/works.module.less'
 import client from '../gql/apollo-client'
 import { subsectionQuery } from '@/gql/landing-page-query'
-import { Subsection } from '../types/graphql'
+import { Project, Subsection } from '../types/graphql'
 import { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Block from '@/components/block/Block'
@@ -49,7 +49,7 @@ export default function Works({
                             return (
                                 <Link
                                     href={`projects/${
-                                        item.previewContent?.url?.id || ''
+                                        item.url?.id || ''
                                     }`}
                                     style={{
                                         textDecoration: 'none',
@@ -70,8 +70,7 @@ export default function Works({
                                             >
                                                 <Image
                                                     src={
-                                                        item.previewContent
-                                                            ?.photo?.url || ''
+                                                        item.previewImage?.url || ''
                                                     }
                                                     alt=""
                                                     loading="eager"
@@ -106,7 +105,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            items: data.subsectionCollection.items as Array<Subsection>,
+            items: data.projectCollection.items as Array<Project>,
         },
     }
 }

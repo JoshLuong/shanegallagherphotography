@@ -1,42 +1,33 @@
 import { gql } from '@apollo/client'
 
-const projectContentFragment = gql`
-    fragment ProjectContent on Projects {
-        title
-        galleryCollection {
-            items {
-                url
-                width
-                height
-                contentType
-            }
-        }
-        description {
-            json
-        }
-    }
-`
-
 export const projectPageQuery = gql`
     query GetProjectBySlug($slug: String!) {
         projectsCollection(where: { url: { id: $slug } }) {
             items {
-                ...ProjectContent
+                title
+                galleryCollection {
+                    items {
+                        url
+                        width
+                        height
+                        contentType
+                    }
+                }
+                description {
+                    json
+                }
             }
         }
     }
-    ${projectContentFragment}
 `
 
 export const projectUrlsQuery = gql`
     query GetProjectUrls {
-        subsectionCollection(order: sys_firstPublishedAt_ASC) {
+        projectCollection(order: sys_firstPublishedAt_ASC) {
             items {
                 title
-                previewContent {
-                    url {
-                        id
-                    }
+                url {
+                    id
                 }
             }
         }
