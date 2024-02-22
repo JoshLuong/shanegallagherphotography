@@ -2,8 +2,12 @@ body {
     margin: 0;
     font-family: "Space Grotesk", sans-serif;
     background-color: black; // fixes white flash of loading
-    cursor: -webkit-image-set(url(/red-cursor.png) 1x, url(/red-cursor.png) 2x) 0 0,
+    cursor: -webkit-image-set(url(/blue-cursor.png) 1x, url(/blue-cursor.png) 2x) 0 0,
         pointer !important;
+    a:hover {
+        cursor: -webkit-image-set(url(/white-cursor.png) 1x, url(/white-cursor.png) 2x) 0 0,
+        pointer !important;
+    }
 }
 
 body:has(#landing_page){

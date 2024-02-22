@@ -65,7 +65,7 @@ export default function Project({
                     reactNode={project.title}
                     transformation={'none'}
                     style={{
-                        color: '#0087F3',
+                        // color: '#0087F3',
                     }}
                 />
                 <DraggableAsset
