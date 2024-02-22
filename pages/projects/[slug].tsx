@@ -29,16 +29,9 @@ export default function Project({
     projectUrls,
     gallery,
     project,
-    imageBehaviours,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
-    const imageBehaviourMap =
-        imageBehaviours.reduce(function (map: Record<number, string>, obj) {
-            if (!obj || !obj.index || !obj?.behaviour) return map
-            map[obj.index] = obj?.behaviour
-            return map
-        }, {}) || {}
 
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
@@ -83,7 +76,6 @@ export default function Project({
                             />
                 {didLoad &&
                     gallery.map((item, index) => {
-                        const behaviour = imageBehaviourMap[index + 1]
 
                         if (typeof item == 'string') {
                             // return null // SKIP for now, cause spacing issue with text
@@ -180,10 +172,7 @@ export async function getStaticProps(context: any) {
         query: projectPageQuery,
         variables: { slug },
     })
-    const { data: behaviourData } = await client.query({
-        query: projectPageImageBehaviourQuery,
-        variables: { slug },
-    })
+
     // TODO: implement project nav
     const projectUrls = await client.query({
         query: projectUrlsQuery,
@@ -207,12 +196,6 @@ export async function getStaticProps(context: any) {
             projectUrls: projectUrls.data,
             gallery,
             project: data.projectsCollection.items[0],
-            imageBehaviours:
-                behaviourData.projectsCollection.items.length >= 1
-                    ? (behaviourData.projectsCollection.items[0]
-                          .behaviourCollection
-                          ?.items as Array<GalleryImageBehaviour>)
-                    : [],
         },
     }
 }
