@@ -16,8 +16,7 @@ export const NO_SECTION_OPEN = -1
 export default function Home({
     items,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-
-    const {isMobile} = useWindowDimensions();
+    const { isMobile } = useWindowDimensions()
     if (!items) {
         // This should never happen
         return null
@@ -33,17 +32,25 @@ export default function Home({
         link: items[1].url?.id
 
     */
+    console.log(items[4])
 
     const smallRadius = isMobile ? '8px' : '10px'
     const mediumRadius = isMobile ? '14px' : '17px'
     const largeRadius = isMobile ? '30px' : '35px'
 
     const blocks: any[] = [
-        [{},
+        [
+            {},
             {},
             { bottomRBorderRadius: smallRadius },
-            { bottomLBorderRadius: smallRadius, bottomRBorderRadius: mediumRadius },
-            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: smallRadius },
+            {
+                bottomLBorderRadius: smallRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            {
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: smallRadius,
+            },
             { bottomLBorderRadius: smallRadius },
             {},
             {},
@@ -80,9 +87,13 @@ export default function Home({
         // new line
         [
             {},
-            { topRBorderRadius: mediumRadius, bottomRBorderRadius: largeRadius,  backgroundImage: items[1].previewImage?.url,
+            {
+                topRBorderRadius: mediumRadius,
+                bottomRBorderRadius: largeRadius,
+                backgroundImage: items[1].previewImage?.url,
                 title: items[1].title,
-                link: items[1].url?.id },
+                link: items[1].url?.id,
+            },
             {
                 topLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
@@ -92,6 +103,8 @@ export default function Home({
             {
                 topLBorderRadius: largeRadius,
                 topRBorderRadius: largeRadius,
+                text: items[3].title,
+                link: items[3].url?.id,
                 bottomLBorderRadius: mediumRadius,
             },
             {
@@ -105,52 +118,76 @@ export default function Home({
                 bottomLBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
             },
-            { topLBorderRadius: mediumRadius, bottomLBorderRadius: largeRadius },
+            {
+                topLBorderRadius: mediumRadius,
+                bottomLBorderRadius: largeRadius,
+            },
             {},
         ],
         // new line
         [
-            { bottomRBorderRadius: mediumRadius},
-            { topRBorderRadius: largeRadius, bottomRBorderRadius: largeRadius , bottomLBorderRadius: mediumRadius},
+            { bottomRBorderRadius: mediumRadius },
+            {
+                topRBorderRadius: largeRadius,
+                bottomRBorderRadius: largeRadius,
+                bottomLBorderRadius: mediumRadius,
+            },
             {
                 topLBorderRadius: largeRadius,
                 topRBorderRadius: mediumRadius,
                 bottomLBorderRadius: largeRadius,
             },
             { topLBorderRadius: mediumRadius },
-            { topRBorderRadius: mediumRadius,
-            backgroundImage: items[1].previewImage?.url,
-            title: items[1].title,
-            link: items[1].url?.id
-         },
+            {
+                topRBorderRadius: mediumRadius,
+                backgroundImage: items[1].previewImage?.url,
+                title: items[1].title,
+                link: items[1].url?.id,
+            },
             { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
             { topLBorderRadius: largeRadius },
             {},
         ],
         // new line
         [
-            {topRBorderRadius: mediumRadius},
-            { topRBorderRadius: largeRadius, topLBorderRadius: mediumRadius,bottomRBorderRadius: mediumRadius },
+            { topRBorderRadius: mediumRadius },
+            {
+                topRBorderRadius: largeRadius,
+                topLBorderRadius: mediumRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
             {
                 topLBorderRadius: largeRadius,
                 bottomRBorderRadius: largeRadius,
                 bottomLBorderRadius: mediumRadius,
             },
-            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius },
-            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: mediumRadius },
-            { bottomLBorderRadius: mediumRadius, bottomRBorderRadius: smallRadius },
+            {
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            {
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: mediumRadius,
+            },
+            {
+                bottomLBorderRadius: mediumRadius,
+                bottomRBorderRadius: smallRadius,
+            },
             { bottomLBorderRadius: smallRadius },
             {},
         ],
         // new line
         [
             {},
-            { topRBorderRadius: mediumRadius },
+            {
+                topRBorderRadius: mediumRadius,
+                text: items[2].title,
+                link: items[2].url?.id,
+            },
             {
                 topLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
                 bottomRBorderRadius: mediumRadius,
-                text: "Lifestyle"
             },
             {
                 topLBorderRadius: largeRadius,
@@ -170,14 +207,16 @@ export default function Home({
                 bottomLBorderRadius: largeRadius,
                 bottomRBorderRadius: mediumRadius,
             },
-            { topLBorderRadius: smallRadius, bottomLBorderRadius: mediumRadius },
+            {
+                topLBorderRadius: smallRadius,
+                bottomLBorderRadius: mediumRadius,
+            },
             {},
         ],
         // new line
         [
             {},
-            {
-            },
+            {},
             { topRBorderRadius: mediumRadius },
             { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
             { topLBorderRadius: largeRadius, topRBorderRadius: largeRadius },
@@ -187,7 +226,7 @@ export default function Home({
                 bottomRBorderRadius: largeRadius,
                 backgroundImage: items[0].previewImage?.url,
                 title: items[0].title,
-                link: items[0].url?.id
+                link: items[0].url?.id,
             },
             {
                 topLBorderRadius: mediumRadius,
@@ -199,17 +238,20 @@ export default function Home({
         // new line
         [
             {},
-            { bottomRBorderRadius: largeRadius,  },
-            { bottomLBorderRadius: largeRadius, bottomRBorderRadius: mediumRadius,backgroundImage: items[1].previewImage?.url,
+            { bottomRBorderRadius: largeRadius },
+            {
+                bottomLBorderRadius: largeRadius,
+                bottomRBorderRadius: mediumRadius,
+                backgroundImage: items[1].previewImage?.url,
                 title: items[1].title,
-                link: items[1].url?.id },
-            {bottomLBorderRadius: mediumRadius,},
+                link: items[1].url?.id,
+            },
+            { bottomLBorderRadius: mediumRadius },
             { bottomRBorderRadius: mediumRadius },
             {
                 bottomLBorderRadius: mediumRadius,
                 topRBorderRadius: largeRadius,
                 bottomRBorderRadius: largeRadius,
-                
             },
             {
                 topLBorderRadius: largeRadius,
@@ -217,7 +259,10 @@ export default function Home({
                 bottomLBorderRadius: largeRadius,
                 bottomRBorderRadius: mediumRadius,
             },
-            { topLBorderRadius: smallRadius, bottomLBorderRadius: mediumRadius },
+            {
+                topLBorderRadius: smallRadius,
+                bottomLBorderRadius: mediumRadius,
+            },
         ],
         // new line
         [
@@ -236,7 +281,8 @@ export default function Home({
                 bottomLBorderRadius: largeRadius,
                 topLBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
-                text: "Fashion"
+                text: items[4].title,
+                link: items[4].url?.id,
             },
             {
                 topRBorderRadius: mediumRadius,
@@ -311,14 +357,14 @@ export default function Home({
             {},
         ],
     ]
-   const mobileReadyBlocks = blocks.map((block) => {
+    const mobileReadyBlocks = blocks.map((block) => {
         if (isMobile) {
             return block.slice(1, block.length - 1)
         }
         return block
     })
 
-    const generatedBlocks = useBlockGenerator({blocks: mobileReadyBlocks})
+    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks })
     const [showBlocks, setShowBlocks] = useState(false)
 
     useEffect(() => {
@@ -329,31 +375,42 @@ export default function Home({
 
     // TODO  projectsCount) + 0].previewIm
     return (
-        <main style={{
-            minWidth: `${mobileReadyBlocks[0].length * BLOCK_SIZE + 10}px`, // num squares * size + buffer px
-            backgroundColor: "white" // this is to fix flash of white during load
-        }}
-        id="landing_page" // this ID is used in the body css to fix a bug
+        <main
+            style={{
+                minWidth: `${mobileReadyBlocks[0].length * BLOCK_SIZE + 10}px`, // num squares * size + buffer px
+                backgroundColor: 'white', // this is to fix flash of white during load
+            }}
+            id="landing_page" // this ID is used in the body css to fix a bug
         >
             <Head>
                 <title>Shane Gallagher</title>
             </Head>
             <div className={styles.landingPage__container}>
-                {showBlocks && <div
-                    
-                    className={styles.landingPage__block_container}
-                >
-                    {generatedBlocks.map((block: any, i: number) => {
-                        const r = Math.random();
-                        if (r >= 0.7 && block.backgroundImage == null) {
-                            return <Block {...block} index={i}  backgroundImage={items[Math.floor(Math.random() * projectsCount) + 0].previewImage?.url} isTempBackground/>
-                        }
-                        return <Block {...block} index={i} />
-                    })}
-                </div>
-                
-                }
-                
+                {showBlocks && (
+                    <div className={styles.landingPage__block_container}>
+                        {generatedBlocks.map((block: any, i: number) => {
+                            const r = Math.random()
+                            if (r >= 0.7 && block.backgroundImage == null) {
+                                return (
+                                    <Block
+                                        {...block}
+                                        index={i}
+                                        backgroundImage={
+                                            items[
+                                                Math.floor(
+                                                    Math.random() *
+                                                        projectsCount
+                                                ) + 0
+                                            ].previewImage?.url
+                                        }
+                                        isTempBackground
+                                    />
+                                )
+                            }
+                            return <Block {...block} index={i} />
+                        })}
+                    </div>
+                )}
             </div>
         </main>
     )
@@ -366,7 +423,9 @@ export async function getStaticProps() {
 
     return {
         props: {
-            items: data.projectCollection.items.filter((item: Project) => item.isProjectFeatured == true) as Array<Project>,
+            items: data.projectCollection.items.filter(
+                (item: Project) => item.isProjectFeatured == true
+            ) as Array<Project>,
         },
     }
 }

@@ -55,7 +55,7 @@ export default function Project({
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile
-                        ? `${BLOCK_SIZE * 1.2}px 0 1em 0`
+                        ? `${BLOCK_SIZE * 1.2}px 0.5em 1.3em 0`
                         : `${BLOCK_SIZE * 1.5}px 1em 1em 1em`,
                     position: 'absolute',
                 }}

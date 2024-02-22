@@ -26,7 +26,6 @@ interface BlockProps {
     link?: string
     loadAnimation?: boolean
     isTempBackground?: boolean // should time out to black square and not allow clicks
-    isBlockAsBackground?: boolean // set z-index to -1 and position to fixed
 }
 
 const Block: React.FC<BlockProps> = ({
@@ -44,10 +43,9 @@ const Block: React.FC<BlockProps> = ({
     title = '',
     index,
     text = '',
-    link = text.toLocaleLowerCase(),
+    link = '',
     loadAnimation = true,
     isTempBackground = false,
-    isBlockAsBackground,
 }) => {
     const delay = 1300 + index * 7
     const { isMobile } = useWindowDimensions()
@@ -60,7 +58,7 @@ const Block: React.FC<BlockProps> = ({
 
     const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
     const getLink = () => {
-        if (text) {
+        if (text && !link) {
             if (text === 'Home') {
                 return '/'
             }
@@ -94,7 +92,7 @@ const Block: React.FC<BlockProps> = ({
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
-                fontSize: isMobile ? '13px' : '1em',
+                fontSize: isMobile ? '10.5px' : '1em',
                 fontWeight: isTextHome() ? "bold":"normal",
                 letterSpacing: isTextHome() ? '0.8px' : '0.5px',
                 color: isTextHome() ? '#0087F3' : 'white',
@@ -176,7 +174,6 @@ const Block: React.FC<BlockProps> = ({
                 {hyperlink != null && hyperlink != '' ? (
                     <Link
                         href={hyperlink}
-                        {...(text === 'Social' ? { target: '_blank' } : {})}
                         prefetch={true}
                         style={{
                             cursor:
