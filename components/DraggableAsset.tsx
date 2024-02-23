@@ -1,13 +1,15 @@
 import { Asset } from '@/types/graphql'
 import { loaderProp } from '@/utils/loader-prop'
-import { Dialog, DialogTitle, Fade, IconButton } from '@mui/material'
-import Image from 'next/image'
 import {
-    CSSProperties,
-    ReactNode,
-    useEffect,
-    useState,
-} from 'react'
+    Button,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    Fade,
+    IconButton,
+} from '@mui/material'
+import Image from 'next/image'
+import { CSSProperties, ReactNode, useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import styles from '../styles/Asset.module.less'
 import Draggable from 'react-draggable'
@@ -19,6 +21,8 @@ interface AssetProps {
     reactNode?: string | ReactNode
     transformation?: string
     style?: CSSProperties
+    images?: Asset[]
+    index: number
 }
 
 const DraggableAsset: React.FC<AssetProps> = ({
@@ -26,9 +30,14 @@ const DraggableAsset: React.FC<AssetProps> = ({
     transformation,
     reactNode,
     style,
+    images,
+    index,
 }) => {
     const { isMobile } = useWindowDimensions()
     const [openLargeImage, setOpenLargeImage] = useState(false)
+    const [curLargeImageIndex, setCurLargeImageIndex] = useState<number | null>(
+        index
+    )
     const [shouldShowImage, setShouldShowImage] = useState(false)
 
     useEffect(() => {
@@ -107,6 +116,10 @@ const DraggableAsset: React.FC<AssetProps> = ({
 
       */
 
+    const hasLeftImageButton = curLargeImageIndex && curLargeImageIndex > 0
+    const hasRightImageButton =
+        curLargeImageIndex != null &&
+        curLargeImageIndex < (images?.length || 0) - 1
     return reactNode != null ? (
         displayElement(reactNode)
     ) : (
@@ -153,7 +166,20 @@ const DraggableAsset: React.FC<AssetProps> = ({
                 </div>
                 <Dialog
                     open={openLargeImage}
-                    onClose={() => setOpenLargeImage(false)}
+                    onClose={() => {
+                        setOpenLargeImage(false)
+                        setCurLargeImageIndex(index)
+                    }}
+                    onKeyDown={(event) => {
+                        if (event.keyCode === 37 && hasLeftImageButton) {
+                            // left key press
+                            setCurLargeImageIndex(curLargeImageIndex - 1)
+                        }
+                        if (event.keyCode === 39 && hasRightImageButton) {
+                            // right key press
+                            setCurLargeImageIndex(curLargeImageIndex + 1)
+                        }
+                    }}
                     maxWidth={false}
                 >
                     <DialogTitle className={styles.asset__dialogTitle}>
@@ -170,19 +196,58 @@ const DraggableAsset: React.FC<AssetProps> = ({
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
-                    <Image
-                        alt={'TODO'}
-                        src={imageAsset?.url || ''}
-                        width={imageAsset?.width || '0'}
-                        height={imageAsset?.height || '0'}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                        }}
-                        loader={loaderProp}
-                        loading="lazy"
-                        className={styles.asset}
-                    />
+                    {curLargeImageIndex != null &&
+                        curLargeImageIndex >= 0 &&
+                        images!![curLargeImageIndex] != null && (
+                            <Image
+                                alt={'TODO'}
+                                src={images!![curLargeImageIndex]?.url || ''}
+                                width={
+                                    images!![curLargeImageIndex]?.width || '0'
+                                }
+                                height={
+                                    images!![curLargeImageIndex]?.height || '0'
+                                }
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                }}
+                                loader={loaderProp}
+                                loading="eager" // this may cause loading issues
+                                className={styles.asset}
+                            />
+                        )}
+
+                    <DialogActions style={{ background: 'black' }}>
+                        {hasLeftImageButton && (
+                            <div
+                                style={{
+                                    color: 'white',
+                                    marginRight: 'auto',
+                                    userSelect: 'none',
+                                }}
+                                onClick={() =>
+                                    setCurLargeImageIndex(
+                                        curLargeImageIndex - 1
+                                    )
+                                }
+                            >
+                                Previous
+                            </div>
+                        )}
+                        {hasRightImageButton && (
+                            <div
+                                style={{ color: 'white', userSelect: 'none' }}
+                                onClick={() =>
+                                    setCurLargeImageIndex(
+                                        curLargeImageIndex + 1
+                                    )
+                                }
+                            >
+                                Next
+                            </div>
+                        )}
+                    </DialogActions>
                 </Dialog>
             </div>
         </Fade>

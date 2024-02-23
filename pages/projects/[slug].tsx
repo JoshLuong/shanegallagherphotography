@@ -36,7 +36,9 @@ export default function Project({
     const slugIndex = projects.findIndex(
         (item: Project) => item?.url?.id == currentSlug
     )
+    const images = gallery.filter(item => typeof item !== "string")
 
+    let imageCount = 0;
     const galleryElements = useMemo(() => gallery.map((item, index) => {
         const randomInt = Math.random()
         const englargeRandomInt = Math.random()
@@ -83,12 +85,15 @@ export default function Project({
                 reactNode={item}
                 key={index}
                 transformation={transformation}
+                index={index}
             />
         ) : (
             <DraggableAsset
                 imageAsset={item}
                 key={index}
                 transformation={transformation}
+                index={imageCount++}
+                images={images as Asset[]}
             />
         )
     }), [])
@@ -142,6 +147,7 @@ export default function Project({
                         color: "black",
                         background: "white",
                     }}
+                    index={-1}
                 />
                 <DraggableAsset
                     reactNode={documentToReactComponents(
@@ -149,6 +155,7 @@ export default function Project({
                     )}
                     key={101}
                     transformation={'none'}
+                    index={-1}
                 />
                 {didLoad && galleryElements}
             </div>
