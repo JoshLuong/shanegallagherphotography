@@ -71,7 +71,7 @@ export default function Project({
             }em, ${-2.3 * Math.random()}em)`
         }
         let scale = ''
-        if (englargeRandomInt >= 0.9) {
+        if (!isMobile && englargeRandomInt >= 0.8) {
             scale = 'scale(1.2)'
         } else if (englargeRandomInt == 0.6) {
             scale = 'scale(-0.5)'

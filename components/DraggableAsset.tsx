@@ -1,20 +1,18 @@
 import { Asset } from '@/types/graphql'
-import { getBehaviourStyles } from '@/utils/getBehaviourStyles'
 import { loaderProp } from '@/utils/loader-prop'
 import { Dialog, DialogTitle, Fade, IconButton } from '@mui/material'
 import Image from 'next/image'
 import {
     CSSProperties,
     ReactNode,
-    RefObject,
     useEffect,
-    useRef,
     useState,
 } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import styles from '../styles/Asset.module.less'
 import Draggable from 'react-draggable'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { Rnd } from 'react-rnd'
 
 interface AssetProps {
     imageAsset?: Asset
@@ -45,7 +43,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
         if (event.type === 'mousemove' || event.type === 'touchmove') {
             setIsDragging(true)
         }
-        if (event.type === 'touchend' && !isDragging) {
+        if (event.type === 'touchend' && !isDragging && isMobile) {
             setOpenLargeImage(!openLargeImage) // mobile events only fire touchend
         } else if (event.type === 'mouseup' || event.type === 'touchend') {
             setTimeout(() => {
@@ -54,9 +52,10 @@ const DraggableAsset: React.FC<AssetProps> = ({
         }
     }
 
+    // for horizontal images
     const dimensions =
         (imageAsset?.width || 0) > (imageAsset?.height || 0)
-            ? { height: isMobile ? '40%' : '18em' }
+            ? { width: isMobile ? '90%' : '25em' }
             : { width: isMobile ? '40%' : '17em' }
 
     const displayElement = (element: any) => (
@@ -90,6 +89,23 @@ const DraggableAsset: React.FC<AssetProps> = ({
             </div>
         </Fade>
     )
+    const topRightStyles = {
+        // cursor: 'pointer',
+        // right: "0",
+        // bottom: "0"
+    }
+
+    /*
+                    enableResizing={{ top:false, right:false, bottom:false, left:false, topRight:false, bottomRight:true, bottomLeft:false, topLeft:false }}
+
+                          resizeHandleStyles={{
+                        bottomRight: topRightStyles,
+                      }}
+                      resizeHandleComponent={{
+                        bottomRight: <DragHandleIcon style={{fontSize: "20px", color: "white", transform: "rotate(140deg)"}}/>
+                      }}
+
+      */
 
     return reactNode != null ? (
         displayElement(reactNode)
@@ -103,29 +119,38 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         : '0 0.9em 0.9em 0.9em',
                     transform: transformation,
                     objectFit: 'cover',
+                    height: isMobile ? '15em' : '25em',
                 }}
             >
-                <Draggable onDrag={eventControl} onStop={eventControl}>
-                    <Image
-                        alt={'TODO'}
-                        src={imageAsset!!.url || ''}
-                        width={imageAsset!!.width || '0'}
-                        onDrag={(e) => e.preventDefault()}
-                        onDragStart={(e) => e.preventDefault()}
-                        height={imageAsset!!.height || 0}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                        }}
-                        loader={loaderProp}
-                        loading="eager"
+                <div>
+                    <Rnd
+                        onDrag={eventControl}
+                        onDragStop={eventControl}
+                        onResize={eventControl}
+                        onResizeStop={eventControl}
+                        lockAspectRatio
                         onClick={() => {
                             if (!isDragging) {
                                 setOpenLargeImage(!openLargeImage)
                             }
                         }}
-                    />
-                </Draggable>
+                    >
+                        <Image
+                            alt={'TODO'}
+                            src={imageAsset!!.url || ''}
+                            width={imageAsset!!.width || '0'}
+                            onDrag={(e) => e.preventDefault()}
+                            onDragStart={(e) => e.preventDefault()}
+                            height={imageAsset!!.height || 0}
+                            style={{
+                                height: '100%',
+                                width: '100%',
+                            }}
+                            loader={loaderProp}
+                            loading="eager"
+                        />
+                    </Rnd>
+                </div>
                 <Dialog
                     open={openLargeImage}
                     onClose={() => setOpenLargeImage(false)}
