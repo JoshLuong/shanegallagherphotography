@@ -92,7 +92,7 @@ const Block: React.FC<BlockProps> = ({
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
-                fontSize: isMobile ? '10.5px' : '1em',
+                fontSize: isMobile ? '0.65em' : '1em',
                 fontWeight: isTextHome() ? "bold":"normal",
                 letterSpacing: isTextHome() ? '0.8px' : '0.5px',
                 color: isTextHome() ? '#0087F3' : 'white',

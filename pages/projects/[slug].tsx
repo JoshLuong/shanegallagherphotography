@@ -1,5 +1,5 @@
 import Masonry from '@mui/lab/Masonry'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import client from '@/gql/apollo-client'
 import { Asset, Project } from '@/types/graphql'
 import styles from '../../styles/project.module.less'
@@ -15,6 +15,8 @@ import Toolbar from '@/components/Toolbar'
 import Head from 'next/head'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Link from 'next/link'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function Project({
     currentSlug,
@@ -24,6 +26,8 @@ export default function Project({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
+    const [timeout, setTimeoutRef] = useState<any>(null)
+
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         setDidLoad(true)
@@ -32,6 +36,73 @@ export default function Project({
     const slugIndex = projects.findIndex(
         (item: Project) => item?.url?.id == currentSlug
     )
+
+    const galleryElements = useMemo(() => gallery.map((item, index) => {
+        const randomInt = Math.random()
+        const englargeRandomInt = Math.random()
+        let transformation = 'none'
+        if (randomInt == 1) {
+            transformation = `translate(${
+                1.8 * Math.random()
+            }em, ${1.5 * Math.random()}em)`
+        } else if (randomInt >= 0.8) {
+            transformation = `translate(${
+                2.6 * Math.random()
+            }em, ${1.5 * Math.random()}em)`
+        } else if (randomInt == 0.7) {
+            transformation = `translate(${
+                1.7 * Math.random()
+            }em, ${-1.9 * Math.random()}em)`
+        } else if (randomInt >= 0.5) {
+            transformation = `translate(${
+                -2.3 * Math.random()
+            }em, ${2.1 * Math.random()}em)`
+        } else if (randomInt >= 0.3) {
+            transformation = `translate(${
+                1.6 * Math.random()
+            }em, ${-2.3 * Math.random()}em)`
+        } else if (randomInt == 0.2) {
+            transformation = `translate(${
+                2.3 * Math.random()
+            }em, ${-2.3 * Math.random()}em)`
+        } else {
+            transformation = `translate(${
+                -2.8 * Math.random()
+            }em, ${-2.3 * Math.random()}em)`
+        }
+        let scale = ''
+        if (englargeRandomInt >= 0.9) {
+            scale = 'scale(1.2)'
+        } else if (englargeRandomInt == 0.6) {
+            scale = 'scale(-0.5)'
+        }
+        transformation += scale
+
+        return typeof item === 'string' ? (
+            <DraggableAsset
+                reactNode={item}
+                key={index}
+                transformation={transformation}
+            />
+        ) : (
+            <DraggableAsset
+                imageAsset={item}
+                key={index}
+                transformation={transformation}
+            />
+        )
+    }), [])
+
+
+    const onMouseDown = (shouldGoUp?: boolean) => {
+        const scrollElm = document.getElementById("scroll")!!
+        let height = document.body.clientHeight
+        if (shouldGoUp) {
+            height = -height
+        }
+        scrollElm.scrollTo({top: scrollElm.scrollTop + height/ 2, behavior: 'smooth'});
+      };
+      
 
     return (
         <main
@@ -42,6 +113,8 @@ export default function Project({
                 overflowX: 'hidden', // helps with mobile issue where the whole project is able to be moved left to right
                 position: 'relative', // this is so we can have proper background when making the below pos absolute
             }}
+            id="scroll"
+
             className={styles.projectPage__main}
         >
             <Head>
@@ -55,10 +128,11 @@ export default function Project({
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile
-                        ? `${BLOCK_SIZE * 1.2}px 0.5em 1.3em 0`
+                        ? `${BLOCK_SIZE * 1.2}px 0.2em 1.3em 0`
                         : `${BLOCK_SIZE * 1.5}px 1.2em 1em 1.2em`,
                     position: 'absolute',
                 }}
+                ref={ref}
             >
                 <DraggableAsset
                     key={100}
@@ -76,62 +150,7 @@ export default function Project({
                     key={101}
                     transformation={'none'}
                 />
-                {didLoad &&
-                    gallery.map((item, index) => {
-                        const randomInt = Math.random()
-                        const englargeRandomInt = Math.random()
-                        let transformation = 'none'
-                        if (randomInt == 1) {
-                            transformation = `translate(${
-                                1.8 * Math.random()
-                            }em, ${1.5 * Math.random()}em)`
-                        } else if (randomInt >= 0.8) {
-                            transformation = `translate(${
-                                2.6 * Math.random()
-                            }em, ${1.5 * Math.random()}em)`
-                        } else if (randomInt == 0.7) {
-                            transformation = `translate(${
-                                1.7 * Math.random()
-                            }em, ${-1.9 * Math.random()}em)`
-                        } else if (randomInt >= 0.5) {
-                            transformation = `translate(${
-                                -2.3 * Math.random()
-                            }em, ${2.1 * Math.random()}em)`
-                        } else if (randomInt >= 0.3) {
-                            transformation = `translate(${
-                                1.6 * Math.random()
-                            }em, ${-2.3 * Math.random()}em)`
-                        } else if (randomInt == 0.2) {
-                            transformation = `translate(${
-                                2.3 * Math.random()
-                            }em, ${-2.3 * Math.random()}em)`
-                        } else {
-                            transformation = `translate(${
-                                -2.8 * Math.random()
-                            }em, ${-2.3 * Math.random()}em)`
-                        }
-                        let scale = ''
-                        if (englargeRandomInt >= 0.9) {
-                            scale = 'scale(1.2)'
-                        } else if (englargeRandomInt == 0.6) {
-                            scale = 'scale(-0.5)'
-                        }
-                        transformation += scale
-
-                        return typeof item === 'string' ? (
-                            <DraggableAsset
-                                reactNode={item}
-                                key={index}
-                                transformation={transformation}
-                            />
-                        ) : (
-                            <DraggableAsset
-                                imageAsset={item}
-                                key={index}
-                                transformation={transformation}
-                            />
-                        )
-                    })}
+                {didLoad && galleryElements}
             </div>
             <Fade
                 in
@@ -139,6 +158,7 @@ export default function Project({
                     enter: 800,
                 }}
             >
+                <div>
                 <div>
                     {slugIndex > 0 && (
                         <Link href={projects[slugIndex - 1].url.id}>
@@ -185,7 +205,25 @@ export default function Project({
                         </Link>
                     )}
                 </div>
+            <div style={{
+                bottom: isMobile ? "20%": "25%",
+            }}
+            className={styles.projectPage__project_arrow_button}
+            onClick={() => onMouseDown(true)}
+            >
+                <KeyboardArrowUpIcon style={{margin: "auto", fontSize: "30px"}} fontSize="medium" />
+            </div>
+            <div style={{
+                bottom: isMobile ? "13%": "20%",
+            }}
+            className={styles.projectPage__project_arrow_button}
+            onClick={() => onMouseDown()}
+            >
+                <KeyboardArrowDownIcon style={{margin: "auto",  fontSize: "30px"}} />
+            </div>
+            </div>
             </Fade>
+
         </main>
     )
 }
