@@ -32,6 +32,9 @@ export default function Contact({
         >
             <div>
                 <ToolBar  />
+                <Head>
+                    <title>Contact Shane Gallagher</title>
+                </Head>
                 <Fade
                     in={true}
                     timeout={{

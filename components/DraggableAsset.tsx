@@ -1,4 +1,4 @@
-import { Asset } from '@/types/graphql'
+import { Asset, ContentfulTag, Maybe } from '@/types/graphql'
 import { loaderProp } from '@/utils/loader-prop'
 import {
     Button,
@@ -23,6 +23,7 @@ interface AssetProps {
     style?: CSSProperties
     images?: Asset[]
     index: number
+    tags?: Maybe<ContentfulTag>[]
 }
 
 const DraggableAsset: React.FC<AssetProps> = ({
@@ -32,6 +33,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
     style,
     images,
     index,
+    tags
 }) => {
     const { isMobile } = useWindowDimensions()
     const [openLargeImage, setOpenLargeImage] = useState(false)
@@ -39,12 +41,6 @@ const DraggableAsset: React.FC<AssetProps> = ({
         index
     )
     const [shouldShowImage, setShouldShowImage] = useState(false)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setShouldShowImage(true)
-        }, 850 + 650 * Math.random())
-    })
 
     const [isDragging, setIsDragging] = useState<any>(false)
 
@@ -60,10 +56,10 @@ const DraggableAsset: React.FC<AssetProps> = ({
             }, 100)
         }
     }
+    const isHorizontalImage = (imageAsset?.width || 0) > (imageAsset?.height || 0)
 
     // for horizontal images
-    const dimensions =
-        (imageAsset?.width || 0) > (imageAsset?.height || 0)
+    const dimensions = isHorizontalImage
             ? { width: isMobile ? '90%' : '25em' }
             : { width: isMobile ? '40%' : '17em' }
 
@@ -120,10 +116,18 @@ const DraggableAsset: React.FC<AssetProps> = ({
     const hasRightImageButton =
         curLargeImageIndex != null &&
         curLargeImageIndex < (images?.length || 0) - 1
+    const mobileDimension = isMobile && (tags?.filter((tag) => tag?.name === "enlarge-image").length || 0) > 0 ? {
+        width: isHorizontalImage ? "100vw" : "75vw",
+        height: isHorizontalImage ? "35vh" : "50vh",
+    } :{
+        height: isMobile ? '15em' : '25em'
+    }
     return reactNode != null ? (
         displayElement(reactNode)
     ) : (
-        <Fade in={shouldShowImage}>
+        <Fade in={shouldShowImage} timeout={{
+            enter: 800,
+        }}>
             <div
                 style={{
                     ...dimensions,
@@ -132,10 +136,9 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         : '0 0.9em 0.9em 0.9em',
                     transform: transformation,
                     objectFit: 'cover',
-                    height: isMobile ? '15em' : '25em',
+                    ...mobileDimension
                 }}
             >
-                <div>
                     <Rnd
                         onDrag={eventControl}
                         onDragStop={eventControl}
@@ -150,8 +153,14 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     >
                         <Image
                             alt={'TODO'}
+                            placeholder="empty"
                             src={imageAsset!!.url || ''}
                             width={imageAsset!!.width || '0'}
+                            onLoadingComplete={() => {
+                                setTimeout(() => {
+                                    setShouldShowImage(true)
+                                }, 850 + 650 * Math.random())
+                            }}
                             onDrag={(e) => e.preventDefault()}
                             onDragStart={(e) => e.preventDefault()}
                             height={imageAsset!!.height || 0}
@@ -163,7 +172,6 @@ const DraggableAsset: React.FC<AssetProps> = ({
                             loading="eager"
                         />
                     </Rnd>
-                </div>
                 <Dialog
                     open={openLargeImage}
                     onClose={() => {
@@ -180,6 +188,11 @@ const DraggableAsset: React.FC<AssetProps> = ({
                             setCurLargeImageIndex(curLargeImageIndex + 1)
                         }
                     }}
+                    PaperProps={{
+                        style: {
+                          borderRadius: "0px"
+                        },
+                      }}
                     maxWidth={false}
                 >
                     <DialogTitle className={styles.asset__dialogTitle}>
@@ -221,10 +234,9 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     <DialogActions style={{ background: 'black' }}>
                         {hasLeftImageButton && (
                             <div
+                            className={styles.asset__largeImageNav}
                                 style={{
-                                    color: 'white',
                                     marginRight: 'auto',
-                                    userSelect: 'none',
                                 }}
                                 onClick={() =>
                                     setCurLargeImageIndex(
@@ -237,7 +249,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         )}
                         {hasRightImageButton && (
                             <div
-                                style={{ color: 'white', userSelect: 'none' }}
+                            className={styles.asset__largeImageNav}
                                 onClick={() =>
                                     setCurLargeImageIndex(
                                         curLargeImageIndex + 1

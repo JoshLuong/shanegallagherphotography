@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
 import { useEffect, useState } from 'react'
 import { BlackTooltip } from '../BlackTooltip'
+import { Asset, ContentfulTag } from '@/types/graphql'
 
 interface BlockProps {
     topLBorderRadius?: string
@@ -19,13 +20,14 @@ interface BlockProps {
     borderLeftHidden?: boolean
     borderRightHidden?: boolean
     borderBottomHidden?: boolean
-    backgroundImage?: string
+    backgroundImage?: Asset
     title?: string
     index: number
     text?: string
     link?: string
     loadAnimation?: boolean
     isTempBackground?: boolean // should time out to black square and not allow clicks
+    shouldDisplayPreviewImage?: boolean
 }
 
 const Block: React.FC<BlockProps> = ({
@@ -39,13 +41,14 @@ const Block: React.FC<BlockProps> = ({
     borderLeftHidden = false,
     borderRightHidden = false,
     borderBottomHidden = false,
-    backgroundImage = '',
+    backgroundImage,
     title = '',
     index,
     text = '',
     link = '',
     loadAnimation = true,
     isTempBackground = false,
+    shouldDisplayPreviewImage = true,
 }) => {
     const delay = 1300 + index * 7
     const { isMobile } = useWindowDimensions()
@@ -93,14 +96,14 @@ const Block: React.FC<BlockProps> = ({
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
                 fontSize: isMobile ? '0.65em' : '1em',
-                fontWeight: isTextHome() ? "bold":"normal",
-                letterSpacing: isTextHome() ? '0.8px' : '0.5px',
+                fontWeight: isTextHome() ? 'bold' : 'normal',
+                letterSpacing: isTextHome() ? '0.6px' : '0.5px',
                 color: isTextHome() ? '#0087F3' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
         >
-            {!text && (
+            {shouldDisplayPreviewImage && !text && backgroundImage?.url && (
                 <Fade
                     in={(backgroundImage && !shouldChangeBackground) == true}
                     timeout={{
@@ -108,8 +111,8 @@ const Block: React.FC<BlockProps> = ({
                     }}
                 >
                     <Image
-                        src={backgroundImage}
-                        alt=""
+                        src={backgroundImage?.url}
+                        alt="TODO"
                         loading="lazy"
                         width="0"
                         height="0"
@@ -127,7 +130,10 @@ const Block: React.FC<BlockProps> = ({
     )
 
     const hyperlink = getLink()
-    const tooltipLength = '250px'
+    const tooltipDimensions =
+        backgroundImage?.width!! > backgroundImage?.height!!
+            ? { height: '250px', width: 'auto' }
+            : { width: '250px', height: 'auto' }
     return (
         <BlackTooltip
             title={
@@ -137,16 +143,16 @@ const Block: React.FC<BlockProps> = ({
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            width: tooltipLength,
+                            ...tooltipDimensions,
                         }}
                     >
                         <Image
-                            src={backgroundImage}
-                            alt=""
+                            src={backgroundImage?.url!!}
+                            alt="TODO"
                             loading="eager"
                             width="0"
                             height="0"
-                            style={{ width: tooltipLength, height: 'auto' }}
+                            style={{ ...tooltipDimensions }}
                             loader={loaderProp}
                         />
                         <div
@@ -154,7 +160,7 @@ const Block: React.FC<BlockProps> = ({
                                 fontSize: '1.5em',
                                 backgroundColor: 'black',
                                 textAlign: 'center',
-                                color: "white",
+                                color: 'white',
                                 width: '100%',
                             }}
                         >

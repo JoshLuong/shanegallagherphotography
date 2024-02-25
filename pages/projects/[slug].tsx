@@ -40,8 +40,8 @@ export default function Project({
 
     let imageCount = 0;
     const galleryElements = useMemo(() => gallery.map((item, index) => {
+        const isString = typeof item == "string"
         const randomInt = Math.random()
-        const englargeRandomInt = Math.random()
         let transformation = 'none'
         if (randomInt == 1) {
             transformation = `translate(${
@@ -73,30 +73,32 @@ export default function Project({
             }em, ${-2.3 * Math.random()}em)`
         }
         let scale = ''
-        if (!isMobile && englargeRandomInt >= 0.8) {
+        if (!isMobile && !isString && item.contentfulMetadata.tags.map((tag) => tag!!.name).includes("enlarge-image")) {
             scale = 'scale(1.2)'
-        } else if (englargeRandomInt == 0.6) {
-            scale = 'scale(-0.5)'
+        } else if (!isMobile && !isString && item.contentfulMetadata.tags.map((tag) => tag!!.name).includes("shrink-image")) {
+            scale = 'scale(0.75)'
         }
         transformation += scale
 
+        const key = `${currentSlug}${index}` // need unique keys so react will re-animate during navigation between projects
         return typeof item === 'string' ? (
             <DraggableAsset
                 reactNode={item}
-                key={index}
+                key={key}
                 transformation={transformation}
                 index={index}
             />
         ) : (
             <DraggableAsset
                 imageAsset={item}
-                key={index}
+                key={key}
                 transformation={transformation}
                 index={imageCount++}
                 images={images as Asset[]}
+                tags={item.contentfulMetadata.tags}
             />
         )
-    }), [])
+    }), [gallery, currentSlug, isMobile])
 
 
     const onMouseDown = (shouldGoUp?: boolean) => {
@@ -133,14 +135,17 @@ export default function Project({
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile
-                        ? `${BLOCK_SIZE * 1.2}px 0.2em 1.3em 0`
-                        : `${BLOCK_SIZE * 1.5}px 1.2em 1em 1.2em`,
+                        ? `0 0.2em 1.3em 0`
+                        : `0 1.2em 1em 1.2em`,
+                    top: isMobile
+                    ? `${BLOCK_SIZE * 1.5}px`
+                    : `${BLOCK_SIZE * 1.9}px`,
                     position: 'absolute',
                 }}
                 ref={ref}
             >
                 <DraggableAsset
-                    key={100}
+                    key={`${currentSlug}${100}`}
                     reactNode={project.title}
                     transformation={'none'}
                     style={{
@@ -153,7 +158,7 @@ export default function Project({
                     reactNode={documentToReactComponents(
                         project.description.json
                     )}
-                    key={101}
+                    key={`${currentSlug}${101}`}
                     transformation={'none'}
                     index={-1}
                 />

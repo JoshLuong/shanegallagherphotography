@@ -7,8 +7,8 @@
     font-family: "Space Grotesk", sans-serif;
 
     a {
-        text-decoration: none;
-        color: #0087F3;
+        text-decoration: underline;
+        color: white;
 
         &:hover {
             text-decoration: underline;
@@ -16,6 +16,14 @@
     }
 }
 
+.asset__largeImageNav {
+    color: white;
+    user-select: none;
+    &:hover {
+        cursor: -webkit-image-set(url(/white-cursor.png) 1x, url(/white-cursor.png) 2x) 0 0,
+        pointer !important;
+    }
+}
 
 .asset__dialogTitle {
     padding: 0 !important;

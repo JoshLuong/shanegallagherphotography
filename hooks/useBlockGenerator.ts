@@ -146,7 +146,7 @@ export default function useBlockGenerator({
             }
             if (isGridBackground && i > 2) {
                 returnRow.map((block) => (block.isBlockAsBackground = true)) // set to have block as bg element only (no clicks)
-            } else if (!isGridBackground && isNavBar && i > 2) {
+            } else if (!isGridBackground && isNavBar && i > 1) {
                 return []
             }
 

@@ -1,7 +1,7 @@
 import styles from '../styles/about.module.less'
 import client from '../gql/apollo-client'
 import { subsectionQuery } from '@/gql/landing-page-query'
-import { Subsection } from '../types/graphql'
+import { About, Asset, Subsection } from '../types/graphql'
 import { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Block from '@/components/block/Block'
@@ -9,13 +9,18 @@ import useWindowDimensions from '@/hooks/useWindowDimensions'
 import useBlockGenerator from '@/hooks/useBlockGenerator'
 import { Fade } from '@mui/material'
 import ToolBar from '@/components/Toolbar'
+import { aboutContentQuery } from '@/gql/about-page-query'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import DraggableAsset from '@/components/DraggableAsset'
+import { loaderProp } from '@/utils/loader-prop'
+import Image from 'next/image'
 
 export const NO_SECTION_OPEN = -1
 export default function About({
-    items,
+    about,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
-    if (!items) {
+    if (!about || !about.portraitsCollection?.items) {
         // This should never happen
         return null
     }
@@ -29,8 +34,8 @@ export default function About({
             style={{
                 // WARNING: do not edit, it will cause weird bug with height and width
                 height: '100vh',
-                position: 'fixed',
-                overflow: 'auto',
+                position: 'relative', // allows mobile to show all portraits without cutoff
+                overflow: 'scroll',
             }}
         >
             <Head>
@@ -44,11 +49,32 @@ export default function About({
                         enter: 1300,
                     }}
                 >
+                    <div>
                     <div className={styles.aboutPage__text}>
-                        SHANE GALLAGHER IS A MAN OF MANY PARTS: FLORIST,
-                        PHOTOGRAPHER, SET DESIGNER, AND ARTIST. IN ALL THAT HE
-                        DOES HIS WORK MANAGES TO BE BOTH DRAMATIC WITH ABUNDANCE
-                        AND SOMEHOW SIMULTANEOUSLY RESTRAINED WITH FOCUS.
+                        {
+                            documentToReactComponents(about.description?.json)
+                        }
+                    </div>
+                    <div className={styles.aboutPage__portraits}>
+                        {
+                            about.portraitsCollection?.items?.map((item, i) => {
+                                if (!item) return null
+                                return <Image
+                                alt={'TODO'}
+                                placeholder="empty"
+                                src={item.url || ''}
+                                width={item.width || '0'}
+                                height={item.height || 0}
+                                style={{
+                                    height: isMobile ? "10em" : "20em",
+                                    width: 'auto',
+                                }}
+                                loader={loaderProp}
+                                loading="eager"
+                            />
+                            })
+                        }
+                    </div>
                     </div>
                 </Fade>
             </div>
@@ -58,12 +84,11 @@ export default function About({
 
 export async function getStaticProps() {
     const { data } = await client.query({
-        query: subsectionQuery,
+        query: aboutContentQuery,
     })
-
     return {
         props: {
-            items: data.projectCollection.items as Array<Subsection>,
+            about: data.about as About
         },
     }
 }

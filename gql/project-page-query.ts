@@ -1,16 +1,23 @@
 import { gql } from '@apollo/client'
 
+// We shouldn't anticipate more than 50 images, this helps us query the meta tags (i.e. this stops rate limiting complaints by contentful)
 export const projectPageQuery = gql`
     query GetProjectBySlug($slug: String!) {
         projectsCollection(where: { url: { id: $slug } }) {
             items {
                 title
-                galleryCollection {
+                galleryCollection(limit: 50) {
                     items {
                         url
                         width
                         height
                         contentType
+                        contentfulMetadata {
+                            tags {
+                                name
+                                id
+                            }
+                        }
                     }
                 }
                 description {

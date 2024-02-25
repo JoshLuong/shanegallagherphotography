@@ -7,6 +7,7 @@
     align-items: stretch;
     // overflow: hidden;
     background-color: black;
+    margin-bottom: 1em;
     // height: 100vh;
 }
 
@@ -23,15 +24,29 @@
 
 .aboutPage__text {
     color: white;
-    margin: 5em;
-    font-size: 2em;
+    margin: 0 1em;
+    font-size: 1.9em;
+    box-sizing: border-box;
+}
+
+.aboutPage__portraits {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0px 1em;
+    box-sizing: border-box;
 }
 
 @media only screen and (max-width: 800px) {
     .aboutPage__text {
-        margin: 0.2em;
+        margin: 0 0.2em;
         font-size: 1.6em;
         box-sizing: border-box;
+    }
+
+    .aboutPage__portraits {
+        margin: 0;
     }
 }
 

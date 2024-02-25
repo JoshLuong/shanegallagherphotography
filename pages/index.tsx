@@ -90,9 +90,6 @@ export default function Home({
             {
                 topRBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
-                backgroundImage: items[1].previewImage?.url,
-                title: items[1].title,
-                link: items[1].url?.id,
             },
             {
                 topLBorderRadius: mediumRadius,
@@ -103,8 +100,6 @@ export default function Home({
             {
                 topLBorderRadius: largeRadius,
                 topRBorderRadius: largeRadius,
-                text: items[3].title,
-                link: items[3].url?.id,
                 bottomLBorderRadius: mediumRadius,
             },
             {
@@ -140,9 +135,6 @@ export default function Home({
             { topLBorderRadius: mediumRadius },
             {
                 topRBorderRadius: mediumRadius,
-                backgroundImage: items[1].previewImage?.url,
-                title: items[1].title,
-                link: items[1].url?.id,
             },
             { topLBorderRadius: mediumRadius, topRBorderRadius: largeRadius },
             { topLBorderRadius: largeRadius },
@@ -181,8 +173,6 @@ export default function Home({
             {},
             {
                 topRBorderRadius: mediumRadius,
-                text: items[2].title,
-                link: items[2].url?.id,
             },
             {
                 topLBorderRadius: mediumRadius,
@@ -224,9 +214,6 @@ export default function Home({
                 topLBorderRadius: largeRadius,
                 topRBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
-                backgroundImage: items[0].previewImage?.url,
-                title: items[0].title,
-                link: items[0].url?.id,
             },
             {
                 topLBorderRadius: mediumRadius,
@@ -242,9 +229,6 @@ export default function Home({
             {
                 bottomLBorderRadius: largeRadius,
                 bottomRBorderRadius: mediumRadius,
-                backgroundImage: items[1].previewImage?.url,
-                title: items[1].title,
-                link: items[1].url?.id,
             },
             { bottomLBorderRadius: mediumRadius },
             { bottomRBorderRadius: mediumRadius },
@@ -281,8 +265,6 @@ export default function Home({
                 bottomLBorderRadius: largeRadius,
                 topLBorderRadius: mediumRadius,
                 bottomRBorderRadius: largeRadius,
-                text: items[4].title,
-                link: items[4].url?.id,
             },
             {
                 topRBorderRadius: mediumRadius,
@@ -357,14 +339,32 @@ export default function Home({
             {},
         ],
     ]
-    const mobileReadyBlocks = blocks.map((block) => {
+
+    const mobileReadyBlocks = blocks.map((blockRow) => {
         if (isMobile) {
-            return block.slice(1, block.length - 1)
+            return blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
         }
-        return block
+        return blockRow
     })
 
-    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks })
+    // insert the images into the blocks based on the defined coordinates in contentful
+    items.map(({title, thumbnailXCoordinate: x, thumbnailYCoordinate: y, previewImage, url, shouldDisplayPreviewImage}) => {
+        if (isMobile && x!! > mobileReadyBlocks[0].length -1) { // because of the shaving above
+            x!!--;
+        }
+        const block = mobileReadyBlocks[y!!][x!!]
+        if (previewImage != null) {
+            block.backgroundImage = previewImage;
+            block.title = title
+        }
+        if (previewImage == null || !shouldDisplayPreviewImage) {
+            block.text = title; // show text for projects like "Editorial, Social, etc."
+        }
+        block.shouldDisplayPreviewImage = shouldDisplayPreviewImage
+        block.link = url!!.id
+    })
+
+    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks})
     const [showBlocks, setShowBlocks] = useState(false)
 
     useEffect(() => {
@@ -401,7 +401,7 @@ export default function Home({
                                                     Math.random() *
                                                         projectsCount
                                                 ) + 0
-                                            ]?.previewImage?.url
+                                            ]?.previewImage
                                         }
                                         isTempBackground
                                     />

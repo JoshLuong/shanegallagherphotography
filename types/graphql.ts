@@ -28,6 +28,113 @@ export type Scalars = {
   Quality: any;
 };
 
+/** This type holds the content for the About page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/about) */
+export type About = Entry & {
+  __typename?: 'About';
+  contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<AboutDescription>;
+  linkedFrom?: Maybe<AboutLinkingCollections>;
+  portraitsCollection?: Maybe<AssetCollection>;
+  sys: Sys;
+};
+
+
+/** This type holds the content for the About page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/about) */
+export type AboutDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This type holds the content for the About page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/about) */
+export type AboutLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** This type holds the content for the About page. [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/about) */
+export type AboutPortraitsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export type AboutCollection = {
+  __typename?: 'AboutCollection';
+  items: Array<Maybe<About>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type AboutDescription = {
+  __typename?: 'AboutDescription';
+  json: Scalars['JSON'];
+  links: AboutDescriptionLinks;
+};
+
+export type AboutDescriptionAssets = {
+  __typename?: 'AboutDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type AboutDescriptionEntries = {
+  __typename?: 'AboutDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type AboutDescriptionLinks = {
+  __typename?: 'AboutDescriptionLinks';
+  assets: AboutDescriptionAssets;
+  entries: AboutDescriptionEntries;
+  resources: AboutDescriptionResources;
+};
+
+export type AboutDescriptionResources = {
+  __typename?: 'AboutDescriptionResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
+};
+
+export type AboutFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AboutFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AboutFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']>;
+  description_exists?: InputMaybe<Scalars['Boolean']>;
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  portraitsCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type AboutLinkingCollections = {
+  __typename?: 'AboutLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type AboutLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum AboutOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type Asset = {
   __typename?: 'Asset';
@@ -178,11 +285,20 @@ export type AssetFilter = {
 
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
+  aboutCollection?: Maybe<AboutCollection>;
   entryCollection?: Maybe<EntryCollection>;
   projectCollection?: Maybe<ProjectCollection>;
   projectGalleryCollection?: Maybe<ProjectGalleryCollection>;
   projectsCollection?: Maybe<ProjectsCollection>;
   subsectionPreviewCollection?: Maybe<SubsectionPreviewCollection>;
+};
+
+
+export type AssetLinkingCollectionsAboutCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -740,7 +856,10 @@ export type Project = Entry & {
   isProjectFeatured?: Maybe<Scalars['Boolean']>;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   previewImage?: Maybe<Asset>;
+  shouldDisplayPreviewImage?: Maybe<Scalars['Boolean']>;
   sys: Sys;
+  thumbnailXCoordinate?: Maybe<Scalars['Int']>;
+  thumbnailYCoordinate?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   url?: Maybe<SlugUrl>;
 };
@@ -762,6 +881,24 @@ export type ProjectLinkedFromArgs = {
 export type ProjectPreviewImageArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectShouldDisplayPreviewImageArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectThumbnailXCoordinateArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectThumbnailYCoordinateArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -794,7 +931,28 @@ export type ProjectFilter = {
   isProjectFeatured_exists?: InputMaybe<Scalars['Boolean']>;
   isProjectFeatured_not?: InputMaybe<Scalars['Boolean']>;
   previewImage_exists?: InputMaybe<Scalars['Boolean']>;
+  shouldDisplayPreviewImage?: InputMaybe<Scalars['Boolean']>;
+  shouldDisplayPreviewImage_exists?: InputMaybe<Scalars['Boolean']>;
+  shouldDisplayPreviewImage_not?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
+  thumbnailXCoordinate?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_exists?: InputMaybe<Scalars['Boolean']>;
+  thumbnailXCoordinate_gt?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_gte?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  thumbnailXCoordinate_lt?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_lte?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_not?: InputMaybe<Scalars['Int']>;
+  thumbnailXCoordinate_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  thumbnailYCoordinate?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_exists?: InputMaybe<Scalars['Boolean']>;
+  thumbnailYCoordinate_gt?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_gte?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  thumbnailYCoordinate_lt?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_lte?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_not?: InputMaybe<Scalars['Int']>;
+  thumbnailYCoordinate_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   title?: InputMaybe<Scalars['String']>;
   title_contains?: InputMaybe<Scalars['String']>;
   title_exists?: InputMaybe<Scalars['Boolean']>;
@@ -956,6 +1114,8 @@ export type ProjectLinkingCollectionsEntryCollectionArgs = {
 export enum ProjectOrder {
   IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
   IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
+  ShouldDisplayPreviewImageAsc = 'shouldDisplayPreviewImage_ASC',
+  ShouldDisplayPreviewImageDesc = 'shouldDisplayPreviewImage_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -964,6 +1124,10 @@ export enum ProjectOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  ThumbnailXCoordinateAsc = 'thumbnailXCoordinate_ASC',
+  ThumbnailXCoordinateDesc = 'thumbnailXCoordinate_DESC',
+  ThumbnailYCoordinateAsc = 'thumbnailYCoordinate_ASC',
+  ThumbnailYCoordinateDesc = 'thumbnailYCoordinate_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
@@ -1105,6 +1269,8 @@ export enum ProjectsOrder {
 export type Query = {
   __typename?: 'Query';
   _node?: Maybe<_Node>;
+  about?: Maybe<About>;
+  aboutCollection?: Maybe<AboutCollection>;
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
   colour?: Maybe<Colour>;
@@ -1133,6 +1299,23 @@ export type Query_NodeArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryAboutArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryAboutCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<AboutOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AboutFilter>;
 };
 
 
@@ -1426,6 +1609,8 @@ export type SlugUrlLinkingCollectionsSubsectionPreviewCollectionArgs = {
 export enum SlugUrlLinkingCollectionsProjectCollectionOrder {
   IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
   IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
+  ShouldDisplayPreviewImageAsc = 'shouldDisplayPreviewImage_ASC',
+  ShouldDisplayPreviewImageDesc = 'shouldDisplayPreviewImage_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -1434,6 +1619,10 @@ export enum SlugUrlLinkingCollectionsProjectCollectionOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  ThumbnailXCoordinateAsc = 'thumbnailXCoordinate_ASC',
+  ThumbnailXCoordinateDesc = 'thumbnailXCoordinate_DESC',
+  ThumbnailYCoordinateAsc = 'thumbnailYCoordinate_ASC',
+  ThumbnailYCoordinateDesc = 'thumbnailYCoordinate_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }

@@ -5,9 +5,14 @@ export const subsectionQuery = gql`
         projectCollection(order: sys_firstPublishedAt_ASC) {
             items {
                 title
+                thumbnailXCoordinate
+                thumbnailYCoordinate
                 isProjectFeatured
+                shouldDisplayPreviewImage
                 previewImage {
                     url
+                    width
+                    height
                 }
                 url {
                     id
