@@ -14,26 +14,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5em;
+    margin: 5em auto;
+    width: 50%;
+    align-items: flex-start;
 }
 
 .contactPage__text {
     color: white;
-    font-size: 2em;
-    text-align: center;
+    font-size: 1.4em;
     display: block;
+    text-decoration: none;
+    margin-bottom: 0.5em;
 }
 
 @media only screen and (max-width: 800px) {
     .contactPage__text {
-        font-size: 1.5em;
+        margin-top: 0.9em;
+        margin-bottom: 0.9em;
+        font-size: 1em;
         overflow: hidden;
     }
     .contactPage__text_email {
-        font-size: 0.9em;
         margin-bottom: 0.4em;
     }
+    
     .contactPage__text_container {
-        margin: 0;
+        width: 90%;
+
     }
+    
 }

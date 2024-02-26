@@ -4,4 +4,14 @@ const withImages = require('next-images')
 
 /** @type {import('next').NextConfig} */
 
-module.exports = withPlugins([withLess, withImages])
+// These configs are for the email components to be used from the server
+const nextConfig = {
+    experimental: {
+        serverComponentsExternalPackages: [
+            '@react-email/components',
+            '@react-email/render',
+        ]
+    }
+};
+
+module.exports = withPlugins([withLess, withImages], nextConfig)

@@ -9,6 +9,7 @@ import useWindowDimensions from '@/hooks/useWindowDimensions'
 import useBlockGenerator from '@/hooks/useBlockGenerator'
 import { Fade } from '@mui/material'
 import ToolBar from '@/components/Toolbar'
+import ContactForm from '@/components/contact/Contact'
 
 export const NO_SECTION_OPEN = -1
 export default function Contact({
@@ -42,8 +43,12 @@ export default function Contact({
                     }}
                 >
                     <div className={styles.contactPage__text_container}>
-                    <a href="mailto:gallaghershanephotography@gmail.com" className={`${styles.contactPage__text} ${styles.contactPage__text_email}`}>GALLAGHERSHANEPHOTOGRAPHY@GMAIL.COM</a>
-                    <a href="https://www.instagram.com/shanegallagher_/" target='_blank' className={styles.contactPage__text}>@SHANEGALLAGHER_</a>
+
+                    <a href="https://www.instagram.com/shanegallagher_/" target='_blank' className={styles.contactPage__text}>INSTAGRAM @SHANEGALLAGHER_</a>
+
+                    <a href="mailto:gallaghershane@icloud.com" className={styles.contactPage__text}>SEND AN EMAIL TO GALLAGHERSHANE@ICLOUD.COM</a>
+                    <ContactForm />
+
                     </div>
                 </Fade>
             </div>
