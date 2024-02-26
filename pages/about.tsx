@@ -87,9 +87,7 @@ export default function About({
                     margin: isMobile
                         ? `0 0.2em 1.3em 0`
                         : `0 1.2em 1em 1.2em`,
-                    top: isMobile
-                    ? `${BLOCK_SIZE * 1.5}px`
-                    : `${BLOCK_SIZE * 1.9}px`,
+                    top: `${BLOCK_SIZE}px`,
                     position: 'absolute',
                 }}
             >

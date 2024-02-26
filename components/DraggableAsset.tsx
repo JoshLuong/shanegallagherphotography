@@ -68,7 +68,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
         ? { width: isMobile ? '90%' : '25em' }
         : { width: isMobile ? '40%' : '17em' }
 
-    const displayElement = (element: any) => (
+    const displayElementOnly = (element: any) => (
         <Fade
             in={true}
             timeout={{
@@ -87,7 +87,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         style={{
                             width: isMobile ? '100%' : '20em',
                             color: 'white',
-                            maxHeight: '15em',
+                            // maxHeight: '15em', temp disable, let it bake for couple days Feb 25
                             overflow: 'visible',
                             padding: '1em',
                             backgroundColor: 'black',
@@ -136,7 +136,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                   height: isMobile ? '15em' : '25em',
               }
     return reactNode != null ? (
-        displayElement(reactNode)
+        displayElementOnly(reactNode)
     ) : (
         <Fade
             in={shouldShowImage}
