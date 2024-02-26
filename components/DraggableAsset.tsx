@@ -24,16 +24,20 @@ interface AssetProps {
     images?: Asset[]
     index: number
     tags?: Maybe<ContentfulTag>[]
+    disableDrag?: boolean
+    className?: string
 }
 
 const DraggableAsset: React.FC<AssetProps> = ({
     imageAsset,
     transformation,
     reactNode,
-    style,
+    style, // for draggable asset only
     images,
     index,
-    tags
+    tags,
+    disableDrag = false,
+    className, // for draggable asset only
 }) => {
     const { isMobile } = useWindowDimensions()
     const [openLargeImage, setOpenLargeImage] = useState(false)
@@ -56,12 +60,13 @@ const DraggableAsset: React.FC<AssetProps> = ({
             }, 100)
         }
     }
-    const isHorizontalImage = (imageAsset?.width || 0) > (imageAsset?.height || 0)
+    const isHorizontalImage =
+        (imageAsset?.width || 0) > (imageAsset?.height || 0)
 
     // for horizontal images
     const dimensions = isHorizontalImage
-            ? { width: isMobile ? '90%' : '25em' }
-            : { width: isMobile ? '40%' : '17em' }
+        ? { width: isMobile ? '90%' : '25em' }
+        : { width: isMobile ? '40%' : '17em' }
 
     const displayElement = (element: any) => (
         <Fade
@@ -72,9 +77,13 @@ const DraggableAsset: React.FC<AssetProps> = ({
             style={{ transitionDelay: `${700 + 300 * Math.random()}ms` }}
         >
             <div>
-                <Draggable onDrag={eventControl} onStop={eventControl}>
+                <Draggable
+                    onDrag={eventControl}
+                    onStop={eventControl}
+                    disabled={disableDrag}
+                >
                     <div
-                        className={styles.asset}
+                        className={`${styles.asset} ${className}`}
                         style={{
                             width: isMobile ? '100%' : '20em',
                             color: 'white',
@@ -116,18 +125,25 @@ const DraggableAsset: React.FC<AssetProps> = ({
     const hasRightImageButton =
         curLargeImageIndex != null &&
         curLargeImageIndex < (images?.length || 0) - 1
-    const mobileDimension = isMobile && (tags?.filter((tag) => tag?.name === "enlarge-image").length || 0) > 0 ? {
-        width: isHorizontalImage ? "100vw" : "75vw",
-        height: isHorizontalImage ? "35vh" : "50vh",
-    } :{
-        height: isMobile ? '15em' : '25em'
-    }
+    const mobileDimension =
+        isMobile &&
+        (tags?.filter((tag) => tag?.name === 'enlarge-image').length || 0) > 0
+            ? {
+                  width: isHorizontalImage ? '100vw' : '75vw',
+                  height: isHorizontalImage ? '35vh' : '50vh',
+              }
+            : {
+                  height: isMobile ? '15em' : '25em',
+              }
     return reactNode != null ? (
         displayElement(reactNode)
     ) : (
-        <Fade in={shouldShowImage} timeout={{
-            enter: 800,
-        }}>
+        <Fade
+            in={shouldShowImage}
+            timeout={{
+                enter: 800,
+            }}
+        >
             <div
                 style={{
                     ...dimensions,
@@ -136,42 +152,48 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         : '0 0.9em 0.9em 0.9em',
                     transform: transformation,
                     objectFit: 'cover',
-                    ...mobileDimension
+                    pointerEvents: 'none', // helps when this div gets in front of another draggable asset
+                    ...mobileDimension,
                 }}
             >
-                    <Rnd
-                        onDrag={eventControl}
-                        onDragStop={eventControl}
-                        onResize={eventControl}
-                        onResizeStop={eventControl}
-                        lockAspectRatio
-                        onClick={() => {
-                            if (!isDragging) {
-                                setOpenLargeImage(!openLargeImage)
-                            }
+                <Rnd
+                    onDrag={eventControl}
+                    onDragStop={eventControl}
+                    onResize={eventControl}
+                    onResizeStop={eventControl}
+                    disabled={disableDrag}
+                    lockAspectRatio
+                    onClick={() => {
+                        if (!isDragging) {
+                            setOpenLargeImage(!openLargeImage)
+                        }
+                    }}
+                    style={{
+                        pointerEvents: 'auto',
+                    }}
+                >
+                    <Image
+                        alt={'TODO'}
+                        placeholder="empty"
+                        src={imageAsset!!.url || ''}
+                        width={imageAsset!!.width || '0'}
+                        onLoadingComplete={() => {
+                            setTimeout(() => {
+                                setShouldShowImage(true)
+                            }, 850 + 650 * Math.random())
                         }}
-                    >
-                        <Image
-                            alt={'TODO'}
-                            placeholder="empty"
-                            src={imageAsset!!.url || ''}
-                            width={imageAsset!!.width || '0'}
-                            onLoadingComplete={() => {
-                                setTimeout(() => {
-                                    setShouldShowImage(true)
-                                }, 850 + 650 * Math.random())
-                            }}
-                            onDrag={(e) => e.preventDefault()}
-                            onDragStart={(e) => e.preventDefault()}
-                            height={imageAsset!!.height || 0}
-                            style={{
-                                height: '100%',
-                                width: '100%',
-                            }}
-                            loader={loaderProp}
-                            loading="eager"
-                        />
-                    </Rnd>
+                        onDrag={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
+                        height={imageAsset!!.height || 0}
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            pointerEvents: 'auto', // helps when this div gets in front of another draggable asset
+                        }}
+                        loader={loaderProp}
+                        loading="eager"
+                    />
+                </Rnd>
                 <Dialog
                     open={openLargeImage}
                     onClose={() => {
@@ -190,9 +212,9 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     }}
                     PaperProps={{
                         style: {
-                          borderRadius: "0px"
+                            borderRadius: '0px',
                         },
-                      }}
+                    }}
                     maxWidth={false}
                 >
                     <DialogTitle className={styles.asset__dialogTitle}>
@@ -234,7 +256,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     <DialogActions style={{ background: 'black' }}>
                         {hasLeftImageButton && (
                             <div
-                            className={styles.asset__largeImageNav}
+                                className={styles.asset__largeImageNav}
                                 style={{
                                     marginRight: 'auto',
                                 }}
@@ -249,7 +271,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         )}
                         {hasRightImageButton && (
                             <div
-                            className={styles.asset__largeImageNav}
+                                className={styles.asset__largeImageNav}
                                 onClick={() =>
                                     setCurLargeImageIndex(
                                         curLargeImageIndex + 1

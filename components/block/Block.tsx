@@ -96,7 +96,7 @@ const Block: React.FC<BlockProps> = ({
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
                 fontSize: isMobile ? '0.65em' : '1em',
-                fontWeight: isTextHome() ? 'bold' : 'normal',
+                fontWeight: isTextHome() || text.toLocaleUpperCase() == 'ABOUT' || text.toLocaleUpperCase() || text.toLocaleUpperCase()== 'WORKS' ? 'bold' : 'normal',
                 letterSpacing: isTextHome() ? '0.6px' : '0.5px',
                 color: isTextHome() ? '#0087F3' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
