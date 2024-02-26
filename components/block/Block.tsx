@@ -60,7 +60,7 @@ const Block: React.FC<BlockProps> = ({
     const solidBorder = `0.7px solid white`
 
     const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
-    const isTextNavBar = () => isTextHome() || text.toLocaleUpperCase() == 'ABOUT' || text.toLocaleUpperCase() || text.toLocaleUpperCase()== 'WORKS'
+    const isTextNavBar = () => isTextHome() || text.toLocaleUpperCase() == 'ABOUT' || text.toLocaleUpperCase() == "CONTACT" || text.toLocaleUpperCase()== 'WORKS'
     const getLink = () => {
         if (text && !link) {
             if (text === 'Home') {
