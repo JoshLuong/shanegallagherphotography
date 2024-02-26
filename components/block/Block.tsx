@@ -142,6 +142,7 @@ const Block: React.FC<BlockProps> = ({
                     <div
                         style={{
                             display: 'flex',
+                            zIndex: 10000,
                             flexDirection: 'column',
                             alignItems: 'center',
                             ...tooltipDimensions,
@@ -153,7 +154,9 @@ const Block: React.FC<BlockProps> = ({
                             loading="eager"
                             width="0"
                             height="0"
-                            style={{ ...tooltipDimensions }}
+                            style={{ ...tooltipDimensions,
+                                zIndex: 1001 // make sure this is larger than the one defined below - (isTextNavBar() ? 1000: 1)
+                             }}
                             loader={loaderProp}
                         />
                         <div
@@ -188,7 +191,7 @@ const Block: React.FC<BlockProps> = ({
                                     ? 'pointer'
                                     : 'unset',
                             textDecoration: 'none',
-                            zIndex: isTextNavBar() ? 10000: 1,
+                            zIndex: isTextNavBar() ? 1000: 1,
                         }}
                     >
                         {blockContent}
