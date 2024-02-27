@@ -46,7 +46,7 @@ export default function Contact({
 
                     <a href="https://www.instagram.com/shanegallagher_/" target='_blank' className={styles.contactPage__text}>INSTAGRAM @SHANEGALLAGHER_</a>
 
-                    <a href="mailto:gallaghershane@icloud.com" className={styles.contactPage__text}>SEND AN EMAIL TO GALLAGHERSHANE@ICLOUD.COM</a>
+                    <a href="mailto:gallaghershane@icloud.com" className={styles.contactPage__text}>SEND A MESSAGE TO GALLAGHERSHANE@ICLOUD.COM</a>
                     <ContactForm />
 
                     </div>

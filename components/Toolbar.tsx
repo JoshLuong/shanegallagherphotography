@@ -1,12 +1,14 @@
 import useBlockGenerator from '@/hooks/useBlockGenerator'
 import styles from '../styles/Toolbar.module.less'
 import Block from './block/Block'
+import React from 'react'
 
 interface ToolbarProps {
     isGridBackground?: boolean
+    ref?: React.Ref<HTMLDivElement>
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ isGridBackground }) => {
+const Toolbar: React.FC<ToolbarProps> = React.forwardRef(({ isGridBackground }, ref) => {
     const blocks = useBlockGenerator({
         isNavBar: true,
         isGridBackground,
@@ -22,6 +24,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ isGridBackground }) => {
           }
     return (
         <div
+            ref={ref}
             style={{
                 display: 'flex',
                 width: '100%',
@@ -41,6 +44,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ isGridBackground }) => {
             })}
         </div>
     )
-}
+})
 
 export default Toolbar

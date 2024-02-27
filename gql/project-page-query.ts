@@ -10,6 +10,7 @@ export const projectPageQuery = gql`
                     items {
                         url
                         width
+                        title
                         height
                         contentType
                         contentfulMetadata {

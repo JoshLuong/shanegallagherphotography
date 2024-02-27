@@ -6,6 +6,7 @@ import { Img } from '@react-email/img'
 import * as React from 'react'
 import { FormData } from '@/components/contact/Contact';
 
+// Note: these email tempaltes must be under /emails folder to run the email service locally (yarn email)
 const Email: React.FC<FormData> = ({
   name,
   message
@@ -36,7 +37,7 @@ const Email: React.FC<FormData> = ({
 
                 <Container >
                     <Section style={{color:"black" }}>{message}</Section>
-                    <Section style={{ paddingTop: '1em', color:"black" }}>Sent from {name}</Section>
+                    <Section style={{ paddingTop: '1em', color:"black" }}>{name}</Section>
                 </Container>
 
                 <Section style={{ textAlign: 'center', paddingTop: "1em" }}>

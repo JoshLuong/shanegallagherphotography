@@ -17,50 +17,65 @@ import Image from 'next/image'
 import styles from '../styles/about.module.less'
 import Link from 'next/link'
 import Toolbar from '@/components/Toolbar'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import getRandomTransformation from '@/utils/getRandomTransformation'
-
 
 export default function About({
     about,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
+    const [offset, setOffset] = useState(0) // in pixels
+    const ref = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!ref.current) return
+        const resizeObserver = new ResizeObserver(() => {
+            setOffset(ref.current!!.offsetHeight)
+        })
+        resizeObserver.observe(ref.current)
+        return () => resizeObserver.disconnect() // clean up
+    }, [])
+
     if (!about || !about.portraitsCollection?.items) {
         // This should never happen
         return null
     }
 
-    let imageCount = 0;
-    const galleryElements = useMemo(() => about.portraitsCollection?.items.map((item, index) => {
-        const isString = typeof item == "string"
-        const randomInt = Math.random()
-        let transformation = getRandomTransformation()
-        let scale = ''
-        if (!isMobile && !isString && randomInt >= 0.8) {
-            scale = 'scale(1.2)'
-        }
-        transformation += scale
+    let imageCount = 0
+    const galleryElements = useMemo(
+        () =>
+            about.portraitsCollection?.items.map((item, index) => {
+                const isString = typeof item == 'string'
+                const randomInt = Math.random()
+                let transformation = getRandomTransformation()
+                let scale = ''
+                if (!isMobile && !isString && randomInt >= 0.8) {
+                    scale = 'scale(1.2)'
+                }
+                transformation += scale
 
-        return typeof item === 'string' ? (
-            <DraggableAsset
-                reactNode={item}
-                key={index}
-                transformation={transformation}
-                index={index}
-            />
-        ) : (
-            <DraggableAsset
-                imageAsset={item!!}
-                key={index}
-                transformation={transformation}
-                index={imageCount++}
-                images={about.portraitsCollection?.items as Asset[]}
-                tags={[]}
-            />
-        )
-    }), [about.portraitsCollection?.items, isMobile])
+                return isString ? (
+                    <DraggableAsset
+                        reactNode={item}
+                        key={index}
+                        transformation={transformation}
+                        index={index}
+                    />
+                ) : (
+                    <DraggableAsset
+                        imageAsset={item!!}
+                        key={index}
+                        transformation={transformation}
+                        index={imageCount++}
+                        images={about.portraitsCollection?.items as Asset[]}
+                        tags={[]}
+                    />
+                )
+            }),
+        [about.portraitsCollection?.items, isMobile]
+    )
 
-
+    // TODO: we know the height of toolbar (use ref) so just use that to calc the block size
     return (
         <main
             style={{
@@ -71,29 +86,28 @@ export default function About({
                 position: 'relative', // this is so we can have proper background when making the below pos absolute
             }}
             id="scroll"
-
             className={styles.aboutPage__container}
         >
             <Head>
                 <title>About Shane Gallagher</title>
             </Head>
 
-            <Toolbar />
+            <Toolbar ref={ref} />
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
-                    margin: isMobile
-                        ? `0 0.2em 1.3em 0`
-                        : `0 1.2em 1em 1.2em`,
-                    top: `${BLOCK_SIZE}px`,
+                    margin: isMobile ? `0 0.2em 1.3em 0` : `0 1.2em 1em 1.2em`,
+                    top: `${offset}px`,
                     position: 'absolute',
                 }}
             >
                 <DraggableAsset
-                    key={"about-key"}
-                    reactNode={documentToReactComponents(about.description?.json)}
+                    key={'about-key'}
+                    reactNode={documentToReactComponents(
+                        about.description?.json
+                    )}
                     transformation={'none'}
                     className={styles.aboutPage__aboutAsset}
                     disableDrag
@@ -101,7 +115,6 @@ export default function About({
                 />
                 {galleryElements}
             </div>
-
         </main>
     )
 }
@@ -112,7 +125,7 @@ export async function getStaticProps() {
     })
     return {
         props: {
-            about: data.about as About
+            about: data.about as About,
         },
     }
 }

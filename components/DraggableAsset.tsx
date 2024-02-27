@@ -40,6 +40,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
     className, // for draggable asset only
 }) => {
     const { isMobile } = useWindowDimensions()
+    const isImageTransparent = imageAsset?.title === "TRANSPARENT IMAGE";
     const [openLargeImage, setOpenLargeImage] = useState(false)
     const [curLargeImageIndex, setCurLargeImageIndex] = useState<number | null>(
         index
@@ -52,7 +53,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
         if (event.type === 'mousemove' || event.type === 'touchmove') {
             setIsDragging(true)
         }
-        if (event.type === 'touchend' && !isDragging && isMobile) {
+        if (event.type === 'touchend' && !isDragging && isMobile && !isImageTransparent) {
             setOpenLargeImage(!openLargeImage) // mobile events only fire touchend
         } else if (event.type === 'mouseup' || event.type === 'touchend') {
             setTimeout(() => {
@@ -135,6 +136,12 @@ const DraggableAsset: React.FC<AssetProps> = ({
             : {
                   height: isMobile ? '15em' : '25em',
               }
+
+    // Make transparent images smaller
+    const transparentImageDimensions = isImageTransparent ? {
+        width: isMobile ? '10%' : '10em',
+        height: isMobile ? '7em' : '10em',
+    } : {}
     return reactNode != null ? (
         displayElementOnly(reactNode)
     ) : (
@@ -154,6 +161,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     objectFit: 'cover',
                     pointerEvents: 'none', // helps when this div gets in front of another draggable asset
                     ...mobileDimension,
+                    ...transparentImageDimensions // this should be last and take precedence
                 }}
             >
                 <Rnd
@@ -164,13 +172,15 @@ const DraggableAsset: React.FC<AssetProps> = ({
                     disabled={disableDrag}
                     lockAspectRatio
                     onClick={() => {
-                        if (!isDragging) {
+                        if (!isDragging && !isImageTransparent) {
                             setOpenLargeImage(!openLargeImage)
                         }
                     }}
                     style={{
-                        pointerEvents: 'auto',
+                        pointerEvents: isImageTransparent ? 'none':'auto',
                     }}
+                    enableResizing={!isImageTransparent}
+                    disableDragging={isImageTransparent}
                 >
                     <Image
                         alt={'TODO'}
@@ -188,7 +198,7 @@ const DraggableAsset: React.FC<AssetProps> = ({
                         style={{
                             height: '100%',
                             width: '100%',
-                            pointerEvents: 'auto', // helps when this div gets in front of another draggable asset
+                            pointerEvents: isImageTransparent ? 'none':'auto', // helps when this div gets in front of another draggable asset
                         }}
                         loader={loaderProp}
                         loading="eager"

@@ -15,8 +15,8 @@ import Toolbar from '@/components/Toolbar'
 import Head from 'next/head'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Link from 'next/link'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import getRandomTransformation from '@/utils/getRandomTransformation'
 
 export default function Project({
@@ -37,50 +37,71 @@ export default function Project({
     const slugIndex = projects.findIndex(
         (item: Project) => item?.url?.id == currentSlug
     )
-    const images = gallery.filter(item => typeof item !== "string")
+    const itemIsNotStringOrTransparent = (item: Asset | string) => typeof item !== 'string' && item.title !== "TRANSPARENT IMAGE"
+    const images = gallery.filter((item) => itemIsNotStringOrTransparent(item))
 
-    let imageCount = 0;
-    const galleryElements = useMemo(() => gallery.map((item, index) => {
-        const isString = typeof item == "string"
-        let transformation = getRandomTransformation()
-        let scale = ''
-        if (!isMobile && !isString && item.contentfulMetadata.tags.map((tag) => tag!!.name).includes("enlarge-image")) {
-            scale = 'scale(1.2)'
-        } else if (!isMobile && !isString && item.contentfulMetadata.tags.map((tag) => tag!!.name).includes("shrink-image")) {
-            scale = 'scale(0.75)'
-        }
-        transformation += scale
+    let imageCount = -1
+    const galleryElements = useMemo(
+        () =>
+            gallery.map((item, index) => {
+                const isString = typeof item == 'string'
+                let transformation = getRandomTransformation()
+                let scale = ''
+                if (
+                    !isMobile &&
+                    !isString &&
+                    item.contentfulMetadata.tags
+                        .map((tag) => tag!!.name)
+                        .includes('enlarge-image')
+                ) {
+                    scale = 'scale(1.2)'
+                } else if (
+                    !isMobile &&
+                    !isString &&
+                    item.contentfulMetadata.tags
+                        .map((tag) => tag!!.name)
+                        .includes('shrink-image')
+                ) {
+                    scale = 'scale(0.75)'
+                }
+                transformation += scale
 
-        const key = `${currentSlug}${index}` // need unique keys so react will re-animate during navigation between projects
-        return typeof item === 'string' ? (
-            <DraggableAsset
-                reactNode={item}
-                key={key}
-                transformation={transformation}
-                index={index}
-            />
-        ) : (
-            <DraggableAsset
-                imageAsset={item}
-                key={key}
-                transformation={transformation}
-                index={imageCount++}
-                images={images as Asset[]}
-                tags={item.contentfulMetadata.tags}
-            />
-        )
-    }), [gallery, currentSlug, isMobile])
-
+                if (itemIsNotStringOrTransparent(item)) {
+                    imageCount++;
+                }
+                const key = `${currentSlug}${index}` // need unique keys so react will re-animate during navigation between projects
+                return typeof item === 'string' ? (
+                    <DraggableAsset
+                        reactNode={item}
+                        key={key}
+                        transformation={transformation}
+                        index={index}
+                    />
+                ) : (
+                    <DraggableAsset
+                        imageAsset={item}
+                        key={key}
+                        transformation={transformation}
+                        index={imageCount}
+                        images={images as Asset[]}
+                        tags={item.contentfulMetadata.tags}
+                    />
+                )
+            }),
+        [gallery, currentSlug, isMobile]
+    )
 
     const onMouseDown = (shouldGoUp?: boolean) => {
-        const scrollElm = document.getElementById("scroll")!!
+        const scrollElm = document.getElementById('scroll')!!
         let height = document.body.clientHeight
         if (shouldGoUp) {
             height = -height
         }
-        scrollElm.scrollTo({top: scrollElm.scrollTop + height/ 2, behavior: 'smooth'});
-      };
-      
+        scrollElm.scrollTo({
+            top: scrollElm.scrollTop + height / 2,
+            behavior: 'smooth',
+        })
+    }
 
     return (
         <main
@@ -92,7 +113,6 @@ export default function Project({
                 position: 'relative', // this is so we can have proper background when making the below pos absolute
             }}
             id="scroll"
-
             className={styles.projectPage__main}
         >
             <Head>
@@ -105,31 +125,44 @@ export default function Project({
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
-                    margin: isMobile
-                        ? `0 0.2em 1.3em 0`
-                        : `0 1.2em 1em 1.2em`,
+                    margin: isMobile ? `0 0.2em 1.3em 0` : `0 1.2em 1em 1.2em`,
                     top: isMobile
-                    ? `${BLOCK_SIZE * 1.5}px`
-                    : `${BLOCK_SIZE * 1.9}px`,
+                        ? `${BLOCK_SIZE * 1.5}px`
+                        : `${BLOCK_SIZE * 1.9}px`,
                     position: 'absolute',
                 }}
                 ref={ref}
             >
                 <DraggableAsset
                     key={`${currentSlug}${100}`}
-                    reactNode={project.title}
-                    transformation={'none'}
+                    reactNode={
+                        <div>
+                            <div
+                                style={{
+                                    backgroundColor: 'white',
+                                    color: 'black',
+                                    padding: '1em',
+                                    marginBottom: '1em',
+                                }}
+                            >
+                                {project.title}
+                            </div>
+                            <div
+                                style={{
+                                    backgroundColor: 'black',
+                                    color: 'white',
+                                    padding: '1em',
+                                }}
+                            >
+                                {documentToReactComponents(
+                                    project.description.json
+                                )}
+                            </div>
+                        </div>
+                    }
                     style={{
-                        color: "black",
-                        background: "white",
+                        backgroundColor: 'transparent',
                     }}
-                    index={-1}
-                />
-                <DraggableAsset
-                    reactNode={documentToReactComponents(
-                        project.description.json
-                    )}
-                    key={`${currentSlug}${101}`}
                     transformation={'none'}
                     index={-1}
                 />
@@ -142,71 +175,77 @@ export default function Project({
                 }}
             >
                 <div>
-                <div>
-                    {slugIndex > 0 && (
-                        <Link href={projects[slugIndex - 1].url.id}>
-                            <div
-                                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_left}`}
-                            >
+                    <div>
+                        {slugIndex > 0 && (
+                            <Link href={projects[slugIndex - 1].url.id}>
                                 <div
-                                    className={
-                                        styles.projectPage__project_links_desc
-                                    }
+                                    className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_left}`}
                                 >
-                                    View previous work
+                                    <div
+                                        className={
+                                            styles.projectPage__project_links_desc
+                                        }
+                                    >
+                                        View previous work
+                                    </div>
+                                    <div
+                                        className={
+                                            styles.projectPage__project_links_project_title
+                                        }
+                                    >
+                                        {projects[slugIndex - 1].title}
+                                    </div>
                                 </div>
+                            </Link>
+                        )}
+                        {slugIndex < projects.length - 1 && (
+                            <Link href={projects[slugIndex + 1].url.id}>
                                 <div
-                                    className={
-                                        styles.projectPage__project_links_project_title
-                                    }
+                                    className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_right}`}
                                 >
-                                    {projects[slugIndex - 1].title}
+                                    <div
+                                        className={
+                                            styles.projectPage__project_links_desc
+                                        }
+                                    >
+                                        View next work
+                                    </div>
+                                    <div
+                                        className={
+                                            styles.projectPage__project_links_project_title
+                                        }
+                                    >
+                                        {projects[slugIndex + 1].title}
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    )}
-                    {slugIndex < projects.length - 1 && (
-                        <Link href={projects[slugIndex + 1].url.id}>
-                            <div
-                                className={`${styles.projectPage__project_links} ${styles.projectPage__project_links_right}`}
-                            >
-                                <div
-                                    className={
-                                        styles.projectPage__project_links_desc
-                                    }
-                                >
-                                    View next work
-                                </div>
-                                <div
-                                    className={
-                                        styles.projectPage__project_links_project_title
-                                    }
-                                >
-                                    {projects[slugIndex + 1].title}
-                                </div>
-                            </div>
-                        </Link>
-                    )}
+                            </Link>
+                        )}
+                    </div>
+                    <div
+                        style={{
+                            bottom: isMobile ? '20%' : '25%',
+                        }}
+                        className={styles.projectPage__project_arrow_button}
+                        onClick={() => onMouseDown(true)}
+                    >
+                        <KeyboardArrowUpIcon
+                            style={{ margin: 'auto', fontSize: '30px' }}
+                            fontSize="medium"
+                        />
+                    </div>
+                    <div
+                        style={{
+                            bottom: isMobile ? '13%' : '20%',
+                        }}
+                        className={styles.projectPage__project_arrow_button}
+                        onClick={() => onMouseDown()}
+                    >
+                        <KeyboardArrowDownIcon
+                            style={{ margin: 'auto', fontSize: '30px' }}
+                        />
+                    </div>
                 </div>
-            <div style={{
-                bottom: isMobile ? "20%": "25%",
-            }}
-            className={styles.projectPage__project_arrow_button}
-            onClick={() => onMouseDown(true)}
-            >
-                <KeyboardArrowUpIcon style={{margin: "auto", fontSize: "30px"}} fontSize="medium" />
-            </div>
-            <div style={{
-                bottom: isMobile ? "13%": "20%",
-            }}
-            className={styles.projectPage__project_arrow_button}
-            onClick={() => onMouseDown()}
-            >
-                <KeyboardArrowDownIcon style={{margin: "auto",  fontSize: "30px"}} />
-            </div>
-            </div>
             </Fade>
-
         </main>
     )
 }
