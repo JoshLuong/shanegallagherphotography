@@ -26,8 +26,10 @@ export default function About({
     const { isMobile } = useWindowDimensions()
     const [offset, setOffset] = useState(0) // in pixels
     const ref = useRef<HTMLDivElement>(null)
+    const zIndexRef = useRef(1)
 
     useEffect(() => {
+        zIndexRef.current = 1
         if (!ref.current) return
         const resizeObserver = new ResizeObserver(() => {
             setOffset(ref.current!!.offsetHeight)
@@ -60,6 +62,7 @@ export default function About({
                         key={index}
                         transformation={transformation}
                         index={index}
+                        ref={zIndexRef}
                     />
                 ) : (
                     <DraggableAsset
@@ -69,6 +72,7 @@ export default function About({
                         index={imageCount++}
                         images={about.portraitsCollection?.items as Asset[]}
                         tags={[]}
+                        ref={zIndexRef}
                     />
                 )
             }),
@@ -112,6 +116,7 @@ export default function About({
                     className={styles.aboutPage__aboutAsset}
                     disableDrag
                     index={-1}
+                    ref={zIndexRef}
                 />
                 {galleryElements}
             </div>
