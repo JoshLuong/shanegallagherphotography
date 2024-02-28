@@ -37,7 +37,7 @@ export default function Works({
                 <title>Works of Shane Gallagher</title>
             </Head>
             <div>
-            <ToolBar />
+                <ToolBar />
                 <Fade
                     in={true}
                     timeout={{
@@ -48,9 +48,7 @@ export default function Works({
                         {items.map((item) => {
                             return (
                                 <Link
-                                    href={`projects/${
-                                        item.url?.id || ''
-                                    }`}
+                                    href={`projects/${item.url?.id || ''}`}
                                     style={{
                                         textDecoration: 'none',
                                         display: 'flex',
@@ -70,7 +68,8 @@ export default function Works({
                                             >
                                                 <Image
                                                     src={
-                                                        item.previewImage?.url || ''
+                                                        item.previewImage
+                                                            ?.url || ''
                                                     }
                                                     alt=""
                                                     loading="eager"
@@ -86,11 +85,37 @@ export default function Works({
                                         }
                                         followCursor
                                     >
-                                        <div style={{display: "inline-block"}}>{item.title?.toLocaleUpperCase()}</div>
+                                        <div
+                                            style={{ display: 'inline-block' }}
+                                        >
+                                            {item.title?.toLocaleUpperCase()}
+                                        </div>
                                     </BlackTooltip>
                                 </Link>
                             )
                         })}
+                        <Link
+                            href="moodboard"
+                            style={{
+                                textDecoration: 'none',
+                                display: 'flex',
+                                alignSelf: 'flex-start',
+                                color: 'white',
+                                margin: '0.2em 0',
+                                marginTop: '1.3em',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <div style={{ display: 'inline-block' }}>
+                                YOUR CUSTOM MOODBOARD
+                            </div>
+                            <div
+                                style={{ display: 'block', fontSize: '0.5em' }}
+                            >
+                                Create your own moodboard using the moments
+                                captured in my works.
+                            </div>
+                        </Link>
                     </div>
                 </Fade>
             </div>

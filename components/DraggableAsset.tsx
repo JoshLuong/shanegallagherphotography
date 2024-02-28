@@ -15,6 +15,7 @@ import styles from '../styles/Asset.module.less'
 import Draggable from 'react-draggable'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { Rnd } from 'react-rnd'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import React from 'react'
 
 interface AssetProps {
@@ -215,7 +216,6 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         enableResizing={!isImageTransparent}
                         disableDragging={isImageTransparent}
                     >
-                        <div>
                             <Image
                                 alt={'TODO'}
                                 placeholder="empty"
@@ -239,7 +239,6 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 loader={loaderProp}
                                 loading="eager"
                             />
-                        </div>
                     </Rnd>
                     <Dialog
                         open={openLargeImage}
@@ -319,6 +318,27 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 >
                                     Previous
                                 </div>
+                            )}
+                             {!isImageTransparent && (
+                                <FavoriteBorderIcon
+                                    style={{
+                                        color: 'white',
+                                        width: '20px',
+                                        height: '20px',
+                                        fontSize: '20px',
+                                        transform: 'unset',
+                                    }}
+                                    onClick={() => {
+                                        let moodboard: string[] = [];
+                                        const sessionItem = window.sessionStorage.getItem("moodboard")
+                                        if (sessionItem != null) {
+                                            moodboard = JSON.parse(sessionItem)
+                                        }
+                                        if (imageAsset!!.fileName != null) {
+                                            window.sessionStorage.setItem("moodboard", JSON.stringify([...moodboard,imageAsset!!.fileName]) );
+                                        }
+                                    }}
+                                />
                             )}
                             {hasRightImageButton && (
                                 <div
