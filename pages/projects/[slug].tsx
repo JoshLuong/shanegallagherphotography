@@ -27,17 +27,19 @@ export default function Project({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
-    const [timeout, setTimeoutRef] = useState<any>(null)
+    const zIndexRef = useRef(1)
 
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         setDidLoad(true)
+        zIndexRef.current = 1
     })
     const projects = projectUrls?.projectCollection?.items
     const slugIndex = projects.findIndex(
         (item: Project) => item?.url?.id == currentSlug
     )
-    const itemIsNotStringOrTransparent = (item: Asset | string) => typeof item !== 'string' && item.title !== "TRANSPARENT IMAGE"
+    const itemIsNotStringOrTransparent = (item: Asset | string) =>
+        typeof item !== 'string' && item.title !== 'TRANSPARENT IMAGE'
     const images = gallery.filter((item) => itemIsNotStringOrTransparent(item))
 
     let imageCount = -1
@@ -67,7 +69,7 @@ export default function Project({
                 transformation += scale
 
                 if (itemIsNotStringOrTransparent(item)) {
-                    imageCount++;
+                    imageCount++
                 }
                 const key = `${currentSlug}${index}` // need unique keys so react will re-animate during navigation between projects
                 return typeof item === 'string' ? (
@@ -76,6 +78,7 @@ export default function Project({
                         key={key}
                         transformation={transformation}
                         index={index}
+                        ref={zIndexRef}
                     />
                 ) : (
                     <DraggableAsset
@@ -85,6 +88,7 @@ export default function Project({
                         index={imageCount}
                         images={images as Asset[]}
                         tags={item.contentfulMetadata.tags}
+                        ref={zIndexRef}
                     />
                 )
             }),
@@ -165,6 +169,7 @@ export default function Project({
                     }}
                     transformation={'none'}
                     index={-1}
+                    ref={zIndexRef}
                 />
                 {didLoad && galleryElements}
             </div>
