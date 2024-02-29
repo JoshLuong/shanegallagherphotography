@@ -15,8 +15,11 @@ import styles from '../styles/Asset.module.less'
 import Draggable from 'react-draggable'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { Rnd } from 'react-rnd'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 import React from 'react'
+import { BlackTooltip } from './BlackTooltip'
+import PushPinIcon from '@mui/icons-material/PushPin'
+import getMoodboard from '@/utils/getMoodboard'
 
 interface AssetProps {
     imageAsset?: Asset
@@ -56,10 +59,38 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
 
         const [isDragging, setIsDragging] = useState<any>(false)
         const [curZIndex, setCurZIndex] = useState(1)
+        const [isAddedToMoodboard, setIsAddedToMoodboard] = useState(false)
 
         useEffect(() => {
-            console.log('new ref')
-            console.log(zIndexRef)
+            setIsAddedToMoodboard(
+                getMoodboard().includes(imageAsset?.fileName || '')
+            )
+        })
+
+        const clickAddToMoodboard = () => {
+            let moodboard = getMoodboard()
+            if (imageAsset!!.fileName != null) {
+                setIsAddedToMoodboard(!isAddedToMoodboard)
+                if (getMoodboard().includes(imageAsset?.fileName || '')) {
+                    window.sessionStorage.setItem(
+                        'moodboard',
+                        JSON.stringify(
+                            moodboard.filter(
+                                (fileName) => fileName != imageAsset?.fileName
+                            )
+                        )
+                    )
+                } else {
+                    window.sessionStorage.setItem(
+                        'moodboard',
+                        JSON.stringify([...moodboard, imageAsset!!.fileName])
+                    )
+                }
+                window.dispatchEvent(new Event('moodboard-storage'))
+            }
+        }
+
+        useEffect(() => {
             // @ts-ignore
         }, [zIndexRef?.current])
 
@@ -216,29 +247,29 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         enableResizing={!isImageTransparent}
                         disableDragging={isImageTransparent}
                     >
-                            <Image
-                                alt={'TODO'}
-                                placeholder="empty"
-                                src={imageAsset!!.url || ''}
-                                width={imageAsset!!.width || '0'}
-                                onLoadingComplete={() => {
-                                    setTimeout(() => {
-                                        setShouldShowImage(true)
-                                    }, 850 + 650 * Math.random())
-                                }}
-                                onDrag={(e) => e.preventDefault()}
-                                onDragStart={(e) => e.preventDefault()}
-                                height={imageAsset!!.height || 0}
-                                style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    pointerEvents: isImageTransparent
-                                        ? 'none'
-                                        : 'auto', // helps when this div gets in front of another draggable asset
-                                }}
-                                loader={loaderProp}
-                                loading="eager"
-                            />
+                        <Image
+                            alt={'TODO'}
+                            placeholder="empty"
+                            src={imageAsset!!.url || ''}
+                            width={imageAsset!!.width || '0'}
+                            onLoadingComplete={() => {
+                                setTimeout(() => {
+                                    setShouldShowImage(true)
+                                }, 850 + 650 * Math.random())
+                            }}
+                            onDrag={(e) => e.preventDefault()}
+                            onDragStart={(e) => e.preventDefault()}
+                            height={imageAsset!!.height || 0}
+                            style={{
+                                height: '100%',
+                                width: '100%',
+                                pointerEvents: isImageTransparent
+                                    ? 'none'
+                                    : 'auto', // helps when this div gets in front of another draggable asset
+                            }}
+                            loader={loaderProp}
+                            loading="eager"
+                        />
                     </Rnd>
                     <Dialog
                         open={openLargeImage}
@@ -319,26 +350,55 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     Previous
                                 </div>
                             )}
-                             {!isImageTransparent && (
-                                <FavoriteBorderIcon
-                                    style={{
-                                        color: 'white',
-                                        width: '20px',
-                                        height: '20px',
-                                        fontSize: '20px',
-                                        transform: 'unset',
-                                    }}
-                                    onClick={() => {
-                                        let moodboard: string[] = [];
-                                        const sessionItem = window.sessionStorage.getItem("moodboard")
-                                        if (sessionItem != null) {
-                                            moodboard = JSON.parse(sessionItem)
-                                        }
-                                        if (imageAsset!!.fileName != null) {
-                                            window.sessionStorage.setItem("moodboard", JSON.stringify([...moodboard,imageAsset!!.fileName]) );
-                                        }
-                                    }}
-                                />
+                            {!isImageTransparent && (
+                                <BlackTooltip
+                                    title={
+                                        <div
+                                            style={{
+                                                background: 'black',
+                                                color: 'white',
+                                                padding: '0.5em',
+                                            }}
+                                        >
+                                            {isAddedToMoodboard
+                                                ? 'REMOVE FROM'
+                                                : 'SAVE TO'}{' '}
+                                            YOUR CUSTOM MOODBOARD.
+                                        </div>
+                                    }
+                                    followCursor
+                                    placement="top"
+                                >
+                                    {isAddedToMoodboard ? (
+                                        <PushPinIcon
+                                            style={{
+                                                color: 'white',
+                                                width: '20px',
+                                                height: '20px',
+                                                fontSize: '20px',
+                                                transform: 'unset',
+                                                margin: 0,
+                                            }}
+                                            onClick={() =>
+                                                clickAddToMoodboard()
+                                            }
+                                        />
+                                    ) : (
+                                        <PushPinOutlinedIcon
+                                            style={{
+                                                color: 'white',
+                                                width: '20px',
+                                                height: '20px',
+                                                fontSize: '20px',
+                                                transform: 'unset',
+                                                margin: 0,
+                                            }}
+                                            onClick={() =>
+                                                clickAddToMoodboard()
+                                            }
+                                        />
+                                    )}
+                                </BlackTooltip>
                             )}
                             {hasRightImageButton && (
                                 <div
@@ -348,6 +408,9 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                             curLargeImageIndex + 1
                                         )
                                     }
+                                    style={{
+                                        marginLeft: 'auto',
+                                    }}
                                 >
                                     Next
                                 </div>

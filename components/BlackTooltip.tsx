@@ -3,10 +3,13 @@ import { TooltipProps, Tooltip, tooltipClasses } from "@mui/material";
 
 export const BlackTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip
-        {...props}
         arrow
         classes={{ popper: className }}
         placement="right"
+        style={{
+            fontFamily: `"Space Grotesk", sans-serif`,
+        }}
+        {...props}
     />
 ))(() => ({
     [`& .${tooltipClasses.arrow}`]: {

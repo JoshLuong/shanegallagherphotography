@@ -5,9 +5,10 @@ import { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { BlackTooltip } from '../BlackTooltip'
 import { Asset, ContentfulTag } from '@/types/graphql'
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 
 interface BlockProps {
     topLBorderRadius?: string
@@ -60,7 +61,11 @@ const Block: React.FC<BlockProps> = ({
     const solidBorder = `0.7px solid white`
 
     const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
-    const isTextNavBar = () => isTextHome() || text.toLocaleUpperCase() == 'ABOUT' || text.toLocaleUpperCase() == "CONTACT" || text.toLocaleUpperCase()== 'WORKS'
+    const isTextNavBar = () =>
+        isTextHome() ||
+        text.toLocaleUpperCase() == 'ABOUT' ||
+        text.toLocaleUpperCase() == 'CONTACT' ||
+        text.toLocaleUpperCase() == 'WORKS'
     const getLink = () => {
         if (text && !link) {
             if (text === 'Home') {
@@ -126,7 +131,17 @@ const Block: React.FC<BlockProps> = ({
                     />
                 </Fade>
             )}
-            {text.toUpperCase()}
+            {text == 'Moodboard' ? (
+                <BlackTooltip
+                    title={<div style={{background: "black", color:"white", padding: "0.5em", fontSize: "1.25em"}}>VIEW YOUR CUSTOM MOODBOARD.</div>}
+                    followCursor
+                    placement='bottom'
+                >
+                    <PushPinOutlinedIcon />
+                </BlackTooltip>
+            ) : (
+                text.toUpperCase()
+            )}
         </div>
     )
 
@@ -154,9 +169,10 @@ const Block: React.FC<BlockProps> = ({
                             loading="eager"
                             width="0"
                             height="0"
-                            style={{ ...tooltipDimensions,
-                                zIndex: 1001 // make sure this is larger than the one defined below - (isTextNavBar() ? 1000: 1)
-                             }}
+                            style={{
+                                ...tooltipDimensions,
+                                zIndex: 1001, // make sure this is larger than the one defined below - (isTextNavBar() ? 1000: 1)
+                            }}
                             loader={loaderProp}
                         />
                         <div
@@ -191,7 +207,7 @@ const Block: React.FC<BlockProps> = ({
                                     ? 'pointer'
                                     : 'unset',
                             textDecoration: 'none',
-                            zIndex: isTextNavBar() ? 1000: 1,
+                            zIndex: isTextNavBar() ? 1000 : 1,
                         }}
                     >
                         {blockContent}

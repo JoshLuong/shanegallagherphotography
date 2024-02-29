@@ -21,6 +21,7 @@ import Toolbar from '@/components/Toolbar'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import getRandomTransformation from '@/utils/getRandomTransformation'
 import { moodboardQuery } from '@/gql/moodboard-query'
+import getMoodboard from '@/utils/getMoodboard'
 
 export default function Moodboard({}) {
     const { isMobile } = useWindowDimensions()
@@ -39,38 +40,32 @@ export default function Moodboard({}) {
         return () => resizeObserver.disconnect() // clean up
     }, [])
 
+    const removeMoodboard = () => {
+        let moodboard = getMoodboard()
+        setGallery(gallery.filter((galImage) => moodboard.includes(galImage.fileName || "")))
+    }
+
 
     useEffect(() => {
-        let moodboard: string[] = [];
-        const sessionItem = window.sessionStorage.getItem("moodboard")
-        if (sessionItem != null) {
-            moodboard = JSON.parse(sessionItem)
-            console.log(moodboard)
-        }
+        let moodboard = getMoodboard()
         client.query({
             query: moodboardQuery,
             variables: { fileNames:moodboard} 
         }).then((response: any) => {
-            console.log(response)
-            console.log(response.data.assetCollection)
             setGallery(response.data.assetCollection?.items)
         })
+
+        window.addEventListener('moodboard-storage', removeMoodboard)
+
+        return () => window.removeEventListener('moodboard-storage', removeMoodboard)
     })
 
     let imageCount = 0
     const galleryElements = useMemo(
         () =>
             gallery.map((item, index) => {
-                console.log("ITEM")
-                console.log(item)
                 const isString = typeof item == 'string'
-                const randomInt = Math.random()
                 let transformation = getRandomTransformation()
-                let scale = ''
-                if (!isMobile && !isString && randomInt >= 0.8) {
-                    scale = 'scale(1.2)'
-                }
-                transformation += scale
 
                 return isString ? (
                     <DraggableAsset
@@ -109,18 +104,21 @@ export default function Moodboard({}) {
             className={styles.aboutPage__container}
         >
             <Head>
-                <title>About Shane Gallagher</title>
+                <title>Your Custom Moodboard</title>
             </Head>
 
-            <Toolbar ref={ref} />
+            <Toolbar ref={ref} isGridBackground/>
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile ? `0 0.2em 1.3em 0` : `0 1.2em 1em 1.2em`,
-                    top: `${offset * 1.5}px`,
+                    top: isMobile
+                        ? `${BLOCK_SIZE * 1.5}px`
+                        : `${BLOCK_SIZE * 1.9}px`,
                     position: 'absolute',
+                    width: "100%"
                 }}
             >
                 {galleryElements}

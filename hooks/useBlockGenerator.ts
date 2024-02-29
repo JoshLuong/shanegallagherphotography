@@ -136,9 +136,10 @@ export default function useBlockGenerator({
             ]
 
             if (i == 1) {
-                returnRow[returnRow.length - 2].text = 'Works'
-                returnRow[returnRow.length - 3].text = 'Contact'
-                returnRow[returnRow.length - 4].text = 'About'
+                returnRow[returnRow.length - 2].text = 'Moodboard'
+                returnRow[returnRow.length - 3].text = 'Works'
+                returnRow[returnRow.length - 4].text = 'Contact'
+                returnRow[returnRow.length - 5].text = 'About'
 
                 if (pathname != '/') {
                     returnRow[1].text = 'Home'
