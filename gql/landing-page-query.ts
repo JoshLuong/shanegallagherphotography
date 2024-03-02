@@ -4,6 +4,9 @@ export const subsectionQuery = gql`
     query GetSubSections {
         projectCollection(order: sys_firstPublishedAt_ASC) {
             items {
+                sys {
+                    publishedAt
+                }
                 title
                 thumbnailXCoordinate
                 thumbnailYCoordinate

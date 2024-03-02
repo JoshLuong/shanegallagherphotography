@@ -1,0 +1,9 @@
+//robots.txt
+
+# Block all crawlers for /moodboard
+User-agent: *
+Disallow: /moodboard
+
+# Allow all crawlers
+User-agent: *
+Allow: /

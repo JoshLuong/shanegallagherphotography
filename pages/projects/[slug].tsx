@@ -42,7 +42,7 @@ export default function Project({
     )
     const itemIsNotStringOrTransparent = (item: Asset | string) =>
         typeof item !== 'string' && item.title !== 'TRANSPARENT IMAGE'
-    const images = gallery.filter((item) => itemIsNotStringOrTransparent(item))
+    const images: Asset[] = useMemo(() => gallery.filter((item) => itemIsNotStringOrTransparent(item)) as Asset[], [gallery])
 
     const shouldDisplayScrollToTop = () => {
         if (document) {
@@ -159,6 +159,15 @@ export default function Project({
         >
             <Head>
                 <title>{project.title}</title>
+                <meta property="og:title" content={`Shane Gallagher's ${project.title}`} />
+                <meta
+                property="og:description"
+                content={JSON.stringify(project.description.json)}
+                />
+                <meta
+                property="og:image"
+                content={images[0].url || ""}
+                />
             </Head>
 
             <Toolbar isGridBackground />

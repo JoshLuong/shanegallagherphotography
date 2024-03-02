@@ -5,9 +5,15 @@ export const projectPageQuery = gql`
     query GetProjectBySlug($slug: String!) {
         projectsCollection(where: { url: { id: $slug } }) {
             items {
+                sys {
+                    publishedAt
+                }
                 title
                 galleryCollection(limit: 50) {
                     items {
+                        sys {
+                            publishedAt
+                        }
                         url
                         width
                         title
@@ -34,6 +40,9 @@ export const projectUrlsQuery = gql`
     query GetProjectUrls {
         projectCollection(order: sys_firstPublishedAt_ASC) {
             items {
+                sys {
+                    publishedAt
+                }
                 title
                 url {
                     id
