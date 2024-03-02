@@ -342,7 +342,12 @@ export default function Home({
 
     const mobileReadyBlocks = blocks.map((blockRow) => {
         if (isMobile) {
-            return blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
+            const firstBlock = blockRow[0]
+            const lastBlock = blockRow[blockRow.length - 1]
+            const newBlockRow =  blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
+            newBlockRow[0] = firstBlock
+            newBlockRow[newBlockRow.length - 1] = lastBlock
+            return newBlockRow
         }
         return blockRow
     })
@@ -359,9 +364,16 @@ export default function Home({
         }) => {
             if (isMobile && x!! > mobileReadyBlocks[0].length - 1) {
                 // because of the shaving above
-                x!!--
+                x!! = mobileReadyBlocks[0].length - (x!! - (mobileReadyBlocks[0].length))
+            }
+            if (isMobile && x!! == 0) {
+                // because of the shaving above
+               // x!!++
             }
             const block = mobileReadyBlocks[y!!][x!!]
+            if (!block) {
+                return
+            }
             if (previewImage != null) {
                 block.backgroundImage = previewImage
                 block.title = title
