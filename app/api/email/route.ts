@@ -6,7 +6,8 @@ import { render } from "@react-email/render";
 import { FormData } from '@/components/contact/Contact';
 
 export async function POST(request: NextRequest) {
-  const { email, name, message } = await request.json();
+  const { emailData, gallery } = await request.json();
+  const { email, name, message } = emailData;
 
   const transport = nodemailer.createTransport({
     service: 'gmail',
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
     subject: `Message from ${name} (${email})`,
     text: message,
     //@ts-ignore
-    html: render(Email({name, message, email} as FormData))
+    html: render(Email({ formData: { name, message, email } as FormData, gallery }))
   };
 
   const sendMailPromise = () =>

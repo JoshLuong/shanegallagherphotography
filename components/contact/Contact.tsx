@@ -2,10 +2,14 @@
 
 import { sendEmail } from '@/utils/sendEmail'
 import styled from '@emotion/styled'
-import { Snackbar, TextField } from '@mui/material'
-import { FC, useState } from 'react'
+import { Checkbox, FormControlLabel, Snackbar, TextField } from '@mui/material'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styles from '../../styles/ContactForm.module.less'
+import getMoodboard from '@/utils/getMoodboard'
+import client from '@/gql/apollo-client'
+import { moodboardQuery } from '@/gql/moodboard-query'
+import { Asset } from '@/types/graphql'
 
 export type FormData = {
     name: string
@@ -46,9 +50,9 @@ const CssTextField = styled(TextField)({
 const StyledSnackBar = styled(Snackbar)({
     '& .MuiPaper-root': {
         color: 'black',
-        backgroundColor: "white",
+        backgroundColor: 'white',
         fontFamily: `"Space Grotesk", sans-serif`,
-        borderRadius: "0"
+        borderRadius: '0',
     },
 })
 
@@ -58,6 +62,21 @@ const ContactForm: FC = () => {
     const [isSending, setIsSending] = useState(false)
     const [emailSentSuccess, setEmailSentSuccess] = useState(false)
     const [emailSentErr, setEmailSentErr] = useState(false)
+    const [gallery, setGallery] = useState<Asset[]>([])
+    const [checked, setChecked] = useState(true)
+
+    useEffect(() => {
+        let moodboard = getMoodboard()
+        client
+            .query({
+                query: moodboardQuery,
+                variables: { fileNames: moodboard },
+            })
+            .then((response: any) => {
+                setGallery(response.data.assetCollection?.items as Asset[])
+                console.log(gallery)
+            })
+    })
 
     const validateEmail = (email: string) => {
         return String(email)
@@ -71,9 +90,14 @@ const ContactForm: FC = () => {
             setEmailError(true)
         } else {
             setIsSending(true)
-            const didSendSuccessfully = await sendEmail(data)
+            const didSendSuccessfully = await sendEmail(
+                data,
+                checked ? gallery : []
+            )
             if (didSendSuccessfully) {
-                (document.getElementById("email-form") as HTMLFormElement)?.reset();
+                ;(
+                    document.getElementById('email-form') as HTMLFormElement
+                )?.reset()
                 setEmailSentSuccess(true)
             } else {
                 setEmailSentErr(true)
@@ -90,6 +114,38 @@ const ContactForm: FC = () => {
                 className={styles.contactForm__container}
                 autoComplete="none"
             >
+                <FormControlLabel
+                    style={{
+                        margin: '0',
+                        color: 'white',
+                        marginBottom: '1em',
+                        fontFamily: `"Space Grotesk", sans-serif`,
+                        fontSize: '0.5em',
+                    }}
+                    control={
+                        <Checkbox
+                            checked={checked}
+                            onChange={() => {
+                                setChecked(!checked)
+                            }}
+                            style={{
+                                padding: '0 !important',
+                                marginRight: '0.5em',
+                            }}
+                            defaultChecked
+                            sx={{
+                                color: 'white',
+                                '&.Mui-checked': {
+                                    color: 'white',
+                                },
+                            }}
+                        />
+                    }
+                    label={
+                        'ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.'
+                    }
+                />
+
                 <div className="mb-5">
                     <CssTextField
                         label="FULL NAME"
@@ -132,7 +188,7 @@ const ContactForm: FC = () => {
                     />
                 </div>
                 <button className={styles.contactForm__submit_btn}>
-                    {isSending ? "SENDING..." : "DELIVER"}
+                    {isSending ? 'SENDING...' : 'DELIVER'}
                 </button>
             </form>
             <StyledSnackBar
