@@ -382,10 +382,9 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                             {isAddedToMoodboard
                                                 ? 'REMOVE FROM'
                                                 : 'SAVE TO'}{' '}
-                                            YOUR CUSTOM MOODBOARD.
+                                            YOUR CUSTOM MOODBOARD
                                         </div>
                                     }
-                                    followCursor
                                     placement="top"
                                 >
                                     {isAddedToMoodboard ? (

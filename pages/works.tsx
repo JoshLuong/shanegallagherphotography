@@ -113,7 +113,7 @@ export default function Works({
                                 style={{ display: 'block', fontSize: '0.5em' }}
                             >
                                 Create your own moodboard using the moments
-                                captured in my works.
+                                captured in any of my works listed above.
                             </div>
                         </Link>
                     </div>

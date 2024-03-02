@@ -11,6 +11,7 @@ export const aboutContentQuery = gql`
                     url
                     width
                     height
+                    fileName
                 }
             }
             # add the fields you want to query

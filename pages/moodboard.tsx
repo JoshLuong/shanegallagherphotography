@@ -28,6 +28,7 @@ export default function Moodboard({}) {
     const [offset, setOffset] = useState(0) // in pixels
     const ref = useRef<HTMLDivElement>(null)
     const [gallery, setGallery] = useState<Asset[]>([])
+    const [didLoad, setDidLoad] = useState(false)
     const zIndexRef = useRef(1)
 
     useEffect(() => {
@@ -57,7 +58,9 @@ export default function Moodboard({}) {
                 variables: { fileNames: moodboard },
             })
             .then((response: any) => {
+                console.log(response.data)
                 setGallery(response.data.assetCollection?.items)
+                setDidLoad(true)
             })
 
         window.addEventListener('moodboard-storage', removeMoodboard)
@@ -127,12 +130,11 @@ export default function Moodboard({}) {
                     width: '100%',
                 }}
             >
-                {galleryElements.length == 0 ? (
+                {galleryElements.length == 0 && didLoad ? (
                     <div
                         style={{
                             color: 'white',
                             background: 'black',
-                            margin: '2em',
                             padding: '0.5em',
                         }}
                         className={styles.moodboardPage__empty_text}

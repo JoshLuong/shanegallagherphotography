@@ -136,7 +136,7 @@ const Block: React.FC<BlockProps> = ({
                     title={<div style={{background: "black", color:"white", padding: "0.75em", fontSize: isMobile ? '0.65em' : '1.3em', fontWeight: "bold"}}>CUSTOM MOODBOARD</div>}
                     placement='bottom'
                 >
-                    <PushPinOutlinedIcon />
+                    <PushPinOutlinedIcon style={{fontSize: isMobile ? '1.2em' : '1.3em'}}/>
                 </BlackTooltip>
             ) : (
                 text.toUpperCase()

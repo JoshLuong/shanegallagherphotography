@@ -18,6 +18,7 @@ import Link from 'next/link'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import getRandomTransformation from '@/utils/getRandomTransformation'
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 
 export default function Project({
     currentSlug,
@@ -27,6 +28,7 @@ export default function Project({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
+    const [displayScrollToTop, setShouldDisplayScrollToTop] = useState(false)
     const zIndexRef = useRef(1)
 
     const ref = useRef<HTMLDivElement>(null)
@@ -41,6 +43,31 @@ export default function Project({
     const itemIsNotStringOrTransparent = (item: Asset | string) =>
         typeof item !== 'string' && item.title !== 'TRANSPARENT IMAGE'
     const images = gallery.filter((item) => itemIsNotStringOrTransparent(item))
+
+    const shouldDisplayScrollToTop = () => {
+        if (document) {
+            const scrollElm = document?.getElementById('scroll')
+            return (
+                ((scrollElm?.scrollHeight || 0) + document?.body.clientHeight) /
+                    3.5 <
+                (document?.getElementById('scroll')?.scrollTop || 0)
+            )
+        }
+        return false
+    }
+
+    useEffect(() => {
+        const onScroll = () => {
+            console.log(shouldDisplayScrollToTop())
+            setShouldDisplayScrollToTop(shouldDisplayScrollToTop())
+        }
+        document?.getElementById('scroll')?.addEventListener('scroll', onScroll)
+        return () => {
+            document
+                ?.getElementById('scroll')
+                ?.removeEventListener('scroll', onScroll)
+        }
+    })
 
     let imageCount = -1
     const galleryElements = useMemo(
@@ -96,13 +123,21 @@ export default function Project({
     )
 
     const onMouseDown = (shouldGoUp?: boolean) => {
-        const scrollElm = document.getElementById('scroll')!!
-        let height = document.body.clientHeight
+        const scrollElm = document?.getElementById('scroll')!!
+        let height = document?.body.clientHeight
         if (shouldGoUp) {
             height = -height
         }
         scrollElm.scrollTo({
             top: scrollElm.scrollTop + height / 2,
+            behavior: 'smooth',
+        })
+    }
+
+    const onScrollToTop = () => {
+        const scrollElm = document?.getElementById('scroll')!!
+        scrollElm.scrollTo({
+            top: 0,
             behavior: 'smooth',
         })
     }
@@ -226,9 +261,31 @@ export default function Project({
                             </Link>
                         )}
                     </div>
+                    <Fade
+                        in={displayScrollToTop}
+                        timeout={{
+                            enter: 800,
+                            exit: 800,
+                        }}
+                    >
+                        <div
+                            style={{
+                                bottom: isMobile ? '27%' : '30%',
+                                zIndex: 1001,
+                            }}
+                            className={styles.projectPage__project_arrow_button}
+                            onClick={() => onScrollToTop()}
+                        >
+                            <KeyboardDoubleArrowUpIcon
+                                style={{ margin: 'auto', fontSize: '30px' }}
+                                fontSize="medium"
+                            />
+                        </div>
+                    </Fade>
                     <div
                         style={{
                             bottom: isMobile ? '20%' : '25%',
+                            zIndex: 1001,
                         }}
                         className={styles.projectPage__project_arrow_button}
                         onClick={() => onMouseDown(true)}
@@ -241,6 +298,7 @@ export default function Project({
                     <div
                         style={{
                             bottom: isMobile ? '13%' : '20%',
+                            zIndex: 1001,
                         }}
                         className={styles.projectPage__project_arrow_button}
                         onClick={() => onMouseDown()}
