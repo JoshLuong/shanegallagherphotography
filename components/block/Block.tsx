@@ -133,7 +133,7 @@ const Block: React.FC<BlockProps> = ({
             )}
             {text == 'Moodboard' ? (
                 <BlackTooltip
-                    title={<div style={{background: "black", color:"white", padding: "0.75em", fontSize: "1.45em"}}>CUSTOM MOODBOARD</div>}
+                    title={<div style={{background: "black", color:"white", padding: "0.75em", fontSize: isMobile ? '0.65em' : '1.3em', fontWeight: "bold"}}>CUSTOM MOODBOARD</div>}
                     placement='bottom'
                 >
                     <PushPinOutlinedIcon />
