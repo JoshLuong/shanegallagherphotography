@@ -46,10 +46,8 @@ export default function Project({
 
     const shouldDisplayScrollToTop = () => {
         if (document) {
-            const scrollElm = document?.getElementById('scroll')
             return (
-                ((scrollElm?.scrollHeight || 0) + document?.body.clientHeight) /
-                    3.5 <
+                document?.body.clientHeight / 2 <
                 (document?.getElementById('scroll')?.scrollTop || 0)
             )
         }
@@ -57,8 +55,11 @@ export default function Project({
     }
 
     useEffect(() => {
+        onScrollToTop() // resets scroll position (mainly for mobile)
+    }, [currentSlug])
+
+    useEffect(() => {
         const onScroll = () => {
-            console.log(shouldDisplayScrollToTop())
             setShouldDisplayScrollToTop(shouldDisplayScrollToTop())
         }
         document?.getElementById('scroll')?.addEventListener('scroll', onScroll)
@@ -98,7 +99,9 @@ export default function Project({
                 if (itemIsNotStringOrTransparent(item)) {
                     imageCount++
                 }
-                const key = `${currentSlug}${index}` // need unique keys so react will re-animate during navigation between projects
+                const key = `${currentSlug}${index}${
+                    typeof item === 'string' ? item : item.fileName
+                }` // need unique keys so react will re-animate during navigation between projects
                 return typeof item === 'string' ? (
                     <DraggableAsset
                         reactNode={item}
