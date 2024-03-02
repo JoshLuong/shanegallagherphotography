@@ -362,13 +362,9 @@ export default function Home({
             url,
             shouldDisplayPreviewImage,
         }) => {
-            if (isMobile && x!! > mobileReadyBlocks[0].length - 1) {
+            if (isMobile && x!! >= mobileReadyBlocks[0].length) {
                 // because of the shaving above
-                x!! = mobileReadyBlocks[0].length - (x!! - (mobileReadyBlocks[0].length))
-            }
-            if (isMobile && x!! == 0) {
-                // because of the shaving above
-               // x!!++
+                x!! = Math.min(mobileReadyBlocks[0].length - (x!! - (mobileReadyBlocks[0].length)), mobileReadyBlocks[0].length - 1)
             }
             const block = mobileReadyBlocks[y!!][x!!]
             if (!block) {
