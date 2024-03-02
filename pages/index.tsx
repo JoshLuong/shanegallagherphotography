@@ -348,23 +348,33 @@ export default function Home({
     })
 
     // insert the images into the blocks based on the defined coordinates in contentful
-    items.map(({title, thumbnailXCoordinate: x, thumbnailYCoordinate: y, previewImage, url, shouldDisplayPreviewImage}) => {
-        if (isMobile && x!! > mobileReadyBlocks[0].length -1) { // because of the shaving above
-            x!!--;
+    items.map(
+        ({
+            title,
+            thumbnailXCoordinate: x,
+            thumbnailYCoordinate: y,
+            previewImage,
+            url,
+            shouldDisplayPreviewImage,
+        }) => {
+            if (isMobile && x!! > mobileReadyBlocks[0].length - 1) {
+                // because of the shaving above
+                x!!--
+            }
+            const block = mobileReadyBlocks[y!!][x!!]
+            if (previewImage != null) {
+                block.backgroundImage = previewImage
+                block.title = title
+            }
+            if (previewImage == null || !shouldDisplayPreviewImage) {
+                block.text = title // show text for projects like "Editorial, Social, etc."
+            }
+            block.shouldDisplayPreviewImage = shouldDisplayPreviewImage
+            block.link = url!!.id
         }
-        const block = mobileReadyBlocks[y!!][x!!]
-        if (previewImage != null) {
-            block.backgroundImage = previewImage;
-            block.title = title
-        }
-        if (previewImage == null || !shouldDisplayPreviewImage) {
-            block.text = title; // show text for projects like "Editorial, Social, etc."
-        }
-        block.shouldDisplayPreviewImage = shouldDisplayPreviewImage
-        block.link = url!!.id
-    })
+    )
 
-    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks})
+    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks })
     const [showBlocks, setShowBlocks] = useState(false)
 
     useEffect(() => {
@@ -385,7 +395,10 @@ export default function Home({
             <Head>
                 <title>Shane Gallagher</title>
             </Head>
-            <div className={styles.landingPage__container}>
+            <div
+                className={styles.landingPage__container}
+                aria-description={`This landing page is filled with bauhaus-inspired black boxes with white borders differing in radii, to form the silhouette of an "S" for Shane. In the middle of the home page where the S remains prevalent, there are captivating image-previews of Shane's projects, which also act as navigation points to the respective project`}
+            >
                 {showBlocks && (
                     <div className={styles.landingPage__block_container}>
                         {generatedBlocks.map((block: any, i: number) => {
@@ -399,7 +412,7 @@ export default function Home({
                                             backgroundProjects[
                                                 Math.floor(
                                                     Math.random() *
-                                                    backgroundProjects.length
+                                                        backgroundProjects.length
                                                 ) + 0
                                             ]?.previewImage
                                         }

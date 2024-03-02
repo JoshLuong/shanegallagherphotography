@@ -108,8 +108,9 @@ const Block: React.FC<BlockProps> = ({
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
+            aria-hidden={(!(shouldDisplayPreviewImage && !text && backgroundImage?.url) && !text) || shouldChangeBackground}
         >
-            {shouldDisplayPreviewImage && !text && backgroundImage?.url && (
+            {shouldDisplayPreviewImage && !text && backgroundImage?.url && ( // this condition is used in aria-hidden above
                 <Fade
                     in={(backgroundImage && !shouldChangeBackground) == true}
                     timeout={{
@@ -131,10 +132,11 @@ const Block: React.FC<BlockProps> = ({
                     />
                 </Fade>
             )}
-            {text == 'Moodboard' ? (
+            {text == 'Moodboard' ? ( // this condition is used in aria-hidden above
                 <BlackTooltip
                     title={<div style={{background: "black", color:"white", padding: "0.75em", fontSize: isMobile ? '0.65em' : '1.3em', fontWeight: "bold"}}>CUSTOM MOODBOARD</div>}
                     placement='bottom'
+                    aria-label='Link to your custom moodboard'
                 >
                     <PushPinOutlinedIcon style={{fontSize: isMobile ? '1.2em' : '1.3em'}}/>
                 </BlackTooltip>

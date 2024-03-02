@@ -32,6 +32,7 @@ export default function Works({
                 position: 'fixed',
                 overflow: 'auto',
             }}
+            aria-description='A list of all the works and projects by Shane Gallagher.'
         >
             <Head>
                 <title>Works of Shane Gallagher</title>
@@ -56,6 +57,7 @@ export default function Works({
                                         color: 'white',
                                         margin: '0.2em 0',
                                     }}
+                                    aria-label={`Link to ${item.title}`}
                                 >
                                     <BlackTooltip
                                         title={
@@ -105,6 +107,7 @@ export default function Works({
                                 marginTop: '1.3em',
                                 flexDirection: 'column',
                             }}
+                            aria-label={`Link to your custom Moodboard.`}
                         >
                             <div style={{ display: 'inline-block' }}>
                                 YOUR CUSTOM MOODBOARD

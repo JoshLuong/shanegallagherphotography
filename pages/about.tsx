@@ -117,6 +117,9 @@ export default function About({
                     disableDrag
                     index={-1}
                     ref={zIndexRef}
+                    style={{
+                        padding: "0 1em 1em 1em"
+                    }}
                 />
                 {galleryElements}
             </div>
