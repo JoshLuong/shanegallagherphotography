@@ -73,7 +73,7 @@ const Block: React.FC<BlockProps> = ({
             }
             return `/${text.toLocaleLowerCase()}`
         } else if (link) {
-            return `/projects/${link}`
+            return `/works/${link}`
         } else return ''
     }
 
