@@ -21,14 +21,14 @@ export async function POST(request: NextRequest) {
       https://github.com/nodemailer/nodemailer/blob/master/lib/well-known/services.json
   */
     auth: {
-      user: "joshopolis321@gmail.com",
-      pass: "nysmnochswjlwakd", // 16 character (no space) password from Google App Passwords (must set up 2FA)
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD, // 16 character (no space) password from Google App Passwords (must set up 2FA)
     },
   });
 
   const mailOptions: Mail.Options = {
     from: email,
-    to: "joshopolis321@gmail.com",
+    to: process.env.EMAIL_USER,
     // cc: email, (uncomment this line if you want to send a copy to the sender)
     subject: `Message from ${name} (${email})`,
     text: message,
