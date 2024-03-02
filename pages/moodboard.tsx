@@ -15,7 +15,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import DraggableAsset from '@/components/DraggableAsset'
 import { loaderProp } from '@/utils/loader-prop'
 import Image from 'next/image'
-import styles from '../styles/about.module.less'
+import styles from '../styles/moodboard.module.less'
 import Link from 'next/link'
 import Toolbar from '@/components/Toolbar'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -42,22 +42,28 @@ export default function Moodboard({}) {
 
     const removeMoodboard = () => {
         let moodboard = getMoodboard()
-        setGallery(gallery.filter((galImage) => moodboard.includes(galImage.fileName || "")))
+        setGallery(
+            gallery.filter((galImage) =>
+                moodboard.includes(galImage.fileName || '')
+            )
+        )
     }
-
 
     useEffect(() => {
         let moodboard = getMoodboard()
-        client.query({
-            query: moodboardQuery,
-            variables: { fileNames:moodboard} 
-        }).then((response: any) => {
-            setGallery(response.data.assetCollection?.items)
-        })
+        client
+            .query({
+                query: moodboardQuery,
+                variables: { fileNames: moodboard },
+            })
+            .then((response: any) => {
+                setGallery(response.data.assetCollection?.items)
+            })
 
         window.addEventListener('moodboard-storage', removeMoodboard)
 
-        return () => window.removeEventListener('moodboard-storage', removeMoodboard)
+        return () =>
+            window.removeEventListener('moodboard-storage', removeMoodboard)
     })
 
     let imageCount = 0
@@ -101,13 +107,13 @@ export default function Moodboard({}) {
                 position: 'relative', // this is so we can have proper background when making the below pos absolute
             }}
             id="scroll"
-            className={styles.aboutPage__container}
+            className={styles.moodboardPage__container}
         >
             <Head>
                 <title>Your Custom Moodboard</title>
             </Head>
 
-            <Toolbar ref={ref} isGridBackground/>
+            <Toolbar ref={ref} isGridBackground />
             <div
                 style={{
                     display: 'flex',
@@ -118,12 +124,37 @@ export default function Moodboard({}) {
                         ? `${BLOCK_SIZE * 1.5}px`
                         : `${BLOCK_SIZE * 1.9}px`,
                     position: 'absolute',
-                    width: "100%"
+                    width: '100%',
                 }}
             >
-                {galleryElements}
+                {galleryElements.length == 0 ? (
+                    <div
+                        style={{
+                            color: 'white',
+                            background: 'black',
+                            margin: '2em',
+                            padding: '0.5em',
+                        }}
+                        className={styles.moodboardPage__empty_text}
+                    >
+                        THIS IS A DEDICATED SPACE TO CURATE YOUR PERSONAL
+                        MOODBOARD USING ANY OF THE MOMENTS CAPTURED IN MY
+                        WORK.&nbsp;
+                        <span
+                            style={{
+                                fontSize: '0.75em',
+                                display: 'block',
+                                marginTop: '0.2em',
+                            }}
+                        >
+                            START BY EXPLORING MY WORKS AND PINNING ANY IMAGES
+                            YOU ENVISION IN THIS BOARD.
+                        </span>
+                    </div>
+                ) : (
+                    galleryElements
+                )}
             </div>
         </main>
     )
 }
-
