@@ -138,6 +138,7 @@ const ContactForm: FC = () => {
                                 '&.Mui-checked': {
                                     color: 'white',
                                 },
+                                padding: 0
                             }}
                         />
                     }
