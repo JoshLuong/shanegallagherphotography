@@ -371,7 +371,7 @@ export default function Home({
         setShowBlocks(true) // issue with loading the blocks too soon
     })
 
-    const projectsCount = items.filter((item) => item.previewImage != null).length
+    const backgroundProjects = items.filter((item) => item.previewImage != null)
 
     // TODO  projectsCount) + 0].previewIm
     return (
@@ -396,10 +396,10 @@ export default function Home({
                                         {...block}
                                         index={i}
                                         backgroundImage={
-                                            items[
+                                            backgroundProjects[
                                                 Math.floor(
                                                     Math.random() *
-                                                        projectsCount
+                                                    backgroundProjects.length
                                                 ) + 0
                                             ]?.previewImage
                                         }

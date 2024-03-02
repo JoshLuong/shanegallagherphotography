@@ -62,28 +62,46 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
         const [isAddedToMoodboard, setIsAddedToMoodboard] = useState(false)
 
         useEffect(() => {
-            setIsAddedToMoodboard(
-                getMoodboard().includes(imageAsset?.fileName || '')
-            )
-        })
+            if (curLargeImageIndex != null && curLargeImageIndex >= 0 && images != null) {
+                setIsAddedToMoodboard(
+                    getMoodboard().includes(
+                        images!![curLargeImageIndex]?.fileName || ''
+                    )
+                )
+            }
+        }),
+            [curLargeImageIndex, setCurLargeImageIndex]
 
         const clickAddToMoodboard = () => {
             let moodboard = getMoodboard()
-            if (imageAsset!!.fileName != null) {
+            if (
+                curLargeImageIndex != null &&
+                images != null &&
+                images!![curLargeImageIndex]!!.fileName != null
+            ) {
                 setIsAddedToMoodboard(!isAddedToMoodboard)
-                if (getMoodboard().includes(imageAsset?.fileName || '')) {
+                if (
+                    getMoodboard().includes(
+                        images[curLargeImageIndex]?.fileName || ''
+                    )
+                ) {
                     window.sessionStorage.setItem(
                         'moodboard',
                         JSON.stringify(
                             moodboard.filter(
-                                (fileName) => fileName != imageAsset?.fileName
+                                (fileName) =>
+                                    fileName !=
+                                    images!![curLargeImageIndex]?.fileName
                             )
                         )
                     )
                 } else {
                     window.sessionStorage.setItem(
                         'moodboard',
-                        JSON.stringify([...moodboard, imageAsset!!.fileName])
+                        JSON.stringify([
+                            ...moodboard,
+                            images!![curLargeImageIndex]!!.fileName,
+                        ])
                     )
                 }
                 window.dispatchEvent(new Event('moodboard-storage'))
@@ -213,6 +231,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                 in={shouldShowImage}
                 timeout={{
                     enter: 800,
+                    exit: 2000,
                 }}
             >
                 <div
