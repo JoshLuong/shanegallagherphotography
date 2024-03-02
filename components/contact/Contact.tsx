@@ -76,7 +76,7 @@ const ContactForm: FC = () => {
                 setGallery(response.data.assetCollection?.items as Asset[])
                 console.log(gallery)
             })
-    })
+    }, [])
 
     const validateEmail = (email: string) => {
         return String(email)
