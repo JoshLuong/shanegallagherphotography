@@ -53,7 +53,7 @@ function generateSiteMap({aboutImages, publishDate: aboutPublishDate}: AboutPage
      </url>
      ${projectsAndAssets.map(({ project, assets, publishDate }) => (`
      <url>
-       <loc>${DATA_URL}/${project.url?.id}</loc>
+       <loc>${DATA_URL}/works/${project.url?.id}</loc>
        <lastmod>${publishDate}
        </lastmod>
        ${assets.map((asset) => `

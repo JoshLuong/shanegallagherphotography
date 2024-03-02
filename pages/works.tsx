@@ -49,7 +49,7 @@ export default function Works({
                         {items.map((item) => {
                             return (
                                 <Link
-                                    href={`projects/${item.url?.id || ''}`}
+                                    href={`works/${item.url?.id || ''}`}
                                     style={{
                                         textDecoration: 'none',
                                         display: 'flex',
