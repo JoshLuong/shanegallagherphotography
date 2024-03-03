@@ -19,6 +19,7 @@ import Link from 'next/link'
 import Toolbar from '@/components/Toolbar'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import getRandomTransformation from '@/utils/getRandomTransformation'
+import options from '@/utils/documentToReactComponentsOptions'
 
 export default function About({
     about,
@@ -110,7 +111,8 @@ export default function About({
                 <DraggableAsset
                     key={'about-key'}
                     reactNode={documentToReactComponents(
-                        about.description?.json
+                        about.description?.json,
+                        options
                     )}
                     transformation={'none'}
                     className={styles.aboutPage__aboutAsset}
