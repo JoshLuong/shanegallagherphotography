@@ -162,7 +162,7 @@ export default function Project({
                 <meta property="og:title" content={`Shane Gallagher's ${project.title}`} />
                 <meta
                 property="og:description"
-                content={JSON.stringify(project.description.json)}
+                content={JSON.stringify(project.description?.json)}
                 />
                 <meta
                 property="og:image"
@@ -206,7 +206,7 @@ export default function Project({
                                 }}
                             >
                                 {documentToReactComponents(
-                                    project.description.json
+                                    project.description?.json
                                 )}
                             </div>
                         </div>
