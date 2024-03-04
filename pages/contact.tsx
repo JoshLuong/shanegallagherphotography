@@ -35,6 +35,7 @@ export default function Contact({
                 <ToolBar  />
                 <Head>
                     <title>Contact Shane Gallagher</title>
+                    <meta name="description" content="Contact Shane Gallagher: gallaghershane@icloud.com." />
                 </Head>
                 <Fade
                     in={true}

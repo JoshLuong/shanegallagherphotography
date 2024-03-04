@@ -36,6 +36,7 @@ export default function Works({
         >
             <Head>
                 <title>Works of Shane Gallagher</title>
+                <meta name="description" content="Explore the works of Shane Gallagher: Sangre De Fruta, Pass the Peas, Sundays Furniture, and many others." />
             </Head>
             <div>
                 <ToolBar />

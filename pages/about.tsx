@@ -95,6 +95,7 @@ export default function About({
         >
             <Head>
                 <title>About Shane Gallagher</title>
+                <meta name="description" content="Meet Shane Gallagher: Photographer, Creative Director, Stylist. Global perspective. Captivating work." />
             </Head>
 
             <Toolbar ref={ref} />
