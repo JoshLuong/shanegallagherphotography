@@ -49,7 +49,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
         },
         zIndexRef
     ) => {
-        const { isMobile } = useWindowDimensions()
+        const { isMobile, width } = useWindowDimensions()
         const isImageTransparent = imageAsset?.title === 'TRANSPARENT IMAGE'
         const [openLargeImage, setOpenLargeImage] = useState(false)
         const [curLargeImageIndex, setCurLargeImageIndex] = useState<
@@ -214,7 +214,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                       height: isHorizontalImage ? '35vh' : '50vh',
                   }
                 : {
-                      height: isMobile ? '15em' : '25em',
+                      height: width < 500 ? '15em' : '25em',
                   }
 
         // Make transparent images smaller
