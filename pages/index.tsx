@@ -401,7 +401,7 @@ export default function Home({
         >
             <Head>
                 <title>Shane Gallagher</title>
-                <meta name="description" content="Shane Gallagher, an Irish photographer and model, brings his creative vision to life from his base in Vancouver, BC. Discover his portfolio now, showcasing clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and many others." />
+                <meta name="description" content="Shane Gallagher: Irish photographer in Vancouver. Explore his portfolio featuring clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and more." />
             </Head>
             <div
                 className={styles.landingPage__container}

@@ -119,7 +119,7 @@ const Block: React.FC<BlockProps> = ({
                 >
                     <Image
                         src={backgroundImage?.url}
-                        alt="TODO"
+                        alt={backgroundImage?.description || ""}
                         loading="lazy"
                         width="0"
                         height="0"
@@ -166,7 +166,7 @@ const Block: React.FC<BlockProps> = ({
                     >
                         <Image
                             src={backgroundImage?.url!!}
-                            alt="TODO"
+                            alt={backgroundImage?.description || ""}
                             loading="eager"
                             width="0"
                             height="0"
