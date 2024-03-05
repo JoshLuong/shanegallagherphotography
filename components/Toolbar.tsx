@@ -37,6 +37,7 @@ const Toolbar: React.FC<ToolbarProps> = React.forwardRef(({ isGridBackground }, 
                     <Block
                         {...block}
                         index={i}
+                        key={i}
                         {...blockProps}
                         loadAnimation={false}
                     />

@@ -32,7 +32,6 @@ export default function Home({
         link: items[1].url?.id
 
     */
-    console.log(items[4])
 
     const smallRadius = isMobile ? '8px' : '10px'
     const mediumRadius = isMobile ? '14px' : '17px'

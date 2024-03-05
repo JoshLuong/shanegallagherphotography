@@ -62,6 +62,7 @@ export default function Works({
                                 >
                                     <BlackTooltip
                                         title={
+                                            item.previewImage?.url != null ?
                                             <div
                                                 style={{
                                                     display: 'flex',
@@ -71,11 +72,11 @@ export default function Works({
                                             >
                                                 <Image
                                                     src={
-                                                        item.previewImage
-                                                            ?.url || ''
+                                                        item.previewImage.url
                                                     }
-                                                    alt=""
+                                                    alt={item.previewImage?.description || ""}
                                                     loading="eager"
+                                                    priority
                                                     width="0"
                                                     height="0"
                                                     style={{
@@ -84,7 +85,7 @@ export default function Works({
                                                     }}
                                                     loader={loaderProp}
                                                 />
-                                            </div>
+                                            </div> : null
                                         }
                                         followCursor
                                     >

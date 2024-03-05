@@ -16,6 +16,7 @@ export const subsectionQuery = gql`
                     url
                     width
                     height
+                    description
                 }
                 url {
                     id

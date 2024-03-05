@@ -12,6 +12,7 @@ export const moodboardQuery = gql`
                 url
                 width
                 height
+                description
             }
         }
     }

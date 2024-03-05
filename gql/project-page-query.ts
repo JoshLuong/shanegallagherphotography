@@ -20,6 +20,7 @@ export const projectPageQuery = gql`
                         height
                         fileName
                         contentType
+                        description
                         contentfulMetadata {
                             tags {
                                 name

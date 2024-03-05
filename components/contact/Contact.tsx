@@ -74,7 +74,6 @@ const ContactForm: FC = () => {
             })
             .then((response: any) => {
                 setGallery(response.data.assetCollection?.items as Asset[])
-                console.log(gallery)
             })
     }, [])
 

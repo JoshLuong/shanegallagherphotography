@@ -267,7 +267,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         disableDragging={isImageTransparent}
                     >
                         <Image
-                            alt={'TODO'}
+                            alt={imageAsset!!.description || ""}
                             placeholder="empty"
                             src={imageAsset!!.url || ''}
                             width={imageAsset!!.width || '0'}
@@ -287,7 +287,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     : 'auto', // helps when this div gets in front of another draggable asset
                             }}
                             loader={loaderProp}
-                            loading="eager"
+                            loading="lazy" // so not all images load at once
                         />
                     </Rnd>
                     <Dialog
@@ -331,7 +331,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                             curLargeImageIndex >= 0 &&
                             images!![curLargeImageIndex] != null && (
                                 <Image
-                                    alt={'TODO'}
+                                    alt={images!![curLargeImageIndex]?.description || ""}
                                     src={
                                         images!![curLargeImageIndex]?.url || ''
                                     }

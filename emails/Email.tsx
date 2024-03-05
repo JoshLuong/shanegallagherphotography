@@ -20,6 +20,7 @@ const Email: React.FC<EmailProps> = ({
             height: 1499,
             url: 'https://images.ctfassets.net/7quy4nqi53yl/29SW6KUICvZUBCcOjVGbOw/2eb0bb23b42e8f929b7dd8943ca0db63/Platinum_Blonde-LARA_MARIE_HAIR-Shane_Gallagher-3.jpg',
             width: 1000,
+            description: ""
         },
         {
             fileName:
@@ -27,18 +28,21 @@ const Email: React.FC<EmailProps> = ({
             height: 1499,
             url: 'https://images.ctfassets.net/7quy4nqi53yl/4kbCb9imEmJmVS2Jqd2lSl/05888ecad42b145dd183901ce5303dac/Lighting_candles-Mitch-s_Catch-Pass_the_Peas-Shane_Gallagher-2.jpg',
             width: 1000,
+            description: ""
         },
         {
             fileName: 'Shane1-min.jpeg',
             height: 1500,
             url: 'https://images.ctfassets.net/7quy4nqi53yl/3zjU0r6msCYYidZYJbcYfH/77543e21ff7d7427540ee10578264352/Shane1-min.jpeg',
             width: 1100,
+            description: ""
         },
         {
             fileName: 'Platinum Blonde-LARA MARIE HAIR-Shane Gallagher-3.jpg',
             height: 1499,
             url: 'https://images.ctfassets.net/7quy4nqi53yl/29SW6KUICvZUBCcOjVGbOw/2eb0bb23b42e8f929b7dd8943ca0db63/Platinum_Blonde-LARA_MARIE_HAIR-Shane_Gallagher-3.jpg',
             width: 1000,
+            description: ""
         },
         {
             fileName:
@@ -46,6 +50,7 @@ const Email: React.FC<EmailProps> = ({
             height: 1499,
             url: 'https://images.ctfassets.net/7quy4nqi53yl/4kbCb9imEmJmVS2Jqd2lSl/05888ecad42b145dd183901ce5303dac/Lighting_candles-Mitch-s_Catch-Pass_the_Peas-Shane_Gallagher-2.jpg',
             width: 1000,
+            description: ""
         },
     ],
 }) => {
@@ -142,7 +147,7 @@ const Email: React.FC<EmailProps> = ({
                                     display: 'inline !important',
                                 }}
                                 src={image.url || ''}
-                                alt="TODO"
+                                alt={image.description || ""}
                                 {...dimensions}
                             />
                         )
