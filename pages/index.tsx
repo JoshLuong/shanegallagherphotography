@@ -341,11 +341,7 @@ export default function Home({
 
     const mobileReadyBlocks = blocks.map((blockRow) => {
         if (isMobile) {
-            const firstBlock = blockRow[0]
-            const lastBlock = blockRow[blockRow.length - 1]
             const newBlockRow =  blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
-            newBlockRow[0] = firstBlock
-            newBlockRow[newBlockRow.length - 1] = lastBlock
             return newBlockRow
         }
         return blockRow
