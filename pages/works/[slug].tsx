@@ -166,6 +166,7 @@ export default function Project({
         >
             <Head>
                 <title>{project.title}</title>
+                <meta name="description" content={JSON.stringify(project.description?.json)}/>
                 <meta
                     property="og:title"
                     content={`Shane Gallagher's ${project.title}`}
@@ -195,16 +196,18 @@ export default function Project({
                     key={`${currentSlug}${100}`}
                     reactNode={
                         <div>
-                            <div
+                            <h1
                                 style={{
                                     backgroundColor: 'white',
                                     color: 'black',
                                     padding: '1em',
-                                    marginBottom: '1em',
+                                    margin: "0 0 1em 0",
+                                    fontSize: "1em",
+                                    fontWeight:"normal"
                                 }}
                             >
                                 {project.title}
-                            </div>
+                            </h1>
                             <div
                                 style={{
                                     backgroundColor: 'black',
