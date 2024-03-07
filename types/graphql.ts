@@ -858,6 +858,7 @@ export type Project = Entry & {
   previewImage?: Maybe<Asset>;
   shouldDisplayPreviewImage?: Maybe<Scalars['Boolean']>;
   sys: Sys;
+  thumbnailPreviewImage?: Maybe<Asset>;
   thumbnailXCoordinate?: Maybe<Scalars['Int']>;
   thumbnailYCoordinate?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -887,6 +888,13 @@ export type ProjectPreviewImageArgs = {
 /** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
 export type ProjectShouldDisplayPreviewImageArgs = {
   locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectThumbnailPreviewImageArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -935,6 +943,7 @@ export type ProjectFilter = {
   shouldDisplayPreviewImage_exists?: InputMaybe<Scalars['Boolean']>;
   shouldDisplayPreviewImage_not?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
+  thumbnailPreviewImage_exists?: InputMaybe<Scalars['Boolean']>;
   thumbnailXCoordinate?: InputMaybe<Scalars['Int']>;
   thumbnailXCoordinate_exists?: InputMaybe<Scalars['Boolean']>;
   thumbnailXCoordinate_gt?: InputMaybe<Scalars['Int']>;

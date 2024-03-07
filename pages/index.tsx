@@ -354,6 +354,7 @@ export default function Home({
             thumbnailXCoordinate: x,
             thumbnailYCoordinate: y,
             previewImage,
+            thumbnailPreviewImage,
             url,
             shouldDisplayPreviewImage,
         }) => {
@@ -367,6 +368,7 @@ export default function Home({
             }
             if (previewImage != null) {
                 block.backgroundImage = previewImage
+                block.thumbnailPreviewImage = thumbnailPreviewImage
                 block.title = title
             }
             if (previewImage == null || !shouldDisplayPreviewImage) {

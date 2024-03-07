@@ -18,6 +18,12 @@ export const subsectionQuery = gql`
                     height
                     description
                 }
+                thumbnailPreviewImage {
+                    url
+                    width
+                    height
+                    description
+                }
                 url {
                     id
                 }

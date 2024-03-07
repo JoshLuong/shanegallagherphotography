@@ -22,6 +22,7 @@ interface BlockProps {
     borderRightHidden?: boolean
     borderBottomHidden?: boolean
     backgroundImage?: Asset
+    thumbnailPreviewImage?: Asset // anything with background image should have a smaller minified version which is this
     title?: string
     index: number
     text?: string
@@ -50,10 +51,12 @@ const Block: React.FC<BlockProps> = ({
     loadAnimation = true,
     isTempBackground = false,
     shouldDisplayPreviewImage = true,
+    thumbnailPreviewImage,
 }) => {
     const delay = 1300 + index * 7
     const { isMobile } = useWindowDimensions()
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isBlockLoaded, setIsBlockLoaded] = useState(false)
+    const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [shouldChangeBackground, setShouldChangeBackground] = useState(false)
     const width = `${sideBlockMultiplier * BLOCK_SIZE}px`
     const height = `${heightBlockMultiplier * BLOCK_SIZE}px`
@@ -78,7 +81,7 @@ const Block: React.FC<BlockProps> = ({
     }
 
     useEffect(() => {
-        setIsLoaded(true)
+        setIsBlockLoaded(true)
         setTimeout(() => {
             setShouldChangeBackground(isTempBackground)
         }, delay + 100)
@@ -108,37 +111,73 @@ const Block: React.FC<BlockProps> = ({
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
-            aria-hidden={(!(shouldDisplayPreviewImage && !text && backgroundImage?.url) && !text) || shouldChangeBackground}
+            aria-hidden={
+                (!(
+                    shouldDisplayPreviewImage &&
+                    !text &&
+                    backgroundImage?.url
+                ) &&
+                    !text) ||
+                shouldChangeBackground
+            }
         >
-            {shouldDisplayPreviewImage && !text && backgroundImage?.url && ( // this condition is used in aria-hidden above
-                <Fade
-                    in={(backgroundImage && !shouldChangeBackground) == true}
-                    timeout={{
-                        exit: 500 + index * 7, // the waterfall effect on homepage of images
-                    }}
-                >
-                    <Image
-                        src={backgroundImage?.url}
-                        alt={backgroundImage?.description || ""}
-                        loading="lazy"
-                        width="0"
-                        height="0"
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
+            {shouldDisplayPreviewImage &&
+                !text &&
+                backgroundImage?.url && ( // this condition is used in aria-hidden above
+                    <Fade
+                        in={
+                            (isImageLoaded &&
+                                backgroundImage &&
+                                !shouldChangeBackground) == true
+                        }
+                        timeout={{
+                            enter: 30 + index * 12, // the waterfall effect on homepage of images
+                            exit: 500 + index * 7, // the waterfall effect on homepage of images
                         }}
-                        loader={loaderProp}
-                    />
-                </Fade>
-            )}
+                    >
+                        <Image
+                            src={
+                                (thumbnailPreviewImage
+                                    ? thumbnailPreviewImage?.url
+                                    : backgroundImage?.url) || ''
+                            }
+                            alt={backgroundImage?.description || ''}
+                            onLoadingComplete={() => {
+                                setIsImageLoaded(true)
+                            }}
+                            loading="lazy"
+                            width="0"
+                            height="0"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                            }}
+                            loader={loaderProp}
+                        />
+                    </Fade>
+                )}
             {text == 'Moodboard' ? ( // this condition is used in aria-hidden above
                 <BlackTooltip
-                    title={<div style={{background: "black", color:"white", padding: "0.75em", fontSize: isMobile ? '0.65em' : '1.3em', fontWeight: "bold"}}>CUSTOM MOODBOARD</div>}
-                    placement='bottom'
-                    aria-label='Link to your custom moodboard'
+                    title={
+                        <div
+                            style={{
+                                background: 'black',
+                                color: 'white',
+                                padding: '0.75em',
+                                fontSize: isMobile ? '0.65em' : '1.3em',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            CUSTOM MOODBOARD
+                        </div>
+                    }
+                    placement="bottom"
+                    aria-label="Link to your custom moodboard"
                 >
-                    <PushPinOutlinedIcon style={{fontSize: isMobile ? '1.2em' : '1.3em'}}/>
+                    <PushPinOutlinedIcon
+                        style={{ fontSize: isMobile ? '1.2em' : '1.3em' }}
+                    />
                 </BlackTooltip>
             ) : (
                 text.toUpperCase()
@@ -166,7 +205,7 @@ const Block: React.FC<BlockProps> = ({
                     >
                         <Image
                             src={backgroundImage?.url!!}
-                            alt={backgroundImage?.description || ""}
+                            alt={backgroundImage?.description || ''}
                             loading="eager"
                             width="0"
                             height="0"
@@ -193,7 +232,7 @@ const Block: React.FC<BlockProps> = ({
             followCursor
         >
             <Fade
-                in={isLoaded}
+                in={isBlockLoaded}
                 timeout={{
                     enter: loadAnimation ? delay : 1,
                 }}
