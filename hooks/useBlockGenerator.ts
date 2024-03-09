@@ -26,12 +26,16 @@ export default function useBlockGenerator({
     const fixedRowCount = mobileReadyBlocks[0].length
 
     useEffect(() => {
-        if (isMobile) {
-            BLOCK_SIZE = 60
-        }
         if (width == 0 || height == 0) {
             // issue with page loading with wrong width/ height on mobile (so the blocks are messed up)
             return
+        }
+        if (isMobile) {
+            BLOCK_SIZE = 60
+        } else if ((height / 9) < BLOCK_SIZE) { // divided by the number of blocks that MUST be shown in column
+            BLOCK_SIZE = Math.max(70, BLOCK_SIZE - 10)
+        } else if ((height / 9) > BLOCK_SIZE) {
+            BLOCK_SIZE = Math.min(90, BLOCK_SIZE + 10)
         }
         const totalPerRow = width / BLOCK_SIZE
         const totalPerCol = height / BLOCK_SIZE

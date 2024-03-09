@@ -92,6 +92,12 @@ const Block: React.FC<BlockProps> = ({
             ? `${styles.block__container} ${styles.block__image_container_hover_opacity}`
             : styles.block__container
 
+    let blockFontSize = '1em'
+    if (BLOCK_SIZE < 90) {
+        blockFontSize = '0.8em'
+    } else if (BLOCK_SIZE < 70) {
+        blockFontSize = '0.65em'
+    }
     const blockContent = (
         <div
             style={{
@@ -104,7 +110,7 @@ const Block: React.FC<BlockProps> = ({
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
-                fontSize: isMobile ? '0.65em' : '1em',
+                fontSize: isMobile ? '0.65em' : blockFontSize,
                 fontWeight: isTextNavBar() ? 'bold' : 'normal',
                 letterSpacing: isTextHome() ? '0.6px' : '0.5px',
                 color: isTextHome() ? '#0087F3' : 'white',

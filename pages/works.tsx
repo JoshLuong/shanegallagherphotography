@@ -105,8 +105,7 @@ export default function Works({
                                 display: 'flex',
                                 alignSelf: 'flex-start',
                                 color: 'white',
-                                margin: '0.2em 0',
-                                marginTop: '1.3em',
+                                margin: '1.3em 0',
                                 flexDirection: 'column',
                             }}
                             aria-label={`Link to your custom Moodboard.`}

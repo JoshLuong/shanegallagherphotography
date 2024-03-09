@@ -166,7 +166,10 @@ export default function Project({
         >
             <Head>
                 <title>{project.title}</title>
-                <meta name="description" content={JSON.stringify(project.description?.json)}/>
+                <meta
+                    name="description"
+                    content={JSON.stringify(project.description?.json)}
+                />
                 <meta
                     property="og:title"
                     content={`Shane Gallagher's ${project.title}`}
@@ -201,25 +204,27 @@ export default function Project({
                                     backgroundColor: 'white',
                                     color: 'black',
                                     padding: '1em',
-                                    margin: "0 0 1em 0",
-                                    fontSize: "1em",
-                                    fontWeight:"normal"
+                                    margin: '0 0 1em 0',
+                                    fontSize: '1em',
+                                    fontWeight: 'normal',
                                 }}
                             >
                                 {project.title}
                             </h1>
-                            <div
-                                style={{
-                                    backgroundColor: 'black',
-                                    color: 'white',
-                                    padding: '1em',
-                                }}
-                            >
-                                {documentToReactComponents(
-                                    project.description?.json,
-                                    options
-                                )}
-                            </div>
+                            {project.description && (
+                                <div
+                                    style={{
+                                        backgroundColor: 'black',
+                                        color: 'white',
+                                        padding: '1em',
+                                    }}
+                                >
+                                    {documentToReactComponents(
+                                        project.description?.json,
+                                        options
+                                    )}
+                                </div>
+                            )}
                         </div>
                     }
                     style={{
@@ -293,7 +298,7 @@ export default function Project({
                     >
                         <div
                             style={{
-                                bottom: isMobile ? '27%' : '30%',
+                                bottom: isMobile ? '13em' : '16em',
                                 zIndex: 1001,
                             }}
                             className={styles.projectPage__project_arrow_button}
@@ -307,7 +312,7 @@ export default function Project({
                     </Fade>
                     <div
                         style={{
-                            bottom: isMobile ? '20%' : '25%',
+                            bottom: isMobile ? '10em' : '13em',
                             zIndex: 1001,
                         }}
                         className={styles.projectPage__project_arrow_button}
@@ -320,7 +325,7 @@ export default function Project({
                     </div>
                     <div
                         style={{
-                            bottom: isMobile ? '13%' : '20%',
+                            bottom: isMobile ? '7em' : '10em',
                             zIndex: 1001,
                         }}
                         className={styles.projectPage__project_arrow_button}

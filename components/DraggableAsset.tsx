@@ -62,7 +62,11 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
         const [isAddedToMoodboard, setIsAddedToMoodboard] = useState(false)
 
         useEffect(() => {
-            if (curLargeImageIndex != null && curLargeImageIndex >= 0 && images != null) {
+            if (
+                curLargeImageIndex != null &&
+                curLargeImageIndex >= 0 &&
+                images != null
+            ) {
                 setIsAddedToMoodboard(
                     getMoodboard().includes(
                         images!![curLargeImageIndex]?.fileName || ''
@@ -267,7 +271,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         disableDragging={isImageTransparent}
                     >
                         <Image
-                            alt={imageAsset!!.description || ""}
+                            alt={imageAsset!!.description || ''}
                             placeholder="empty"
                             src={imageAsset!!.url || ''}
                             width={imageAsset!!.width || '0'}
@@ -331,7 +335,10 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                             curLargeImageIndex >= 0 &&
                             images!![curLargeImageIndex] != null && (
                                 <Image
-                                    alt={images!![curLargeImageIndex]?.description || ""}
+                                    alt={
+                                        images!![curLargeImageIndex]
+                                            ?.description || ''
+                                    }
                                     src={
                                         images!![curLargeImageIndex]?.url || ''
                                     }
@@ -344,7 +351,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                         '0'
                                     }
                                     style={{
-                                        height: '100%',
+                                        height: isMobile ? '100%' : '80vh',
                                         width: '100%',
                                     }}
                                     loader={loaderProp}
