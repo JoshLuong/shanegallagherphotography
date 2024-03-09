@@ -143,11 +143,6 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
         const isHorizontalImage =
             (imageAsset?.width || 0) > (imageAsset?.height || 0)
 
-        // for horizontal images
-        const dimensions = isHorizontalImage
-            ? { width: isMobile ? '90%' : '25em' }
-            : { width: isMobile ? '40%' : '17em' }
-
         const displayElementOnly = (element: any) => (
             <Fade
                 in={true}
@@ -187,28 +182,17 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                 </div>
             </Fade>
         )
-        const topRightStyles = {
-            // cursor: 'pointer',
-            // right: "0",
-            // bottom: "0"
-        }
-
-        /*
-                    enableResizing={{ top:false, right:false, bottom:false, left:false, topRight:false, bottomRight:true, bottomLeft:false, topLeft:false }}
-
-                          resizeHandleStyles={{
-                        bottomRight: topRightStyles,
-                      }}
-                      resizeHandleComponent={{
-                        bottomRight: <DragHandleIcon style={{fontSize: "20px", color: "white", transform: "rotate(140deg)"}}/>
-                      }}
-
-      */
 
         const hasLeftImageButton = curLargeImageIndex && curLargeImageIndex > 0
         const hasRightImageButton =
             curLargeImageIndex != null &&
             curLargeImageIndex < (images?.length || 0) - 1
+
+        // for horizontal images
+        const widthDimensions = isHorizontalImage
+            ? { width: isMobile ? '90%' : '35em' }
+            : { width: isMobile ? '40%' : '23em' }
+
         const mobileDimension =
             isMobile &&
             (tags?.filter((tag) => tag?.name === 'enlarge-image').length || 0) >
@@ -218,7 +202,8 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                       height: isHorizontalImage ? '35vh' : '50vh',
                   }
                 : {
-                      height: width < 500 ? '15em' : '25em',
+                      height: width < 500 ? '16em' : '36em',
+                      ...widthDimensions,
                   }
 
         // Make transparent images smaller
@@ -240,7 +225,6 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
             >
                 <div
                     style={{
-                        ...dimensions,
                         margin: isMobile
                             ? '0 0.7em 0.4em 0.7em'
                             : '0 0.9em 0.9em 0.9em',
