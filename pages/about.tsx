@@ -95,35 +95,38 @@ export default function About({
         >
             <Head>
                 <title>About Shane Gallagher</title>
-                <meta name="description" content="Meet Shane Gallagher: Photographer, Creative Director, Stylist. Global perspective. Captivating work." />
+                <meta
+                    name="description"
+                    content="Meet Shane Gallagher: Photographer, Creative Director, Stylist. Global perspective. Captivating work."
+                />
             </Head>
 
-            <Toolbar ref={ref} />
+            <Toolbar isGridBackground hideBorders />
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     margin: isMobile ? `0 0.2em 1.3em 0` : `0 1.2em 1em 1.2em`,
-                    top: `${offset}px`,
+                    top: isMobile
+                        ? `${BLOCK_SIZE * 0.8}px`
+                        : `${BLOCK_SIZE * 1.5}px`,
                     position: 'absolute',
                 }}
             >
-                <DraggableAsset
-                    key={'about-key'}
-                    reactNode={documentToReactComponents(
+                <div
+                    style={{
+                        color: 'white',
+                        padding: isMobile ? '0.3em' : '1em',
+                        width: isMobile ? '90%' : '70%',
+                        fontSize: isMobile ? '1.2em' : '1.4em',
+                    }}
+                >
+                    {documentToReactComponents(
                         about.description?.json,
                         options
                     )}
-                    transformation={'none'}
-                    className={styles.aboutPage__aboutAsset}
-                    disableDrag
-                    index={-1}
-                    ref={zIndexRef}
-                    style={{
-                        padding: "0 1em 1em 1em"
-                    }}
-                />
+                </div>
                 {galleryElements}
             </div>
         </main>

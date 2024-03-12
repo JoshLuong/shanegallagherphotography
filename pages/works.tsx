@@ -6,7 +6,7 @@ import { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
-import useBlockGenerator from '@/hooks/useBlockGenerator'
+import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import { Fade } from '@mui/material'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -29,24 +29,36 @@ export default function Works({
             style={{
                 // WARNING: do not edit, it will cause weird bug with height and width
                 height: '100vh',
-                position: 'fixed',
+                position: 'relative',
                 overflow: 'auto',
             }}
-            aria-description='A list of all the works and projects by Shane Gallagher.'
+            aria-description="A list of all the works and projects by Shane Gallagher."
         >
             <Head>
                 <title>Works of Shane Gallagher</title>
-                <meta name="description" content="Explore the works of Shane Gallagher: Sangre De Fruta, Pass the Peas, Sundays Furniture, and many others." />
+                <meta
+                    name="description"
+                    content="Explore the works of Shane Gallagher: Sangre De Fruta, Pass the Peas, Sundays Furniture, and many others."
+                />
             </Head>
             <div>
-                <ToolBar />
+                <ToolBar isGridBackground hideBorders />
                 <Fade
                     in={true}
                     timeout={{
                         enter: 1300,
                     }}
                 >
-                    <div className={styles.worksPage__text}>
+                    <div
+                        className={styles.worksPage__text}
+                        style={{
+                            top: isMobile
+                                ? `${BLOCK_SIZE * 1}px`
+                                : `${BLOCK_SIZE * 1.5}px`,
+                            position: 'absolute',
+                            width: '100%',
+                        }}
+                    >
                         {items.map((item) => {
                             return (
                                 <Link
@@ -62,30 +74,36 @@ export default function Works({
                                 >
                                     <BlackTooltip
                                         title={
-                                            item.previewImage?.url != null ?
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                <Image
-                                                    src={
-                                                        item.previewImage.url
-                                                    }
-                                                    alt={item.previewImage?.description || ""}
-                                                    loading="eager"
-                                                    priority
-                                                    width="0"
-                                                    height="0"
+                                            item.previewImage?.url != null ? (
+                                                <div
                                                     style={{
-                                                        width: 'auto',
-                                                        height: '400px',
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center',
                                                     }}
-                                                    loader={loaderProp}
-                                                />
-                                            </div> : null
+                                                >
+                                                    <Image
+                                                        src={
+                                                            item.previewImage
+                                                                .url
+                                                        }
+                                                        alt={
+                                                            item.previewImage
+                                                                ?.description ||
+                                                            ''
+                                                        }
+                                                        loading="eager"
+                                                        priority
+                                                        width="0"
+                                                        height="0"
+                                                        style={{
+                                                            width: 'auto',
+                                                            height: '400px',
+                                                        }}
+                                                        loader={loaderProp}
+                                                    />
+                                                </div>
+                                            ) : null
                                         }
                                         followCursor
                                     >

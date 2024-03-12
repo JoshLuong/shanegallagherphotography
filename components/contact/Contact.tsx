@@ -119,8 +119,8 @@ const ContactForm: FC = () => {
                         color: 'white',
                         marginBottom: '1em',
                         fontFamily: `"Space Grotesk", sans-serif`,
-                        fontSize: '0.5em',
                     }}
+                    
                     control={
                         <Checkbox
                             checked={checked}
@@ -142,7 +142,7 @@ const ContactForm: FC = () => {
                         />
                     }
                     label={
-                        'ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.'
+                        <div className={styles.contactForm__text}>ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.</div>
                     }
                 />
 

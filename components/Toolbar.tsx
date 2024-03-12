@@ -5,23 +5,22 @@ import React from 'react'
 
 interface ToolbarProps {
     isGridBackground?: boolean
+    hideBorders? :boolean
     ref?: React.Ref<HTMLDivElement>
 }
 
-const Toolbar: React.FC<ToolbarProps> = React.forwardRef(({ isGridBackground }, ref) => {
+const Toolbar: React.FC<ToolbarProps> = React.forwardRef(({ isGridBackground, hideBorders= false }, ref) => {
     const blocks = useBlockGenerator({
         isNavBar: true,
         isGridBackground,
     })
 
-    const blockProps = isGridBackground
-        ? {}
-        : {
-              borderBottomHidden: true,
-              borderLeftHidden: true,
-              borderRightHidden: true,
-              borderTopHidden: true,
-          }
+    const blockProps = hideBorders ? {
+        borderBottomHidden: true,
+        borderLeftHidden: true,
+        borderRightHidden: true,
+        borderTopHidden: true,
+    } : {}
     return (
         <div
             ref={ref}
