@@ -32,10 +32,10 @@ export default function useBlockGenerator({
         }
         if (isMobile) {
             BLOCK_SIZE = 60
-        } else if ((height / 9) < BLOCK_SIZE) { // divided by the number of blocks that MUST be shown in column
-            BLOCK_SIZE = Math.max(70, BLOCK_SIZE - 10)
-        } else if ((height / 9) > BLOCK_SIZE) {
-            BLOCK_SIZE = Math.min(90, BLOCK_SIZE + 10)
+        } else if ((height / 9) < 80) { // divided by the number of blocks that MUST be shown in column
+            BLOCK_SIZE = 70
+        } else if ((height / 9) > 90) {
+            BLOCK_SIZE = 90
         }
         const totalPerRow = width / BLOCK_SIZE
         const totalPerCol = height / BLOCK_SIZE
