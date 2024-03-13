@@ -11,10 +11,12 @@ import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import { Project } from '@/types/graphql'
+import { gql } from '@apollo/client'
 
 export const NO_SECTION_OPEN = -1
 export default function Home({
     items,
+    homePagePreviewImage,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { isMobile } = useWindowDimensions()
     if (!items) {
@@ -341,7 +343,7 @@ export default function Home({
 
     const mobileReadyBlocks = blocks.map((blockRow) => {
         if (isMobile) {
-            const newBlockRow =  blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
+            const newBlockRow = blockRow.slice(1, blockRow.length - 1) // remove the first and last column of each row
             return newBlockRow
         }
         return blockRow
@@ -360,7 +362,11 @@ export default function Home({
         }) => {
             if (isMobile && x!! >= mobileReadyBlocks[0].length) {
                 // because of the shaving above
-                x!! = Math.min(mobileReadyBlocks[0].length - (x!! - (mobileReadyBlocks[0].length)), mobileReadyBlocks[0].length - 1)
+                x!! = Math.min(
+                    mobileReadyBlocks[0].length -
+                        (x!! - mobileReadyBlocks[0].length),
+                    mobileReadyBlocks[0].length - 1
+                )
             }
             const block = mobileReadyBlocks[y!!][x!!]
             if (!block) {
@@ -388,7 +394,7 @@ export default function Home({
 
     const backgroundProjects = items.filter((item) => item.previewImage != null)
 
-    // TODO  projectsCount) + 0].previewIm
+    const description = "Shane Gallagher: Irish photographer in Vancouver. Explore his portfolio featuring clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and more."
     return (
         <main
             style={{
@@ -399,7 +405,15 @@ export default function Home({
         >
             <Head>
                 <title>Shane Gallagher</title>
-                <meta name="description" content="Shane Gallagher: Irish photographer in Vancouver. Explore his portfolio featuring clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and more." />
+                <meta property="og:image" content={homePagePreviewImage.url} />
+                <meta
+                    name="description"
+                    content="Shane Gallagher: Irish photographer in Vancouver. Explore his portfolio featuring clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and more."
+                />
+                <meta
+                    property="og:description"
+                    content="Shane Gallagher: Irish photographer in Vancouver."
+                />
             </Head>
             <div
                 className={styles.landingPage__container}
@@ -439,12 +453,22 @@ export async function getStaticProps() {
     const { data } = await client.query({
         query: subsectionQuery,
     })
+    const homePagePreviewImage = await client.query({
+        query: gql`
+            query GetHomePagePreview {
+                asset(id: "3nAHX8aqWy2ZGjnz72TMwW") {
+                    url
+                }
+            }
+        `,
+    })
 
     return {
         props: {
             items: data.projectCollection.items.filter(
                 (item: Project) => item.isProjectFeatured == true
             ) as Array<Project>,
+            homePagePreviewImage: homePagePreviewImage.data.asset,
         },
     }
 }

@@ -80,6 +80,7 @@ export default function About({
         [about.portraitsCollection?.items, isMobile]
     )
 
+    const description = "Meet Shane Gallagher: Photographer, Creative Director, Stylist. Global perspective. Captivating work."
     // TODO: we know the height of toolbar (use ref) so just use that to calc the block size
     return (
         <main
@@ -97,8 +98,13 @@ export default function About({
                 <title>About Shane Gallagher</title>
                 <meta
                     name="description"
-                    content="Meet Shane Gallagher: Photographer, Creative Director, Stylist. Global perspective. Captivating work."
+                    content={description}
                 />
+                <meta
+                    property="og:description"
+                    content={"Meet Shane Gallagher: Photographer, Creative Director, Stylist."}
+                />
+                <meta property="og:image" content={about.portraitsCollection?.items[0]?.url || ''} />
             </Head>
 
             <Toolbar isGridBackground hideBorders />
