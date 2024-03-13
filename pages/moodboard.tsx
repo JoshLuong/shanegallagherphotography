@@ -113,12 +113,11 @@ export default function Moodboard({}) {
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
-                    margin: isMobile ? `0 0.2em 1.3em 0` : `0 1.2em 1em 1.2em`,
+                    padding: isMobile ? `0 0.2em 1.3em 0` : `0 6em 1em 6em`,
                     top: isMobile
                         ? `${BLOCK_SIZE * 1.5}px`
                         : `${BLOCK_SIZE * 1.9}px`,
                     position: 'absolute',
-                    width: '100%',
                 }}
             >
                 {galleryElements.length == 0 && didLoad ? (
@@ -130,9 +129,7 @@ export default function Moodboard({}) {
                         }}
                         className={styles.moodboardPage__empty_text}
                     >
-                        THIS IS A DEDICATED SPACE TO CURATE YOUR PERSONAL
-                        MOODBOARD USING ANY OF THE MOMENTS CAPTURED IN MY
-                        WORK.&nbsp;
+                        This is a dedicated space to curate your personal moodboard using any of the moments captured in my galleries.&nbsp;
                         <span
                             style={{
                                 fontSize: '0.75em',
@@ -140,8 +137,7 @@ export default function Moodboard({}) {
                                 marginTop: '0.2em',
                             }}
                         >
-                            START BY EXPLORING MY WORKS AND PINNING ANY IMAGES
-                            YOU ENVISION IN THIS BOARD.
+                            Start by exploring my galleries and pinning any images you envision in this board.
                         </span>
                     </div>
                 ) : (
