@@ -301,7 +301,7 @@ export default function Project({
                                 bottom: isMobile ? '13em' : '16em',
                                 zIndex: 1001,
                             }}
-                            className={styles.projectPage__project_arrow_button}
+                            className={`${styles.projectPage__project_arrow_button} clickable_component`}
                             onClick={() => onScrollToTop()}
                         >
                             <KeyboardDoubleArrowUpIcon
@@ -315,7 +315,7 @@ export default function Project({
                             bottom: isMobile ? '10em' : '13em',
                             zIndex: 1001,
                         }}
-                        className={styles.projectPage__project_arrow_button}
+                        className={`${styles.projectPage__project_arrow_button} clickable_component`}
                         onClick={() => onMouseDown(true)}
                     >
                         <KeyboardArrowUpIcon
@@ -328,7 +328,7 @@ export default function Project({
                             bottom: isMobile ? '7em' : '10em',
                             zIndex: 1001,
                         }}
-                        className={styles.projectPage__project_arrow_button}
+                        className={`${styles.projectPage__project_arrow_button} clickable_component`}
                         onClick={() => onMouseDown()}
                     >
                         <KeyboardArrowDownIcon

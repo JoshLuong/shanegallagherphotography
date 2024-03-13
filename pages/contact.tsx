@@ -71,10 +71,10 @@ export default function Contact({
                             </a>
 
                             <a
-                                href="mailto:gallaghershane@icloud.com"
+                                href="mailto:hello@shanegallagher.com"
                                 className={styles.contactPage__text}
                             >
-                                SEND A MESSAGE TO GALLAGHERSHANE@ICLOUD.COM
+                                SEND A MESSAGE TO HELLO@SHANEGALLAGHER.COM
                             </a>
                             <ContactForm />
                         </div>

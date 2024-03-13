@@ -124,6 +124,7 @@ const ContactForm: FC = () => {
                     control={
                         <Checkbox
                             checked={checked}
+                            className='clickable_component'
                             onChange={() => {
                                 setChecked(!checked)
                             }}
@@ -142,7 +143,7 @@ const ContactForm: FC = () => {
                         />
                     }
                     label={
-                        <div className={styles.contactForm__text}>ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.</div>
+                        <div className={`${styles.contactForm__text} clickable_component`}>ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.</div>
                     }
                 />
 
@@ -187,7 +188,7 @@ const ContactForm: FC = () => {
                         {...register('message', { required: true })}
                     />
                 </div>
-                <button className={styles.contactForm__submit_btn}>
+                <button className={`${styles.contactForm__submit_btn} clickable_component`}>
                     {isSending ? 'SENDING...' : 'DELIVER'}
                 </button>
             </form>

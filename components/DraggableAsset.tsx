@@ -304,6 +304,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         <DialogTitle className={styles.asset__dialogTitle}>
                             <IconButton
                                 aria-label="close"
+                                className='clickable_component'
                                 onClick={() => setOpenLargeImage(false)}
                                 sx={{
                                     position: 'absolute',
@@ -347,7 +348,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         <DialogActions style={{ background: 'black' }}>
                             {hasLeftImageButton && (
                                 <div
-                                    className={styles.asset__largeImageNav}
+                                    className={`${styles.asset__largeImageNav} clickable_component`}
                                     style={{
                                         marginRight: 'auto',
                                     }}
@@ -380,6 +381,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 >
                                     {isAddedToMoodboard ? (
                                         <PushPinIcon
+                                            className='clickable_component'
                                             style={{
                                                 color: 'white',
                                                 width: '20px',
@@ -394,6 +396,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                         />
                                     ) : (
                                         <PushPinOutlinedIcon
+                                            className='clickable_component'
                                             style={{
                                                 color: 'white',
                                                 width: '20px',
@@ -411,7 +414,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                             )}
                             {hasRightImageButton && (
                                 <div
-                                    className={styles.asset__largeImageNav}
+                                    className={`${styles.asset__largeImageNav} clickable_component`}
                                     onClick={() =>
                                         setCurLargeImageIndex(
                                             curLargeImageIndex + 1
