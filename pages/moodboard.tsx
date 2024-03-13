@@ -104,6 +104,7 @@ export default function Moodboard({}) {
         >
             <Head>
                 <title>Your Custom Moodboard</title>
+                <meta property="og:image" content={"Shane Gallagher - Your Custom Moodboard"} />
             </Head>
 
             <Toolbar ref={ref} isGridBackground />

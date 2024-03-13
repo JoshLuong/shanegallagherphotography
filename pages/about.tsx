@@ -104,6 +104,10 @@ export default function About({
                     property="og:description"
                     content={"Meet Shane Gallagher: Photographer, Creative Director, Stylist."}
                 />
+                <meta
+                    property="og:title"
+                    content={"About Shane Gallagher"}
+                />
                 <meta property="og:image" content={about.portraitsCollection?.items[0]?.url || ''} />
             </Head>
 
