@@ -10,7 +10,7 @@ import { BlackTooltip } from '../BlackTooltip'
 import { Asset, ContentfulTag } from '@/types/graphql'
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import CssMenu from '../menu/Menu'
+import WorksMenu from '../menu/WorksMenu'
 
 interface BlockProps {
     topLBorderRadius?: string
@@ -65,15 +65,6 @@ const Block: React.FC<BlockProps> = ({
 
     const hiddenBorder = `0px solid white`
     const solidBorder = `0.7px solid white`
-
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const open = Boolean(anchorEl)
-    const handleClick = (event: any) => {
-        setAnchorEl(event.currentTarget)
-    }
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
 
     const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
     const isTextNavBar = () =>
@@ -184,143 +175,7 @@ const Block: React.FC<BlockProps> = ({
                 </BlackTooltip>
             )
         } else if (text.toUpperCase() === 'WORKS') {
-            return (
-                <div
-                    className="clickable_component"
-                    style={{
-                        height: '100%',
-                        width: '100%',
-                    }}
-                >
-                    <div
-                        onClick={(e) => {
-                            if (anchorEl == null) {
-                                handleClick(e)
-                            }
-                        }}
-                        onTouchStart={(e) => {
-                            if (anchorEl == null) {
-                                handleClick(e)
-                            }
-                        }}
-                        onMouseOver={(e) => {
-                            if (anchorEl == null) {
-                                handleClick(e)
-                            }
-                        }}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxSizing: 'border-box',
-                            lineBreak: 'anywhere',
-                            padding: '2px',
-                        }}
-                    >
-                        WORKS
-                    </div>
-                    <CssMenu
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        style={{
-                            borderRadius: '0px',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        disableAutoFocusItem
-                        MenuListProps={{ onMouseLeave: handleClose }}
-                    >
-                        <MenuItem
-                            onClick={handleClose}
-                            className="clickable_component"
-                            style={{
-                                padding: 0,
-                            }}
-                        >
-                            <Link
-                                href={hyperlink}
-                                className={styles.block__popup_menu_item}
-                                prefetch={true}
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'black',
-                                    width: '100%',
-                                    fontWeight: 'bold',
-                                    padding: '0.5em 1em',
-                                }}
-                            >
-                                OVERVIEW
-                            </Link>
-                        </MenuItem>
-                        <MenuItem
-                            onClick={handleClose}
-                            className="clickable_component"
-                            style={{
-                                padding: 0,
-                            }}
-                        >
-                            <Link
-                                href={
-                                    'https://strangeragency.com/models/shane/'
-                                }
-                                target="_blank"
-                                prefetch={true}
-                                className={styles.block__popup_menu_item}
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'black',
-                                    fontWeight: 'bold',
-                                    width: '100%',
-                                    padding: '0.5em 1em',
-                                }}
-                            >
-                                MODEL PORTFOLIO
-                            </Link>
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem
-                            onClick={handleClose}
-                            className="clickable_component"
-                            style={{
-                                padding: 0,
-                            }}
-                        >
-                            <Link
-                                href={'/moodboard'}
-                                className={styles.block__popup_menu_item}
-                                prefetch={true}
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'black',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    width: '100%',
-                                    fontWeight: 'bold',
-                                    padding: '0.5em 1em',
-                                }}
-                            >
-                                <PushPinOutlinedIcon
-                                    style={{
-                                        fontSize: '1em',
-                                        marginRight: '2px',
-                                    }}
-                                />
-                                CUSTOM MOODBOARD
-                            </Link>
-                        </MenuItem>
-                    </CssMenu>
-                </div>
-            )
+            return <WorksMenu hyperlink={hyperlink} />
         } else {
             return text.toUpperCase()
         }
