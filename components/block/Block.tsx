@@ -1,7 +1,7 @@
-import { Fade } from '@mui/material'
+import { Divider, Fade, Menu, MenuItem } from '@mui/material'
 import Link from 'next/link'
 import styles from '../../styles/Block.module.less'
-import { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
+import { BLOCK_SIZE, MOBILE_BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
@@ -9,6 +9,8 @@ import { ReactNode, useEffect, useState } from 'react'
 import { BlackTooltip } from '../BlackTooltip'
 import { Asset, ContentfulTag } from '@/types/graphql'
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
+import CssMenu from '../menu/Menu'
 
 interface BlockProps {
     topLBorderRadius?: string
@@ -23,9 +25,9 @@ interface BlockProps {
     borderBottomHidden?: boolean
     backgroundImage?: Asset
     thumbnailPreviewImage?: Asset // anything with background image should have a smaller minified version which is this
-    title?: string
+    title?: string // title for image
     index: number
-    text?: string
+    text?: string // text like "Home", "About"
     link?: string
     loadAnimation?: boolean
     isTempBackground?: boolean // should time out to black square and not allow clicks
@@ -58,10 +60,20 @@ const Block: React.FC<BlockProps> = ({
     const [isBlockLoaded, setIsBlockLoaded] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [shouldChangeBackground, setShouldChangeBackground] = useState(false)
-    const width = `${sideBlockMultiplier * BLOCK_SIZE}px`
-    const height = `${heightBlockMultiplier * BLOCK_SIZE}px`
+    let width = `${sideBlockMultiplier * BLOCK_SIZE}px`
+    let height = `${heightBlockMultiplier * BLOCK_SIZE}px`
+
     const hiddenBorder = `0px solid white`
     const solidBorder = `0.7px solid white`
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const open = Boolean(anchorEl)
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget)
+    }
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
 
     const isTextHome = () => text.toLocaleUpperCase() == 'HOME'
     const isTextNavBar = () =>
@@ -93,10 +105,225 @@ const Block: React.FC<BlockProps> = ({
             : styles.block__container
 
     let blockFontSize = '1em'
-    if (BLOCK_SIZE < 90) {
+    if (isTextHome()) {
+        blockFontSize = isMobile
+            ? `${MOBILE_BLOCK_SIZE - MOBILE_BLOCK_SIZE / 2}px`
+            : `${BLOCK_SIZE - BLOCK_SIZE / 2}px`
+    } else if (BLOCK_SIZE < 90) {
         blockFontSize = '0.8em'
     } else if (BLOCK_SIZE < 70) {
         blockFontSize = '0.65em'
+    }
+    const hyperlink = getLink()
+
+    if (width == '0px' || height == '0px') {
+        // helps with issue with empty rows because height is 90px and width is 0px
+        return null
+    }
+
+    const getTextComponent = () => {
+        if (text == 'Home') {
+            return 'S'
+        }
+        if (text == 'Moodboard') {
+            // this condition is used in aria-hidden above
+            return (
+                <BlackTooltip
+                    title={
+                        <div
+                            style={{
+                                background: 'black',
+                                color: 'white',
+                                padding: '0.75em',
+                                fontSize: isMobile ? '0.65em' : '1.3em',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            CUSTOM MOODBOARD
+                        </div>
+                    }
+                    slotProps={{
+                        popper: {
+                            sx: {
+                                [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
+                                    {
+                                        marginTop: '0px',
+                                    },
+                                [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]:
+                                    {
+                                        marginBottom: '0px',
+                                    },
+                                [`&.${tooltipClasses.popper}[data-popper-placement*="right"] .${tooltipClasses.tooltip}`]:
+                                    {
+                                        marginLeft: '0px',
+                                    },
+                                [`&.${tooltipClasses.popper}[data-popper-placement*="left"] .${tooltipClasses.tooltip}`]:
+                                    {
+                                        marginRight: '0px',
+                                    },
+                            },
+                        },
+                    }}
+                    placement="bottom"
+                    aria-label="Link to your custom moodboard"
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                        }}
+                    >
+                        <PushPinOutlinedIcon
+                            style={{
+                                fontSize: isMobile ? '1.2em' : '1.3em',
+                                margin: 'auto',
+                            }}
+                        />
+                    </div>
+                </BlackTooltip>
+            )
+        } else if (text.toUpperCase() === 'WORKS') {
+            return (
+                <div
+                    className="clickable_component"
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                    }}
+                >
+                    <div
+                        onClick={(e) => {
+                            if (anchorEl == null) {
+                                handleClick(e)
+                            }
+                        }}
+                        onTouchStart={(e) => {
+                            if (anchorEl == null) {
+                                handleClick(e)
+                            }
+                        }}
+                        onMouseOver={(e) => {
+                            if (anchorEl == null) {
+                                handleClick(e)
+                            }
+                        }}
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxSizing: 'border-box',
+                            lineBreak: 'anywhere',
+                            padding: '2px',
+                        }}
+                    >
+                        WORKS
+                    </div>
+                    <CssMenu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        style={{
+                            borderRadius: '0px',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        disableAutoFocusItem
+                        MenuListProps={{ onMouseLeave: handleClose }}
+                    >
+                        <MenuItem
+                            onClick={handleClose}
+                            className="clickable_component"
+                            style={{
+                                padding: 0,
+                            }}
+                        >
+                            <Link
+                                href={hyperlink}
+                                className={styles.block__popup_menu_item}
+                                prefetch={true}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'black',
+                                    width: '100%',
+                                    fontWeight: 'bold',
+                                    padding: '0.5em 1em',
+                                }}
+                            >
+                                OVERVIEW
+                            </Link>
+                        </MenuItem>
+                        <MenuItem
+                            onClick={handleClose}
+                            className="clickable_component"
+                            style={{
+                                padding: 0,
+                            }}
+                        >
+                            <Link
+                                href={
+                                    'https://strangeragency.com/models/shane/'
+                                }
+                                target="_blank"
+                                prefetch={true}
+                                className={styles.block__popup_menu_item}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                    width: '100%',
+                                    padding: '0.5em 1em',
+                                }}
+                            >
+                                MODEL PORTFOLIO
+                            </Link>
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem
+                            onClick={handleClose}
+                            className="clickable_component"
+                            style={{
+                                padding: 0,
+                            }}
+                        >
+                            <Link
+                                href={'/moodboard'}
+                                className={styles.block__popup_menu_item}
+                                prefetch={true}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'black',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                    fontWeight: 'bold',
+                                    padding: '0.5em 1em',
+                                }}
+                            >
+                                <PushPinOutlinedIcon
+                                    style={{
+                                        fontSize: '1em',
+                                        marginRight: '2px',
+                                    }}
+                                />
+                                CUSTOM MOODBOARD
+                            </Link>
+                        </MenuItem>
+                    </CssMenu>
+                </div>
+            )
+        } else {
+            return text.toUpperCase()
+        }
     }
     const blockContent = (
         <div
@@ -110,10 +337,10 @@ const Block: React.FC<BlockProps> = ({
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower
-                fontSize: isMobile ? '0.65em' : blockFontSize,
+                fontSize: isMobile && !isTextHome() ? '0.65em' : blockFontSize,
                 fontWeight: isTextNavBar() ? 'bold' : 'normal',
                 letterSpacing: isTextHome() ? '0.6px' : '0.5px',
-                color: isTextHome() ? '#0087F3' : 'white',
+                color: isTextHome() ? 'white' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
@@ -163,35 +390,10 @@ const Block: React.FC<BlockProps> = ({
                         />
                     </Fade>
                 )}
-            {text == 'Moodboard' ? ( // this condition is used in aria-hidden above
-                <BlackTooltip
-                    title={
-                        <div
-                            style={{
-                                background: 'black',
-                                color: 'white',
-                                padding: '0.75em',
-                                fontSize: isMobile ? '0.65em' : '1.3em',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            CUSTOM MOODBOARD
-                        </div>
-                    }
-                    placement="bottom"
-                    aria-label="Link to your custom moodboard"
-                >
-                    <PushPinOutlinedIcon
-                        style={{ fontSize: isMobile ? '1.2em' : '1.3em' }}
-                    />
-                </BlackTooltip>
-            ) : (
-                text.toUpperCase()
-            )}
+            {getTextComponent()}
         </div>
     )
 
-    const hyperlink = getLink()
     const tooltipDimensions =
         backgroundImage?.width!! > backgroundImage?.height!!
             ? { height: '250px', width: 'auto' }
@@ -243,7 +445,9 @@ const Block: React.FC<BlockProps> = ({
                     enter: loadAnimation ? delay : 1,
                 }}
             >
-                {hyperlink != null && hyperlink != '' ? (
+                {text.toUpperCase() != 'WORKS' &&
+                hyperlink != null &&
+                hyperlink != '' ? (
                     <Link
                         href={hyperlink}
                         prefetch={true}

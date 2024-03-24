@@ -1,34 +1,30 @@
 'use client'
 
 import client from '../gql/apollo-client'
-import { About, Asset, Subsection } from '../types/graphql'
+import { Asset } from '../types/graphql'
 import Head from 'next/head'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
-import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import DraggableAsset from '@/components/DraggableAsset'
 import styles from '../styles/moodboard.module.less'
-import Toolbar from '@/components/Toolbar'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import getRandomTransformation from '@/utils/getRandomTransformation'
 import { moodboardQuery } from '@/gql/moodboard-query'
 import getMoodboard from '@/utils/getMoodboard'
+import PageWrapper from '@/components/PageWrapper'
+import { onScrollToTop } from '@/utils/onScrollToTop'
 
 export default function Moodboard({}) {
     const { isMobile } = useWindowDimensions()
-    const [offset, setOffset] = useState(0) // in pixels
-    const ref = useRef<HTMLDivElement>(null)
     const [gallery, setGallery] = useState<Asset[]>([])
     const [didLoad, setDidLoad] = useState(false)
     const zIndexRef = useRef(1)
 
     useEffect(() => {
+        onScrollToTop() // resets scroll position (mainly for mobile)
+    }, [])
+
+    useEffect(() => {
         zIndexRef.current = 1
-        if (!ref.current) return
-        const resizeObserver = new ResizeObserver(() => {
-            setOffset(ref.current!!.offsetHeight)
-        })
-        resizeObserver.observe(ref.current)
-        return () => resizeObserver.disconnect() // clean up
     }, [])
 
     const removeMoodboard = () => {
@@ -89,61 +85,47 @@ export default function Moodboard({}) {
         [gallery, isMobile]
     )
 
-    // TODO: we know the height of toolbar (use ref) so just use that to calc the block size
-    return (
-        <main
-            style={{
-                // WARNING: do not edit, it will cause weird bug with height and width
-                height: '100vh',
-                overflow: 'auto',
-                overflowX: 'hidden', // helps with mobile issue where the whole project is able to be moved left to right
-                position: 'relative', // this is so we can have proper background when making the below pos absolute
-            }}
-            id="scroll"
-            className={styles.moodboardPage__container}
-        >
-            <Head>
-                <title>Your Custom Moodboard</title>
-                <meta property="og:image" content={"Shane Gallagher - Your Custom Moodboard"} />
-            </Head>
+    console.log(galleryElements.length == 0 && didLoad)
 
-            <Toolbar ref={ref} isGridBackground />
-            <div
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    padding: isMobile ? `0 0.2em 1.3em 0` : `0 6em 1em 6em`,
-                    top: isMobile
-                        ? `${BLOCK_SIZE * 1.5}px`
-                        : `${BLOCK_SIZE * 1.9}px`,
-                    position: 'absolute',
-                }}
-            >
-                {galleryElements.length == 0 && didLoad ? (
+    return (
+        <PageWrapper
+            headElement={
+                <Head>
+                    <title>Your Custom Moodboard</title>
+                    <meta
+                        property="og:image"
+                        content={'Shane Gallagher - Your Custom Moodboard'}
+                    />
+                </Head>
+            }
+            onlyShowNavBar={galleryElements.length == 0 && didLoad}
+            content={
+                galleryElements.length == 0 && didLoad ? (
                     <div
                         style={{
                             color: 'white',
-                            background: 'black',
                             padding: '0.5em',
                         }}
                         className={styles.moodboardPage__empty_text}
                     >
-                        This is a dedicated space to curate your personal moodboard using any of the moments captured in my galleries.&nbsp;
+                        This is a dedicated space to curate your personal
+                        moodboard using any of the moments captured in my
+                        galleries.&nbsp;
                         <span
                             style={{
-                                fontSize: '0.75em',
                                 display: 'block',
                                 marginTop: '0.2em',
+                                fontSize: '0.7em',
                             }}
                         >
-                            Start by exploring my galleries and pinning any images you envision in this board.
+                            Start by exploring my galleries and pinning any
+                            images you envision in this board.
                         </span>
                     </div>
                 ) : (
                     galleryElements
-                )}
-            </div>
-        </main>
+                )
+            }
+        />
     )
 }

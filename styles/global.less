@@ -1,16 +1,31 @@
 body {
     margin: 0;
-    font-family: "Space Grotesk", sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     background-color: black; // fixes white flash of loading
-    cursor: -webkit-image-set(url(/blue-cursor.png) 1x, url(/blue-cursor.png) 2x) 0 0,
+    cursor: -webkit-image-set(
+                url(/blue-cursor.png) 1x,
+                url(/blue-cursor.png) 2x
+            )
+            0 0,
         pointer !important;
-    a:hover, .clickable_component {
-        cursor: -webkit-image-set(url(/pointer.png) 1x, url(/pointer.png) 2x) 0 0,
-        pointer !important;
+    a:hover,
+    .clickable_component {
+        cursor: -webkit-image-set(url(/pointer.png) 1x, url(/pointer.png) 2x) 0
+                0,
+            pointer !important;
     }
 }
 
-body:has(#landing_page){
+::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+body:has(#landing_page) {
     // update: mar 8, allow overflow
     // overflow: hidden; // fixes issue on mobile with overflow but will prevent other pages (e.g. project) from being hidden
 }

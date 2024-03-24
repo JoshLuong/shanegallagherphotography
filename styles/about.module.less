@@ -1,15 +1,3 @@
-.aboutPage__container {
-    background-color: black;
-}
-
-.aboutPage__aboutAsset {
-    color: white;
-    background: black;
-    font-size: 1.5em;
-    width: 70% !important;
-    margin: auto;
-}
-
 
 .aboutPage__containerSections {
     display: flex;
@@ -17,41 +5,17 @@
     flex-direction: row;
     justify-content: flex-start;
     height: auto;
-    align-items: stretch;
-    flex: 1;
 }
 
-.aboutPage__text {
-    color: white;
-    margin: 0 15%;
-    font-size: 2em;
-    box-sizing: border-box;
+.aboutPage__description {
+    :nth-child(1) {
+        margin-top: 0;
+    }
+    margin-right: 0.5em;
 }
-
-.aboutPage__portraits {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0px 1em;
-    box-sizing: border-box;
-}
-
 @media only screen and (max-width: 800px) {
-    .aboutPage__text {
-        margin: 0 0.2em;
-        font-size: 1.6em;
-        box-sizing: border-box;
-    }
-
-    .aboutPage__portraits {
-        margin: 0;
-    }
-
-    .aboutPage__aboutAsset {
-        width: 90% !important;
-        padding: 0 !important;
-        font-size: 1.2em;
+    .aboutPage__containerSections {
+        flex-direction: column;
     }
 }
 

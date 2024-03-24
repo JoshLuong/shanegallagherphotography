@@ -17,11 +17,13 @@ const useWindowDimensions = () => {
     useEffect(() => {
         // component is mounted and window is available
         handleWindowResize()
-        const handleResizeThrottled = _.throttle(handleWindowResize, 800); // throttle
-        window.addEventListener('resize', handleResizeThrottled)
+        const debouncedResize = _.debounce(() => {
+            handleWindowResize();
+        }, 400)
+        window.addEventListener('resize', debouncedResize)
         setIsMobile(window.innerWidth <= MOBILE_DIMENSION)
         // unsubscribe from the event on component unmount
-        return () => window.removeEventListener('resize', handleWindowResize)
+        return () => window.removeEventListener('resize', debouncedResize)
     }, [])
 
     return { width, height, isMobile }

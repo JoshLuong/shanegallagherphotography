@@ -112,6 +112,11 @@ const ContactForm: FC = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className={styles.contactForm__container}
                 autoComplete="none"
+                style={{
+                    borderTop: '1px solid',
+                    marginTop: '0.7em',
+                    paddingTop: '0.7em',
+                }}
             >
                 <FormControlLabel
                     style={{
@@ -120,11 +125,10 @@ const ContactForm: FC = () => {
                         marginBottom: '1em',
                         fontFamily: `"Space Grotesk", sans-serif`,
                     }}
-                    
                     control={
                         <Checkbox
                             checked={checked}
-                            className='clickable_component'
+                            className="clickable_component"
                             onChange={() => {
                                 setChecked(!checked)
                             }}
@@ -138,15 +142,19 @@ const ContactForm: FC = () => {
                                 '&.Mui-checked': {
                                     color: 'white',
                                 },
-                                padding: 0
+                                padding: 0,
                             }}
                         />
                     }
                     label={
-                        <div className={`${styles.contactForm__text} clickable_component`}>ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS MESSAGE.</div>
+                        <div
+                            className={`${styles.contactForm__text} clickable_component`}
+                        >
+                            ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS
+                            MESSAGE.
+                        </div>
                     }
                 />
-
                 <div className="mb-5">
                     <CssTextField
                         label="FULL NAME"
@@ -188,7 +196,10 @@ const ContactForm: FC = () => {
                         {...register('message', { required: true })}
                     />
                 </div>
-                <button className={`${styles.contactForm__submit_btn} clickable_component`}>
+
+                <button
+                    className={`${styles.contactForm__submit_btn} clickable_component`}
+                >
                     {isSending ? 'SENDING...' : 'DELIVER'}
                 </button>
             </form>

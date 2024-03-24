@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react'
 import useWindowDimensions from './useWindowDimensions'
 import { usePathname } from 'next/navigation'
+import { onScrollToTop } from '@/utils/onScrollToTop'
 
 interface useBlockGeneratorProps {
     blocks?: any[]
     isNavBar?: boolean
-    isGridBackground?: boolean // only allow clicks on nav bar, but show the grid
+    isGridBackground?: boolean // only allow clicks on nav bar, but show the grid,
+    onlyShowNavBar?: boolean
 }
 
 export let BLOCK_SIZE = 90
+export const MOBILE_BLOCK_SIZE = 60
 
 export default function useBlockGenerator({
     blocks,
     isNavBar,
     isGridBackground,
+    onlyShowNavBar
 }: useBlockGeneratorProps) {
     const { width, height, isMobile } = useWindowDimensions()
 
     const [generatedBlocks, setBlocks] = useState<any[]>([])
+    const [isLoaded, setIsLoaded] = useState(false)
     const pathname = usePathname()
 
     const mobileReadyBlocks = blocks || [
@@ -31,18 +36,22 @@ export default function useBlockGenerator({
             return
         }
         if (isMobile) {
-            BLOCK_SIZE = 60
+            BLOCK_SIZE = MOBILE_BLOCK_SIZE
         } else if ((height / 9) < 80) { // divided by the number of blocks that MUST be shown in column
             BLOCK_SIZE = 70
         } else if ((height / 9) > 90) {
             BLOCK_SIZE = 90
         }
+        setIsLoaded(true)
+        if (isLoaded && isMobile) {
+            // do not re-trigger reorder of blocks for mobile during scroll (nav bar hiding causes height changed)
+        }
         const totalPerRow = width / BLOCK_SIZE
-        const totalPerCol = height / BLOCK_SIZE
+        const totalPerCol = (height / BLOCK_SIZE) + (isNavBar ? 2 : 0) // Need to add padding to safari mobile (accomodate navbar disappearing)
 
         let numRowPaddingBlocks = Math.floor((totalPerRow - fixedRowCount) / 2)
         const numRowPaddingBlocksRemainder =
-            ((totalPerRow - fixedRowCount) / 2) % 1
+            Math.trunc((((totalPerRow - fixedRowCount) / 2) % 1) * Math.pow(10, 2)) / Math.pow(10, 2) // truncate to 2 decimal places (otherwise, during zooming in/out will result in unaligned rows)
         if (numRowPaddingBlocks < 0) {
             numRowPaddingBlocks = 0
         }
@@ -97,9 +106,9 @@ export default function useBlockGenerator({
             if (i == 0 || i === mobileReadyBlocks.length - 1) {
                 // 1 - ratio of row height that is over the window height = ratio to multiply by
                 heightBlockMultiplier =
-                    columnTruncation > 0
+                    Math.trunc((columnTruncation > 0
                         ? Math.abs(1 - columnTruncation)
-                        : row[0].heightBlockMultiplier
+                        : row[0].heightBlockMultiplier) * Math.pow(10, 2)) / Math.pow(10, 2)
             }
 
             const paddingBlocks = Array(numRowPaddingBlocks)
@@ -149,6 +158,16 @@ export default function useBlockGenerator({
                     returnRow[1].text = 'Home'
                 }
             }
+
+            if (onlyShowNavBar && (i > 1 || i < 1)) {
+                returnRow.map((block) => {
+                    block.borderBottomHidden = true
+                    block.borderLeftHidden = true
+                    block.borderRightHidden = true
+                    block.borderTopHidden = true
+                    return block
+                }) // set to have block as bg element only (no clicks)
+            }
             if (isGridBackground && i > 2) {
                 returnRow.map((block) => (block.isBlockAsBackground = true)) // set to have block as bg element only (no clicks)
             } else if (!isGridBackground && isNavBar && i > 1) {
@@ -158,7 +177,7 @@ export default function useBlockGenerator({
             return returnRow
         })
         setBlocks(newBlocks)
-    }, [width, height, setBlocks])
+    }, [width, height, setBlocks, onlyShowNavBar])
 
     return generatedBlocks
 }

@@ -30,6 +30,7 @@ interface AssetProps {
     index: number
     tags?: Maybe<ContentfulTag>[]
     disableDrag?: boolean
+    disableResize?: boolean
     className?: string
     ref?: React.Ref<any>
 }
@@ -45,6 +46,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
             index,
             tags,
             disableDrag = false,
+            disableResize = false,
             className, // for draggable asset only
         },
         zIndexRef
@@ -191,7 +193,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
         // for horizontal images
         const widthDimensions = isHorizontalImage
             ? { width: isMobile ? '90%' : '35em' }
-            : { width: isMobile ? '40%' : '23em' }
+            : { width: isMobile ? '45%' : '15em' }
 
         const mobileDimension =
             isMobile &&
@@ -202,7 +204,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                       height: isHorizontalImage ? '35vh' : '50vh',
                   }
                 : {
-                      height: width < 500 ? '16em' : '36em',
+                      height: width < 500 ? '14.5em' : '25em',
                       ...widthDimensions,
                   }
 
@@ -226,7 +228,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                 <div
                     style={{
                         margin: isMobile
-                            ? '0 0.7em 0.4em 0.7em'
+                            ? '0 0 0.4em 0'
                             : '0 0.9em 0.9em 0.9em',
                         transform: transformation,
                         objectFit: 'cover',
@@ -251,8 +253,8 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         style={{
                             pointerEvents: isImageTransparent ? 'none' : 'auto',
                         }}
-                        enableResizing={!isImageTransparent}
-                        disableDragging={isImageTransparent}
+                        enableResizing={!disableResize && !isImageTransparent}
+                        disableDragging={disableDrag || isImageTransparent}
                     >
                         <Image
                             alt={imageAsset!!.description || ''}
@@ -275,7 +277,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     : 'auto', // helps when this div gets in front of another draggable asset
                             }}
                             loader={loaderProp}
-                            loading="lazy" // so not all images load at once
+                            loading="eager"
                         />
                     </Rnd>
                     <Dialog
@@ -304,7 +306,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         <DialogTitle className={styles.asset__dialogTitle}>
                             <IconButton
                                 aria-label="close"
-                                className='clickable_component'
+                                className="clickable_component"
                                 onClick={() => setOpenLargeImage(false)}
                                 sx={{
                                     position: 'absolute',
@@ -346,11 +348,14 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                             )}
 
                         <DialogActions style={{ background: 'black' }}>
-                            {hasLeftImageButton && (
+                            {curLargeImageIndex != null && (
                                 <div
                                     className={`${styles.asset__largeImageNav} clickable_component`}
                                     style={{
                                         marginRight: 'auto',
+                                        visibility: hasLeftImageButton
+                                            ? 'visible'
+                                            : 'hidden',
                                     }}
                                     onClick={() =>
                                         setCurLargeImageIndex(
@@ -381,7 +386,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 >
                                     {isAddedToMoodboard ? (
                                         <PushPinIcon
-                                            className='clickable_component'
+                                            className="clickable_component"
                                             style={{
                                                 color: 'white',
                                                 width: '20px',
@@ -396,7 +401,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                         />
                                     ) : (
                                         <PushPinOutlinedIcon
-                                            className='clickable_component'
+                                            className="clickable_component"
                                             style={{
                                                 color: 'white',
                                                 width: '20px',
@@ -412,7 +417,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     )}
                                 </BlackTooltip>
                             )}
-                            {hasRightImageButton && (
+                            {curLargeImageIndex != null && (
                                 <div
                                     className={`${styles.asset__largeImageNav} clickable_component`}
                                     onClick={() =>
@@ -422,6 +427,9 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     }
                                     style={{
                                         marginLeft: 'auto',
+                                        visibility: hasRightImageButton
+                                            ? 'visible'
+                                            : 'hidden',
                                     }}
                                 >
                                     Next

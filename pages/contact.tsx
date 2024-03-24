@@ -4,12 +4,11 @@ import { subsectionQuery } from '@/gql/landing-page-query'
 import { Subsection } from '../types/graphql'
 import { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import Block from '@/components/block/Block'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
-import useBlockGenerator, { BLOCK_SIZE } from '@/hooks/useBlockGenerator'
-import { Fade } from '@mui/material'
-import ToolBar from '@/components/Toolbar'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import EmailIcon from '@mui/icons-material/Email'
 import ContactForm from '@/components/contact/Contact'
+import PageWrapper from '@/components/PageWrapper'
 
 export const NO_SECTION_OPEN = -1
 export default function Contact({
@@ -22,17 +21,9 @@ export default function Contact({
     }
 
     return (
-        <main
-            className={styles.contactPage__container}
-            style={{
-                // WARNING: do not edit, it will cause weird bug with height and width
-                height: '100vh',
-                position: 'relative',
-                overflow: 'auto',
-            }}
-        >
-            <div>
-                <ToolBar isGridBackground hideBorders />
+        <PageWrapper
+            onlyShowNavBar
+            headElement={
                 <Head>
                     <title>Contact Shane Gallagher</title>
                     <meta
@@ -40,48 +31,46 @@ export default function Contact({
                         content="Contact Shane Gallagher: gallaghershane@icloud.com."
                     />
                 </Head>
+            }
+            content={
                 <div
                     style={{
-                        top: isMobile
-                            ? `${BLOCK_SIZE * 1}px`
-                            : `${BLOCK_SIZE * 1.5}px`,
-                        position: 'absolute',
-                        width: '100%',
+                        width: isMobile ? '90%' : '60%',
+                        margin: 'auto',
                     }}
                     className={styles.contactPage__text_container}
                 >
-                    <Fade
-                        in={true}
-                        timeout={{
-                            enter: 1300,
+                    <a
+                        href="https://www.instagram.com/shanegallagher_/"
+                        target="_blank"
+                        className={styles.contactPage__text}
+                        style={{
+                            marginBottom: '0.5em',
                         }}
                     >
-                        <div
+                        <InstagramIcon
                             style={{
-                                width: isMobile ? '90%' : '60%',
-                                margin: 'auto',
+                                marginRight: '0.5em',
                             }}
-                        >
-                            <a
-                                href="https://www.instagram.com/shanegallagher_/"
-                                target="_blank"
-                                className={styles.contactPage__text}
-                            >
-                                INSTAGRAM @SHANEGALLAGHER_
-                            </a>
+                        />{' '}
+                        SHANEGALLAGHER_
+                    </a>
 
-                            <a
-                                href="mailto:hello@shanegallagher.com"
-                                className={styles.contactPage__text}
-                            >
-                                SEND A MESSAGE TO HELLO@SHANEGALLAGHER.COM
-                            </a>
-                            <ContactForm />
-                        </div>
-                    </Fade>
+                    <a
+                        href="mailto:hello@shanegallagher.com"
+                        className={styles.contactPage__text}
+                    >
+                        <EmailIcon
+                            style={{
+                                marginRight: '0.5em',
+                            }}
+                        />{' '}
+                        HELLO@SHANEGALLAGHER.COM
+                    </a>
+                    <ContactForm />
                 </div>
-            </div>
-        </main>
+            }
+        />
     )
 }
 
