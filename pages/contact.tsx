@@ -53,7 +53,7 @@ export default function Contact({
                                 marginRight: '0.5em',
                             }}
                         />{' '}
-                        SHANEGALLAGHER_
+                        shanegallagher_
                     </a>
 
                     <a
@@ -65,7 +65,7 @@ export default function Contact({
                                 marginRight: '0.5em',
                             }}
                         />{' '}
-                        HELLO@SHANEGALLAGHER.COM
+                        hello@shanegallagher.com
                     </a>
                     <ContactForm />
                 </div>

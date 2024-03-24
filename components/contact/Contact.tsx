@@ -150,8 +150,7 @@ const ContactForm: FC = () => {
                         <div
                             className={`${styles.contactForm__text} clickable_component`}
                         >
-                            ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS
-                            MESSAGE.
+                            Attach the pictures in your moodboard to this message.
                         </div>
                     }
                 />
