@@ -171,6 +171,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 // maxHeight: '15em', temp disable, let it bake for couple days Feb 25
                                 overflow: 'visible',
                                 padding: '1em',
+                                paddingTop: "0",
                                 backgroundColor: 'black',
                                 ...style,
                             }}

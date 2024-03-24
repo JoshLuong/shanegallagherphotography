@@ -1,22 +1,28 @@
 import useBlockGenerator from '@/hooks/useBlockGenerator'
 import styles from '../styles/Toolbar.module.less'
 import Block from './block/Block'
-import React from 'react'
+import React, { useEffect } from 'react'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 
 interface ToolbarProps {
     isGridBackground?: boolean
     onlyShowNavBar?: boolean
     ref?: React.Ref<HTMLDivElement>
+    setTopOffset: (offset: number) => void
 }
 
 const Toolbar: React.FC<ToolbarProps> = React.forwardRef(
-    ({ isGridBackground, onlyShowNavBar = false }, ref) => {
-        const blocks = useBlockGenerator({
+    ({ isGridBackground, onlyShowNavBar = false, setTopOffset }, ref) => {
+        const {generatedBlocks, navBarHeight} = useBlockGenerator({
             isNavBar: true,
             isGridBackground,
             onlyShowNavBar,
         })
+
+       
+        useEffect(() => {
+            setTopOffset(navBarHeight)
+        }, [navBarHeight])
 
         return (
             <div
@@ -28,7 +34,7 @@ const Toolbar: React.FC<ToolbarProps> = React.forwardRef(
                 }}
                 className={styles.toolbar__block_container}
             >
-                {blocks?.map((block: any, i: number) => {
+                {generatedBlocks?.map((block: any, i: number) => {
                     return (
                         <Block
                             {...block}

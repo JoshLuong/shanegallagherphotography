@@ -385,7 +385,7 @@ export default function Home({
         }
     )
 
-    const generatedBlocks = useBlockGenerator({ blocks: mobileReadyBlocks })
+    const { generatedBlocks } = useBlockGenerator({ blocks: mobileReadyBlocks })
     const [showBlocks, setShowBlocks] = useState(false)
 
     useEffect(() => {
@@ -394,7 +394,6 @@ export default function Home({
 
     const backgroundProjects = items.filter((item) => item.previewImage != null)
 
-    const description = "Shane Gallagher: Irish photographer in Vancouver. Explore his portfolio featuring clients like Sangre De Fruta, Pass the Peas, Sundays Furniture, and more."
     return (
         <main
             style={{

@@ -3,7 +3,7 @@ import { BLOCK_SIZE, MOBILE_BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import { Fade } from '@mui/material'
 import ToolBar from '@/components/Toolbar'
 import styles from '../styles/PageWrapper.module.less'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
 interface PageWrapperProps {
     pageAriaDescription?: string
@@ -19,10 +19,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     onlyShowNavBar = false,
 }) => {
     const { isMobile } = useWindowDimensions()
-
-    const topOffset = isMobile
-        ? `${MOBILE_BLOCK_SIZE * 1.2}px`
-        : `${BLOCK_SIZE * 1.8}px`
+    const [topOffset, setTopOffset] = useState(0)
 
     return (
         <main
@@ -37,33 +34,39 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
         >
             {headElement}
             <div>
-                <ToolBar isGridBackground onlyShowNavBar={onlyShowNavBar} />
-                <Fade
-                    in={true}
-                    timeout={{
-                        enter: 1300,
-                    }}
-                >
-                    <div
-                        className={styles.pageWrapper__text}
-                        style={{
-                            top: topOffset,
-                            position: 'absolute',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            overflow: 'visible',
-                            height: `auto`,
-                            boxSizing: 'border-box',
-                            justifyContent: 'center',
-                            marginBottom: '2em',
-                            width: '100%',
-                            fontSize: isMobile ? '1.2em' : '1.4em',
+                <ToolBar
+                    setTopOffset={setTopOffset}
+                    isGridBackground
+                    onlyShowNavBar={onlyShowNavBar}
+                />
+                {topOffset != 0 && (
+                    <Fade
+                        in={topOffset != 0}
+                        timeout={{
+                            enter: 1300,
                         }}
                     >
-                        {content}
-                    </div>
-                </Fade>
+                        <div
+                            className={styles.pageWrapper__text}
+                            style={{
+                                top: topOffset * 1.3,
+                                position: 'absolute',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                overflow: 'visible',
+                                height: `auto`,
+                                boxSizing: 'border-box',
+                                justifyContent: 'center',
+                                marginBottom: '2em',
+                                width: '100%',
+                                fontSize: isMobile ? '1.2em' : '1.4em',
+                            }}
+                        >
+                            {content}
+                        </div>
+                    </Fade>
+                )}
             </div>
         </main>
     )

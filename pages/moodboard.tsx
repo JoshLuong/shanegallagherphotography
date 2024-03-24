@@ -44,7 +44,6 @@ export default function Moodboard({}) {
                 variables: { fileNames: moodboard },
             })
             .then((response: any) => {
-                console.log(response.data)
                 setGallery(response.data.assetCollection?.items)
                 setDidLoad(true)
             })
@@ -84,8 +83,6 @@ export default function Moodboard({}) {
             }),
         [gallery, isMobile]
     )
-
-    console.log(galleryElements.length == 0 && didLoad)
 
     return (
         <PageWrapper

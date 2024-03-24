@@ -23,6 +23,7 @@ export default function useBlockGenerator({
 
     const [generatedBlocks, setBlocks] = useState<any[]>([])
     const [isLoaded, setIsLoaded] = useState(false)
+    const [navBarHeight, setNavBarHeight] = useState(0)
     const pathname = usePathname()
 
     const mobileReadyBlocks = blocks || [
@@ -99,6 +100,8 @@ export default function useBlockGenerator({
             (mobileReadyBlocks[0][0].heightBlockMultiplier || BLOCK_SIZE) * 2
         const columnTruncation = (totalPixelHeight - height) / 2 / BLOCK_SIZE // amount of pixels over the height divided by block size gives the ratio of row height that is over the winddow height
 
+        let showOnFirstRow = false;
+        let firstRowHeightMult = 0;
         const newBlocks = mobileReadyBlocks.flatMap((row: any, i: number) => {
             const borderTopHidden = i === 0
             const borderBottomHidden = i === mobileReadyBlocks.length - 1
@@ -148,7 +151,14 @@ export default function useBlockGenerator({
                 ],
             ]
 
-            if (i == 1) {
+            if (i === 0) {
+                showOnFirstRow = isMobile && returnRow[0].heightBlockMultiplier > 0.6
+                firstRowHeightMult = returnRow[0].heightBlockMultiplier
+            }
+
+            const isNavBarRow = (showOnFirstRow && i == 0) || (i == 1 && !showOnFirstRow);
+
+            if (isNavBarRow) {
                 returnRow[returnRow.length - 2].text = 'Moodboard'
                 returnRow[returnRow.length - 3].text = 'Works'
                 returnRow[returnRow.length - 4].text = 'Contact'
@@ -159,7 +169,7 @@ export default function useBlockGenerator({
                 }
             }
 
-            if (onlyShowNavBar && (i > 1 || i < 1)) {
+            if (onlyShowNavBar && !isNavBarRow) {
                 returnRow.map((block) => {
                     block.borderBottomHidden = true
                     block.borderLeftHidden = true
@@ -177,7 +187,8 @@ export default function useBlockGenerator({
             return returnRow
         })
         setBlocks(newBlocks)
-    }, [width, height, setBlocks, onlyShowNavBar])
+        setNavBarHeight(showOnFirstRow ? firstRowHeightMult * BLOCK_SIZE : (BLOCK_SIZE + firstRowHeightMult * BLOCK_SIZE))
+    }, [width, height, setBlocks, onlyShowNavBar, navBarHeight])
 
-    return generatedBlocks
+    return { generatedBlocks, navBarHeight }
 }

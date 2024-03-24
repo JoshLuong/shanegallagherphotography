@@ -54,6 +54,7 @@ export default function About({
                         color: 'white',
                         width: isMobile ? '90%' : '70%',
                         paddingBottom: '1em',
+                        overflow: "hidden" // helps with blocks misalign on mobile during refresh
                     }}
                     className={styles.aboutPage__containerSections}
                 >
