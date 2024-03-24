@@ -19,6 +19,7 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import options from '@/utils/documentToReactComponentsOptions'
 import PageWrapper from '@/components/PageWrapper'
 import { onScrollToTop } from '@/utils/onScrollToTop'
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 
 export default function Project({
     currentSlug,
@@ -143,6 +144,7 @@ export default function Project({
         })
     }
 
+    const description = documentToPlainTextString(project.description?.json.content[0]) || `Shane Gallagher's: ${project.title}`
     return (
         <PageWrapper
             headElement={
@@ -150,7 +152,7 @@ export default function Project({
                     <title>{project.title}</title>
                     <meta
                         name="description"
-                        content={JSON.stringify(project.description?.json)}
+                        content={description}
                     />
                     <meta
                         property="og:title"
@@ -158,7 +160,7 @@ export default function Project({
                     />
                     <meta
                         property="og:description"
-                        content={JSON.stringify(project.description?.json)}
+                        content={description}
                     />
                     <meta property="og:image" content={images[0].url || ''} />
                 </Head>

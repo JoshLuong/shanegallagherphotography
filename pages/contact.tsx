@@ -28,7 +28,7 @@ export default function Contact({
                     <title>Contact Shane Gallagher</title>
                     <meta
                         name="description"
-                        content="Contact Shane Gallagher: gallaghershane@icloud.com."
+                        content="Contact Shane Gallagher: hello@shanegallagher.com."
                     />
                 </Head>
             }
