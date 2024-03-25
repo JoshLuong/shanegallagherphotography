@@ -46,6 +46,7 @@ export default function useBlockGenerator({
         setIsLoaded(true)
         if (isLoaded && isMobile) {
             // do not re-trigger reorder of blocks for mobile during scroll (nav bar hiding causes height changed)
+            return
         }
         const totalPerRow = width / BLOCK_SIZE
         const totalPerCol = (height / BLOCK_SIZE) + (isNavBar ? 2 : 0) // Need to add padding to safari mobile (accomodate navbar disappearing)
@@ -152,7 +153,7 @@ export default function useBlockGenerator({
             ]
 
             if (i === 0) {
-                showOnFirstRow = isMobile && returnRow[0].heightBlockMultiplier > 0.6
+                showOnFirstRow = isMobile && returnRow[0].heightBlockMultiplier > 0.7
                 firstRowHeightMult = returnRow[0].heightBlockMultiplier
             }
 

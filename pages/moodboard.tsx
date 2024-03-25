@@ -95,7 +95,7 @@ export default function Moodboard({}) {
                     />
                 </Head>
             }
-            onlyShowNavBar={galleryElements.length == 0 && didLoad}
+            onlyShowNavBar={didLoad ? galleryElements.length == 0 && didLoad : true}
             content={
                 galleryElements.length == 0 && didLoad ? (
                     <div
