@@ -12,6 +12,7 @@ import { moodboardQuery } from '@/gql/moodboard-query'
 import getMoodboard from '@/utils/getMoodboard'
 import PageWrapper from '@/components/PageWrapper'
 import { onScrollToTop } from '@/utils/onScrollToTop'
+import Link from 'next/link'
 
 export default function Moodboard({}) {
     const { isMobile } = useWindowDimensions()
@@ -112,9 +113,18 @@ export default function Moodboard({}) {
                         }}
                         className={styles.moodboardPage__empty_text}
                     >
-                        This is a dedicated space to curate your personal
-                        moodboard using any of the moments captured in my
-                        galleries.&nbsp;
+                        This space is for creating your personal moodboard with
+                        images from my{' '}
+                        <Link
+                            href="/works"
+                            className="clickable_component"
+                            style={{
+                                color: 'white',
+                            }}
+                        >
+                            works
+                        </Link>
+                        .
                         <span
                             style={{
                                 display: 'block',
@@ -122,8 +132,7 @@ export default function Moodboard({}) {
                                 fontSize: '0.7em',
                             }}
                         >
-                            Start by exploring my galleries and pinning any
-                            images you envision in this board.
+                            Explore, pin, and bring your vision to life!
                         </span>
                     </div>
                 ) : (
