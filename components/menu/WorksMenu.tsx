@@ -209,7 +209,7 @@ const WorksMenu: React.FC<WorksMenuProps> = ({
                                 marginRight: '2px',
                             }}
                         />
-                        CUSTOM MOODBOARD
+                        MOODBOARD
                     </Link>
                 </MenuItem>
             </CssMenu>

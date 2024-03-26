@@ -3,13 +3,23 @@
 import { sendEmail } from '@/utils/sendEmail'
 import styled from '@emotion/styled'
 import { Checkbox, FormControlLabel, Snackbar, TextField } from '@mui/material'
-import { FC, useEffect, useState } from 'react'
+import {
+    ChangeEvent,
+    Dispatch,
+    FC,
+    SetStateAction,
+    useEffect,
+    useState,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import styles from '../../styles/ContactForm.module.less'
 import getMoodboard from '@/utils/getMoodboard'
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 import client from '@/gql/apollo-client'
 import { moodboardQuery } from '@/gql/moodboard-query'
 import { Asset } from '@/types/graphql'
+// @ts-ignore
+import _ from 'lodash'
 
 export type FormData = {
     name: string
@@ -64,9 +74,17 @@ const ContactForm: FC = () => {
     const [emailSentErr, setEmailSentErr] = useState(false)
     const [gallery, setGallery] = useState<Asset[]>([])
     const [checked, setChecked] = useState(true)
+    const [name, setName] = useState<undefined | string>(undefined)
+    const [email, setEmail] = useState<undefined | string>(undefined)
+    const [mesage, setMessage] = useState<undefined | string>(undefined)
 
     useEffect(() => {
         let moodboard = getMoodboard()
+        const isChecked = window?.sessionStorage.getItem('contact-checkbox')
+        setChecked(isChecked == null ? true : isChecked == 'true')
+        setName(window?.sessionStorage.getItem('contact-name') || '')
+        setEmail(window?.sessionStorage.getItem('contact-email') || '')
+        setMessage(window?.sessionStorage.getItem('contact-message') || '')
         client
             .query({
                 query: moodboardQuery,
@@ -76,6 +94,10 @@ const ContactForm: FC = () => {
                 setGallery(response.data.assetCollection?.items as Asset[])
             })
     }, [])
+
+    const saveFieldToSessionStorage = (key: string, value: string) => {
+        window.sessionStorage.setItem(key, value)
+    }
 
     const validateEmail = (email: string) => {
         return String(email)
@@ -94,16 +116,55 @@ const ContactForm: FC = () => {
                 checked ? gallery : []
             )
             if (didSendSuccessfully) {
+                setChecked(true)
+                setName('')
+                setEmail('')
+                setMessage('')
                 ;(
                     document.getElementById('email-form') as HTMLFormElement
                 )?.reset()
                 setEmailSentSuccess(true)
+                Array.from([
+                    'contact-email',
+                    'contact-message',
+                    'contact-name',
+                ]).map((key: string) => {
+                    window.sessionStorage.setItem(key, '')
+                })
+                saveFieldToSessionStorage('contact-checkbox', 'true')
             } else {
                 setEmailSentErr(true)
             }
             setIsSending(false)
         }
     }
+
+    const { onChange: onNameChange, ...restRegisterName } = register('name', {
+        required: true,
+    })
+    const { onChange: onEmailChange, ...restRegisterEmail } = register(
+        'email',
+        { required: true }
+    )
+    const { onChange: onMessageChange, ...restRegisterMessage } = register(
+        'message',
+        { required: true }
+    )
+    const handleChange = _.debounce(
+        (
+            key: string,
+            e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+            onChange: (event: {
+                target: any
+                type?: any
+            }) => Promise<boolean | void>,
+            setField: Dispatch<SetStateAction<string>>
+        ) => {
+            onChange(e)
+            saveFieldToSessionStorage(key, e.target.value)
+        },
+        500
+    )
 
     return (
         <>
@@ -130,13 +191,16 @@ const ContactForm: FC = () => {
                             checked={checked}
                             className="clickable_component"
                             onChange={() => {
+                                saveFieldToSessionStorage(
+                                    'contact-checkbox',
+                                    String(!checked)
+                                )
                                 setChecked(!checked)
                             }}
                             style={{
                                 padding: '0 !important',
                                 marginRight: '0.5em',
                             }}
-                            defaultChecked
                             sx={{
                                 color: 'white',
                                 '&.Mui-checked': {
@@ -149,52 +213,99 @@ const ContactForm: FC = () => {
                     label={
                         <div
                             className={`${styles.contactForm__text} clickable_component`}
+                            style={{
+                                display: 'flex',
+                            }}
                         >
-                            ATTACH THE PICTURES IN YOUR MOODBOARD TO THIS
-                            MESSAGE.
+                            ATTACH THE PICTURES IN YOUR{' '}
+                            <span
+                                style={{
+                                    margin: '0 0.4em',
+                                    padding: '0 0.17em 0 0px',
+                                    background: 'white',
+                                    color: 'black',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <PushPinOutlinedIcon
+                                    style={{
+                                        fontSize: '1em',
+                                    }}
+                                />
+                                MOODBOARD
+                            </span>{' '}
+                            TO THIS MESSAGE.
                         </div>
                     }
                 />
                 <div className="mb-5">
-                    <CssTextField
-                        label="FULL NAME"
-                        style={{
-                            color: 'white',
-                            marginBottom: '1em',
-                            width: '100%',
-                        }}
-                        {...register('name', { required: true })}
-                    />
+                    {name != undefined && (
+                        <CssTextField
+                            label="FULL NAME"
+                            style={{
+                                color: 'white',
+                                marginBottom: '1em',
+                                width: '100%',
+                            }}
+                            value={name}
+                            onChange={(e) => {
+                                handleChange('contact-name', e, onNameChange)
+                                setName(e.target.value)
+                            }}
+                            {...restRegisterName}
+                        />
+                    )}
                 </div>
 
                 <div className="mb-5">
-                    <CssTextField
-                        label="EMAIL ADDRESS"
-                        style={{
-                            color: 'white',
-                            marginBottom: '1em',
-                            width: '100%',
-                        }}
-                        error={emailError}
-                        helperText={emailError && 'Please input a valid email.'}
-                        onInput={() => setEmailError(false)}
-                        className={styles.contactForm__email}
-                        {...register('email', { required: true })}
-                    />
+                    {email != undefined && (
+                        <CssTextField
+                            label="EMAIL ADDRESS"
+                            style={{
+                                color: 'white',
+                                marginBottom: '1em',
+                                width: '100%',
+                            }}
+                            value={email}
+                            error={emailError}
+                            helperText={
+                                emailError && 'Please input a valid email.'
+                            }
+                            onInput={() => setEmailError(false)}
+                            className={styles.contactForm__email}
+                            onChange={(e) => {
+                                handleChange('contact-email', e, onEmailChange)
+                                setEmail(e.target.value)
+                            }}
+                            {...restRegisterEmail}
+                        />
+                    )}
                 </div>
 
                 <div className="mb-5">
-                    <CssTextField
-                        label="MESSAGE"
-                        style={{
-                            color: 'white',
-                            marginBottom: '1em',
-                            width: '100%',
-                        }}
-                        multiline
-                        rows={4}
-                        {...register('message', { required: true })}
-                    />
+                    {mesage != undefined && (
+                        <CssTextField
+                            label="MESSAGE"
+                            value={mesage}
+                            style={{
+                                color: 'white',
+                                marginBottom: '1em',
+                                width: '100%',
+                            }}
+                            multiline
+                            rows={4}
+                            onChange={(e) => {
+                                handleChange(
+                                    'contact-message',
+                                    e,
+                                    onMessageChange
+                                )
+                                setMessage(e.target.value)
+                            }}
+                            {...restRegisterMessage}
+                        />
+                    )}
                 </div>
 
                 <button
@@ -214,6 +325,11 @@ const ContactForm: FC = () => {
                 autoHideDuration={5000}
                 onClose={() => setEmailError(false)}
                 message="We encountered an error. Please try again later."
+            />
+            <StyledSnackBar
+                open={isSending}
+                autoHideDuration={3000}
+                message="Sending your message, hang tight."
             />
         </>
     )

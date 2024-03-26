@@ -130,7 +130,7 @@ const Block: React.FC<BlockProps> = ({
                                 fontWeight: 'bold',
                             }}
                         >
-                            CUSTOM MOODBOARD
+                        MOODBOARD
                         </div>
                     }
                     slotProps={{
@@ -156,7 +156,7 @@ const Block: React.FC<BlockProps> = ({
                         },
                     }}
                     placement="bottom"
-                    aria-label="Link to your custom moodboard"
+                    aria-label="Link to your moodboard"
                 >
                     <div
                         style={{

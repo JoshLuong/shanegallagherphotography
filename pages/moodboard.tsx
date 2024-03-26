@@ -88,14 +88,21 @@ export default function Moodboard({}) {
         <PageWrapper
             headElement={
                 <Head>
-                    <title>Your Custom Moodboard</title>
+                    <title>Your Moodboard</title>
                     <meta
-                        property="og:image"
-                        content={'Shane Gallagher - Your Custom Moodboard'}
+                        property="og:description"
+                        content="A space to curate your personal
+                    moodboard."
                     />
+                    {gallery.length > 0 && (
+                        <meta
+                            property="og:image"
+                            content={gallery[0].fileName || ''}
+                        />
+                    )}
                 </Head>
             }
-            onlyShowNavBar={didLoad ? galleryElements.length == 0 && didLoad : true}
+            onlyShowNavBar={didLoad && galleryElements.length == 0}
             content={
                 galleryElements.length == 0 && didLoad ? (
                     <div
