@@ -321,13 +321,13 @@ const ContactForm: FC = () => {
                 open={emailSentSuccess}
                 autoHideDuration={5000}
                 onClose={() => setEmailSentSuccess(false)}
-                message="We receieved your email."
+                message="We receieved your message."
             />
             <StyledSnackBar
                 open={emailSentErr}
                 autoHideDuration={5000}
                 onClose={() => setEmailError(false)}
-                message="We encountered an error. Please try again later."
+                message="We encountered an error. Please try again later or contact Shane directly."
             />
             <StyledSnackBar
                 open={isSending}
