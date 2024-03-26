@@ -215,6 +215,7 @@ const ContactForm: FC = () => {
                             className={`${styles.contactForm__text} clickable_component`}
                             style={{
                                 display: 'flex',
+                                flexWrap:"wrap"
                             }}
                         >
                             ATTACH THE PICTURES IN YOUR{' '}
