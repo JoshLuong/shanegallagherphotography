@@ -215,7 +215,7 @@ const ContactForm: FC = () => {
                             className={`${styles.contactForm__text} clickable_component`}
                             style={{
                                 display: 'flex',
-                                flexWrap:"wrap"
+                                flexWrap: 'wrap',
                             }}
                         >
                             ATTACH THE PICTURES IN YOUR{' '}
@@ -236,7 +236,9 @@ const ContactForm: FC = () => {
                                 />
                                 MOODBOARD
                             </span>{' '}
-                            TO THIS MESSAGE.
+                            <span>TO&nbsp;</span>
+                            <span>THIS&nbsp;</span>
+                            <span>MESSAGE.</span>
                         </div>
                     }
                 />
