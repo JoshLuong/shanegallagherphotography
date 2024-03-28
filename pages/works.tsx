@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
 import PageWrapper from '@/components/PageWrapper'
+import { ReactNode } from 'react'
 
 export default function Works({
     items,
@@ -16,6 +17,65 @@ export default function Works({
     if (!items) {
         // This should never happen
         return null
+    }
+
+    const getItems = (project: Project[], showSquareImage?: boolean) => {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexFlow: 'wrap',
+                }}
+            >
+                {project.map((item) => {
+                    return (
+                        <Link
+                            href={`works/${item.url?.id || ''}`}
+                            style={{
+                                textDecoration: 'none',
+                                display: 'flex',
+                                color: 'white',
+                                margin: isMobile ? '0.4em 0.5em' : '0.4em 1em',
+                                boxSizing: 'border-box',
+                                flexDirection: 'column',
+                                width: isMobile ? '45%' : '20%',
+                                fontSize: isMobile ? '0.9em' : '1em',
+                            }}
+                            aria-label={`Link to ${item.title}`}
+                        >
+                            {item.previewImage?.url && (
+                                <Image
+                                    src={item.previewImage?.url || ''}
+                                    alt={item.previewImage?.description || ''}
+                                    loading="eager"
+                                    priority
+                                    width="0"
+                                    height="0"
+                                    style={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        aspectRatio: showSquareImage
+                                            ? '1 / 1'
+                                            : 'initial',
+                                        objectFit: 'cover',
+                                    }}
+                                    loader={loaderProp}
+                                />
+                            )}
+                            <div
+                                style={{
+                                    background: 'black',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {item.title}
+                            </div>
+                        </Link>
+                    )
+                })}
+            </div>
+        )
     }
 
     return (
@@ -34,48 +94,13 @@ export default function Works({
                 </Head>
             }
             pageAriaDescription="A list of all the works and projects by Shane Gallagher."
-            content={items.map((item) => {
-                return (
-                    <Link
-                        href={`works/${item.url?.id || ''}`}
-                        style={{
-                            textDecoration: 'none',
-                            display: 'flex',
-                            color: 'white',
-                            margin: isMobile ? '0.4em 0.5em' : '0.4em 1em',
-                            boxSizing: 'border-box',
-                            flexDirection: 'column',
-                            width: isMobile ? '45%' : '20%',
-                            fontSize: isMobile ? '0.9em' : '1em',
-                        }}
-                        aria-label={`Link to ${item.title}`}
-                    >
-                        {item.previewImage?.url && (
-                            <Image
-                                src={item.previewImage?.url || ''}
-                                alt={item.previewImage?.description || ''}
-                                loading="eager"
-                                priority
-                                width="0"
-                                height="0"
-                                style={{
-                                    width: '100%',
-                                    height: 'auto',
-                                }}
-                                loader={loaderProp}
-                            />
-                        )}
-                        <div
-                            style={{
-                                background: 'black',
-                                textAlign: 'center',
-                            }}
-                        >
-                            {item.title}
-                        </div>
-                    </Link>
-                )
-            })}
+            content={[
+                getItems(items.filter((item) => item.isCollectionType)),
+                getItems(
+                    items.filter((item) => !item.isCollectionType),
+                    true
+                ),
+            ]}
         />
     )
 }

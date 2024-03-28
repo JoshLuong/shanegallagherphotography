@@ -27,6 +27,7 @@ export const subsectionQuery = gql`
                 url {
                     id
                 }
+                isCollectionType
             }
         }
     }

@@ -95,9 +95,24 @@ export type AboutDescriptionLinks = {
 
 export type AboutDescriptionResources = {
   __typename?: 'AboutDescriptionResources';
-  block: Array<ResourceLink>;
-  hyperlink: Array<ResourceLink>;
-  inline: Array<ResourceLink>;
+  block: Array<AboutDescriptionResourcesBlock>;
+  hyperlink: Array<AboutDescriptionResourcesHyperlink>;
+  inline: Array<AboutDescriptionResourcesInline>;
+};
+
+export type AboutDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'AboutDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type AboutDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'AboutDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type AboutDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'AboutDescriptionResourcesInline';
+  sys: ResourceSys;
 };
 
 export type AboutFilter = {
@@ -853,6 +868,7 @@ export enum PreviewContentTypeOrder {
 export type Project = Entry & {
   __typename?: 'Project';
   contentfulMetadata: ContentfulMetadata;
+  isCollectionType?: Maybe<Scalars['Boolean']>;
   isProjectFeatured?: Maybe<Scalars['Boolean']>;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   previewImage?: Maybe<Asset>;
@@ -863,6 +879,12 @@ export type Project = Entry & {
   thumbnailYCoordinate?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   url?: Maybe<SlugUrl>;
+};
+
+
+/** This is the project/ work that holds all the information [See type definition](https://app.contentful.com/spaces/7quy4nqi53yl/content_types/project) */
+export type ProjectIsCollectionTypeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -935,6 +957,9 @@ export type ProjectFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  isCollectionType?: InputMaybe<Scalars['Boolean']>;
+  isCollectionType_exists?: InputMaybe<Scalars['Boolean']>;
+  isCollectionType_not?: InputMaybe<Scalars['Boolean']>;
   isProjectFeatured?: InputMaybe<Scalars['Boolean']>;
   isProjectFeatured_exists?: InputMaybe<Scalars['Boolean']>;
   isProjectFeatured_not?: InputMaybe<Scalars['Boolean']>;
@@ -1056,9 +1081,24 @@ export type ProjectGalleryDescriptionLinks = {
 
 export type ProjectGalleryDescriptionResources = {
   __typename?: 'ProjectGalleryDescriptionResources';
-  block: Array<ResourceLink>;
-  hyperlink: Array<ResourceLink>;
-  inline: Array<ResourceLink>;
+  block: Array<ProjectGalleryDescriptionResourcesBlock>;
+  hyperlink: Array<ProjectGalleryDescriptionResourcesHyperlink>;
+  inline: Array<ProjectGalleryDescriptionResourcesInline>;
+};
+
+export type ProjectGalleryDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'ProjectGalleryDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type ProjectGalleryDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'ProjectGalleryDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type ProjectGalleryDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'ProjectGalleryDescriptionResourcesInline';
+  sys: ResourceSys;
 };
 
 export type ProjectGalleryFilter = {
@@ -1121,6 +1161,8 @@ export type ProjectLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum ProjectOrder {
+  IsCollectionTypeAsc = 'isCollectionType_ASC',
+  IsCollectionTypeDesc = 'isCollectionType_DESC',
   IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
   IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
   ShouldDisplayPreviewImageAsc = 'shouldDisplayPreviewImage_ASC',
@@ -1224,9 +1266,24 @@ export type ProjectsDescriptionLinks = {
 
 export type ProjectsDescriptionResources = {
   __typename?: 'ProjectsDescriptionResources';
-  block: Array<ResourceLink>;
-  hyperlink: Array<ResourceLink>;
-  inline: Array<ResourceLink>;
+  block: Array<ProjectsDescriptionResourcesBlock>;
+  hyperlink: Array<ProjectsDescriptionResourcesHyperlink>;
+  inline: Array<ProjectsDescriptionResourcesInline>;
+};
+
+export type ProjectsDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'ProjectsDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type ProjectsDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'ProjectsDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type ProjectsDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'ProjectsDescriptionResourcesInline';
+  sys: ResourceSys;
 };
 
 export type ProjectsFilter = {
@@ -1508,14 +1565,12 @@ export type QuerySubsectionPreviewCollectionArgs = {
 };
 
 export type ResourceLink = {
-  __typename?: 'ResourceLink';
   sys: ResourceSys;
 };
 
 export type ResourceSys = {
   __typename?: 'ResourceSys';
   linkType: Scalars['String'];
-  type: Scalars['String'];
   urn: Scalars['String'];
 };
 
@@ -1616,6 +1671,8 @@ export type SlugUrlLinkingCollectionsSubsectionPreviewCollectionArgs = {
 };
 
 export enum SlugUrlLinkingCollectionsProjectCollectionOrder {
+  IsCollectionTypeAsc = 'isCollectionType_ASC',
+  IsCollectionTypeDesc = 'isCollectionType_DESC',
   IsProjectFeaturedAsc = 'isProjectFeatured_ASC',
   IsProjectFeaturedDesc = 'isProjectFeatured_DESC',
   ShouldDisplayPreviewImageAsc = 'shouldDisplayPreviewImage_ASC',

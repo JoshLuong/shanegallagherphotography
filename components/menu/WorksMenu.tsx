@@ -41,38 +41,33 @@ const CssMenu = styled(Menu)({
     },
 })
 
-
-const WorksMenu: React.FC<WorksMenuProps> = ({
-    hyperlink,
-}) => {
+const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-    let currentlyHovering = false;
-  
-  
+    let currentlyHovering = false
+
     function handleClick(event: any) {
-      if (anchorEl !== event.currentTarget) {
-        setAnchorEl(event.currentTarget);
-      }
-    }
-  
-    function handleHover() {
-      currentlyHovering = true;
-    }
-  
-    function handleClose() {
-      setAnchorEl(null);
-    }
-  
-    function handleCloseHover() {
-      currentlyHovering = false;
-      setTimeout(() => {
-        if (!currentlyHovering) {
-          handleClose();
+        if (anchorEl !== event.currentTarget) {
+            setAnchorEl(event.currentTarget)
         }
-      }, 50);
     }
-  
+
+    function handleHover() {
+        currentlyHovering = true
+    }
+
+    function handleClose() {
+        setAnchorEl(null)
+    }
+
+    function handleCloseHover() {
+        currentlyHovering = false
+        setTimeout(() => {
+            if (!currentlyHovering) {
+                handleClose()
+            }
+        }, 50)
+    }
 
     return (
         <div
@@ -129,11 +124,11 @@ const WorksMenu: React.FC<WorksMenuProps> = ({
                 }}
                 disableAutoFocusItem
                 MenuListProps={{
-                  onMouseEnter: handleHover,
-                  onMouseLeave: handleCloseHover,
-                  style: { pointerEvents: "auto" }
+                    onMouseEnter: handleHover,
+                    onMouseLeave: handleCloseHover,
+                    style: { pointerEvents: 'auto' },
                 }}
-                sx={{ [`&.${popoverClasses.root}`]: { pointerEvents: "none" }, }}
+                sx={{ [`&.${popoverClasses.root}`]: { pointerEvents: 'none' } }}
             >
                 <MenuItem
                     onClick={handleClose}
@@ -152,9 +147,26 @@ const WorksMenu: React.FC<WorksMenuProps> = ({
                             width: '100%',
                             fontWeight: 'bold',
                             padding: '0.5em 1em',
+                            display: 'flex',
+                            alignItems: 'center',
                         }}
                     >
-                        OVERVIEW
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            OVERVIEW
+                            <span
+                                style={{
+                                    fontSize: '0.7em',
+                                    fontWeight: 'normal',
+                                }}
+                            >
+                                Collections & Projects
+                            </span>
+                        </div>
                     </Link>
                 </MenuItem>
                 <MenuItem
@@ -177,7 +189,22 @@ const WorksMenu: React.FC<WorksMenuProps> = ({
                             padding: '0.5em 1em',
                         }}
                     >
-                        MODEL PORTFOLIO
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            MODEL PORTFOLIO
+                            <span
+                                style={{
+                                    fontSize: '0.7em',
+                                    fontWeight: 'normal',
+                                }}
+                            >
+                                by Stranger Agency
+                            </span>
+                        </div>
                     </Link>
                 </MenuItem>
                 <Divider />
