@@ -119,7 +119,9 @@ export default function Moodboard({}) {
                             href="/works"
                             className="clickable_component"
                             style={{
-                                color: 'white',
+                                color: 'black',
+                                textDecoration:"none",
+                                background:"white"
                             }}
                         >
                             works
