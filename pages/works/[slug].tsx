@@ -51,8 +51,7 @@ export default function Project({
     )
     const itemIsNotStringOrTransparentOrVideo = (item: Asset | string) =>
         typeof item !== 'string' &&
-        item.title !== 'TRANSPARENT IMAGE' &&
-        !item.contentType?.includes('video')
+        item.title !== 'TRANSPARENT IMAGE'
     const images: Asset[] = useMemo(
         () =>
             gallery.filter((item) =>

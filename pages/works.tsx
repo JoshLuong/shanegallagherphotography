@@ -8,7 +8,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
 import PageWrapper from '@/components/PageWrapper'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import { Fade } from '@mui/material'
 
 export default function Works({
     items,
@@ -29,6 +30,7 @@ export default function Works({
                 }}
             >
                 {project.map((item) => {
+                    const [load, setLoad] = useState(false)
                     return (
                         <Link
                             href={`works/${item.url?.id || ''}`}
@@ -44,33 +46,49 @@ export default function Works({
                             }}
                             aria-label={`Link to ${item.title}`}
                         >
-                            {item.previewImage?.url && (
-                                <Image
-                                    src={item.previewImage?.url || ''}
-                                    alt={item.previewImage?.description || ''}
-                                    loading="eager"
-                                    priority
-                                    width="0"
-                                    height="0"
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        aspectRatio: showSquareImage
-                                            ? '1 / 1'
-                                            : 'initial',
-                                        objectFit: 'cover',
-                                    }}
-                                    loader={loaderProp}
-                                />
-                            )}
-                            <div
-                                style={{
-                                    background: 'black',
-                                    textAlign: 'center',
+                            <Fade
+                                in={load}
+                                timeout={{
+                                    enter: 800,
+                                    exit: 2000,
                                 }}
                             >
-                                {item.title}
-                            </div>
+                                <div>
+                                    {item.previewImage?.url && (
+                                        <Image
+                                            src={item.previewImage?.url || ''}
+                                            alt={
+                                                item.previewImage
+                                                    ?.description || ''
+                                            }
+                                            loading="eager"
+                                            priority
+                                            width="0"
+                                            height="0"
+                                            onLoadingComplete={() => {
+                                                setLoad(true)
+                                            }}
+                                            style={{
+                                                width: '100%',
+                                                height: 'auto',
+                                                aspectRatio: showSquareImage
+                                                    ? '1 / 1'
+                                                    : 'initial',
+                                                objectFit: 'cover',
+                                            }}
+                                            loader={loaderProp}
+                                        />
+                                    )}
+                                    <div
+                                        style={{
+                                            background: 'black',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        {item.title}
+                                    </div>
+                                </div>
+                            </Fade>
                         </Link>
                     )
                 })}

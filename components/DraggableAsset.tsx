@@ -252,11 +252,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         disabled={disableDrag}
                         lockAspectRatio
                         onClick={() => {
-                            if (
-                                !isDragging &&
-                                !isImageTransparent &&
-                                !isVideo
-                            ) {
+                            if (!isDragging && !isImageTransparent) {
                                 setOpenLargeImage(!openLargeImage)
                             }
                         }}
@@ -295,11 +291,12 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         ) : (
                             <BackgroundVideo
                                 playsInline
+                                muted
                                 style={{
                                     height: 'auto',
                                     aspectRatio: '1000 / 1500',
                                 }}
-                                onLoadedData={() =>{
+                                onLoadedData={() => {
                                     setShouldShowImage(true)
                                 }}
                                 src={imageAsset!!.url || ''}
@@ -346,7 +343,10 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         </DialogTitle>
                         {curLargeImageIndex != null &&
                             curLargeImageIndex >= 0 &&
-                            images!![curLargeImageIndex] != null && (
+                            images!![curLargeImageIndex] != null &&
+                            (!images!![
+                                curLargeImageIndex
+                            ].contentType?.includes('video') ? (
                                 <Image
                                     alt={
                                         images!![curLargeImageIndex]
@@ -371,7 +371,24 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     loading="eager" // this may cause loading issues
                                     className={styles.asset}
                                 />
-                            )}
+                            ) : (
+                                <video
+                                    playsInline
+                                    loop
+                                    autoPlay
+                                    muted
+                                    style={{
+                                        height: isMobile ? '100%' : '80vh',
+                                        width: '100%',
+                                        aspectRatio: '1000 / 1500',
+                                        objectFit: 'cover',
+                                    }}
+                                    className={styles.asset__video}
+                                    src={
+                                        images!![curLargeImageIndex]!!.url || ''
+                                    }
+                                />
+                            ))}
 
                         <DialogActions style={{ background: 'black' }}>
                             {curLargeImageIndex != null && (
