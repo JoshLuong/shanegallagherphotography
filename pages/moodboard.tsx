@@ -56,34 +56,68 @@ export default function Moodboard({}) {
     })
 
     let imageCount = 0
-    const galleryElements = useMemo(
-        () =>
-            gallery.map((item, index) => {
-                const isString = typeof item == 'string'
-                let transformation = getRandomTransformation()
 
-                return isString ? (
-                    <DraggableAsset
-                        reactNode={item}
-                        key={index}
-                        transformation={transformation}
-                        index={index}
-                        ref={zIndexRef}
-                    />
-                ) : (
-                    <DraggableAsset
-                        imageAsset={item!!}
-                        key={index}
-                        transformation={transformation}
-                        index={imageCount++}
-                        images={gallery as Asset[]}
-                        tags={[]}
-                        ref={zIndexRef}
-                    />
-                )
-            }),
-        [gallery, isMobile]
-    )
+    const node = useMemo(() => {
+        const galleryElements = gallery.map((item, index) => {
+            const isString = typeof item == 'string'
+            let transformation = getRandomTransformation()
+
+            return isString ? (
+                <DraggableAsset
+                    reactNode={item}
+                    key={index}
+                    transformation={transformation}
+                    index={index}
+                    ref={zIndexRef}
+                />
+            ) : (
+                <DraggableAsset
+                    imageAsset={item!!}
+                    key={index}
+                    transformation={transformation}
+                    index={imageCount++}
+                    images={gallery as Asset[]}
+                    tags={[]}
+                    ref={zIndexRef}
+                />
+            )
+        })
+        return galleryElements.length == 0 && didLoad ? (
+            <div
+                style={{
+                    color: 'white',
+                    padding: '0.5em',
+                }}
+                className={styles.moodboardPage__empty_text}
+            >
+                This space is for creating your personal moodboard with images
+                from my{' '}
+                <Link
+                    href="/works"
+                    className="clickable_component"
+                    style={{
+                        color: 'black',
+                        textDecoration: 'none',
+                        background: 'white',
+                    }}
+                >
+                    works
+                </Link>
+                .
+                <span
+                    style={{
+                        display: 'block',
+                        marginTop: '0.2em',
+                        fontSize: '0.7em',
+                    }}
+                >
+                    Explore, pin, and bring your vision to life!
+                </span>
+            </div>
+        ) : (
+            galleryElements
+        )
+    }, [gallery, didLoad, gallery.length == 0 && didLoad])
 
     return (
         <PageWrapper
@@ -103,44 +137,8 @@ export default function Moodboard({}) {
                     )}
                 </Head>
             }
-            onlyShowNavBar={didLoad && galleryElements.length == 0}
-            content={
-                galleryElements.length == 0 && didLoad ? (
-                    <div
-                        style={{
-                            color: 'white',
-                            padding: '0.5em',
-                        }}
-                        className={styles.moodboardPage__empty_text}
-                    >
-                        This space is for creating your personal moodboard with
-                        images from my{' '}
-                        <Link
-                            href="/works"
-                            className="clickable_component"
-                            style={{
-                                color: 'black',
-                                textDecoration:"none",
-                                background:"white"
-                            }}
-                        >
-                            works
-                        </Link>
-                        .
-                        <span
-                            style={{
-                                display: 'block',
-                                marginTop: '0.2em',
-                                fontSize: '0.7em',
-                            }}
-                        >
-                            Explore, pin, and bring your vision to life!
-                        </span>
-                    </div>
-                ) : (
-                    galleryElements
-                )
-            }
+            onlyShowNavBar={didLoad && gallery.length == 0}
+            content={node}
         />
     )
 }

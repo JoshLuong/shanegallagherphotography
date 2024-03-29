@@ -1,5 +1,9 @@
 import { Asset, ContentfulTag, Maybe } from '@/types/graphql'
 import { loaderProp } from '@/utils/loader-prop'
+// @ts-ignore
+import Video from 'next-video'
+// @ts-ignore
+import BackgroundVideo from 'next-video/background-video'
 import {
     Button,
     Dialog,
@@ -53,6 +57,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
     ) => {
         const { isMobile, width } = useWindowDimensions()
         const isImageTransparent = imageAsset?.title === 'TRANSPARENT IMAGE'
+        const isVideo = imageAsset?.contentType?.includes('video')
         const [openLargeImage, setOpenLargeImage] = useState(false)
         const [curLargeImageIndex, setCurLargeImageIndex] = useState<
             number | null
@@ -220,7 +225,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
             displayElementOnly(reactNode)
         ) : (
             <Fade
-                in={shouldShowImage}
+                in={shouldShowImage || isVideo}
                 timeout={{
                     enter: 800,
                     exit: 2000,
@@ -247,39 +252,56 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                         disabled={disableDrag}
                         lockAspectRatio
                         onClick={() => {
-                            if (!isDragging && !isImageTransparent) {
+                            if (
+                                !isDragging &&
+                                !isImageTransparent &&
+                                !isVideo
+                            ) {
                                 setOpenLargeImage(!openLargeImage)
                             }
                         }}
                         style={{
                             pointerEvents: isImageTransparent ? 'none' : 'auto',
                         }}
-                        enableResizing={!disableResize && !isImageTransparent}
+                        enableResizing={
+                            !disableResize && !isImageTransparent && !isVideo
+                        }
                         disableDragging={disableDrag || isImageTransparent}
                     >
-                        <Image
-                            alt={imageAsset!!.description || ''}
-                            placeholder="empty"
-                            src={imageAsset!!.url || ''}
-                            width={imageAsset!!.width || '0'}
-                            onLoadingComplete={() => {
-                                setTimeout(() => {
-                                    setShouldShowImage(true)
-                                }, 850 + 650 * Math.random())
-                            }}
-                            onDrag={(e) => e.preventDefault()}
-                            onDragStart={(e) => e.preventDefault()}
-                            height={imageAsset!!.height || 0}
-                            style={{
-                                height: '100%',
-                                width: '100%',
-                                pointerEvents: isImageTransparent
-                                    ? 'none'
-                                    : 'auto', // helps when this div gets in front of another draggable asset
-                            }}
-                            loader={loaderProp}
-                            loading="eager"
-                        />
+                        {!isVideo ? (
+                            <Image
+                                alt={imageAsset!!.description || ''}
+                                placeholder="empty"
+                                src={imageAsset!!.url || ''}
+                                width={imageAsset!!.width || '0'}
+                                onLoadingComplete={() => {
+                                    setTimeout(() => {
+                                        setShouldShowImage(true)
+                                    }, 850 + 650 * Math.random())
+                                }}
+                                onDrag={(e) => e.preventDefault()}
+                                onDragStart={(e) => e.preventDefault()}
+                                height={imageAsset!!.height || 0}
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    pointerEvents: isImageTransparent
+                                        ? 'none'
+                                        : 'auto', // helps when this div gets in front of another draggable asset
+                                }}
+                                loader={loaderProp}
+                                loading="eager"
+                            />
+                        ) : (
+                            <BackgroundVideo
+                                playsInline
+                                style={{
+                                    height: 'auto',
+                                    aspectRatio: '1000 / 1500',
+                                }}
+                                src={imageAsset!!.url || ''}
+                            />
+                        )}
                     </Rnd>
                     <Dialog
                         open={openLargeImage}

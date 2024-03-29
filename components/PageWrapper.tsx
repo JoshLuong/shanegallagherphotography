@@ -3,7 +3,7 @@ import { BLOCK_SIZE, MOBILE_BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import { Fade } from '@mui/material'
 import ToolBar from '@/components/Toolbar'
 import styles from '../styles/PageWrapper.module.less'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 
 interface PageWrapperProps {
     pageAriaDescription?: string
@@ -21,6 +21,16 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     const { isMobile } = useWindowDimensions()
     const [topOffset, setTopOffset] = useState(0)
 
+    const toolBar = useMemo(() => {
+        return (
+            <ToolBar
+                setTopOffset={setTopOffset}
+                isGridBackground
+                onlyShowNavBar={onlyShowNavBar}
+            />
+        )
+    }, [onlyShowNavBar])
+
     return (
         <main
             className={styles.pageWrapper__container}
@@ -34,11 +44,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
         >
             {headElement}
             <div>
-                <ToolBar
-                    setTopOffset={setTopOffset}
-                    isGridBackground
-                    onlyShowNavBar={onlyShowNavBar}
-                />
+                {toolBar}
                 {topOffset != 0 && (
                     <Fade
                         in={topOffset != 0}

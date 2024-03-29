@@ -20,6 +20,11 @@ import options from '@/utils/documentToReactComponentsOptions'
 import PageWrapper from '@/components/PageWrapper'
 import { onScrollToTop } from '@/utils/onScrollToTop'
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+// @ts-ignore
+import Video from 'next-video'
+// @ts-ignore
+import BackgroundVideo from 'next-video/background-video'
+import { headers } from 'next/dist/client/components/headers'
 
 export default function Project({
     currentSlug,
@@ -44,12 +49,14 @@ export default function Project({
     const slugIndex = projects.findIndex(
         (item: Project) => item?.url?.id == currentSlug
     )
-    const itemIsNotStringOrTransparent = (item: Asset | string) =>
-        typeof item !== 'string' && item.title !== 'TRANSPARENT IMAGE'
+    const itemIsNotStringOrTransparentOrVideo = (item: Asset | string) =>
+        typeof item !== 'string' &&
+        item.title !== 'TRANSPARENT IMAGE' &&
+        !item.contentType?.includes('video')
     const images: Asset[] = useMemo(
         () =>
             gallery.filter((item) =>
-                itemIsNotStringOrTransparent(item)
+                itemIsNotStringOrTransparentOrVideo(item)
             ) as Asset[],
         [gallery]
     )
@@ -101,7 +108,7 @@ export default function Project({
                 }
                 transformation += scale
 
-                if (itemIsNotStringOrTransparent(item)) {
+                if (itemIsNotStringOrTransparentOrVideo(item)) {
                     imageCount++
                 }
                 const key = `${currentSlug}${index}${
@@ -144,24 +151,20 @@ export default function Project({
         })
     }
 
-    const description = documentToPlainTextString(project.description?.json.content[0]) || `Shane Gallagher's: ${project.title}`
+    const description =
+        documentToPlainTextString(project.description?.json.content[0]) ||
+        `Shane Gallagher's: ${project.title}`
     return (
         <PageWrapper
             headElement={
                 <Head>
                     <title>{project.title}</title>
-                    <meta
-                        name="description"
-                        content={description}
-                    />
+                    <meta name="description" content={description} />
                     <meta
                         property="og:title"
                         content={`Shane Gallagher's ${project.title}`}
                     />
-                    <meta
-                        property="og:description"
-                        content={description}
-                    />
+                    <meta property="og:description" content={description} />
                     <meta property="og:image" content={images[0].url || ''} />
                 </Head>
             }

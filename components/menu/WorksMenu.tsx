@@ -16,7 +16,7 @@ const CssMenu = styled(Menu)({
     '& .MuiButtonBase-root': {
         fontFamily: `"Space Grotesk", sans-serif`,
         textWrap: 'wrap !important',
-        color: '#0087F3',
+        color: 'black',
     },
     '& .MuiInputBase-root': {
         borderRadius: '0',
@@ -38,6 +38,9 @@ const CssMenu = styled(Menu)({
         '&.Mui-focused fieldset': {
             borderColor: '#6F7E8C',
         },
+    },
+    '& .Mui-selected': {
+        backgroundColor: 'pink',
     },
 })
 
