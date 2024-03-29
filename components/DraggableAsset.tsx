@@ -225,7 +225,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
             displayElementOnly(reactNode)
         ) : (
             <Fade
-                in={shouldShowImage || isVideo}
+                in={shouldShowImage}
                 timeout={{
                     enter: 800,
                     exit: 2000,
@@ -298,6 +298,9 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                 style={{
                                     height: 'auto',
                                     aspectRatio: '1000 / 1500',
+                                }}
+                                onLoadedData={() =>{
+                                    setShouldShowImage(true)
                                 }}
                                 src={imageAsset!!.url || ''}
                             />
