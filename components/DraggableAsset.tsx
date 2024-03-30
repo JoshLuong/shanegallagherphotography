@@ -260,7 +260,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                             pointerEvents: isImageTransparent ? 'none' : 'auto',
                         }}
                         enableResizing={
-                            !disableResize && !isImageTransparent && !isVideo
+                            !disableResize && !isImageTransparent
                         }
                         disableDragging={disableDrag || isImageTransparent}
                     >
@@ -376,6 +376,14 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                     playsInline
                                     loop
                                     autoPlay
+                                    width={
+                                        images!![curLargeImageIndex]?.width ||
+                                        '0'
+                                    }
+                                    height={
+                                        images!![curLargeImageIndex]?.height ||
+                                        '0'
+                                    }
                                     muted
                                     style={{
                                         height: isMobile ? '100%' : '80vh',
