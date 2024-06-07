@@ -85,9 +85,6 @@ const Block: React.FC<BlockProps> = ({
 
     useEffect(() => {
         setIsBlockLoaded(true)
-        setTimeout(() => {
-            setShouldChangeBackground(isTempBackground)
-        }, delay + 100)
     })
 
     const classNames =
@@ -218,6 +215,8 @@ const Block: React.FC<BlockProps> = ({
                                 backgroundImage &&
                                 !shouldChangeBackground) == true
                         }
+                        exit={isImageLoaded}
+                        enter={isImageLoaded}
                         timeout={{
                             enter: 30 + index * 12, // the waterfall effect on homepage of images
                             exit: 500 + index * 7, // the waterfall effect on homepage of images
@@ -232,6 +231,10 @@ const Block: React.FC<BlockProps> = ({
                             alt={backgroundImage?.description || ''}
                             onLoadingComplete={() => {
                                 setIsImageLoaded(true)
+                                // keep this here so the temp image only exits once loaded
+                                setTimeout(() => {
+                                    setShouldChangeBackground(isTempBackground)
+                                }, delay + 100)
                             }}
                             loading="lazy"
                             width="0"

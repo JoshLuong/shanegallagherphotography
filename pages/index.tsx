@@ -433,7 +433,7 @@ export default function Home({
                                                     Math.random() *
                                                         backgroundProjects.length
                                                 ) + 0
-                                            ]?.previewImage
+                                            ]?.thumbnailPreviewImage // should be super low quality image
                                         }
                                         isTempBackground
                                     />
