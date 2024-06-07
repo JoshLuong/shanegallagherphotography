@@ -52,7 +52,7 @@ const Email: React.FC<EmailProps> = ({
             width: 1000,
             description: '',
         },
-    ],
+    ] as Asset[],
 }) => {
     const { name, message } = formData
 
