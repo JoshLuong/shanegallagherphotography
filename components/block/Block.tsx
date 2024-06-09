@@ -60,8 +60,10 @@ const Block: React.FC<BlockProps> = ({
     const [isBlockLoaded, setIsBlockLoaded] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [shouldChangeBackground, setShouldChangeBackground] = useState(false)
-    let width = `${sideBlockMultiplier * BLOCK_SIZE}px`
-    let height = `${heightBlockMultiplier * BLOCK_SIZE}px`
+    const widthMinus = (borderLeftHidden || borderRightHidden) ? 0.35 : 0.7
+    const heightMinus = (borderTopHidden || borderBottomHidden) ? 0.35 : 0.7
+    let width = `${(sideBlockMultiplier * BLOCK_SIZE) - widthMinus}px`
+    let height = `${(heightBlockMultiplier * BLOCK_SIZE) - heightMinus}px`
 
     const hiddenBorder = `0px solid white`
     const solidBorder = `0.7px solid white`
@@ -177,15 +179,17 @@ const Block: React.FC<BlockProps> = ({
             return text.toUpperCase()
         }
     }
+    const leftMarg = borderLeftHidden ? "0" : "0.35px"
+    const rightMarg = borderRightHidden ? "0" : "0.35px"
+    const topMarg = borderTopHidden ? "0" : "0.35px"
+    const botMarg = borderBottomHidden ? "0" : "0.35px"
+
     const blockContent = (
         <div
             style={{
                 width: width,
                 height: height,
-                borderTop: borderTopHidden ? hiddenBorder : solidBorder,
-                borderLeft: borderLeftHidden ? hiddenBorder : solidBorder,
-                borderRight: borderRightHidden ? hiddenBorder : solidBorder,
-                borderBottom: borderBottomHidden ? hiddenBorder : solidBorder,
+                margin: `${topMarg} ${rightMarg} ${botMarg} ${leftMarg}`,
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
                 background: 'black', // Note, if we use image as background, loading will be much slower

@@ -398,7 +398,7 @@ export default function Home({
         <main
             style={{
                 minWidth: `${mobileReadyBlocks[0].length * BLOCK_SIZE + 10}px`, // num squares * size + buffer px
-                backgroundColor: 'white', // this is to fix flash of white during load
+                background: 'linear-gradient(red 16.66%, orange 0 33.33%, yellow 0 50%, green 0 66.66%, blue 0 83.33%, indigo 0)', // this is to fix flash of white during load
             }}
             id="landing_page" // this ID is used in the body css to fix a bug
         >
