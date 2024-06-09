@@ -228,7 +228,7 @@ const Block: React.FC<BlockProps> = ({
                                     ? thumbnailPreviewImage?.url
                                     : backgroundImage?.url) || ''
                             }
-                            alt={backgroundImage?.description || ''}
+                            alt={backgroundImage?.description || backgroundImage?.title || ''}
                             onLoadingComplete={() => {
                                 setIsImageLoaded(true)
                                 // keep this here so the temp image only exits once loaded
@@ -271,7 +271,7 @@ const Block: React.FC<BlockProps> = ({
                     >
                         <Image
                             src={backgroundImage?.url!!}
-                            alt={backgroundImage?.description || ''}
+                            alt={backgroundImage?.description || backgroundImage?.title || ''}
                             loading="eager"
                             width="0"
                             height="0"
