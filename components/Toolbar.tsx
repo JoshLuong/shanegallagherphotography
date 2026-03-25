@@ -8,11 +8,12 @@ interface ToolbarProps {
     isGridBackground?: boolean
     onlyShowNavBar?: boolean
     ref?: React.Ref<HTMLDivElement>
-    setTopOffset: (offset: number) => void
+    setTopOffset: (offset: number) => void,
+    showLightMode: boolean
 }
 
 const Toolbar: React.FC<ToolbarProps> = React.forwardRef(
-    ({ isGridBackground, onlyShowNavBar = false, setTopOffset }, ref) => {
+    ({ isGridBackground, onlyShowNavBar = false, setTopOffset, showLightMode }, ref) => {
         const {generatedBlocks, navBarHeight} = useBlockGenerator({
             isNavBar: true,
             isGridBackground,
@@ -41,6 +42,7 @@ const Toolbar: React.FC<ToolbarProps> = React.forwardRef(
                             index={i}
                             key={i}
                             loadAnimation={false}
+                            showLightMode={showLightMode}
                         />
                     )
                 })}

@@ -1,12 +1,7 @@
 import styles from '../../styles/Block.module.less'
 import React, { useState } from 'react'
-import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 import { MenuItem, Divider, popoverClasses, styled, Menu } from '@mui/material'
 import Link from 'next/link'
-
-interface WorksMenuProps {
-    hyperlink: string
-}
 
 const CssMenu = styled(Menu)({
     '& .MuiPaper-root': {
@@ -44,7 +39,7 @@ const CssMenu = styled(Menu)({
     },
 })
 
-const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
+const ContactMenu= () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     let currentlyHovering = false
@@ -108,7 +103,7 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
                     padding: '2px',
                 }}
             >
-                WORKS
+                CONTACT
             </div>
             <CssMenu
                 anchorEl={anchorEl}
@@ -141,7 +136,8 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
                     }}
                 >
                     <Link
-                        href={hyperlink}
+                       href="https://www.instagram.com/shanegallagher_/"
+                        target="_blank"
                         className={styles.block__popup_menu_item}
                         prefetch={true}
                         style={{
@@ -160,15 +156,7 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
                                 flexDirection: 'column',
                             }}
                         >
-                            OVERVIEW
-                            <span
-                                style={{
-                                    fontSize: '0.7em',
-                                    fontWeight: 'normal',
-                                }}
-                            >
-                                Collections & Projects
-                            </span>
+                            @SHANEGALLAGHER_
                         </div>
                     </Link>
                 </MenuItem>
@@ -180,7 +168,7 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
                     }}
                 >
                     <Link
-                        href={'https://strangeragency.com/models/shane/'}
+                        href="mailto:hello@shanegallagher.com"
                         target="_blank"
                         prefetch={true}
                         className={styles.block__popup_menu_item}
@@ -198,48 +186,8 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
                                 flexDirection: 'column',
                             }}
                         >
-                            MODEL PORTFOLIO
-                            <span
-                                style={{
-                                    fontSize: '0.7em',
-                                    fontWeight: 'normal',
-                                }}
-                            >
-                                by Stranger Agency
-                            </span>
+                            HELLO@SHANEGALLAGHER.COM
                         </div>
-                    </Link>
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                    onClick={handleClose}
-                    className="clickable_component"
-                    style={{
-                        padding: 0,
-                    }}
-                >
-                    <Link
-                        href={'/moodboard'}
-                        className={styles.block__popup_menu_item}
-                        prefetch={true}
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            width: '100%',
-                            fontWeight: 'bold',
-                            padding: '0.5em 1em',
-                        }}
-                    >
-                        <PushPinOutlinedIcon
-                            style={{
-                                fontSize: '1em',
-                                marginRight: '2px',
-                            }}
-                        />
-                        MOODBOARD
                     </Link>
                 </MenuItem>
             </CssMenu>
@@ -247,4 +195,4 @@ const WorksMenu: React.FC<WorksMenuProps> = ({ hyperlink }) => {
     )
 }
 
-export default WorksMenu
+export default ContactMenu

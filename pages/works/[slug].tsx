@@ -20,6 +20,8 @@ import options from '@/utils/documentToReactComponentsOptions'
 import PageWrapper from '@/components/PageWrapper'
 import { onScrollToTop } from '@/utils/onScrollToTop'
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 // @ts-ignore
 import Video from 'next-video'
 // @ts-ignore
@@ -38,6 +40,15 @@ export default function Project({
     const { isMobile } = useWindowDimensions()
     const [didLoad, setDidLoad] = useState(false)
     const [displayScrollToTop, setShouldDisplayScrollToTop] = useState(false)
+    // saved to local storage
+    const [showLightMode, setShowLightMode]= useState(false)
+
+    useEffect(() => {
+        setShowLightMode(window?.sessionStorage.getItem("showLightMode") === "true" || false)
+    }, [])
+    useEffect(() => {
+        window?.sessionStorage.setItem("showLightMode", showLightMode.toString())
+    }, [showLightMode])
     const zIndexRef = useRef(1)
 
     const ref = useRef<HTMLDivElement>(null)
@@ -50,8 +61,7 @@ export default function Project({
         (item: Project) => item?.url?.id == currentSlug
     )
     const itemIsNotStringOrTransparentOrVideo = (item: Asset | string) =>
-        typeof item !== 'string' &&
-        item.title !== 'TRANSPARENT IMAGE'
+        typeof item !== 'string' && item.title !== 'TRANSPARENT IMAGE'
     const images: Asset[] = useMemo(
         () =>
             gallery.filter((item) =>
@@ -116,11 +126,11 @@ export default function Project({
                 return typeof item === 'string' ? (
                     <DraggableAsset
                         reactNode={item}
+                        disableDrag
                         key={key}
                         transformation={transformation}
                         index={index}
                         ref={zIndexRef}
-                        disableDrag={isMobile}
                     />
                 ) : (
                     <DraggableAsset
@@ -132,7 +142,7 @@ export default function Project({
                         tags={item.contentfulMetadata.tags}
                         ref={zIndexRef}
                         disableResize={isMobile}
-                        disableDrag={isMobile}
+                        disableDrag
                     />
                 )
             }),
@@ -155,6 +165,7 @@ export default function Project({
         `Shane Gallagher's: ${project.title}`
     return (
         <PageWrapper
+            showLightMode={showLightMode}
             headElement={
                 <Head>
                     <title>{project.title}</title>
@@ -182,7 +193,7 @@ export default function Project({
                 >
                     <DraggableAsset
                         key={`${currentSlug}${100}`}
-                        disableDrag={isMobile}
+                        disableDrag={true}
                         reactNode={
                             <div>
                                 <h1
@@ -277,63 +288,119 @@ export default function Project({
                                     </Link>
                                 )}
                             </div>
-                            <Fade
-                                in={displayScrollToTop}
-                                timeout={{
-                                    enter: 800,
-                                    exit: 800,
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    gap: '0.5em',
+                                    flexDirection: 'column',
+                                    position: 'fixed',
+                                    bottom: isMobile ? '5em' : '8em',
+                                    right: '0.5em',
+                                    zIndex: 1001,
                                 }}
                             >
+                                <Fade
+                                    in={displayScrollToTop}
+                                    timeout={{
+                                        enter: 800,
+                                        exit: 800,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            background: showLightMode
+                                                ? 'black'
+                                                : 'white',
+                                            
+                                        }}
+                                        className={`${styles.projectPage__project_arrow_button} clickable_component`}
+                                        onClick={() => onScrollToTop()}
+                                    >
+                                        <KeyboardDoubleArrowUpIcon
+                                            style={{
+                                                margin: 'auto',
+                                                fontSize: '30px',
+                                                color: showLightMode
+                                            ? 'white'
+                                            : 'black',
+                                            }}
+                                            fontSize="medium"
+                                        />
+                                    </div>
+                                </Fade>
                                 <div
                                     style={{
-                                        bottom: isMobile ? '12em' : '15em',
-                                        zIndex: 1001,
+                                        background: showLightMode
+                                            ? 'black'
+                                            : 'white',
+                                        
                                     }}
                                     className={`${styles.projectPage__project_arrow_button} clickable_component`}
-                                    onClick={() => onScrollToTop()}
+                                    onClick={() => onMouseDown(true)}
                                 >
-                                    <KeyboardDoubleArrowUpIcon
+                                    <KeyboardArrowUpIcon
                                         style={{
                                             margin: 'auto',
                                             fontSize: '30px',
-                                            color: 'black',
+                                            color: showLightMode
+                                            ? 'white'
+                                            : 'black',
                                         }}
                                         fontSize="medium"
                                     />
                                 </div>
-                            </Fade>
-                            <div
-                                style={{
-                                    bottom: isMobile ? '9.5em' : '12.5em',
-                                    zIndex: 1001,
-                                }}
-                                className={`${styles.projectPage__project_arrow_button} clickable_component`}
-                                onClick={() => onMouseDown(true)}
-                            >
-                                <KeyboardArrowUpIcon
+                                <div
                                     style={{
-                                        margin: 'auto',
-                                        fontSize: '30px',
-                                        color: 'black',
+                                        background: showLightMode
+                                            ? 'black'
+                                            : 'white',
+                                        
                                     }}
-                                    fontSize="medium"
-                                />
-                            </div>
-                            <div
-                                style={{
-                                    bottom: isMobile ? '7em' : '10em',
-                                    zIndex: 1001,
-                                }}
-                                className={`${styles.projectPage__project_arrow_button} clickable_component`}
-                                onClick={() => onMouseDown()}
-                            >
-                                <KeyboardArrowDownIcon
+                                    className={`${styles.projectPage__project_arrow_button} clickable_component`}
+                                    onClick={() => onMouseDown()}
+                                >
+                                    <KeyboardArrowDownIcon
+                                        style={{
+                                            margin: 'auto',
+                                            fontSize: '30px',
+                                           color: showLightMode
+                                            ? 'white'
+                                            : 'black',
+                                        }}
+                                    />
+                                </div>
+                                <div
                                     style={{
-                                        margin: 'auto',
-                                        fontSize: '30px',
-                                        color: 'black',
+                                        background: showLightMode
+                                            ? 'black'
+                                            : 'white',
+                                        color: showLightMode
+                                            ? 'white'
+                                            : 'black',
                                     }}
-                                />
+                                    className={`${styles.projectPage__project_arrow_button} clickable_component`}
+                                    onClick={() =>
+                                        setShowLightMode(!showLightMode)
+                                    }
+                                >
+                                    {showLightMode ? (
+                                        <DarkModeIcon
+                                            style={{
+                                                margin: 'auto',
+                                                fontSize: '30px',
+                                                color: 'white',
+                                            }}
+                                        />
+                                    ) : (
+                                        <LightModeIcon
+                                            style={{
+                                                margin: 'auto',
+                                                fontSize: '30px',
+                                                color: 'black',
+                                            }}
+                                        />
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </Fade>

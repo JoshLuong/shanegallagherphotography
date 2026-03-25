@@ -13,6 +13,7 @@ interface EmailProps {
     gallery?: Asset[]
 }
 const Email: React.FC<EmailProps> = ({
+    // these are default for local dev
     formData = { name: 'Example', message: 'This is an example message' },
     gallery = [
         {

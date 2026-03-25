@@ -10,6 +10,24 @@ import EmailIcon from '@mui/icons-material/Email'
 import ContactForm from '@/components/contact/Contact'
 import PageWrapper from '@/components/PageWrapper'
 
+/***
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * This is shelved page as of mar 25. 2026
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 export const NO_SECTION_OPEN = -1
 export default function Contact({
     items,
@@ -22,7 +40,6 @@ export default function Contact({
 
     return (
         <PageWrapper
-            onlyShowNavBar
             headElement={
                 <Head>
                     <title>Contact Shane Gallagher</title>
@@ -53,7 +70,7 @@ export default function Contact({
                                 marginRight: '0.5em',
                             }}
                         />{' '}
-                        shanegallagher_
+                        SHANEGALLAGHER_
                     </a>
 
                     <a
@@ -65,7 +82,7 @@ export default function Contact({
                                 marginRight: '0.5em',
                             }}
                         />{' '}
-                        hello@shanegallagher.com
+                        HELLO@SHANEGALLAGHER.COM
                     </a>
                     <ContactForm />
                 </div>

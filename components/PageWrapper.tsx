@@ -10,12 +10,14 @@ interface PageWrapperProps {
     headElement: ReactNode
     content: ReactNode | ReactNode[] | any
     onlyShowNavBar?: boolean
+    showLightMode?: boolean
 }
 
 const PageWrapper: React.FC<PageWrapperProps> = ({
     pageAriaDescription,
     headElement,
     content,
+    showLightMode = false,
     onlyShowNavBar = false,
 }) => {
     const { isMobile } = useWindowDimensions()
@@ -27,9 +29,10 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
                 setTopOffset={setTopOffset}
                 isGridBackground
                 onlyShowNavBar={onlyShowNavBar}
+                showLightMode={showLightMode}
             />
         )
-    }, [onlyShowNavBar])
+    }, [onlyShowNavBar, showLightMode])
 
     return (
         <main

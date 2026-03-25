@@ -5,12 +5,12 @@ import { BLOCK_SIZE, MOBILE_BLOCK_SIZE } from '@/hooks/useBlockGenerator'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import Image from 'next/image'
 import { loaderProp } from '@/utils/loader-prop'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { BlackTooltip } from '../BlackTooltip'
 import { Asset, ContentfulTag } from '@/types/graphql'
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import WorksMenu from '../menu/WorksMenu'
+import ContactMenu from '../menu/ContactMenu'
 
 interface BlockProps {
     topLBorderRadius?: string
@@ -31,7 +31,8 @@ interface BlockProps {
     link?: string
     loadAnimation?: boolean
     isTempBackground?: boolean // should time out to black square and not allow clicks
-    shouldDisplayPreviewImage?: boolean
+    shouldDisplayPreviewImage?: boolean,
+    showLightMode?: boolean
 }
 
 const Block: React.FC<BlockProps> = ({
@@ -54,12 +55,14 @@ const Block: React.FC<BlockProps> = ({
     isTempBackground = false,
     shouldDisplayPreviewImage = true,
     thumbnailPreviewImage,
+    showLightMode = false
 }) => {
     const delay = 1300 + index * 7
     const { isMobile } = useWindowDimensions()
     const [isBlockLoaded, setIsBlockLoaded] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [shouldChangeBackground, setShouldChangeBackground] = useState(false)
+
     let width = `${sideBlockMultiplier * BLOCK_SIZE}px`
     let height = `${heightBlockMultiplier * BLOCK_SIZE}px`
 
@@ -171,8 +174,8 @@ const Block: React.FC<BlockProps> = ({
                     </div>
                 </BlackTooltip>
             )
-        } else if (text.toUpperCase() === 'WORKS') {
-            return <WorksMenu hyperlink={hyperlink} />
+        } else if (text.toUpperCase() === 'CONTACT') {
+            return <ContactMenu />
         } else {
             return text.toUpperCase()
         }
@@ -188,11 +191,11 @@ const Block: React.FC<BlockProps> = ({
                 borderBottom: borderBottomHidden ? hiddenBorder : solidBorder,
                 boxSizing: 'border-box',
                 borderRadius: `${topLBorderRadius} ${topRBorderRadius} ${bottomRBorderRadius} ${bottomLBorderRadius}`,
-                background: 'black', // Note, if we use image as background, loading will be much slower
+                background: showLightMode ? 'white' : 'black', // Note, if we use image as background, loading will be much slower
                 fontSize: isMobile && !isTextHome() ? '0.65em' : blockFontSize,
                 fontWeight: isTextNavBar() ? 'bold' : 'normal',
                 letterSpacing: isTextHome() ? '0.6px' : '0.5px',
-                color: isTextHome() ? 'white' : 'white',
+                color: showLightMode ? 'black' : 'white',
                 overflow: 'hidden', // for the Image tag below to hide under the radius borders
             }}
             className={classNames}
@@ -303,7 +306,7 @@ const Block: React.FC<BlockProps> = ({
                     enter: loadAnimation ? delay : 1,
                 }}
             >
-                {text.toUpperCase() != 'WORKS' &&
+                {text.toUpperCase() != 'CONTACT' &&
                 hyperlink != null &&
                 hyperlink != '' ? (
                     <Link

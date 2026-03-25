@@ -167,7 +167,9 @@ const ContactForm: FC = () => {
     )
 
     return (
-        <>
+        <div style={{
+            background: "black"
+        }}>
             <form
                 id="email-form"
                 onSubmit={handleSubmit(onSubmit)}
@@ -245,7 +247,7 @@ const ContactForm: FC = () => {
                 <div className="mb-5">
                     {name != undefined && (
                         <CssTextField
-                            label="FULL NAME"
+                            label="[ FULL NAME ]"
                             style={{
                                 color: 'white',
                                 marginBottom: '1em',
@@ -264,7 +266,7 @@ const ContactForm: FC = () => {
                 <div className="mb-5">
                     {email != undefined && (
                         <CssTextField
-                            label="EMAIL ADDRESS"
+                            label="[ EMAIL ADDRESS ]"
                             style={{
                                 color: 'white',
                                 marginBottom: '1em',
@@ -289,7 +291,7 @@ const ContactForm: FC = () => {
                 <div className="mb-5">
                     {mesage != undefined && (
                         <CssTextField
-                            label="MESSAGE"
+                            label="[ MESSAGE ]"
                             value={mesage}
                             style={{
                                 color: 'white',
@@ -334,7 +336,7 @@ const ContactForm: FC = () => {
                 autoHideDuration={3000}
                 message="Sending your message, hang tight."
             />
-        </>
+        </div>
     )
 }
 

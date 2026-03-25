@@ -414,7 +414,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                         )
                                     }
                                 >
-                                    Previous
+                                    PREVIOUS
                                 </div>
                             )}
                             {!isImageTransparent && (
@@ -483,7 +483,7 @@ const DraggableAsset: React.FC<AssetProps> = React.forwardRef(
                                             : 'hidden',
                                     }}
                                 >
-                                    Next
+                                    NEXT
                                 </div>
                             )}
                         </DialogActions>

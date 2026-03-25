@@ -87,32 +87,11 @@ export default function Moodboard({}) {
                 style={{
                     color: 'white',
                     padding: '0.5em',
+                    right: "0"
                 }}
                 className={styles.moodboardPage__empty_text}
             >
-                This space is for creating your personal moodboard with images
-                from my{' '}
-                <Link
-                    href="/works"
-                    className="clickable_component"
-                    style={{
-                        color: 'black',
-                        textDecoration: 'none',
-                        background: 'white',
-                    }}
-                >
-                    works
-                </Link>
-                .
-                <span
-                    style={{
-                        display: 'block',
-                        marginTop: '0.2em',
-                        fontSize: '0.7em',
-                    }}
-                >
-                    Explore, pin, and bring your vision to life!
-                </span>
+                    EXPLORE, PIN, AND CURATE IMAGES TO BUILD YOUR PERSONAL MOODBOARD.
             </div>
         ) : (
             galleryElements
@@ -120,25 +99,24 @@ export default function Moodboard({}) {
     }, [gallery, didLoad, gallery.length == 0 && didLoad])
 
     return (
-        <PageWrapper
-            headElement={
-                <Head>
-                    <title>Your Moodboard</title>
-                    <meta
-                        property="og:description"
-                        content="A space to curate your personal
-                    moodboard."
-                    />
-                    {gallery.length > 0 && (
+            <PageWrapper
+                headElement={
+                    <Head>
+                        <title>Your Moodboard</title>
                         <meta
-                            property="og:image"
-                            content={gallery[0].fileName || ''}
+                            property="og:description"
+                            content="A space to curate your personal
+                    moodboard."
                         />
-                    )}
-                </Head>
-            }
-            onlyShowNavBar={didLoad && gallery.length == 0}
-            content={node}
-        />
+                        {gallery.length > 0 && (
+                            <meta
+                                property="og:image"
+                                content={gallery[0].fileName || ''}
+                            />
+                        )}
+                    </Head>
+                }
+                content={node}
+            />
     )
 }
